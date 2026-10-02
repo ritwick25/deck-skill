@@ -1,0 +1,14 @@
+{
+  "about": "Archetype to visual family, the frozen v1 taxonomy (runtime design section 3, the chooser). Read by gates P10, P13 and P15 only while archetypes/archetypes.json is absent; once the library publishes that file, its family field wins and this file is ignored.",
+  "taxonomy": "v1",
+  "families": {
+    "Frame": ["cover", "agenda", "section-divider", "closing"],
+    "Columns": ["pillars", "context-problem", "team", "the-ask"],
+    "Sequence": ["process-flow", "decision-flow", "mechanism", "engagement-model"],
+    "Layers": ["layered-architecture", "catalogue", "governance", "scope-assumptions"],
+    "Split": ["exec-summary", "from-to", "options", "use-case-deep-dive", "case-study", "demo-walkthrough"],
+    "Field": ["matrix", "hub-spoke", "use-case-map", "solution-architecture"],
+    "Axis": ["gantt", "roadmap-horizons", "maturity-staircase"],
+    "Number": ["stat-hero", "credentials", "commercials"]
+  }
+}

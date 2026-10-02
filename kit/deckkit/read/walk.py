@@ -125,7 +125,44 @@ def _geom_block(spPr, w_in: float, h_in: float) -> dict:
         out["cust"] = True
         pl = cg.find(A("pathLst"))
         out["paths"] = len(pl) if pl is not None else 0
+        out["rect_path"] = rect_path(pl)
     return out
+
+
+def rect_path(path_lst, tol: float = 0.02) -> bool:
+    """True when a custGeom draws a plain rectangle: one path of moveTo/lnTo/close whose points are exactly
+    the four corners of the path box (within tol of its size). Curves, arcs and guide-named points are False."""
+    if path_lst is None or len(path_lst) != 1:
+        return False
+    path = path_lst[0]
+    pts = []
+    for cmd in path:
+        tag = cmd.tag.split("}")[-1]
+        if tag == "close":
+            continue
+        if tag not in ("moveTo", "lnTo"):
+            return False
+        pt = cmd.find(A("pt"))
+        try:
+            pts.append((float(pt.get("x")), float(pt.get("y"))))
+        except (TypeError, ValueError, AttributeError):
+            return False
+    if len(pts) < 4:
+        return False
+    xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    pw = float(path.get("w") or 0) or (x1 - x0)
+    ph = float(path.get("h") or 0) or (y1 - y0)
+    if pw <= 0 or ph <= 0 or (x1 - x0) < (1 - 2 * tol) * pw or (y1 - y0) < (1 - 2 * tol) * ph:
+        return False
+    corners = set()
+    for x, y in pts:
+        cx = 0 if abs(x - x0) <= tol * pw else 1 if abs(x - x1) <= tol * pw else None
+        cy = 0 if abs(y - y0) <= tol * ph else 1 if abs(y - y1) <= tol * ph else None
+        if cx is None or cy is None:
+            return False
+        corners.add((cx, cy))
+    return len(corners) == 4
 
 
 def _on_canvas(b, cw, ch, tol=0.01) -> str:
@@ -589,9 +626,18 @@ def _has_text(L) -> bool:
     return bool(L.get("text") and L["text"]["text"].strip())
 
 
+def _vector_glyph(L) -> bool:
+    """A lone text-free custGeom sp inside the icon size and aspect range (library DECISIONS, refined).
+    A preset shape (ellipse, rect, roundRect, ...) never qualifies: discs, dots and chips are components."""
+    return (L["kind"] == "sp" and bool((L.get("geom") or {}).get("cust")) and not L.get("line_like")
+            and not _has_text(L) and _icon_size(L["frame"]["w_in"], L["frame"]["h_in"]))
+
+
 def mark_icons(leaves: list[dict], groups: list[dict]) -> list[dict]:
     """Icon definition (library DECISIONS): a picture or vector group with no text, long side 0.12-0.8 in,
-    aspect 0.4-2.5; an icon-sized group counts once (outermost wins). Returns the icon units."""
+    aspect 0.4-2.5; an icon-sized group counts once (outermost wins). Refined: a lone text-free custGeom
+    shape in that range is a vector glyph and counts once; "lone" means not already inside an icon-sized
+    group. A lone preset shape never counts. Returns the icon units (kind group | pic | vector)."""
     by_gid = {g["id"]: g for g in groups}
     units = []
     icon_groups = set()
@@ -620,6 +666,9 @@ def mark_icons(leaves: list[dict], groups: list[dict]) -> list[dict]:
         if L["kind"] == "pic" and not _has_text(L) and _icon_size(L["frame"]["w_in"], L["frame"]["h_in"]):
             L["icon_like"] = True
             units.append({"kind": "pic", "id": L["id"], "bbox": L["bbox"]})
+        elif _vector_glyph(L):
+            L["icon_like"] = True
+            units.append({"kind": "vector", "id": L["id"], "bbox": L["bbox"]})
     return units
 
 
@@ -643,29 +692,90 @@ OPEN_QUOTES = ('"', chr(0x201C), chr(0x2018))   # chr() keeps the glyphs out of 
 NUMERAL = re.compile(r"^[~<>+\-]?[$€£]?\d[\d.,]*\s?(?:%|x|×|[KkMmBb]n?|pp|pts?|bps|\+)?$")
 
 
-def guess_roles(leaves: list[dict], cw: float, ch: float):
+TITLE_TOP = 0.22          # a top-band title's box top lies in this share of the canvas height
+TITLE_RATIO = 1.3         # ... and it is set at least this many times the slide's median body size
+TITLE_FEW_WORDS = 12      # dividers, covers, closers: the largest text anywhere is the title
+TITLE_DOMINANT = 1.2      # a text this many times larger than every other candidate dominates the slide
+_LETTER = re.compile(r"[^\W\d_]")
+TITLE_WHY = {"placeholder": (0.95, "title placeholder"),
+             "top-band": (0.8, "top band, at least 1.3x the median body size"),
+             "few-words": (0.7, "12 content words or fewer, largest text"),
+             "dominant": (0.65, "largest text, 1.2x every other and 1.3x their median"),
+             "top-largest": (0.6, "top band, largest text on the slide")}
+
+
+def _title_candidate(L) -> bool:
+    """A horizontal, on-canvas text leaf with a letter in it; not a cell, numeral, footer, date or page number."""
+    if L["kind"] == "cell" or L.get("on_canvas") == "off" or not _has_text(L) or not L["text"].get("size"):
+        return False
+    if (L.get("placeholder") or {}).get("type") in ("sldNum", "ftr", "dt"):
+        return False
+    t = L["text"]["text"].strip()
+    if not _LETTER.search(t) or NUMERAL.match(t):
+        return False
+    if any(c.isdigit() for c in t) and len(_LETTER.findall(t)) <= 3:
+        return False                 # a figure ("5 to 10%", "Q3 2026"), not a heading
+    return ((L["text"].get("body") or {}).get("vert") or "horz") == "horz"
+
+
+def pick_title(leaves: list[dict], cw: float, ch: float, words_content: int | None = None):
+    """The slide's title leaf and the tier that found it, else (None, None). Tiers, first hit wins:
+    placeholder  the title or ctrTitle placeholder, when present and non-empty;
+    top-band     the largest-size text leaf whose box top lies in the top 22% of the canvas and whose size is at
+                 least 1.3x the slide's median body size (median of the text leaves' dominant sizes);
+    few-words    on a slide of 12 or fewer content words (dividers, covers, closers), the largest text anywhere;
+    dominant     the largest text anywhere when it is 1.2x every other candidate and 1.3x their median (a cover
+                 or divider title set mid-canvas among a date, a kicker and a subtitle);
+    top-largest  the largest top-band text when no text on the slide is larger.
+    Candidates exclude cells, numerals and figures (a digit with three letters or fewer), page numbers, footers,
+    dates, vertical text and text with no letter.
+    Largest means dominant size, then nearest the top, then more words."""
+    texts = [L for L in leaves if _has_text(L) and L["text"].get("size")]
+    ph = next((L for L in texts if (L.get("placeholder") or {}).get("type") in TITLE_TYPES), None)
+    if ph is not None:
+        return ph, "placeholder"
+    if not texts:
+        return None, None
+    size = lambda L: L["text"]["size"]["dominant_pt"]   # noqa: E731
+    key = lambda L: (size(L), -L["bbox"]["y_in"], L["text"]["words"])   # noqa: E731
+    med = statistics.median(size(L) for L in texts)
+    cands = sorted((L for L in texts if _title_candidate(L)), key=key, reverse=True)
+    if not cands:
+        return None, None
+    top = [L for L in cands if L["bbox"]["y_in"] < TITLE_TOP * ch]
+    hit = next((L for L in top if size(L) >= TITLE_RATIO * med), None)
+    if hit is not None:
+        return hit, "top-band"
+    if words_content is None:
+        words_content = sum(int(L["text"].get("words") or 0) for L in texts)
+    if words_content <= TITLE_FEW_WORDS:
+        return cands[0], "few-words"
+    first, rest = cands[0], [size(L) for L in cands[1:]]
+    if not rest or (size(first) >= TITLE_DOMINANT * rest[0] and size(first) >= TITLE_RATIO * statistics.median(rest)):
+        return first, "dominant"
+    if top and size(top[0]) >= max(size(L) for L in texts):
+        return top[0], "top-largest"
+    return None, None
+
+
+def guess_roles(leaves: list[dict], cw: float, ch: float, find_title: bool = True,
+                words_content: int | None = None):
+    """Role guesses for every leaf. find_title=False (chrome) never names a title."""
     area = cw * ch
     texts = [L for L in leaves if _has_text(L) and L["text"].get("size")]
     sizes = [L["text"]["size"]["dominant_pt"] for L in texts]
     med = statistics.median(sizes) if sizes else 12.0
-    title = next((L for L in texts if (L.get("placeholder") or {}).get("type") in TITLE_TYPES), None)
-    if title is None:
-        top = [L for L in texts if L["bbox"]["y_in"] < 0.18 * ch and L["text"]["words"] >= 2
-               and L["bbox"]["w_in"] >= 0.3 * cw]
-        if top:
-            title = max(top, key=lambda L: (L["text"]["size"]["dominant_pt"], -L["bbox"]["y_in"]))
-            if title["text"]["size"]["dominant_pt"] < med:
-                title = None
+    title, tier = pick_title(leaves, cw, ch, words_content) if find_title else (None, None)
     for L in leaves:
-        L["role_guess"] = _role(L, title, med, cw, ch, area)
+        L["role_guess"] = _role(L, title, med, cw, ch, area, tier)
 
 
-def _role(L, title, med, cw, ch, area) -> dict:
+def _role(L, title, med, cw, ch, area, tier=None) -> dict:
     ph = (L.get("placeholder") or {}).get("type")
     b = L["bbox"]
     if L is title:
-        return {"role": "title", "conf": 0.95 if ph in TITLE_TYPES else 0.8,
-                "why": "title placeholder" if ph in TITLE_TYPES else "top band, largest size, wide"}
+        conf, why = TITLE_WHY.get(tier or "placeholder", TITLE_WHY["placeholder"])
+        return {"role": "title", "conf": conf, "why": why}
     if ph == "subTitle":
         return {"role": "subtitle", "conf": 0.9, "why": "subtitle placeholder"}
     if ph == "sldNum":
@@ -715,6 +825,8 @@ def _role(L, title, med, cw, ch, area) -> dict:
         return {"role": "container", "conf": 0.7, "why": "contains %d shapes" % len(L["container_of"])}
     if L.get("icon_group"):
         return {"role": "icon-part", "conf": 0.7, "why": "inside an icon-sized group"}
+    if L.get("icon_like"):
+        return {"role": "icon", "conf": 0.6, "why": "vector glyph: text-free custGeom, icon-sized"}
     return {"role": "shape", "conf": 0.4, "why": "untexted shape"}
 
 
@@ -757,7 +869,131 @@ def finish_text(L, cw):
 
 # ------------------------------------------------------------------ hygiene
 
-def hygiene(leaves: list[dict], chrome: list[dict], dominant_face: str | None) -> list[dict]:
+OVERLAP_SHARE = 0.20       # two text boxes overlapping by this share of the smaller one
+OFF_CANVAS_IN = 0.05       # a leaf reaching this far past the canvas edge
+SOFT_BLUR_PT = 0.75        # a shadow blurred more than this (the soft-shadow tell)
+
+
+def _text_box(L):
+    """Where a text leaf's glyphs sit, as (x0, y0, x1, y1), drawn box or not. Height: the lines it fills
+    (finish_text's occupancy plus 5%, placed by anchor). Width: when every line is estimated to fit unwrapped,
+    the longest line at 0.5 em a character (finish_text's estimate), placed by the paragraph's alignment.
+    Cells, rotated and vertical text keep the whole frame."""
+    b = L["bbox"]
+    box = (b["x_in"], b["y_in"], b["x_in"] + b["w_in"], b["y_in"] + b["h_in"])
+    tx = L["text"]
+    body = tx.get("body") or {}
+    fr = L.get("frame") or {}
+    if (body.get("vert") or "horz") != "horz" or (fr.get("rot_deg") or 0) % 180 or L["kind"] == "cell":
+        return box
+    ins = body.get("insets_in") or [0.1, 0.05, 0.1, 0.05]
+    inner_w = b["w_in"] - ins[0] - ins[2]
+    inner_h = b["h_in"] - ins[1] - ins[3]
+    occ = tx.get("occupancy")
+    y0, y1 = box[1], box[3]
+    if occ and occ < 1 and inner_h > 0:
+        th = min(inner_h, occ * inner_h * 1.05)
+        anchor = body.get("anchor") or "t"
+        top = y1 - ins[3] - th if anchor == "b" else y0 + ins[1] + ((inner_h - th) / 2 if anchor == "ctr" else 0.0)
+        y0, y1 = max(y0, top), min(y1, top + th)
+    widest = None
+    for p in tx.get("paragraphs") or []:
+        sz = max((r["size_rendered_pt"] for r in p["runs"] if r["t"].strip()), default=None)
+        if sz is None:
+            continue
+        w = max(len(seg) for seg in p["text"].split("\n")) * 0.5 * sz / 72.0
+        if w > inner_w:
+            widest = None
+            break                            # this paragraph wraps: keep the frame width
+        if widest is None or w > widest[0]:
+            widest = (w, p.get("algn") or "l")
+    x0, x1 = box[0], box[2]
+    if widest is not None:
+        w, al = widest
+        left = b["x_in"] + ins[0] + ((inner_w - w) / 2 if al == "ctr" else (inner_w - w) if al == "r" else 0.0)
+        x0, x1 = max(x0, left), min(x1, left + w)
+    return (x0, y0, x1, y1) if x1 > x0 and y1 > y0 else box
+
+
+def _drawn(L) -> bool:
+    f = (L.get("fill") or {}).get("type") or "none"
+    ln = (L.get("line") or {}).get("type") or "none"
+    return f not in ("none", "grp") or ln != "none" or bool(L.get("grad"))
+
+
+def layout_hygiene(leaves: list[dict], cw: float, ch: float, add) -> None:
+    """overlap, partial-off-canvas, degenerate-connector, soft-shadow, gradient, render-divergence-risk."""
+    eps = 0.02
+    texts = []
+    for L in leaves:
+        sid = L["id"]
+        b = L["bbox"]
+        if L.get("on_canvas") == "partial":
+            over = max(-b["x_in"], -b["y_in"], b["x_in"] + b["w_in"] - cw, b["y_in"] + b["h_in"] - ch)
+            if over >= OFF_CANVAS_IN:
+                add("partial-off-canvas", sid, "%d: %.2f in past the edge" % (sid, over))
+        k = L.get("connector")
+        if k and k.get("class") == "degenerate":
+            add("degenerate-connector", sid, "%d: %.3f in long" % (sid, k.get("length_in") or 0.0))
+        ef = L.get("effects") or {}
+        sh = ef.get("shadow")
+        if sh and (sh.get("blur_pt") or 0) > SOFT_BLUR_PT and (sh.get("alpha") is None or sh["alpha"] > 0) \
+                and (_drawn(L) or _has_text(L) or L["kind"] == "pic"):
+            add("soft-shadow", sid, "%d: blur %.1f pt" % (sid, sh["blur_pt"]))
+        if L.get("grad"):
+            add("gradient", sid, "%d: %s" % (sid, (L["grad"] or {}).get("kind") or "gradient"))
+        if not _has_text(L):
+            continue
+        body = L["text"].get("body") or {}
+        vert = body.get("vert") or "horz"
+        fr = L.get("frame") or {}
+        x = L.get("xfrm") or {}
+        turned = round(fr.get("rot_deg") or 0.0, 1) % 360 != 0 or fr.get("mirrored") or x.get("flipH") or x.get("flipV")
+        if vert != "horz":
+            add("render-divergence-risk", sid, "%d: vertical text (%s)" % (sid, vert))
+        elif turned and body.get("autofit") == "shape":
+            add("render-divergence-risk", sid, "%d: rotated or flipped text with spAutoFit" % sid)
+        if L.get("on_canvas") != "off":
+            texts.append((L, _text_box(L)))
+    # overlap: two text leaves whose boxes overlap by 20%+ of the smaller, neither inside the other's container
+    texts.sort(key=lambda t: t[1][0])
+    for i, (A_, a) in enumerate(texts):
+        for B_, b in texts[i + 1:]:
+            if b[0] >= a[2]:
+                break
+            ix = min(a[2], b[2]) - max(a[0], b[0])
+            iy = min(a[3], b[3]) - max(a[1], b[1])
+            if ix <= 0 or iy <= 0:
+                continue
+            small = min((a[2] - a[0]) * (a[3] - a[1]), (b[2] - b[0]) * (b[3] - b[1]))
+            if small <= 0 or ix * iy < OVERLAP_SHARE * small:
+                continue
+            ca, cb = A_.get("cell") or {}, B_.get("cell") or {}
+            if ca and cb and ca.get("table_id") == cb.get("table_id"):
+                continue
+            if B_["id"] in (A_.get("container_of") or []) or A_["id"] in (B_.get("container_of") or []):
+                continue
+            ba, bb = _bbox_tuple(A_), _bbox_tuple(B_)
+            if (_drawn(A_) and _inside(bb, ba, eps)) or (_drawn(B_) and _inside(ba, bb, eps)):
+                continue                       # a label on a drawn card is inside that card, not over it
+            add("overlap", A_["id"], "%d+%d: %d%%" % (A_["id"], B_["id"], round(100 * ix * iy / small)))
+            add("overlap", B_["id"])
+
+
+def _bbox_tuple(L):
+    b = L["bbox"]
+    return (b["x_in"], b["y_in"], b["x_in"] + b["w_in"], b["y_in"] + b["h_in"])
+
+
+def _inside(inner, outer, eps) -> bool:
+    return (inner[0] >= outer[0] - eps and inner[1] >= outer[1] - eps and inner[2] <= outer[2] + eps
+            and inner[3] <= outer[3] + eps)
+
+
+def hygiene(leaves: list[dict], chrome: list[dict], dominant_face: str | None,
+            canvas: tuple[float, float] | None = None) -> list[dict]:
+    """Scripted hygiene flags on content leaves. With canvas (w_in, h_in), also the layout kinds of
+    layout_hygiene (connector classes must already be set)."""
     fp = fingerprint_rules()
     flags: dict[str, dict] = {}
 
@@ -828,6 +1064,8 @@ def hygiene(leaves: list[dict], chrome: list[dict], dominant_face: str | None) -
                 if len(ids) >= 2:
                     for sid in ids:
                         add("dup-counter", sid, v)
+    if canvas is not None:
+        layout_hygiene(leaves, canvas[0], canvas[1], add)
     if "mixed-font" in flags:
         flags["mixed-font"]["detail"] = ["%s: %d chars vs %s" % (f, n, dominant_face)
                                          for f, n in sorted(mixed.items(), key=lambda kv: -kv[1])][:6]
@@ -920,17 +1158,22 @@ def read_slide(deck: DeckRead, index1: int, *, dominant_face: str | None = None,
         units = mark_icons(leaves, groups)
         mark_containers(leaves)
         area = w.cw * w.ch
+        legend = cx.legend_lines(leaves, area)
         for L in leaves:
             if L.get("connector") is not None:
                 c = L["connector"]
-                c["touch"] = {"start": cx.touch(tuple(c["start_in"]), leaves, L["id"], area),
-                              "end": cx.touch(tuple(c["end_in"]), leaves, L["id"], area)}
-        guess_roles(leaves, w.cw, w.ch)
-        guess_roles(chrome, w.cw, w.ch)
+                s, e = tuple(c["start_in"]), tuple(c["end_in"])
+                c["touch"] = {"start": cx.touch(s, leaves, L["id"], area),
+                              "end": cx.touch(e, leaves, L["id"], area)}
+                c["contact"] = cx.contact(s, e, leaves, L["id"], area,
+                                          straight=c["orientation"] in ("h", "v", "diag"))
+                c["class"] = cx.classify(L, legend)
+        guess_roles(leaves, w.cw, w.ch, words_content=out_text["words_content"])
+        guess_roles(chrome, w.cw, w.ch, find_title=False)
         if dominant_face is None:
             from .deckinfo import dominant_face as _dom
             dominant_face = _dom(deck)
-        hyg = hygiene(leaves, chrome, dominant_face)
+        hyg = hygiene(leaves, chrome, dominant_face, canvas=(w.cw, w.ch))
         if w.hidden_ids:
             hyg.append({"kind": "hidden-shape", "ids": list(w.hidden_ids), "detail": "", "n": len(w.hidden_ids)})
     else:
@@ -972,6 +1215,7 @@ def read_slide(deck: DeckRead, index1: int, *, dominant_face: str | None = None,
         "chrome": chrome,
         "groups": groups,
         "text": out_text,
+        "icons": [{"kind": u["kind"], "id": u["id"]} for u in units],
         "fidelity": fid,
         "hygiene": hyg,
     }

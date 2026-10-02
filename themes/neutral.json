@@ -1,0 +1,55 @@
+{
+  "name": "neutral",
+  "source": "the house template palette without the brand red, 2026-10-03",
+  "source_notes": [
+    "accent1 is the template's navy 1E3C7D (10.51:1 on white), so every accent role reads navy.",
+    "accent2 is the deck blue 00A0E9 at 2.92:1 on white: fill only, never text.",
+    "accent3 to accent6 are the template's slates (dk2 4B5960, accent 6B7983) and two Office derivations of its bg1 (darker 35% A6A6A6, darker 15% D9D9D9), spread by lightness so no series pair falls under the colour-vision line.",
+    "1F36C7 is never used: it is a client's title blue in two references."
+  ],
+  "slots": {
+    "dk2": "4B5960",
+    "lt2": "E7E6E6",
+    "accent1": "1E3C7D",
+    "accent2": "00A0E9",
+    "accent3": "4B5960",
+    "accent4": "6B7983",
+    "accent5": "A6A6A6",
+    "accent6": "D9D9D9",
+    "hlink": "1E3C7D",
+    "folHlink": "6B7983"
+  },
+  "fonts": {
+    "major": "Arial",
+    "minor": "Arial",
+    "numerals": {
+      "face": "Montserrat",
+      "weight": "SemiBold",
+      "optional": true,
+      "use": "numerals and dates only; Montserrat Medium for the divider numeral",
+      "fallback": "Arial Bold"
+    }
+  },
+  "roles": {
+    "accent-ink": {
+      "solve": {"from": "accent1", "against": ["paper", "card"], "min": 4.5},
+      "record": "accent1",
+      "note": "no lowering needed: 1E3C7D clears 10.51 on paper and 9.39 on card"
+    },
+    "on-accent": {
+      "pick": {"from": ["bg1", "tx1"], "against": ["accent", "accent-deep"]},
+      "record": "bg1",
+      "note": "white text: 10.51 on accent"
+    }
+  },
+  "fill_only": {
+    "accent2": "00A0E9 is 2.92:1 on white, a fill or mark, never text",
+    "accent5": "A6A6A6 is 2.43:1 on white, a fill or mark, never text",
+    "accent6": "D9D9D9 is 1.41:1 on white, a fill or mark, never text"
+  },
+  "identity": {
+    "rag-red": {"hex": "D91E18", "reason": "status Off track; keeps its hue under any client theme and always prints with its word"},
+    "rag-amber": {"hex": "F38B1F", "reason": "status At risk; keeps its hue under any client theme and always prints with its word"},
+    "rag-green": {"hex": "4EA347", "reason": "status On track; keeps its hue under any client theme and always prints with its word"}
+  }
+}

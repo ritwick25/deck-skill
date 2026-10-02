@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-03",
+  "faces": {
+    "Arial": {
+      "applied": {
+        "line": 1.0438,
+        "width": 1.0003
+      },
+      "font_line_factor": 1.1499,
+      "line": 1.0438,
+      "samples": {
+        "10": {
+          "line_pitch_pt": 12.019,
+          "line_ratio": 1.0452,
+          "width_max": 0.9969,
+          "width_median": 0.9968,
+          "width_min": 0.9709
+        },
+        "14": {
+          "line_pitch_pt": 16.809,
+          "line_ratio": 1.0441,
+          "width_max": 1.0012,
+          "width_median": 1.0011,
+          "width_min": 0.9759
+        },
+        "21": {
+          "line_pitch_pt": 25.2,
+          "line_ratio": 1.0436,
+          "width_max": 0.9997,
+          "width_median": 0.9994,
+          "width_min": 0.9739
+        },
+        "8": {
+          "line_pitch_pt": 9.581,
+          "line_ratio": 1.0415,
+          "width_max": 1.0025,
+          "width_median": 1.0025,
+          "width_min": 0.9771
+        }
+      },
+      "width": 1.0003
+    },
+    "Arial Bold": {
+      "applied": {
+        "line": 1.0438,
+        "width": 1.0
+      },
+      "font_line_factor": 1.1499,
+      "line": 1.0438,
+      "samples": {
+        "10": {
+          "line_pitch_pt": 12.019,
+          "line_ratio": 1.0452,
+          "width_max": 0.9969,
+          "width_median": 0.9966,
+          "width_min": 0.9724
+        },
+        "14": {
+          "line_pitch_pt": 16.809,
+          "line_ratio": 1.0441,
+          "width_max": 1.0013,
+          "width_median": 1.0009,
+          "width_min": 0.9776
+        },
+        "21": {
+          "line_pitch_pt": 25.2,
+          "line_ratio": 1.0436,
+          "width_max": 0.9997,
+          "width_median": 0.9992,
+          "width_min": 0.9754
+        },
+        "8": {
+          "line_pitch_pt": 9.581,
+          "line_ratio": 1.0415,
+          "width_max": 1.0026,
+          "width_median": 1.0025,
+          "width_min": 0.9788
+        }
+      },
+      "width": 1.0
+    }
+  },
+  "procedure": "scripts/calibrate_metrics.py: known strings rendered through LibreOffice headless to PDF, widths and line pitch read with pdftotext -bbox-layout, compared with fontTools advance sums and the font's own line factor. Applied factor = max(1.0, fitted). SLACK 1.15 is separate and not fitted.",
+  "renderer": "LibreOffice 26.2.4.2 0229ac93fcf0d7cbc6376066c6f35021cef002dc",
+  "status": "calibrated"
+}

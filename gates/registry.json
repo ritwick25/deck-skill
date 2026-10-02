@@ -1,0 +1,359 @@
+{
+ "about": "Every gate, cheapest first. kind pptx gates are implemented now; a pptx gate whose module is missing is MISSING and fails the run. phase 'later' gates (render, html) report PENDING until their module lands.",
+ "gates": [
+  {
+   "id": "P01",
+   "module": "p01_floor",
+   "title": "floor",
+   "kind": "pptx",
+   "needs": [
+    "deck"
+   ]
+  },
+  {
+   "id": "P03",
+   "module": "p03_bounds",
+   "title": "bounds",
+   "kind": "pptx",
+   "needs": [
+    "deck"
+   ]
+  },
+  {
+   "id": "P19",
+   "module": "p19_residue",
+   "title": "residue",
+   "kind": "pptx",
+   "needs": [
+    "deck"
+   ]
+  },
+  {
+   "id": "P09",
+   "module": "p09_chrome",
+   "title": "chrome",
+   "kind": "pptx",
+   "needs": [
+    "deck"
+   ]
+  },
+  {
+   "id": "P14",
+   "module": "p14_titles",
+   "title": "titles",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "theme"
+   ]
+  },
+  {
+   "id": "P13",
+   "module": "p13_budget",
+   "title": "budget",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "tags"
+   ]
+  },
+  {
+   "id": "P11",
+   "module": "p11_style",
+   "title": "style",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "theme"
+   ]
+  },
+  {
+   "id": "P16",
+   "module": "p16_colour",
+   "title": "colour",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "theme"
+   ]
+  },
+  {
+   "id": "P10",
+   "module": "p10_density",
+   "title": "density",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "theme"
+   ]
+  },
+  {
+   "id": "P05",
+   "module": "p05_overlap",
+   "title": "overlap",
+   "kind": "pptx",
+   "needs": [
+    "deck"
+   ]
+  },
+  {
+   "id": "P04",
+   "module": "p04_padding",
+   "title": "padding",
+   "kind": "pptx",
+   "needs": [
+    "deck"
+   ]
+  },
+  {
+   "id": "P07",
+   "module": "p07_row",
+   "title": "row",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "theme"
+   ]
+  },
+  {
+   "id": "P08",
+   "module": "p08_balance",
+   "title": "balance",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "theme"
+   ]
+  },
+  {
+   "id": "P06",
+   "module": "p06_arrows",
+   "title": "arrows",
+   "kind": "pptx",
+   "needs": [
+    "deck"
+   ]
+  },
+  {
+   "id": "P15",
+   "module": "p15_variety",
+   "title": "variety",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "tags"
+   ]
+  },
+  {
+   "id": "P17",
+   "module": "p17_fingerprints",
+   "title": "fingerprints",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "fingerprints"
+   ]
+  },
+  {
+   "id": "P20",
+   "module": "p20_notes",
+   "title": "notes-alt",
+   "kind": "pptx",
+   "needs": [
+    "deck"
+   ]
+  },
+  {
+   "id": "P22",
+   "module": "p22_icons",
+   "title": "icons",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "theme"
+   ]
+  },
+  {
+   "id": "P23",
+   "module": "p23_numbers",
+   "title": "numbers",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "manifest"
+   ]
+  },
+  {
+   "id": "P02",
+   "module": "p02_fit",
+   "title": "fit",
+   "kind": "pptx",
+   "needs": [
+    "deck"
+   ]
+  },
+  {
+   "id": "P18",
+   "module": "p18_leak",
+   "title": "leak",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "refs"
+   ]
+  },
+  {
+   "id": "P12",
+   "module": "p12_package",
+   "title": "package",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "validator"
+   ]
+  },
+  {
+   "id": "P21",
+   "module": "p21_determinism",
+   "title": "determinism",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "build"
+   ]
+  },
+  {
+   "id": "R01",
+   "module": "r01_wrap",
+   "title": "wrap",
+   "kind": "render",
+   "needs": [
+    "deck",
+    "soffice"
+   ],
+   "phase": "later"
+  },
+  {
+   "id": "R02",
+   "module": "r02_containment",
+   "title": "render containment",
+   "kind": "render",
+   "needs": [
+    "deck",
+    "soffice"
+   ],
+   "phase": "later"
+  },
+  {
+   "id": "R03",
+   "module": "r03_retheme",
+   "title": "retheme delta",
+   "kind": "render",
+   "needs": [
+    "deck",
+    "soffice"
+   ],
+   "phase": "later"
+  },
+  {
+   "id": "H01",
+   "module": "h01_selfcontain",
+   "title": "selfcontain",
+   "kind": "html",
+   "needs": [
+    "twin"
+   ],
+   "phase": "later"
+  },
+  {
+   "id": "H02",
+   "module": "h02_fit",
+   "title": "fit",
+   "kind": "html",
+   "needs": [
+    "twin"
+   ],
+   "phase": "later"
+  },
+  {
+   "id": "H03",
+   "module": "h03_overflow",
+   "title": "overflow",
+   "kind": "html",
+   "needs": [
+    "twin"
+   ],
+   "phase": "later"
+  },
+  {
+   "id": "H04",
+   "module": "h04_console",
+   "title": "console",
+   "kind": "html",
+   "needs": [
+    "twin"
+   ],
+   "phase": "later"
+  },
+  {
+   "id": "H05",
+   "module": "h05_contrast",
+   "title": "contrast and colour vision",
+   "kind": "html",
+   "needs": [
+    "twin"
+   ],
+   "phase": "later"
+  },
+  {
+   "id": "H06",
+   "module": "h06_fingerprint",
+   "title": "fingerprint",
+   "kind": "html",
+   "needs": [
+    "twin"
+   ],
+   "phase": "later"
+  },
+  {
+   "id": "H07",
+   "module": "h07_parity",
+   "title": "parity",
+   "kind": "html",
+   "needs": [
+    "twin"
+   ],
+   "phase": "later"
+  },
+  {
+   "id": "H08",
+   "module": "h08_engine",
+   "title": "engine",
+   "kind": "html",
+   "needs": [
+    "twin"
+   ],
+   "phase": "later"
+  },
+  {
+   "id": "H09",
+   "module": "h09_chrome",
+   "title": "chrome",
+   "kind": "html",
+   "needs": [
+    "twin"
+   ],
+   "phase": "later"
+  },
+  {
+   "id": "H10",
+   "module": "h10_arrows",
+   "title": "arrows",
+   "kind": "html",
+   "needs": [
+    "twin"
+   ],
+   "phase": "later"
+  }
+ ]
+}

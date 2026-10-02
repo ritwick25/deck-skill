@@ -177,6 +177,55 @@ class TestSyntheticPlaceholders(unittest.TestCase):
         self.assertEqual(sl["fidelity"]["autofit_shrunk"], 1)
 
 
+class TestSyntheticIcons(unittest.TestCase):
+    """Planted cases for the refined icon definition: a lone custGeom glyph counts, a lone preset disc or chip
+    never does, an out-of-range glyph never does, a texted glyph never does, a glyph inside an icon-sized
+    group is counted once as the group."""
+
+    def test_definition(self):
+        from lxml import etree
+        from pptx import Presentation
+        from pptx.enum.shapes import MSO_SHAPE
+        from pptx.util import Inches
+        with tempfile.TemporaryDirectory() as td:
+            path = os.path.join(td, "ic.pptx")
+            prs = Presentation()
+            s = prs.slides.add_slide(prs.slide_layouts[6])
+
+            def glyph(shapes, x, y, w, h, text=None):
+                fb = shapes.build_freeform(Inches(x), Inches(y))
+                fb.add_line_segments([(Inches(x + w), Inches(y)), (Inches(x + w / 2), Inches(y + h))])
+                sp = fb.convert_to_shape()
+                if text:
+                    sp.text_frame.text = text
+                return sp
+
+            g1 = glyph(s.shapes, 1, 1, 0.5, 0.5)                                    # counts: vector
+            disc = s.shapes.add_shape(MSO_SHAPE.OVAL, Inches(2), Inches(1), Inches(0.4), Inches(0.4))
+            chip = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(3), Inches(1), Inches(0.6), Inches(0.3))
+            big = glyph(s.shapes, 4, 1, 1.5, 1.5)                                    # too large
+            thin = glyph(s.shapes, 6, 1, 0.7, 0.1)                                   # aspect 7
+            texted = glyph(s.shapes, 7, 1, 0.5, 0.5, text="A")                       # carries text
+            grp = s.shapes.add_group_shape()
+            glyph(grp.shapes, 1, 3, 0.3, 0.3)
+            glyph(grp.shapes, 1.3, 3, 0.3, 0.3)                                      # group 0.6 x 0.3: one unit
+            gx = grp._element.find(".//" + A("xfrm"))                                # python-pptx leaves it 0 x 0
+            for tag, a, b in (("off", "x", "y"), ("chOff", "x", "y"), ("ext", "cx", "cy"), ("chExt", "cx", "cy")):
+                v = (Inches(1), Inches(3)) if tag.endswith("ff") else (Inches(0.6), Inches(0.3))
+                gx.find(A(tag)).set(a, str(int(v[0])))
+                gx.find(A(tag)).set(b, str(int(v[1])))
+            prs.save(path)
+            want_vec = g1.shape_id
+            gid = grp.shape_id
+            with open_deck(path) as deck:
+                sl = read_slide(deck, 1)
+        units = {(u["kind"], u["id"]) for u in sl["icons"]}
+        self.assertEqual(units, {("vector", want_vec), ("group", gid)})
+        ids = {u["id"] for u in sl["icons"]}
+        for sp in (disc, chip, big, thin, texted):
+            self.assertNotIn(sp.shape_id, ids)
+
+
 # ---------------------------------------------------------------------------------------------- fixtures
 
 class TestCorpusTotals(unittest.TestCase):
@@ -200,7 +249,8 @@ class TestCorpusTotals(unittest.TestCase):
     def test_every_slide_reads(self):
         """read_slide succeeds on every slide of every deck and emits the shapes@1 top-level keys."""
         keys = {"schema", "slide_id", "deck_id", "index", "part", "canvas", "hidden", "status", "layout",
-                "show_master_shapes", "background", "shapes", "chrome", "groups", "text", "fidelity", "hygiene"}
+                "show_master_shapes", "background", "shapes", "chrome", "groups", "text", "icons", "fidelity",
+                "hygiene"}
         for k, v in DECKS.items():
             if k == "d01":
                 continue
@@ -317,6 +367,30 @@ class TestD01(unittest.TestCase):
         self.assertEqual(z[0]["id"], "Z1")
         self.assertIn(560, z[0]["ids"])            # the title opens the reading order
 
+    def test_icons(self):
+        """Refined icon definition (library DECISIONS): outermost icon-sized text-free groups, icon-sized
+        text-free pictures, and lone text-free custGeom glyphs. 1,085 over 1-104 (240 groups, 786 pictures,
+        59 vector glyphs); 1,840 over 1-135 (480, 1,256, 104). The pre-refinement figures were 1,026 and 1,736;
+        the survey's estimate was about 1,066 and 1,800."""
+        for hi, want, kinds in ((104, 1085, {"group": 240, "pic": 786, "vector": 59}),
+                                (135, 1840, {"group": 480, "pic": 1256, "vector": 104})):
+            got = {}
+            for s in d01()["slides"][:hi]:
+                for u in s["icons"]:
+                    got[u["kind"]] = got.get(u["kind"], 0) + 1
+            self.assertEqual(got, kinds, hi)
+            self.assertEqual(sum(got.values()), want, hi)
+        for s in d01()["slides"]:
+            ids = [u["id"] for u in s["icons"]]
+            self.assertEqual(len(ids), len(set(ids)), s["index"])
+            leaves = {L["id"]: L for L in s["shapes"]}
+            for u in s["icons"]:
+                if u["kind"] == "vector":
+                    L = leaves[u["id"]]
+                    self.assertTrue(L["geom"]["cust"] and not L.get("icon_group")
+                                    and not (L["text"] and L["text"]["text"].strip()))
+                    self.assertEqual(L["role_guess"]["role"], "icon")
+
     def test_deck_info(self):
         info = deck_info(d01()["deck"], deck_id="d01", with_fonts=False)
         self.assertEqual(info["default_text_style"]["lvl1"], {"size_pt": 14.0, "font": "Arial", "bold": False,
@@ -370,6 +444,307 @@ class TestFontWords(unittest.TestCase):
         self.assertEqual(legacy["Space Grotesk"], 5858)
         self.assertEqual(legacy["Space Grotesk Light"], 327)
         self.assertEqual(legacy["Space Grotesk Medium"], 49)
+
+
+# ---------------------------------------------------------------------------------------------- titles, lines, hygiene
+
+def _leaf(lid, x, y, w, h, kind="sp", prst="rect", text=None, pt=12.0, fill="none", line="none", ph=None, **kw):
+    """A synthetic shapes@1 leaf: enough of the record for pick_title, connect and layout_hygiene."""
+    L = {"id": lid, "kind": kind, "z": lid, "layer": "content", "on_canvas": "in", "line_like": False,
+         "group_path": [], "placeholder": {"type": ph} if ph else None, "geom": {"prst": prst, "cust": False},
+         "bbox": {"x_in": x, "y_in": y, "w_in": w, "h_in": h},
+         "frame": {"w_in": w, "h_in": h, "rot_deg": 0.0, "mirrored": False},
+         "xfrm": {"flipH": False, "flipV": False},
+         "corners_in": [[x, y], [x + w, y], [x + w, y + h], [x, y + h]],
+         "fill": {"type": fill}, "line": {"type": line}, "grad": None, "effects": None, "text": None,
+         "connector": None, "container_of": [], "icon_like": False}
+    if text is not None:
+        L["text"] = {"text": text, "words": words(text), "size": {"dominant_pt": pt}, "bold_share": 0.0,
+                     "body": {"vert": "horz", "anchor": "t", "autofit": "none", "insets_in": [0.1, 0.05, 0.1, 0.05]},
+                     "occupancy": None, "paragraphs": [{"text": text, "algn": "l",
+                                                        "runs": [{"t": text, "size_rendered_pt": pt}]}]}
+    L.update(kw)
+    return L
+
+
+def _line(lid, s, e, prst="line", head="none", tail="none", glue=None, kind="sp"):
+    from deckkit.read import connect as cx
+    x0, y0 = min(s[0], e[0]), min(s[1], e[1])
+    L = _leaf(lid, x0, y0, abs(e[0] - s[0]), abs(e[1] - s[1]), kind=kind, prst=prst, line="solid", line_like=True)
+    L["connector"] = cx.connector_block(prst, s, e, {"head": {"type": head}, "tail": {"type": tail}}, glue)
+    return L
+
+
+def _classify(leaves, canvas=(13.333, 7.5)):
+    from deckkit.read import connect as cx
+    area = canvas[0] * canvas[1]
+    legend = cx.legend_lines(leaves, area)
+    out = {}
+    for L in leaves:
+        c = L.get("connector")
+        if c is not None:
+            c["contact"] = cx.contact(tuple(c["start_in"]), tuple(c["end_in"]), leaves, L["id"], area,
+                                      straight=c["orientation"] in ("h", "v", "diag"))
+            c["class"] = out[L["id"]] = cx.classify(L, legend)
+    return out
+
+
+class TestTitleRule(unittest.TestCase):
+    """walk.pick_title tiers on planted slides (13.333 x 7.5 in)."""
+    W, H = 13.333, 7.5
+
+    def pick(self, leaves, words_content=None):
+        from deckkit.read.walk import pick_title
+        L, tier = pick_title(leaves, self.W, self.H, words_content)
+        return (L["id"] if L else None), tier
+
+    def body(self, start, n, pt=12.0, y=3.0):
+        return [_leaf(start + i, 1 + i * 2, y + (i % 3) * 0.6, 1.8, 0.4, text="body copy line %d here" % i, pt=pt)
+                for i in range(n)]
+
+    def test_placeholder_wins(self):
+        leaves = [_leaf(1, 0.5, 0.3, 12, 0.6, text="Big headline", pt=40), _leaf(2, 0.5, 5, 6, 0.6,
+                  text="Placeholder title", pt=18, ph="title")] + self.body(10, 4)
+        self.assertEqual(self.pick(leaves), (2, "placeholder"))
+
+    def test_empty_placeholder_skipped(self):
+        leaves = [_leaf(2, 0.5, 5, 6, 0.6, text="", ph="title"), _leaf(1, 0.5, 0.3, 12, 0.6, text="Real title", pt=28)]
+        leaves += self.body(10, 4)
+        self.assertEqual(self.pick(leaves), (1, "top-band"))
+
+    def test_top_band_ratio(self):
+        """The top band (22%) and 1.3x the median body size: 16pt over a 12pt median is a top-band title; 15.5pt
+        is not, and is found only as the slide's largest text; below a larger body line it is no title at all."""
+        for pt, want in ((16.0, (1, "top-band")), (15.5, (1, "top-largest"))):
+            leaves = [_leaf(1, 0.5, 1.5, 12, 0.5, text="Top band heading words", pt=pt)] + self.body(10, 5)
+            self.assertEqual(self.pick(leaves), want, pt)
+        leaves = [_leaf(1, 0.5, 1.5, 12, 0.5, text="Top band heading words", pt=15.5),
+                  _leaf(2, 1, 6, 3, 0.4, text="A larger body line set low", pt=16)] + self.body(10, 5)
+        self.assertEqual(self.pick(leaves), (None, None))
+        leaves = [_leaf(1, 0.5, 1.7, 12, 0.5, text="Below the band", pt=30)] + self.body(10, 5, pt=12)
+        self.assertNotEqual(self.pick(leaves)[1], "top-band")       # top at 22.7%: outside the band
+
+    def test_few_words_divider(self):
+        leaves = [_leaf(1, 0.5, 3.5, 12, 0.8, text="Section two", pt=28), _leaf(2, 0.5, 5, 4, 0.4, text="Notes", pt=40)]
+        self.assertEqual(self.pick(leaves), (2, "few-words"))      # 3 words: the largest text anywhere
+
+    def test_figures_never_titles(self):
+        """A '02' divider numeral and a '5 to 10%' stat are figures, not headings."""
+        leaves = [_leaf(1, 0.5, 0.2, 2, 1, text="02", pt=66), _leaf(2, 0.5, 0.4, 3, 0.6, text="5 to 10%", pt=60),
+                  _leaf(3, 0.5, 1.2, 12, 0.5, text="The benchmark comes from three sources", pt=19)]
+        leaves += self.body(10, 6, pt=9)
+        self.assertEqual(self.pick(leaves), (3, "top-band"))
+
+    def test_dominant_cover(self):
+        """A cover title mid-canvas, 1.2x every other text, over 12 words."""
+        leaves = [_leaf(1, 0.5, 3.0, 12, 0.8, text="Data Migration and Rationalization", pt=48),
+                  _leaf(2, 0.5, 4.5, 12, 0.5, text="A proposal for the data and reporting migration programme", pt=20),
+                  _leaf(3, 0.5, 6.5, 4, 0.3, text="September 2026", pt=14)]
+        self.assertEqual(self.pick(leaves), (1, "dominant"))
+        leaves[1]["text"]["size"]["dominant_pt"] = 44.0             # no longer dominant: no title
+        self.assertEqual(self.pick(leaves), (None, None))
+
+    def test_top_largest(self):
+        leaves = [_leaf(1, 0.5, 0.2, 12, 0.5, text="The framework accommodates adjacent capabilities", pt=21.3),
+                  _leaf(2, 5, 4, 2, 0.4, text="INTERMEDIATE", pt=21.1), _leaf(3, 8, 4, 2, 0.4, text="HIGH", pt=21.1)]
+        leaves += self.body(10, 6, pt=17)
+        self.assertEqual(self.pick(leaves), (1, "top-largest"))
+
+    def test_chrome_never_titled(self):
+        from deckkit.read.walk import guess_roles
+        leaves = [_leaf(1, 0.5, 0.2, 12, 0.5, text="Layout banner text", pt=30)]
+        guess_roles(leaves, self.W, self.H, find_title=False)
+        self.assertNotEqual(leaves[0]["role_guess"]["role"], "title")
+        guess_roles(leaves, self.W, self.H)
+        self.assertEqual(leaves[0]["role_guess"]["role"], "title")
+
+
+class TestLineClasses(unittest.TestCase):
+    """connect.classify: degenerate, stroke, connector, rule; contact on two distinct shapes."""
+
+    def boxes(self):
+        return [_leaf(1, 1, 1, 2, 1, fill="solid"), _leaf(2, 5, 1, 2, 1, fill="solid")]
+
+    def test_degenerate_and_short(self):
+        got = _classify(self.boxes() + [_line(10, (3, 1.5), (3.04, 1.5)), _line(11, (3, 1.5), (3.1, 1.5), head="triangle")])
+        self.assertEqual(got, {10: "degenerate", 11: "stroke"})
+
+    def test_contact_two_shapes(self):
+        """A bare line from one box edge to another is a connector; touching_both needs two distinct shapes."""
+        leaves = self.boxes() + [_line(10, (3.0, 1.5), (5.05, 1.5))]
+        self.assertEqual(_classify(leaves), {10: "connector"})
+        ct = leaves[-1]["connector"]["contact"]
+        self.assertEqual((ct["start"]["id"], ct["end"]["id"], ct["distinct"]), (1, 2, True))
+
+    def test_head_and_glue(self):
+        leaves = self.boxes() + [_line(10, (3.5, 3), (4.5, 3), tail="triangle"),
+                                 _line(11, (3.5, 4), (4.5, 4), kind="cxn", prst="straightConnector1",
+                                       glue={"start": {"id": 1, "idx": 0}, "end": None}),
+                                 _line(12, (3.5, 5), (4.5, 5))]
+        self.assertEqual(_classify(leaves), {10: "connector", 11: "connector", 12: "rule"})
+
+    def test_rules(self):
+        """A separator inside a card, a line running along a card's edge, a divider across a band: rules."""
+        card = _leaf(1, 1, 1, 6, 3, fill="solid")
+        inner_a, inner_b = _leaf(2, 1.5, 1.5, 2, 0.5, text="Left label"), _leaf(3, 4.5, 1.5, 2, 0.5, text="Right")
+        band = _leaf(4, 0, 5, 13.333, 0.5, fill="solid")
+        above, below = _leaf(5, 0, 4.5, 13.333, 0.5, fill="solid"), _leaf(6, 0, 5.5, 13.333, 0.5, fill="solid")
+        leaves = [card, inner_a, inner_b, band, above, below,
+                  _line(10, (1.2, 3.0), (6.8, 3.0)),          # separator inside the card, near nothing
+                  _line(11, (1.0, 4.0), (7.0, 4.0)),          # along the card's bottom edge
+                  _line(12, (3.0, 5.0), (3.0, 5.5))]          # a tick across the band, ends on its outline
+        got = _classify(leaves)
+        self.assertEqual(got, {10: "rule", 11: "rule", 12: "rule"})
+        self.assertEqual(leaves[-1]["connector"]["contact"]["across"], 4)
+
+    def test_icon_part_and_legend(self):
+        legend = _leaf(1, 8, 5, 3, 1.5, fill="solid")
+        leaves = [legend, _leaf(2, 8.1, 5.05, 1.5, 0.3, text="Legend"),
+                  _line(10, (8.2, 5.6), (8.7, 5.6), tail="triangle"), _leaf(3, 8.8, 5.45, 2, 0.3, text="Data flow"),
+                  _line(11, (8.2, 6.1), (8.7, 6.1)), _leaf(4, 8.8, 5.95, 2, 0.3, text="Private link"),
+                  _line(12, (1, 1), (2, 1), tail="triangle")]
+        leaves[-1]["icon_group"] = 99
+        self.assertEqual(_classify(leaves), {10: "stroke", 11: "stroke", 12: "stroke"})
+
+    def test_card_with_dividers_is_not_a_legend(self):
+        """Vertical dividers between labels inside a card are rules, never legend samples."""
+        leaves = [_leaf(1, 1, 1, 6, 1, line="solid"), _leaf(2, 1.1, 1.2, 1.5, 0.5, text="Planners validate"),
+                  _line(10, (2.8, 1.2), (2.8, 1.8)), _leaf(3, 2.9, 1.2, 1.5, 0.5, text="Leaders approve")]
+        self.assertEqual(_classify(leaves), {10: "rule"})
+
+
+class TestAiHint(unittest.TestCase):
+    def test_markers(self):
+        from deckkit.read.pics import ai_hint
+        for s in ("ChatGPT Image Aug 24, 2026, 08_33_15 PM.png", "made with DALL-E 3", "dalle render",
+                  "Midjourney v6 hero", "Adobe Firefly fill", "Stable Diffusion XL", "Imagen 3 output",
+                  "Gemini image of a plant", "Generated by AI using Midjourney"):
+            self.assertIsNotNone(ai_hint("Picture 4", s, ""), s)
+        for s in ("A logo with red and black text\n\nDescription automatically generated",
+                  "Text\n\nDescription automatically generated with low confidence",
+                  "A person smiling\n\nAI-generated content may be incorrect.",
+                  "AI-generated monochrome distribution centre", "Generated CPG Supply Chain Background",
+                  "Dallas skyline", "Fireflies at dusk"):
+            self.assertIsNone(ai_hint("Picture 4", s, ""), s)
+
+
+class TestLayoutHygiene(unittest.TestCase):
+    """walk.layout_hygiene kinds, each planted once and each with its ids."""
+
+    def run_(self, leaves, canvas=(13.333, 7.5)):
+        from deckkit.read.walk import layout_hygiene
+        flags = {}
+
+        def add(kind, sid, detail=""):
+            flags.setdefault(kind, []).append(sid)
+        layout_hygiene(leaves, canvas[0], canvas[1], add)
+        return flags
+
+    def test_overlap(self):
+        a = _leaf(1, 1, 1, 3, 0.4, text="First label text", pt=14)
+        b = _leaf(2, 1.2, 1.05, 3, 0.4, text="Second label text", pt=14)
+        self.assertEqual(sorted(self.run_([a, b])["overlap"]), [1, 2])
+        card = _leaf(3, 5, 1, 4, 2, text="Card heading", fill="solid")
+        lab = _leaf(4, 5.2, 1.2, 2, 0.4, text="Inside label")
+        self.assertNotIn("overlap", self.run_([card, lab]))           # a label on a drawn card is inside it
+        far = _leaf(5, 1, 1, 12, 0.5, text="Short title", pt=20)     # a wide frame, a short line of ink
+        tab = _leaf(6, 10, 1, 0.6, 0.4, text="01", pt=12, fill="solid")
+        self.assertNotIn("overlap", self.run_([far, tab]))
+
+    def test_canvas_shadow_gradient_rotation_degenerate(self):
+        off = _leaf(1, -0.2, 1, 2, 1, fill="solid", on_canvas="partial")
+        edge = _leaf(2, -0.03, 2, 2, 1, fill="solid", on_canvas="partial")
+        soft = _leaf(3, 3, 1, 2, 1, fill="solid",
+                     effects={"shadow": {"blur_pt": 4.0, "alpha": 0.35}, "soft_shadow": True})
+        crisp = _leaf(4, 3, 3, 2, 1, fill="solid", effects={"shadow": {"blur_pt": 0.5, "alpha": 0.35}})
+        grad = _leaf(5, 6, 1, 2, 1, fill="solid", grad={"kind": "lin", "stops": []})
+        rot = _leaf(6, 6, 3, 2, 0.4, text="Rotated label")
+        rot["frame"]["rot_deg"] = 90.0
+        rot["text"]["body"]["autofit"] = "shape"
+        vert = _leaf(7, 9, 3, 0.4, 2, text="Vertical")
+        vert["text"]["body"]["vert"] = "vert270"
+        flat = _leaf(8, 9, 1, 2, 0.4, text="Plain spAutoFit")
+        flat["text"]["body"]["autofit"] = "shape"
+        dot = _line(9, (11, 6), (11.02, 6))
+        dot["connector"]["class"] = "degenerate"
+        f = self.run_([off, edge, soft, crisp, grad, rot, vert, flat, dot])
+        self.assertEqual(f["partial-off-canvas"], [1])
+        self.assertEqual(f["soft-shadow"], [3])
+        self.assertEqual(f["gradient"], [5])
+        self.assertEqual(sorted(f["render-divergence-risk"]), [6, 7])
+        self.assertEqual(f["degenerate-connector"], [9])
+
+    def test_read_slide_emits_kinds(self):
+        """Through read_slide: the new kinds reach the hygiene list with ids."""
+        from pptx import Presentation
+        from pptx.util import Inches
+        with tempfile.TemporaryDirectory() as td:
+            path = os.path.join(td, "hy.pptx")
+            prs = Presentation()
+            s = prs.slides.add_slide(prs.slide_layouts[6])
+            a = s.shapes.add_textbox(Inches(1), Inches(1), Inches(3), Inches(0.5))
+            a.text_frame.text = "Overlapping words one"
+            b = s.shapes.add_textbox(Inches(1.1), Inches(1.05), Inches(3), Inches(0.5))
+            b.text_frame.text = "Overlapping words two"
+            c = s.shapes.add_textbox(Inches(-0.5), Inches(4), Inches(2), Inches(0.5))
+            c.text_frame.text = "Off the edge"
+            prs.save(path)
+            with open_deck(path) as deck:
+                sl = read_slide(deck, 1)
+        kinds = {h["kind"]: h for h in sl["hygiene"]}
+        self.assertEqual(sorted(kinds["overlap"]["ids"]), sorted([a.shape_id, b.shape_id]))
+        self.assertEqual(kinds["partial-off-canvas"]["ids"], [c.shape_id])
+
+
+_CORPUS = {}
+
+
+def corpus():
+    """Every slide of every deck, read once (d01 from the timed cache)."""
+    if not _CORPUS:
+        for k, v in DECKS.items():
+            if k == "d01":
+                _CORPUS[k] = d01()["slides"]
+                continue
+            with open_deck(v["path"]) as deck:
+                _CORPUS[k] = [read_slide(deck, i) for i in range(1, deck.n_slides + 1)]
+    return _CORPUS
+
+
+class TestCorpusTitlesLines(unittest.TestCase):
+    """Corpus facts for the title rule, the line classes and the ai-image hint (library DECISIONS 2026-10-03)."""
+
+    def test_untitled_main_slides(self):
+        """Visible main slides with words and no title: two covers whose 24pt title sits beside 23pt and 22pt
+        lines (no tier separates them) and three profile pages set wholly at 8 to 9pt."""
+        missing = [(k, s["index"]) for k, ss in corpus().items() for s in ss
+                   if s["status"] == "main" and not s["hidden"] and s["text"]["words_content"]
+                   and not any((L["role_guess"] or {}).get("role") == "title" for L in s["shapes"])]
+        self.assertEqual(sorted(missing), [("d08", 1), ("d09", 51), ("d09", 52), ("d09", 53), ("d14", 1)])
+
+    def test_line_classes(self):
+        got, d1, both = {}, {}, 0
+        for k, ss in corpus().items():
+            for s in ss:
+                for L in s["shapes"]:
+                    c = L.get("connector")
+                    if c is None:
+                        continue
+                    self.assertIn(c["class"], ("connector", "rule", "stroke", "degenerate"))
+                    got[c["class"]] = got.get(c["class"], 0) + 1
+                    if k == "d01":
+                        d1[c["class"]] = d1.get(c["class"], 0) + 1
+                    both += c["class"] == "connector" and c["contact"]["distinct"]
+        self.assertEqual(got, {"connector": 2039, "rule": 2248, "stroke": 316, "degenerate": 32})
+        self.assertEqual(d1, {"connector": 744, "rule": 687, "stroke": 37, "degenerate": 7})
+        self.assertEqual(both, 1667)
+
+    def test_ai_hint_explicit_only(self):
+        """126 pictures carried a hint under the old pattern (119 of them Office alt text); 6 name ChatGPT."""
+        hits = sorted((k, s["index"], L["picture"]["ai_hint"]) for k, ss in corpus().items() for s in ss
+                      for L in s["shapes"] + s["chrome"] if (L.get("picture") or {}).get("ai_hint"))
+        self.assertEqual(hits, [("d01", 72, "ChatGPT"), ("d01", 118, "ChatGPT"), ("d01", 127, "ChatGPT"),
+                                ("d01", 131, "ChatGPT"), ("d08", 5, "ChatGPT"), ("d14", 5, "ChatGPT")])
 
 
 class TestZSourcesUntouched(unittest.TestCase):

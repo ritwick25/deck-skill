@@ -1,0 +1,42 @@
+{
+  "schema": "refs-canary@1",
+  "about": "A fictional entity the leak gate must catch before any real check is trusted. Its hashes are present in names.sha1, ngrams6.sha1 and numphrases.sha1. The gate plants probe_text and asserts a hit in each file, then asserts clean_text gives none.",
+  "entity": "Quorvane Biologics",
+  "category": "client",
+  "aliases": [
+    "Quorvane"
+  ],
+  "probe_text": "Quorvane Biologics moved its oncology launch planning onto one shared platform last spring, with 7,431 vials tracked weekly.",
+  "clean_text": "Lantern teal otters juggle seven quiet marmalade kites beside wandering copper violins.",
+  "names_sha1": [
+    "65e2eb470a33a348dca088d4b621278631020297",
+    "c964881a518c38681419b655ddc9e902413366a0"
+  ],
+  "names_keys": [
+    "quorvane",
+    "quorvane biologics"
+  ],
+  "ngrams6_sha1": [
+    "1e7e7adc23df2a37299b6e414b885ebba5fa4eca",
+    "3073025f94557c0b1fb98cd2f605b6fdc7580b68",
+    "3dc6302e76e9b88c0e81e8330fa5fbd579dda9e2",
+    "69069c563f24479a522b60fefcb33628a1bda615",
+    "7804afc6785d22c70960c198cec849ea75e20a1f",
+    "8697b704e18ca1b69c6814b62be046ccbb04b036",
+    "8c0022555c3cf5290c3d409e566a9bcaa4390897",
+    "9584c2a37f4718bb995a1602453d6474bceabb28",
+    "9df1897b4a93f28b606d0c751b6c40e5fd92b924",
+    "bf57db22ec5bb7d5917f63eb74fc3b7a23c1c3d5",
+    "c41240221b1f81759673ad301915cb4dcf5b4673",
+    "e30efcb1bd08ad1a211b2dfd9eba4d97d4da604c",
+    "ea026f64d8682bec0131e7d00dad9563b35b6f6e"
+  ],
+  "numphrases_sha1": [
+    "93f6de89f43e21740a25aa23e2527be17c841d8f",
+    "d92df310c3d7778beea62307a3494801af3da07a"
+  ],
+  "numphrases": [
+    "7431",
+    "7431 vials"
+  ]
+}

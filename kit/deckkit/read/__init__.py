@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from .deckinfo import deck_info
 from .opc import DeckRead
-from .textmetrics import para_text, words
+from .textmetrics import para_text, token_spans, tokens, words
 from .walk import read_slide
 
 
@@ -16,4 +16,4 @@ def open_deck(path: str) -> DeckRead:
     return DeckRead(path)
 
 
-__all__ = ["DeckRead", "open_deck", "read_slide", "deck_info", "words", "para_text"]
+__all__ = ["DeckRead", "open_deck", "read_slide", "deck_info", "words", "para_text", "tokens", "token_spans"]

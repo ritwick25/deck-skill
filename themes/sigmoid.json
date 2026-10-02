@@ -1,0 +1,54 @@
+{
+  "name": "sigmoid",
+  "source": "measured from the house template clrScheme, 2026-10-03",
+  "source_notes": [
+    "The template's clrScheme carries dk2 4B5960, lt2 E7E6E6 and six accents. Its red D91E18 sits at accent2 there and moves to accent1 here, so the brand colour is the slot every accent role reads.",
+    "The template's neutrals are Office theme derivations of bg1 and tx1 (F2F2F2 bg1 darker 5%, BFBFBF darker 25%, 595959 tx1 lighter 35%), which the roles reproduce exactly.",
+    "hlink and folHlink are set to the navy and slate already in the palette."
+  ],
+  "slots": {
+    "dk2": "4B5960",
+    "lt2": "E7E6E6",
+    "accent1": "D91E18",
+    "accent2": "1E3C7D",
+    "accent3": "00A0E9",
+    "accent4": "F38B1F",
+    "accent5": "4EA347",
+    "accent6": "6B7983",
+    "hlink": "1E3C7D",
+    "folHlink": "6B7983"
+  },
+  "fonts": {
+    "major": "Arial",
+    "minor": "Arial",
+    "numerals": {
+      "face": "Montserrat",
+      "weight": "SemiBold",
+      "optional": true,
+      "use": "numerals and dates only; Montserrat Medium for the divider numeral",
+      "fallback": "Arial Bold"
+    }
+  },
+  "roles": {
+    "accent-ink": {
+      "solve": {"from": "accent1", "against": ["paper", "card"], "min": 4.5},
+      "record": "accent1",
+      "note": "no lowering needed: D91E18 clears 5.06 on paper and 4.52 on card"
+    },
+    "on-accent": {
+      "pick": {"from": ["bg1", "tx1"], "against": ["accent", "accent-deep"]},
+      "record": "bg1",
+      "note": "white text: 5.06 on accent (black would be 4.15)"
+    }
+  },
+  "fill_only": {
+    "accent3": "00A0E9 is 2.92:1 on white, a fill or mark, never text",
+    "accent4": "F38B1F is 2.46:1 on white, a fill or mark, never text",
+    "accent5": "4EA347 is 3.16:1 on white, a fill or mark, never text"
+  },
+  "identity": {
+    "rag-red": {"hex": "D91E18", "reason": "status Off track; keeps its hue under any client theme and always prints with its word"},
+    "rag-amber": {"hex": "F38B1F", "reason": "status At risk; keeps its hue under any client theme and always prints with its word"},
+    "rag-green": {"hex": "4EA347", "reason": "status On track; keeps its hue under any client theme and always prints with its word"}
+  }
+}
