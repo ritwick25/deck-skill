@@ -1,0 +1,8 @@
+.DS_Store
+__pycache__/
+*.pyc
+.cache/
+devices/work/
+*.pdf
+# Renders of raw reference slides never enter the skill repo.
+**/corpus-renders/
