@@ -251,3 +251,26 @@ keys.
   both layered-architecture slides (185 and 234 of 259), both swimlanes (224 and 160 of 234) and decision-logic
   (169 of 183). The floor is advisory; they read full in the renders.
 - Token cost: about 1.6M (quoted 1.3M).
+
+## 2026-10-03 · RULING 18 — Architecture slides come from a diagram engine with three grammars (user)
+The showcase architecture slides were rejected as not reading like enterprise AWS, Azure or the user's own
+architecture decks. Measured against eight reference architecture slides:
+- product logos: 20 to 45 per slide (median 36) against 0 to 11 (one slide drew 48 generic line glyphs);
+- icons boxed alone in a tile: 0 to 10% (one chip board 75%) against 91 to 100%;
+- arrows labelled with what flows: 7 of 7 to 11 of 14 against 0 of 15;
+- no cloud boundary grammar;
+- the data-architecture slide was a text matrix.
+Route: `deckkit.arch` draws a declared diagram (groups, services, flows, steps) in one of three grammars:
+- official AWS: Cloud, Region, VPC, AZ and subnet groups in the AWS notation colours; floating service icons;
+  labelled flows; numbered steps with a legend;
+- official Azure: subscription, resource group, VNet, subnet and private endpoint;
+- house layered: region header tabs, floating product marks, labelled flows, platform band. An L0 master carries
+  no arrows (CLAUDE.md §8).
+The AWS and Azure notation colours are identity colours of the notation: registered, never moved by a theme. Gate
+P26 holds architecture slides to the measured grammar. The kit's product marks extend to the diagrams package's
+onprem, programming and saas sets, byte-verified as before.
+
+## 2026-10-03 · RULING 19 — Marks with no offline source come from the 21st MCP logo search (user)
+LangGraph, LangChain, Langfuse, Anthropic, Dataiku and other marks absent offline are fetched once through the 21st
+MCP logo search. Each is stored in the kit with its source, fetch date and sha256, and verified by bytes like the
+vendor marks. Marks are used nominatively, unaltered, to name the product in a diagram.

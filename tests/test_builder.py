@@ -564,8 +564,8 @@ class Vendors(Base):
         nv2 = p2._element.find(".//" + P + "cNvPr")
         self.assertEqual(nv2.get("name"), "vendor.aws/compute/ec2.2")
         self.assertEqual(icons.vendor_key_of(nv2.get("name"), nv2.get("descr")), "aws/compute/ec2")
-        self.assertEqual(sorted(SIGMOID.vendors), ["aws", "azure", "gcp"])
-        for v in ("aws", "azure", "gcp"):
+        self.assertEqual(sorted(SIGMOID.vendors), ["aws", "azure", "gcp", "generic", "onprem", "programming", "saas"])
+        for v in ("aws", "azure", "gcp", "onprem", "programming", "saas", "generic"):
             key = next(x for x in icons.vendor_keys() if x.startswith(v + "/"))
             self.assertTrue(icons.vendor_resolves(key, SIGMOID), key)
         self.assertFalse(icons.vendor_resolves("aws/compute/ec3", SIGMOID))

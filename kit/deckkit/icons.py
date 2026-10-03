@@ -51,7 +51,7 @@ RT_IMAGE = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/
 
 DIAGRAMS_RESOURCES = Path("/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/"
                           "diagrams/resources")
-VENDORS = ("aws", "azure", "gcp")
+VENDORS = ("aws", "azure", "gcp", "onprem", "programming", "saas", "generic")   # ruling 18: product marks beyond the clouds
 VENDOR_PREFIX = "vendor."
 VENDOR_ALT = re.compile(r"\(vendor mark ([A-Za-z0-9_./-]+)\)\s*$")
 SVG_FALLBACK_SCALE = 4.0     # an SVG's PNG fallback is 4x its displayed size at 96 dpi
@@ -77,7 +77,7 @@ def _resources() -> Path:
 
 @lru_cache(maxsize=1)
 def vendor_keys() -> tuple[str, ...]:
-    """Every 'vendor/category/name' key available (aws, azure, gcp)."""
+    """Every 'vendor/category/name' key available (aws, azure, gcp, onprem, programming, saas, generic)."""
     root = _resources()
     out = []
     for v in VENDORS:

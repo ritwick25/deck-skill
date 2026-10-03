@@ -1,5 +1,5 @@
 {
- "count": 1456,
+ "count": 1771,
  "keys": {
   "aws/analytics/amazon-opensearch-service": {
    "256x256": "57ac3c7c20d3f3e748b3b952b04bd2aeab19688c80c19faac8fa58acecd7a43c"
@@ -4368,6 +4368,951 @@
   },
   "gcp/storage/storage": {
    "256x256": "d5f357b6b81155393a0d049bd4cde4809cbbc600ca36f72349c4e2438a05d7ff"
+  },
+  "generic/blank/blank": {
+   "256x256": "3ae6a9e607b163f750d8e253b01ec334d6c7cfa22b1080a84e16ad6e90ac00b3"
+  },
+  "generic/compute/rack": {
+   "256x256": "b943d105424e62846a4c61da3e19ca28423ce32650863f161a61f8573b4bf458"
+  },
+  "generic/database/sql": {
+   "256x256": "729d94d634b367bc5ae215d557762ded6cb8c628ff0b5c089c6345e980634ec1"
+  },
+  "generic/device/mobile": {
+   "256x256": "44c6f0e37f41de2788e6cc6dcc817843816eaa87fb0449f597975f3f9e76c627"
+  },
+  "generic/device/tablet": {
+   "256x256": "57edb992136bd69ef51737c7e1da2f21952deb92ecf09b553979d71b98638535"
+  },
+  "generic/generic": {
+   "256x256": "8262d30448088a805505a3b3fbd0ceb10a1ee276b0d88f6a366e900df6bbc01a"
+  },
+  "generic/network/firewall": {
+   "256x256": "5d6e0daa05aa28f101b07a92e7f01d7b0f6d4f2c7290267d4d1d4b45ba17fbfd"
+  },
+  "generic/network/router": {
+   "256x256": "090558ea62d5754dae5a48d08bf94a1f9a0fdc2390ef8264923098d7c3b51844"
+  },
+  "generic/network/subnet": {
+   "256x256": "c833bc2233bb1b33cb1a1c7e47a12cb420e88d12746f5f716afb84e2897bfaaa"
+  },
+  "generic/network/switch": {
+   "256x256": "32f944abb338bc8c3d3c5d979801216230834cf46dd5bb1f742e052cee056fc5"
+  },
+  "generic/network/vpn": {
+   "256x256": "6a93c11fff6492b06ef171453112785db4695e723ee07c129dacb932b9ef886f"
+  },
+  "generic/os/android": {
+   "256x256": "bc93e09a1a955eb53ff9b99970fe8216ab753c476aff6a3d2802ba217a9b7352"
+  },
+  "generic/os/centos": {
+   "256x256": "c175cd78f349432c329e61c32c4faf57f1b5cabfcdbe1d67e989fd1b3c514e76"
+  },
+  "generic/os/debian": {
+   "206x256": "af9ec55b89b246af1a3af628e0e8706b97575db7a5c4b7daf68db821c96c4bfc"
+  },
+  "generic/os/ios": {
+   "256x256": "1017f2ff6bb36e3e2522014ec3b0529f065d054c1ca90084ef459274874bc6e8"
+  },
+  "generic/os/linux-general": {
+   "256x256": "30c7475e147fbb16940efb1ce5d69e7e423db2090e724cb3ff4ac4ac7f9d128b"
+  },
+  "generic/os/raspbian": {
+   "204x256": "29a9b909a769853edd7e596be814d8a62373c2095bb9ce5e35c5e558e786bfb8"
+  },
+  "generic/os/red-hat": {
+   "256x256": "90e84ea1b86f85df00ce527e5a401dc4700885caffe68610bc4a4c16026ea61c"
+  },
+  "generic/os/suse": {
+   "256x256": "3c7ec50e7dbc213375c36c7d4503130b5c5d3ff04d2ee79c965c4bc871eab73b"
+  },
+  "generic/os/ubuntu": {
+   "256x256": "6c34be75d3c43888aa73dd4dcdc119d471aefffc01b318d46b4ea511a8f2acf1"
+  },
+  "generic/os/windows": {
+   "256x256": "b2e6a787a0f5ace270b825e4be7e769d46464ac3d27bf4de7e7313727ee0ab60"
+  },
+  "generic/place/datacenter": {
+   "256x256": "8562a3ac66c13d4446739fa480600c55d93ba9db869fafa3f467674bdfac3f26"
+  },
+  "generic/storage/storage": {
+   "256x256": "1beb242b4b1b2ed48841b76dd90687153769b56f45044ea6a133cd48587c40dd"
+  },
+  "generic/virtualization/qemu": {
+   "256x256": "197d800a50e86dacd91cae8e8a8070fe3d0fc2c2001b338937f52e4f422809f3"
+  },
+  "generic/virtualization/virtualbox": {
+   "256x256": "4738309c52ad9a9a79af66a5aee1a315f593d2dda2e60315afeccc3ace1b1afb"
+  },
+  "generic/virtualization/vmware": {
+   "256x256": "941a43908a3a41230f27fe4025f7beb569e9204e59fe20165a68a5b49364315d"
+  },
+  "generic/virtualization/xen": {
+   "256x256": "45659f740ee589ca588978355c99a53e6b74d81024c2bcf693ce3605f99b7284"
+  },
+  "onprem/aggregator/fluentd": {
+   "256x211": "d8204d52ef705e146808c2553ece9c6f7d738fe265d5e8415f0c30192c0d4cb1"
+  },
+  "onprem/aggregator/vector": {
+   "256x256": "0a520bf73a90db08682ae1064f0d1ddcfe6a61970e30069ca34e8ae25f4fa2f8"
+  },
+  "onprem/analytics/beam": {
+   "256x256": "be12e11686f910ea28f14f38074112da6eda03d2bb3ab92a233e4d21f1b7798c"
+  },
+  "onprem/analytics/databricks": {
+   "256x256": "98b6592c28836672bfef10f00b475b39f2c01da0007115256287bc82fbcff924"
+  },
+  "onprem/analytics/dbt": {
+   "256x244": "c1d07c0810540c8951bc206e20f5c4ab742e1d52c578f3a79126fc4dc886d0d7"
+  },
+  "onprem/analytics/dremio": {
+   "256x249": "6d1e2baa6dfba2f92142decab53ce122e2b362d1305e95461f770c14db140eae"
+  },
+  "onprem/analytics/flink": {
+   "256x256": "6ecf12c68e91beb939f783dfb7181c9b94d78123510eb9a477b515c5595ee526"
+  },
+  "onprem/analytics/hadoop": {
+   "256x256": "dc142a9cdfdcaa97b6b02ecf78fb072966327f2783e3c9092544aea098de0354"
+  },
+  "onprem/analytics/hive": {
+   "256x256": "28982409d48c86a3b2034cf9785e072c2bb5f5177e7cd46d8286be370a60d569"
+  },
+  "onprem/analytics/metabase": {
+   "256x256": "d14dea962442702b274114ef353d3eafb5ee3cb67fc6e73382a90c0b75529bb2"
+  },
+  "onprem/analytics/norikra": {
+   "256x122": "bf8e8b5d9a982849fe52febfe8381cc9f04a10691f2b87698a4ab2b78b0f0042"
+  },
+  "onprem/analytics/powerbi": {
+   "256x171": "75831725e01505f8f3019b124213e433cb0d2ffbcd690648ec9984f02fb17154"
+  },
+  "onprem/analytics/presto": {
+   "256x91": "1bd1c15da71937b0dbdffbf262ebd807dc42735434d73364190071bfd45345ce"
+  },
+  "onprem/analytics/singer": {
+   "256x256": "2eade23b8dea0ff4021d636029dd30b78d32afe6989c50dfdf6dd52f898dd915"
+  },
+  "onprem/analytics/spark": {
+   "256x256": "e4b3736c6a8c3a5cd1e258de57c6f078a38c469be6053b72cac5ea29cf731fb2"
+  },
+  "onprem/analytics/storm": {
+   "256x256": "449ffea8406898de6c6f47c3f9823b976f9f80b50b8f5f11984aee8d4f29a0d7"
+  },
+  "onprem/analytics/superset": {
+   "256x128": "2f7917631ffcb63db06e55b4c0a3bbd7a488ff9f829a8d887985d05137038e82"
+  },
+  "onprem/analytics/tableau": {
+   "256x176": "3b7bd54c225150e013ad56e0d39d7cd42c0196fef46f2b6aa34ad450c345d554"
+  },
+  "onprem/analytics/trino": {
+   "256x256": "f29b3b88631d69a201258bc51e8f01d52ee5f040fe02547cc548fb94866f0a82"
+  },
+  "onprem/auth/boundary": {
+   "573x573": "f9813cf28df1e34a995437f55d6de8cb5e62126cde593e6b58c9363645cd5c79"
+  },
+  "onprem/auth/buzzfeed-sso": {
+   "256x239": "0000c595f467d9c9ec5f0e2a0ef34e1c0ffdc34cfb49431612fb258ca84df79b"
+  },
+  "onprem/auth/oauth2-proxy": {
+   "256x256": "681ce98802749238704294de7adf490b9307d14cd7eb8360073f40d8b2d303a1"
+  },
+  "onprem/cd/spinnaker": {
+   "256x256": "4102994d84d085adafa17b56e5e429203003324e5efcef1c6df4cea5538f92e2"
+  },
+  "onprem/cd/tekton": {
+   "256x256": "5c2fe7f65f500cb9e91f119f52ea6a0d0a4f31a4a4f22a003fbe3677304247ce"
+  },
+  "onprem/cd/tekton-cli": {
+   "256x218": "aaa28195594f3b2b99fead8fd82a8f227eaae029a08a914d769c9b00a5920ca2"
+  },
+  "onprem/certificates/cert-manager": {
+   "256x247": "1dc55edc37beb05365a2575a78af0cd1c10e481bb237853706af6a012e50b5ae"
+  },
+  "onprem/certificates/lets-encrypt": {
+   "256x256": "92577d4a74d27e72c860ea489e80911c4d48ae60f0ea25a89d421d23a62be5c5"
+  },
+  "onprem/ci/circleci": {
+   "256x256": "91badcfdf6cfcdd425b2d70056111a9c9fd39a80f587ff5edaa31c60da39eca0"
+  },
+  "onprem/ci/concourseci": {
+   "256x256": "1c6ce40e6c0a3587ebfde234091d0f00b9b2b5937204f4bebbfd4c73f05d2804"
+  },
+  "onprem/ci/droneci": {
+   "256x256": "ab3f9a6981430595c652477cc722fb92d8b77026dbec151084db2593511ebeb1"
+  },
+  "onprem/ci/github-actions": {
+   "256x256": "632707f2ce871f3e7762a9baabd45a2a0ad7a73ee82a550613e81f590c9656c2"
+  },
+  "onprem/ci/gitlabci": {
+   "256x286": "9fcda4c1e0827058ea782612fe4b1095d6ca9d19954ac7fb738ae5423ded6985"
+  },
+  "onprem/ci/jenkins": {
+   "256x256": "31c811d322c78788b35a65dfcad9f1631c24decc80923f30204c0401464b9155"
+  },
+  "onprem/ci/teamcity": {
+   "256x256": "f29b30c67bd5fd56998729f61a161e3292e55c1fe4e38963bc203dbaf803fd11"
+  },
+  "onprem/ci/travisci": {
+   "256x256": "5ff98302a5ca6aeb0c9d990117de475d1e60a073c6f85065cef9330c0b6529f8"
+  },
+  "onprem/ci/zuulci": {
+   "256x256": "e3854dd5113155a77a6ef34a06a35e4227843b82f3930e3ce8bea2c199502910"
+  },
+  "onprem/client/client": {
+   "200x200": "eb6feffe39004081132115963f9f3a8088afd903f3dda6936b936e67d87e0445"
+  },
+  "onprem/client/user": {
+   "200x200": "ff247b1da14ee0bbd0022535048b05d0f98ccaf32a1266c7fbdaeab9d151d5b7"
+  },
+  "onprem/client/users": {
+   "200x200": "4aef201405ce7dc9bccdb47916c9c825c3ea64c89ad504eeadbbb993478ec5e7"
+  },
+  "onprem/compute/nomad": {
+   "318x350": "ce1426644d20e9c6b1d487c9b1b39c06e18f1c56bbba8ffe88d9c2becdef12e4"
+  },
+  "onprem/compute/server": {
+   "256x256": "a1502036bca981f076459f78e1d4d06ab789dfd12e451a4f643898a11b90cb5b"
+  },
+  "onprem/container/containerd": {
+   "256x256": "354f22e44173faacfacaf662e5d08b49f64eb708bb241120725c4558a796cdbc"
+  },
+  "onprem/container/crio": {
+   "256x256": "9dc85b0a35b751249840ce01913f3c279fccc89e1cffa4c40689514cd5613acf"
+  },
+  "onprem/container/docker": {
+   "256x256": "cb2fb47f8e1df549981e4958b3b5e0d49ad50af734c9cb84fd77bb047d499b85"
+  },
+  "onprem/container/firecracker": {
+   "256x432": "83a898bf6e9fa3e04da13424127c1014df09a4caec7da83be3fa85be438371f5"
+  },
+  "onprem/container/gvisor": {
+   "256x279": "20e7d4dfa40eaba13957b7ebc17b5033f974ee63d1c5392e92e9fd90235f7fdf"
+  },
+  "onprem/container/k3s": {
+   "256x256": "21632765f3179a81bbc62ea2b98e21a91eaa47619234dc109c49d26e68b0f274"
+  },
+  "onprem/container/lxc": {
+   "256x236": "39f5642d7291cc1c45e432b95144d00d6e065ab20d424ff35893f420b098d98f"
+  },
+  "onprem/container/rkt": {
+   "256x256": "7a34b2539b473c7c34eeb711ff21c78a86e82c9403714b1ac0520c301d507092"
+  },
+  "onprem/database/cassandra": {
+   "256x256": "5e69e9c9034032fd167b9ed1f6a363b565f81d3ede1d4087b8a6476bea4afcac"
+  },
+  "onprem/database/clickhouse": {
+   "256x256": "a85aa715cee1920af597f70b918d4c82e50a5425d9b79ea133ebb6dc8c35bbf1"
+  },
+  "onprem/database/cockroachdb": {
+   "256x256": "f87619e973ef4f895c1395581d804ffacc70219902efc556faa75c602a79ef9e"
+  },
+  "onprem/database/couchbase": {
+   "256x256": "c2e0db751bcc90ef1bcfb21785d2b23695080f3ef77bbdf77640588f58091c95"
+  },
+  "onprem/database/couchdb": {
+   "256x256": "4fb1298c0245ed4b6303879bde7d15856dbf48d65bc4f623bca1c59a64748eb9"
+  },
+  "onprem/database/dgraph": {
+   "256x256": "ad97fedef3a2e2fa6d439c10ce8c61413e243e26dc5a4a2156ea84f38ec0ec79"
+  },
+  "onprem/database/druid": {
+   "256x256": "6b74aa9e522b016246ae00dfd0db2b9facc45ce7a759b0eb9b9b1ad0cf73d184"
+  },
+  "onprem/database/duckdb": {
+   "256x256": "2ab60b1e477bb8c35d9acc87a494b30202359ca092bf892e4130ef992f288731"
+  },
+  "onprem/database/hbase": {
+   "256x256": "914df7759baeef1a5dc898118e82597e996276f1278ec6fc3cf7d81eb2bed2b3"
+  },
+  "onprem/database/influxdb": {
+   "256x256": "92c7d31dd73d6e84b7a4cf62f2d1f26dd89a12064f6f25d36ccfe808b55ad124"
+  },
+  "onprem/database/janusgraph": {
+   "256x256": "71ccfa69f3b0496dd399036c1e940b335bc656251895e3dac8ae1c4a285e3836"
+  },
+  "onprem/database/mariadb": {
+   "256x256": "d91f6bae3e8fd81acd0929440b9023eb4eeb353a1bf4583fd2a2b6281656ac61"
+  },
+  "onprem/database/mongodb": {
+   "256x256": "f38874482c3772d750fab96b49cfcabaf829f06294ec12a57bdd557c73e0d50b"
+  },
+  "onprem/database/mssql": {
+   "256x217": "f81ad9c7d12983c3d15bc61c54944437a7f7fcc67732b4fc866e4e23484e08a0"
+  },
+  "onprem/database/mysql": {
+   "256x256": "77b3adb9a69bf95ee214e882d05fa61a809a951eee9ddb13cf8d9f24d7cb0edd"
+  },
+  "onprem/database/neo4j": {
+   "256x256": "e8d87de8d88ca7410d5bc6cb09b4644965211c4847296f7e7983a7d853115475"
+  },
+  "onprem/database/oracle": {
+   "256x256": "ebc45ffec3c5985507477fc9a0521c7f024201abc23716e0163c7fa8a796c185"
+  },
+  "onprem/database/postgresql": {
+   "256x256": "3ed36378fb79b97e8ba0656a8e2adf55a5e4bba4e73e7ba4e9da888abde3e154"
+  },
+  "onprem/database/qdrant": {
+   "256x296": "96091a85bf0418bff51cf025320deddcfef4e76faf78531f6bc1e6f31b60e522"
+  },
+  "onprem/database/scylla": {
+   "256x316": "16b12040378ab2bf90b5822d1678b09cfbe0aee6a91c80ea5c348976ee036eaa"
+  },
+  "onprem/dns/coredns": {
+   "256x256": "f3fe2356f19bf0cd6d3025eb264c09261eebdc496b55e9df624d40c4ef217f54"
+  },
+  "onprem/dns/powerdns": {
+   "256x256": "0b2f0059f941fd47abf56d45a8682764faed71eaecea38009fed0b3a013613f9"
+  },
+  "onprem/etl/embulk": {
+   "256x198": "20b754c7a44730a4d594d9f319dd09cb3f1b41fcfd8a4a993cbcd5b37d0fe564"
+  },
+  "onprem/gitops/argocd": {
+   "256x256": "31e8f307ffe7aafcb093578c20de12df471a49328b16ebc162f9a09768073e83"
+  },
+  "onprem/gitops/flagger": {
+   "256x256": "407285dd7592e29d2c55810251336141b163e13436653928970bef5dc3073a73"
+  },
+  "onprem/gitops/flux": {
+   "256x256": "6ff92a36251ade752d8f7000279c33f9fdbbd7ff52435c06534b888fd3d29792"
+  },
+  "onprem/groupware/nextcloud": {
+   "256x256": "195a9c2f7df4bb4a1019f7f4991aade677a2bb6d232b2852aac82c6d9bd18054"
+  },
+  "onprem/iac/ansible": {
+   "256x256": "0eafb653aebf61357739df67928812fed47a9ebc5ffcea439b5af1be711066d1"
+  },
+  "onprem/iac/atlantis": {
+   "256x256": "2c3510059f8760d5eaea2cc5cb4086756e4971b8dbc115ca6766220c2da873c2"
+  },
+  "onprem/iac/awx": {
+   "256x151": "459cc5ad239fab82c8e68a00f46f0b72efd2ec2a2b9aadc6fbc5a068fc83844f"
+  },
+  "onprem/iac/pulumi": {
+   "242x256": "59b010dbeba65064fbef1b5a04d9d18de6e41bb71d5be546051709aff899d998"
+  },
+  "onprem/iac/puppet": {
+   "256x256": "caa62d8f2f819107ef216c4229c61bfa562c6ec31284734001d0df9a927604bc"
+  },
+  "onprem/iac/terraform": {
+   "256x256": "c2a8abd0513ebd7ecc9932811eaaa53305ec9a131bedd405181dada57f6b553e"
+  },
+  "onprem/identity/dex": {
+   "256x249": "5ba819babf2f7e08421ae56c14f313c0e804ed925e7d952a98ebf3f28c8911bf"
+  },
+  "onprem/inmemory/aerospike": {
+   "256x256": "f8ac9ff2d29d28b1fe6315e538f390376cfe4533613c1161384ba2ccc3efa992"
+  },
+  "onprem/inmemory/hazelcast": {
+   "400x330": "15dd2db6fd707b4b3b7be34e586b80e7c8b9781afd214950cd2969a2b92852ab"
+  },
+  "onprem/inmemory/memcached": {
+   "256x256": "0dca0f3bf35ed9944b88a7177b70d37d195e62fbccef6935f894ce4728bca6cc"
+  },
+  "onprem/inmemory/redis": {
+   "256x256": "8a148180f556f306ac232ac2bb98e9278fe4ddf2abedcd892a969e10a9ecc2f8"
+  },
+  "onprem/logging/fluentbit": {
+   "256x256": "9cd7b3ee87f6bfc4be227b84d77e621119bbd3f14a470c7d4462d34df9d1d17e"
+  },
+  "onprem/logging/graylog": {
+   "256x75": "cd63ebe9fd4ffe51574d237abc984897afe17153b081a6d1d2b7524c3200a3d8"
+  },
+  "onprem/logging/loki": {
+   "256x256": "61f2ffb1ac6bb4f152fbbb3ab75dce90c0124aeb28e9b5c09593e01ef2e37c5e"
+  },
+  "onprem/logging/rsyslog": {
+   "256x106": "07dc420a0e345eb9b0e4f1c864c70a7d1f9bb4c6dcb37ee5fd6cbe470316184c"
+  },
+  "onprem/logging/syslog-ng": {
+   "256x134": "83875be44fb23b58353b16306fafed5562833275eae38b024b3ebf1b9b109162"
+  },
+  "onprem/messaging/centrifugo": {
+   "256x256": "90b25fe7749cd31731f5d8658c05ab8877ed99a019e88a420fd55d00cf4786ba"
+  },
+  "onprem/mlops/mlflow": {
+   "256x93": "bcd9af0b9af9b9bfd755a5baf037f710250e9367820d1907a321136537e78a02"
+  },
+  "onprem/mlops/polyaxon": {
+   "256x256": "bd601126efad11eb808f3fcf8deabae5be0c2eb11f1cb4ddf66caae6fd3de104"
+  },
+  "onprem/monitoring/cortex": {
+   "256x256": "e2d94e384269d228b2ee7df629d401ea49e694f0fdaabad0c3bde845b4ba7a91"
+  },
+  "onprem/monitoring/datadog": {
+   "239x256": "788f7b9bf521e69c67378419949147156520a1fe2e29dc7523d1a49010d15607"
+  },
+  "onprem/monitoring/dynatrace": {
+   "256x256": "ef294bdd0a84108c291054fc027ee4e7563e9d516a4e0d121f7741e8f3f11a9d"
+  },
+  "onprem/monitoring/grafana": {
+   "256x266": "03e4b25e7a0845bcbf7af67b566204fc99fe3b4c581bc1ee695b9053563b95c1"
+  },
+  "onprem/monitoring/humio": {
+   "256x256": "1925f3698a448d5bd0c55e56130c42f9aa3f514e14b1f606d265b23ff18c0fc2"
+  },
+  "onprem/monitoring/mimir": {
+   "256x182": "c3c1f39755959f772528191081501c5a53dec9e88fa3c5f4af6be68dd27af7a1"
+  },
+  "onprem/monitoring/nagios": {
+   "256x256": "45966c782e07004fa6915f553bea2d76dca9db788d66a45bb0ed480c578117d1"
+  },
+  "onprem/monitoring/newrelic": {
+   "256x208": "721205e7b12ba1fcc65b398ac36d20645293248e4e18864a4f44d543d31239f5"
+  },
+  "onprem/monitoring/prometheus": {
+   "256x256": "013d3cd33b0fc66001d157feec81bd2cf5732d60272baa3f1d570e50aaaafd0a"
+  },
+  "onprem/monitoring/prometheus-operator": {
+   "256x256": "c4c241a5314e944539a7f7507c9483f123624dbc2994e98e49752b54bbea9569"
+  },
+  "onprem/monitoring/sentry": {
+   "256x256": "c58b98205e36402c70927ce3b931866f4f181f0cab3fc0cde930aa6bdab24b2a"
+  },
+  "onprem/monitoring/splunk": {
+   "256x256": "b8fa95e47415cbf89bd1918f53aacdeab454adf64448560f36b42a79b308917f"
+  },
+  "onprem/monitoring/thanos": {
+   "256x256": "3426aee817f24b637a37e838916634d1dad8be511edf22497c0845b823e98050"
+  },
+  "onprem/monitoring/zabbix": {
+   "256x256": "e4b44da7fa5e7fb841c90f0812fc69e5287027cda723910ebe3e47b1783a7adc"
+  },
+  "onprem/network/ambassador": {
+   "255x255": "a55473fb0dcdd840ac5537e191b8d2bea0d3f0042730f5a34c95f4eedfd73475"
+  },
+  "onprem/network/apache": {
+   "256x129": "e71ce8ea0d57854b750d8da18384b74425c6bda597b8bec37ddfe20aa808556f"
+  },
+  "onprem/network/bind-9": {
+   "256x198": "4cbc90cff34dfcec00ff8b8131ba67dac876143174a0d366b8f673065665b9aa"
+  },
+  "onprem/network/caddy": {
+   "256x84": "ec62757096dabb567960ded26ff8b429e89cc31bed90ecdf7f8a72dfa0dd655a"
+  },
+  "onprem/network/cisco-router": {
+   "256x256": "b9d9d90d9e80c4186812ac07f3509de946ae02df50805b6e0a75a96f848c34cb"
+  },
+  "onprem/network/cisco-switch-l2": {
+   "256x245": "089a4baab0ea86bfd833131626bfb6f4ac1afdb50bd8107c49a2c940c9e4c3f6"
+  },
+  "onprem/network/cisco-switch-l3": {
+   "256x245": "7ae3fdf8e5f0fd4e7443dc2094755ff0cf8fea971d83fa5f0073dd4e83cbe3ce"
+  },
+  "onprem/network/consul": {
+   "256x256": "05b30a549f2988c23475f072eacd80552839997d22984a674b6583cb72f01f4f"
+  },
+  "onprem/network/envoy": {
+   "256x256": "2d0e3a8c007c2f52d0c54486be38423859c85e0ea363adc8343848ce47294c9d"
+  },
+  "onprem/network/etcd": {
+   "256x256": "1ebb984caaed002adbc607f71dc91b5ea6914105b5e74e37893a3415e88f1c8c"
+  },
+  "onprem/network/glassfish": {
+   "256x114": "56ec320e4f2c7a3a9bd2903f9a56da5cac4d5e99918bcdba719ba215fab5fa3c"
+  },
+  "onprem/network/gunicorn": {
+   "256x156": "edafdc2b7d0513a6fc7920d30701996333a5d5290c15b5291814cd905dd196a1"
+  },
+  "onprem/network/haproxy": {
+   "256x256": "8ca9d72e868eb90490aaac7993971d1df09beb57d8acca8791ae211333612590"
+  },
+  "onprem/network/internet": {
+   "200x200": "5e15c362434c884337550870d856481c4ae262252c9d332f02f9b46bb7a9c3bd"
+  },
+  "onprem/network/istio": {
+   "256x256": "c5ea6210de7279644a2234fc1c66fe1adc7d17e3a281e812aee6f4a2cf4757bf"
+  },
+  "onprem/network/jbossas": {
+   "256x150": "41c027d84460993206f80b6ec2e687d27a13affb0f3ffcbce8fb1d0e3cafd46d"
+  },
+  "onprem/network/jetty": {
+   "256x73": "131929b68cd33845451b947d5858b5d70a5a3af7b1fdfcdba0f2e3939383160e"
+  },
+  "onprem/network/kong": {
+   "256x256": "53938e26efb1f25cbc7442fef5b4be3d8b601d7d10a9c4f8150b68283a0872c4"
+  },
+  "onprem/network/linkerd": {
+   "256x256": "9d8f0077c9bd3b5eab51244cf016a81bfe9c53e25172ecfddb04e418366da0aa"
+  },
+  "onprem/network/mikrotik": {
+   "241x256": "017dd05e96c11c227924123352fd42f55ad7aa05e6908d68de268e68a13722f1"
+  },
+  "onprem/network/nginx": {
+   "256x256": "69d35272024bfd72105616fcde9abf61f78d28ea577b662a290fb6ebd4ccb187"
+  },
+  "onprem/network/ocelot": {
+   "216x256": "5a7a092159e0f8021225c1565d3fe0f34950cac6f59251206f5441d34855106c"
+  },
+  "onprem/network/open-service-mesh": {
+   "256x256": "b2a8e1346c85a8e19a7aa9514c987d29e076918c0cf793142e1a5792a37eb325"
+  },
+  "onprem/network/opnsense": {
+   "248x256": "6622a5ef0c5031ace968965397f9454eaedcca490147a000a3227c70bd983daa"
+  },
+  "onprem/network/pfsense": {
+   "256x75": "e5e8012057180ed89eeb5ff1936bb1825c0f6f373044e9f76caac53412294043"
+  },
+  "onprem/network/pomerium": {
+   "256x256": "e5b9210ae7d212db8f248a0481c0d06730dd39552b6170e664729e64e44c2c50"
+  },
+  "onprem/network/powerdns": {
+   "256x34": "f0845b7b08b4c8ee885fe0ec52f5b1289ba47e81d1fb63979e248231db24e983"
+  },
+  "onprem/network/tomcat": {
+   "256x181": "f5393def1b234ea98de901ccef3e45cd1e18c9f11b0698381ca26e9a89639b3c"
+  },
+  "onprem/network/traefik": {
+   "256x256": "c4908be90ff36c6c82d7d63d69dcc7fe5041d9b1ba3b2c4b4d557d9d3d696200"
+  },
+  "onprem/network/tyk": {
+   "256x256": "877d5760e3f5f04fcd15ee40eab69ad6909054a8ab054330d4ebb29d3affc1a2"
+  },
+  "onprem/network/vyos": {
+   "256x256": "cc351bf2309773065f672189cf860ca022237c733f8ec21d4e0fbcb416763ea9"
+  },
+  "onprem/network/wildfly": {
+   "256x256": "b14fd7ad296fcaddea61e110cbb4a34ef7befc40b91e648f22a00381f69c8f0b"
+  },
+  "onprem/network/yarp": {
+   "256x256": "c8e7edd5a887cfd0382674eb7ec1c5ad55b127bf176a2a4bd28f646196192e3a"
+  },
+  "onprem/network/zookeeper": {
+   "256x256": "0e182df1e4519ae1eb577fc010bf48333b6d539741f1075a4fdd4648b25af075"
+  },
+  "onprem/onprem": {
+   "256x256": "a1502036bca981f076459f78e1d4d06ab789dfd12e451a4f643898a11b90cb5b"
+  },
+  "onprem/proxmox/pve": {
+   "256x256": "afeb735d365074d4ac60f4a4f7bb05479b52a7fb775a465eabda59a6e19c2f5d"
+  },
+  "onprem/queue/activemq": {
+   "256x256": "d027afd2635c611d4228f0fed72d5070718eff6df4da3d12d02692081f533b6f"
+  },
+  "onprem/queue/celery": {
+   "256x256": "67059e42590395ae6f339aeec7d941359e21a6e0ea1646f59c508545bc7eb46a"
+  },
+  "onprem/queue/emqx": {
+   "256x256": "ed06bdfdc1637477ee5defae3a011aef5313afdbc54e147a980782a2f2d5ad7b"
+  },
+  "onprem/queue/kafka": {
+   "256x256": "a6bf7bc2b6a21da7f6da597109249baeee65d93b3370189ce747bc43704c5d42"
+  },
+  "onprem/queue/nats": {
+   "256x256": "a833c155006a72590936d474267d6263d5958e99a7fa2560096939cffe3b2554"
+  },
+  "onprem/queue/rabbitmq": {
+   "256x256": "3f24fc26fbe2914cf91a6386e4393d06786529fad55fb19814c62dd120441fe6"
+  },
+  "onprem/queue/zeromq": {
+   "256x256": "de71ddd8c43f1dc744e779ad63f07ec572612a4878ab71df3041ddb5cead4e42"
+  },
+  "onprem/registry/harbor": {
+   "256x256": "a8b37efc8a827296c3d6d4544bd0b4b566735eda7b8bc3763dcfbbd7156cfcd8"
+  },
+  "onprem/registry/jfrog": {
+   "256x256": "39d620857c3ad302eee423192a98f8ca950fb65bec4a1a44b523c775b7ff4f0c"
+  },
+  "onprem/search/solr": {
+   "256x256": "a76597ea2b03c40f879203217db6b2c319ed7273867c635f608c2132e3d337ca"
+  },
+  "onprem/security/bitwarden": {
+   "256x256": "5c9125dd2dc293ca6fb101cbff00385950c5503771ffc76acafd4353ed067182"
+  },
+  "onprem/security/trivy": {
+   "210x244": "10677ed8024cc648aa50e70e5de576e5fd34c745348c73c63b2a3730a2577ae4"
+  },
+  "onprem/security/vault": {
+   "338x343": "15f707fd78c218e755ae0a5404079d0087949952e137bd7c9e344ca3bbb224f9"
+  },
+  "onprem/storage/ceph": {
+   "256x256": "3e121a9c798657bd6174f7dc0d7c4aa2b1f65c4369623657388f2073eece32ba"
+  },
+  "onprem/storage/ceph-osd": {
+   "256x222": "5076e12232a374bfcf5a4e09a421b187f0ce5aa5a154df98d50c8dc57db48d86"
+  },
+  "onprem/storage/glusterfs": {
+   "256x202": "c9c996f4f2217766d48bccb80db6772327dc8cf64e77b798d082ce4fce065898"
+  },
+  "onprem/storage/portworx": {
+   "256x256": "9d2836c77f503453bda4036a1ba37c444ab76b7d3da45d5382b40c4a274458bd"
+  },
+  "onprem/tracing/jaeger": {
+   "256x256": "0c346553800317e86df6fef3bd1210e946cd996127b50e59f9c540808277c729"
+  },
+  "onprem/tracing/tempo": {
+   "256x208": "5f3ebc1b64d881ab22cae83b8b9dd1939c7ecee5a8ae99ca0a8e596fc576c8d2"
+  },
+  "onprem/vcs/git": {
+   "256x256": "e8cd964039975b40187b99e50632ca3e843985fe506c2941f96254bb5590b7a1"
+  },
+  "onprem/vcs/gitea": {
+   "256x256": "ae517b4fd5509fc8ce435488bc052ef97f9ada2f3421781101022c098d496f2d"
+  },
+  "onprem/vcs/github": {
+   "256x256": "067fe25862b4029d99b5b22eea0b333bffff292914e062d60563cd4d6f4025d1"
+  },
+  "onprem/vcs/gitlab": {
+   "256x256": "3c513b6b390c11f41736098320353d0d5fab1a7216cb7dda7e0c54290163f2ec"
+  },
+  "onprem/vcs/svn": {
+   "256x256": "655d0d73505c7570c08c5ceb36a1022134deca0839eeb537e7dc4a17e90c6073"
+  },
+  "onprem/workflow/airflow": {
+   "256x256": "334d3a92a770693d8f00e1467addacb6418f6271eef229a22052e63d348fa81c"
+  },
+  "onprem/workflow/digdag": {
+   "256x232": "585dbe03c9f83e9b583f3f0228d83d22112a69e9d3a1962f055c523b733ddaea"
+  },
+  "onprem/workflow/kubeflow": {
+   "256x256": "0dec0034a826afa036b30b048eb9a7428d4c3cb1682355138a9fb5dd9ee6bb09"
+  },
+  "onprem/workflow/nifi": {
+   "256x256": "4bed804a7f5a130cab62175f6256f18b98a8595217c96c0d77a2bc6a4a879e42"
+  },
+  "programming/flowchart/action": {
+   "256x256": "c11351f2b774b6610e167818a9537c4e1021a15b83c7d1c5dad5f28d22595f14"
+  },
+  "programming/flowchart/collate": {
+   "256x256": "1c336a4969c8f21a837d67a1d7b1e14d0ff1e84c66b7cf0ed00fbcb412d74cad"
+  },
+  "programming/flowchart/database": {
+   "256x256": "e1743c5bb8e6acd4a93ad2bf5a2d98f622e65ac6cb112991ac05176f46b7ec39"
+  },
+  "programming/flowchart/decision": {
+   "256x256": "d475f2515f5da6f5727a9e12594fb5720942fec432deb7605398169a2a917668"
+  },
+  "programming/flowchart/delay": {
+   "256x256": "d6a7930d3d26ce3e6b153219600c962e258918060d31493016fdd0c6576f38fb"
+  },
+  "programming/flowchart/display": {
+   "256x256": "d952b04f8a6ce218758a1364ae5677e99d3db1abdfe0bfc649d141f8ed69a8a1"
+  },
+  "programming/flowchart/document": {
+   "256x256": "b825aabbd66806f280a2061ade2722a182f663a163530d369c0119a2361df9f0"
+  },
+  "programming/flowchart/input-output": {
+   "256x256": "c06ae9c7d6f2b1d94c8fda2c71a2a1e3e9e9c0caf0dff832cb33b67c8150db12"
+  },
+  "programming/flowchart/inspection": {
+   "256x256": "38ab4c23ad9344726e215a071e59681c93d27c6bf173bdb18e04d25e78193092"
+  },
+  "programming/flowchart/internal-storage": {
+   "256x256": "2acc6a98f0b33fed195944d76ad0475b3cdadc0bf01d99a43ef1b41e621956c9"
+  },
+  "programming/flowchart/loop-limit": {
+   "256x256": "46d3f0d3c6c9be145cad31da1a1ea7159d1f0bf505644d2414270cfd283e7540"
+  },
+  "programming/flowchart/manual-input": {
+   "256x256": "09f2e7eb15bf7d494072c9314e548972d4d5cfbd0f2050c7441f5e5fa3beb1c5"
+  },
+  "programming/flowchart/manual-loop": {
+   "256x256": "28c5496ac7074908cc861cf70bb6ac1ca98ea87513bf7a0cd950eb1f55ee41ae"
+  },
+  "programming/flowchart/merge": {
+   "256x256": "a9c65ee0ffafd43f6cfd4e62e08e20f3ff6ce21db30281cdd1d48d65922ebf71"
+  },
+  "programming/flowchart/multiple-documents": {
+   "256x256": "52484ab9ce14196bac247cdb2a3ba5bb0f4af0030c761b61dad22ffca7fdc8ea"
+  },
+  "programming/flowchart/off-page-connector-left": {
+   "256x256": "2fa67c1badeee10db4d8e1bbd1039a2824f95b55d4a5b28e14805bdd5699cc87"
+  },
+  "programming/flowchart/off-page-connector-right": {
+   "256x256": "b3da38671b6fc161e9081ea81c5766fd5cf6d0eea73453ccd53f3d273b7c6519"
+  },
+  "programming/flowchart/or": {
+   "256x256": "21213fcbe67a9f67c4a7f006946f4198f31ecaa299631b15607b327cae765e92"
+  },
+  "programming/flowchart/predefined-process": {
+   "256x256": "736554ee7a485a64ce3d307ecc1f455345b76aa281ab1af5380a044ddc42ad06"
+  },
+  "programming/flowchart/preparation": {
+   "256x256": "00ad16c4ba2b1aaf0cce05ed65dbfad08319839e1b38fff57efedeee70f3f686"
+  },
+  "programming/flowchart/sort": {
+   "256x256": "9a707ba7ba65ebd630bd546f05640aa1c12a405c35ad24cb5f8f7d8004fb3635"
+  },
+  "programming/flowchart/start-end": {
+   "256x256": "1306f42ef9a725ff444754c7833b2eac2c48ff954b01187d4040b3e5c954cb42"
+  },
+  "programming/flowchart/stored-data": {
+   "256x256": "e4ee29517c075ff0b4915215102174dfe42c0c8e9e389f2d281a200e817bab0a"
+  },
+  "programming/flowchart/summing-junction": {
+   "256x256": "8793f65036ca2c5c57ebd7ff44865b7c7c33def2b85203232924ef9839c26d49"
+  },
+  "programming/framework/angular": {
+   "256x256": "e10aa2b84e019a7fb1d0716719cdf03fb9ace9f7ddd4c73b8654c4014ddfa816"
+  },
+  "programming/framework/backbone": {
+   "256x256": "b2586e837a937ce5c1eec2742ef335743ccb088ba2a0b46906fadcc278523bb0"
+  },
+  "programming/framework/camel": {
+   "256x256": "1f03d06580fb8528483e5fbb6857291ff6097a0d41bf6caa47df8e3dab26a1b1"
+  },
+  "programming/framework/django": {
+   "256x256": "1b351ca16d1d36a22fcd3bc617c715d6f25e88254eadc4b897685f7d1c70b3c9"
+  },
+  "programming/framework/dotnet": {
+   "256x256": "88b57ab9abdd25ab586efc93e282ae6dcc31679777ddee75921c9a9d77bd559c"
+  },
+  "programming/framework/ember": {
+   "256x256": "957bf3727ecdcbb2e9c5e41d1a8d8ecf298b70df4dfb60f195a690dbe772bbec"
+  },
+  "programming/framework/fastapi": {
+   "256x256": "7591c106d0adcd78506fbc167ccb5023c44629ed94e7adf63cc3a27d788f8914"
+  },
+  "programming/framework/flask": {
+   "256x256": "f09ef475b12d400b2777d21405f7db8a5cb81f53e069cdf47791c63c0cc71d39"
+  },
+  "programming/framework/flutter": {
+   "256x256": "8b9fbb7b2562cffe3536fc718a16970b444fc7f9b436a426af2e3ed0ca6edc09"
+  },
+  "programming/framework/graphql": {
+   "256x256": "e7ea9187b6e472e95f8d59a26f865fe8ea56351d2989c1a099bfa316d3577a65"
+  },
+  "programming/framework/hibernate": {
+   "246x256": "0937747fa12f78b89907c839432d138b3242c36889c22014aa2093436c26f2b2"
+  },
+  "programming/framework/jhipster": {
+   "256x256": "9079645fbb551327e61c2ae24a343801f86ece12745323fb02ff372514a7ee04"
+  },
+  "programming/framework/laravel": {
+   "256x256": "3e9bf987c47de1e4aa7548fe8f144e417ab53d6a2ed75564fa13abee0275929d"
+  },
+  "programming/framework/micronaut": {
+   "256x256": "af92a19e6a60d86a90d8925297d17fb8a7a40337325347061b8257bdc6cf02bf"
+  },
+  "programming/framework/nextjs": {
+   "256x256": "5f36a21a8fac9319c48ac2d52455a1ae63f2a1df90f4d8fff760ced8af803d9d"
+  },
+  "programming/framework/phoenix": {
+   "256x256": "11b9f554ce38ca7225915a00e002eb7fd6b5783ea0e39ccf4fcc48b9f1ee00af"
+  },
+  "programming/framework/quarkus": {
+   "256x256": "def3ccb8b5e34fc77618527cf40e8864e5c5b8422b571c37b25ac6b41e15c66c"
+  },
+  "programming/framework/rails": {
+   "256x256": "b3efbaaabc7923ff5a211183c7fddc6c6354af03fed5564afba9918fe0cb05a6"
+  },
+  "programming/framework/react": {
+   "256x256": "1b7bc72abf5795ec18a8fea72b6a23f7a9e086ca7979083cfdff63dab759a7e9"
+  },
+  "programming/framework/spring": {
+   "256x256": "b9f8fd9e9aae7677738ef7abd4a04a1c932614987c8abd1550bda8949d1e146f"
+  },
+  "programming/framework/sqlpage": {
+   "256x256": "b0d7a7551836c109b8658e32564d68d0a71210bc90f3ca18fb79f32541459949"
+  },
+  "programming/framework/starlette": {
+   "256x192": "bad1e8dfbefc07e2c08b2fe0ab94a8319c20f30acdfd4907720bab290ff0a27a"
+  },
+  "programming/framework/svelte": {
+   "256x308": "20ff4e09b032a001842daebb8d03704e4b1e96b766452d5d51a199635b48b277"
+  },
+  "programming/framework/vercel": {
+   "256x225": "586cdf5c939d0d99fc1dceecb67206b08e0b7bec214f732d24d83814d2ee32f9"
+  },
+  "programming/framework/vue": {
+   "256x256": "3f7881cf70c130ea27a50d588cef01a757abdc545a59417d7525d2442a2437ea"
+  },
+  "programming/language/bash": {
+   "256x256": "0befab88c540ad481716904fc3bbef5a28e354f680fded4aa5d645ad182e1a21"
+  },
+  "programming/language/c": {
+   "256x283": "61ccc1affe5e23da194d1976c51ecc0c503ac1c497cf7a09af3ebca32c4a3563"
+  },
+  "programming/language/cpp": {
+   "256x288": "1ecc431abac9bee8220c0ac22079c4b33217429379e20aba286c629182b7832d"
+  },
+  "programming/language/csharp": {
+   "256x288": "e3ad98229281f7953843f7bd3f4e131ccff9711ca923ad2bdffec6c564907f3b"
+  },
+  "programming/language/dart": {
+   "256x256": "72cff7dc721ee876dc44e2dc5f917e47d7ae5904fd38d44704949a0b7cf2d289"
+  },
+  "programming/language/elixir": {
+   "256x256": "61959fba3cae1a5fa710af169b07f12987e87447babb34cff5dc27406cb81e47"
+  },
+  "programming/language/erlang": {
+   "256x224": "a2ad7edc7ee92f3efaf725d5996026aff995228c12f5c8caeea9f89a901bbdd7"
+  },
+  "programming/language/go": {
+   "256x256": "c4a8e571a9646b427cb0eed63a3106cd855a9c6f35408fcb2e834c0d6aee3ed1"
+  },
+  "programming/language/java": {
+   "256x256": "f1c2bea1d445088f9a3a945ea8adf571521c3b1261cd5240d2b3bd643a19b791"
+  },
+  "programming/language/javascript": {
+   "256x256": "bfe9230c4cacfe57e5c1d694de2c32ea668b9a39f28bbdb6d0b69b78392247df"
+  },
+  "programming/language/kotlin": {
+   "256x256": "66abb390206f03a8d1fc88b05c8c041c62b469bf98f44879bde268854abdba9c"
+  },
+  "programming/language/latex": {
+   "256x107": "0bf437e419a4d0b27daa217b864f793a34fa0a21863e5929246411bc0b8dc8d8"
+  },
+  "programming/language/matlab": {
+   "256x230": "4c3cd060ac208a2189930a73a358f985c48ef00014b555440a1a5a312e2f7a99"
+  },
+  "programming/language/nodejs": {
+   "256x256": "53a92e77719b7a1b47a1eb1b3516fe7e4410376713746e86460a383282d14325"
+  },
+  "programming/language/php": {
+   "256x256": "42c5783910ddaf9fb09fafad2236a22bc3764204803f13929683328b38d9ad80"
+  },
+  "programming/language/python": {
+   "256x256": "842cb4fc1cef3419680ebb26256359e2433b5f2b366bca3706e1bbdc9a61eda2"
+  },
+  "programming/language/r": {
+   "256x198": "aae1d3654e95b29669ce12a8e58ff39c8d302ee9c588f10f0d4f4ecdd418d2f3"
+  },
+  "programming/language/ruby": {
+   "256x256": "ece10bc9e1180880594be88f751434d0089ac9d06fe03ee606e98fb6e9cd616d"
+  },
+  "programming/language/rust": {
+   "256x256": "88c92915dde8fb81882ffee4fa55dc98a62dc7bfcfc2e49655a9de5a66d2d073"
+  },
+  "programming/language/scala": {
+   "256x256": "32972deda64b6c1bacb7aa7e2241b2af822912c03e430bc8758a3d7aab8367ae"
+  },
+  "programming/language/sql": {
+   "256x256": "44f996feef00ebdd03363123a0f937759a28131aa4320a3f4f397f10cf4aa9f4"
+  },
+  "programming/language/swift": {
+   "256x230": "29a547b20acf638823be5962a1bf115514ea7cfc144932d75a1e09574ff649d7"
+  },
+  "programming/language/typescript": {
+   "256x256": "9cc84f79b3da3d212fca20bb452b286572e9addd75c26d7aeaec296092e3b92a"
+  },
+  "programming/programming": {
+   "256x122": "795036bc1fa64ea1db4c194ed5a7ffada311e480f4dcf48c9bd34d76337e877e"
+  },
+  "programming/runtime/dapr": {
+   "256x256": "10ad5f44374b7d14f1bf709c1ed51db68114d2252cd0b21480f5ae99c46987ad"
+  },
+  "saas/alerting/newrelic": {
+   "256x208": "721205e7b12ba1fcc65b398ac36d20645293248e4e18864a4f44d543d31239f5"
+  },
+  "saas/alerting/opsgenie": {
+   "256x256": "a5dbc6898d57c70eedf2fb5b5e16f7896a1a90157adc6b70d9920a8de8da7bd6"
+  },
+  "saas/alerting/pagerduty": {
+   "200x200": "3190e314e7413abc5d386e6f021309d3bbb3d7af0afd7aff4184eec01a0ec132"
+  },
+  "saas/alerting/pushover": {
+   "256x256": "2479956092569538e3091f16cc602cd20cace555e2b2480c240b2b6ad6018236"
+  },
+  "saas/alerting/xmatters": {
+   "256x273": "9e53a710e68a5465821ab2fb4ec98990188ff1102eaec5e40d7453c8cf4b56b3"
+  },
+  "saas/analytics/dataform": {
+   "256x256": "0e0311ce0d19e105cd31838281331953bb5ac20dd800f03761ead772f302b74e"
+  },
+  "saas/analytics/snowflake": {
+   "429x413": "3f7067297e2a27824def5d9e76779e9ebc7f1b1e1e7dbd30cb9fbcd1d74b6dbd"
+  },
+  "saas/analytics/stitch": {
+   "256x256": "af5d391a9a133cfb82da9af5e1222366d0b01c75356cf4b687eaad807586c44f"
+  },
+  "saas/automation/n8n": {
+   "256x256": "aaa81bb45c4c2301e88312e8bc55faaba0f91f7ae6661dddce4abe63e9c97f28"
+  },
+  "saas/cdn/akamai": {
+   "256x116": "a214585cab4a11dc14323b89ef01be222b6d87c884a9a6abe40b2db96a76c2fb"
+  },
+  "saas/cdn/cloudflare": {
+   "256x115": "51927682b2f044c261577ab30b943628a8a53d19ccd143cfa1938b3f137dd69d"
+  },
+  "saas/cdn/fastly": {
+   "256x116": "eadefe2dd31dd1858f9c21602b3613339ea4bdc76b1d8c265a25a9f7811c9f90"
+  },
+  "saas/cdn/imperva": {
+   "256x256": "aefb15d4d2914f7c3e4c31fe61619cf3e1f94b2fa898f42b85e6df699da888c6"
+  },
+  "saas/chat/discord": {
+   "245x240": "30304c4e8261b43e4d08e0b44ed94a8bd03293c9aec3d61f85245a38cab11e3e"
+  },
+  "saas/chat/line": {
+   "256x256": "985f3d0b5df8c31b2dae3cac2ae2192306de76cb7041f942c158424813d8c2dc"
+  },
+  "saas/chat/mattermost": {
+   "256x256": "272b620ea834214bdfe555f5832597cbc7a5739d6a7667abcbe46c86f1e5c7ef"
+  },
+  "saas/chat/messenger": {
+   "256x256": "67a68e7f7e77bb6f82815b4f062929f7c1f29256726f2d036eed8b77a8bc155b"
+  },
+  "saas/chat/rocket-chat": {
+   "256x219": "f3e1e6ae5a1a122c630bc058af5288b9f213d84d3f68aeda4d0aa8c18f19ea21"
+  },
+  "saas/chat/slack": {
+   "256x256": "166994e1743b5ce33160bceea2be2285000c47aeddf81e566ab2e684884c8f9b"
+  },
+  "saas/chat/teams": {
+   "256x256": "6d901528caf2fd4ad0180efb082b2cb1cdbd421126c8a8b9f6ae69c6fbb66a78"
+  },
+  "saas/chat/telegram": {
+   "256x256": "06aca9c9ccb3dcb396255ed9896960b4239b9a1d084a57d5c182e90b0ea609e9"
+  },
+  "saas/communication/twilio": {
+   "256x253": "e1c32c150bb54d3f767c6d73c14de373d5090a289cfbc5521f109b97a445a511"
+  },
+  "saas/crm/intercom": {
+   "256x256": "a09eba943a9f4291caed6d828434eaa618915acb9ce0c4453ab751dbb6abd5c2"
+  },
+  "saas/crm/zendesk": {
+   "256x256": "c1a06908d6b56fd5b5b30ff6923e144d1b62245f978582563dcb99a86a979c9f"
+  },
+  "saas/filesharing/nextcloud": {
+   "256x181": "0de3f64f03dea64ef6c9bdff68a078a7d5cba6b1ffbc5a326dd4a14019e4e7e8"
+  },
+  "saas/identity/auth0": {
+   "230x256": "14a246ccc229bcf81a12d8bf0f12809117037fa3f80ed8ef8659d2dcd344c008"
+  },
+  "saas/identity/okta": {
+   "256x256": "80b27ae28202cd7213ec955078928ac38f933f804cb06b527a1df39cd582f9a4"
+  },
+  "saas/logging/datadog": {
+   "256x256": "f7089244f39cf5e7d828d317aa1f5cbf0a05a939ecb0fd70a65c3b52f3d63db9"
+  },
+  "saas/logging/newrelic": {
+   "256x131": "e9223be9fd3c6a7aef2157a047773b1892d44f6917b342245a93659ef07f2f30"
+  },
+  "saas/logging/papertrail": {
+   "256x192": "be9fae3578c6fbbc680cf489fd952fc99c45d554278e9081190a98929d4e69bb"
+  },
+  "saas/media/cloudinary": {
+   "256x256": "02643c07ba3a743007483e2bbb07fd71d9111d7add3665526f4e59747a2916dd"
+  },
+  "saas/payment/adyen": {
+   "256x256": "c6ea7e43f6546c11e87dd5c5e26b98b323ce6996a7735d23871b54e8d44545f4"
+  },
+  "saas/payment/amazon-pay": {
+   "256x256": "64971cb126b9ca058d6874793683e355529cef12f2d5cb201428f9eb9f2bbf2d"
+  },
+  "saas/payment/paypal": {
+   "256x256": "e35bc5cf8858a5d65a9fae43b34d8f5a9cb84348a5c4263191fc5633f2bbfaf9"
+  },
+  "saas/payment/stripe": {
+   "256x256": "2cd7e1a83ce11694ff1b3465f0758a5beb113b53974299d3b9d494e552b0e972"
+  },
+  "saas/recommendation/recombee": {
+   "256x256": "6bd6e43661d13b216fbe3233ed540289d0392b1a233c0484f5a7b619dd4db46b"
+  },
+  "saas/saas": {
+   "256x132": "55bab0b3d970c3be41d3d238b18eaadb3766534a46e6fb67d6131582618d1708"
+  },
+  "saas/security/crowdstrike": {
+   "256x256": "ed9172f6659febc35cb5789839abe9977941bfaba7c4b921ac93533fb4d190d7"
+  },
+  "saas/security/sonarqube": {
+   "256x256": "a32430f2a70c260542408d69fe239390fa13bf224ab582a99121c98a3e1ddf3e"
+  },
+  "saas/social/facebook": {
+   "256x256": "2c377bf3da70333bc892f762a60dced747535332257f2d55d687ac6642b32975"
+  },
+  "saas/social/twitter": {
+   "256x256": "56e2cecdc6e34465b7d0caeb8acff2518f7b022cc58a22513b7c4b029f8c3ca4"
   }
  },
  "note": "sha256 of the resource PNG deckkit.icons.vendor embeds, per key and pixel size; rebuilt by scripts/build_vendor_hashes.py",

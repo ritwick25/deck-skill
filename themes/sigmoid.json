@@ -31,12 +31,28 @@
   },
   "roles": {
     "accent-ink": {
-      "solve": {"from": "accent1", "against": ["paper", "card"], "min": 4.5},
+      "solve": {
+        "from": "accent1",
+        "against": [
+          "paper",
+          "card"
+        ],
+        "min": 4.5
+      },
       "record": "accent1",
       "note": "no lowering needed: D91E18 clears 5.06 on paper and 4.52 on card"
     },
     "on-accent": {
-      "pick": {"from": ["bg1", "tx1"], "against": ["accent", "accent-deep"]},
+      "pick": {
+        "from": [
+          "bg1",
+          "tx1"
+        ],
+        "against": [
+          "accent",
+          "accent-deep"
+        ]
+      },
       "record": "bg1",
       "note": "white text: 5.06 on accent (black would be 4.15)"
     }
@@ -47,13 +63,47 @@
     "accent5": "4EA347 is 3.16:1 on white, a fill or mark, never text"
   },
   "vendors": {
-    "aws": {"source": "diagrams", "reason": "service marks from the diagrams resources keep their own artwork and hue; they are the vendor's identity, not theme"},
-    "azure": {"source": "diagrams", "reason": "service marks from the diagrams resources keep their own artwork and hue; they are the vendor's identity, not theme"},
-    "gcp": {"source": "diagrams", "reason": "service marks from the diagrams resources keep their own artwork and hue; they are the vendor's identity, not theme"}
+    "aws": {
+      "source": "diagrams",
+      "reason": "service marks from the diagrams resources keep their own artwork and hue; they are the vendor's identity, not theme"
+    },
+    "azure": {
+      "source": "diagrams",
+      "reason": "service marks from the diagrams resources keep their own artwork and hue; they are the vendor's identity, not theme"
+    },
+    "gcp": {
+      "source": "diagrams",
+      "reason": "service marks from the diagrams resources keep their own artwork and hue; they are the vendor's identity, not theme"
+    },
+    "onprem": {
+      "source": "diagrams",
+      "reason": "product marks from the diagrams resources (ruling 18) keep their own artwork and hue; they are the product's identity, not theme"
+    },
+    "programming": {
+      "source": "diagrams",
+      "reason": "product marks from the diagrams resources (ruling 18) keep their own artwork and hue; they are the product's identity, not theme"
+    },
+    "saas": {
+      "source": "diagrams",
+      "reason": "product marks from the diagrams resources (ruling 18) keep their own artwork and hue; they are the product's identity, not theme"
+    },
+    "generic": {
+      "source": "diagrams",
+      "reason": "product marks from the diagrams resources (ruling 18) keep their own artwork and hue; they are the product's identity, not theme"
+    }
   },
   "identity": {
-    "rag-red": {"hex": "D91E18", "reason": "status Off track; keeps its hue under any client theme and always prints with its word"},
-    "rag-amber": {"hex": "F38B1F", "reason": "status At risk; keeps its hue under any client theme and always prints with its word"},
-    "rag-green": {"hex": "4EA347", "reason": "status On track; keeps its hue under any client theme and always prints with its word"}
+    "rag-red": {
+      "hex": "D91E18",
+      "reason": "status Off track; keeps its hue under any client theme and always prints with its word"
+    },
+    "rag-amber": {
+      "hex": "F38B1F",
+      "reason": "status At risk; keeps its hue under any client theme and always prints with its word"
+    },
+    "rag-green": {
+      "hex": "4EA347",
+      "reason": "status On track; keeps its hue under any client theme and always prints with its word"
+    }
   }
 }
