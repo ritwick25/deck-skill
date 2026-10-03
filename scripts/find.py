@@ -3,10 +3,11 @@
     $PY scripts/find.py                      every family and its archetypes, with the wide budget
     $PY scripts/find.py offering-pillars     one archetype (slug or aNN): card, budget, sheet, exemplar views
     $PY scripts/find.py --search "roadmap phases"   archetypes whose name or definition match the words
-    $PY scripts/find.py a38 --real           real renders instead of greeked views (internal; never shared)
+    $PY scripts/find.py a38 --real           real renders from the optional library (internal; never shared)
 
-Paths printed are absolute; Read them. The greeked sheet shows layout, type hierarchy and icons with every word
-and logo painted out: borrow the structure, never the words. A missing library prints SKIPPED.
+Paths printed are absolute and inside the skill (refs/, the greeked reference pack); Read them. A greeked sheet or
+view shows layout, type hierarchy and icons with every word and logo painted out: borrow the structure, never the
+words. --real needs the library (DECK_LIBRARY or its default home) and prints UNAVAILABLE without it.
 """
 from __future__ import annotations
 
@@ -16,7 +17,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from paths import ARCH_JSON, LIB, SKILL, library_ready  # noqa: E402
+from paths import ARCH_JSON, LIB, SKILL, library_ready, pack_sheet, pack_view, real_render  # noqa: E402
 
 
 def load() -> dict:
@@ -36,9 +37,8 @@ def resolve(doc: dict, key: str) -> tuple[str, dict]:
     sys.exit("no archetype %r%s" % (key, (": try " + ", ".join(near)) if near else ""))
 
 
-def view(sid: str, real: bool) -> Path:
-    d, s = sid.split("-")
-    return LIB / ("renders" if real else "greeked") / d / ("%s.png" % s)
+def _mark(p: Path) -> str:
+    return "" if p.is_file() else "  MISSING (run build_archetypes.py --pack)"
 
 
 def show_one(slug: str, a: dict, real: bool) -> None:
@@ -58,18 +58,22 @@ def show_one(slug: str, a: dict, real: bool) -> None:
             if slug in d["archetypes"]:
                 print("  device      %s  %s (%s)  %s" % (d["id"], d["name"], d["variant"],
                                                          SKILL / "devices" / "renders" / ("%s-sigmoid.png" % d["id"])))
-    if not library_ready():
-        print("  sheet       SKIPPED (no library at %s)" % LIB)
-        return
-    if a.get("sheet"):
-        p = LIB / a["sheet"]
-        print("  sheet       %s%s" % (p, "" if p.is_file() else "  MISSING"))
+    p = pack_sheet(a["id"])
+    print("  sheet       %s%s" % (p, _mark(p)))
     for sid in a.get("exemplars") or []:
-        p = view(sid, real)
-        print("  exemplar    %s  %s%s" % (sid, p, "" if p.is_file() else "  MISSING"))
+        p = pack_view(sid)
+        print("  exemplar    %s  %s%s" % (sid, p, _mark(p)))
     for sid in a.get("anti") or []:
-        print("  anti        %s  %s" % (sid, view(sid, real)))
+        p = pack_view(sid)
+        print("  anti        %s  %s%s" % (sid, p, _mark(p)))
     if real:
+        if not library_ready():
+            print("  real        UNAVAILABLE (no library at %s; set DECK_LIBRARY). The greeked views above are the "
+                  "skill's own." % LIB)
+            return
+        for sid in (a.get("exemplars") or []) + (a.get("anti") or []):
+            p = real_render(sid)
+            print("  real        %s  %s%s" % (sid, p, "" if p.is_file() else "  MISSING"))
         print("  NOTE real renders carry client text and marks: look, never copy words, never share")
 
 

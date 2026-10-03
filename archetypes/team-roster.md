@@ -63,18 +63,18 @@ Word budget 250, the upper quartile of the top exemplars capped at 250. Content 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d03-s002 | greeked/d03/s002.png | A ringed portrait grid of leads split by one diagonal rule from headed lists of the wider bench. |
-| d01-s010 | greeked/d01/s010.png | An edge-cropped title disc beside a full five-column grid of circular portraits with name and role. |
-| d01-s009 | greeked/d01/s009.png | The same disc-anchored grid for a smaller core team, offset rows following the disc edge. |
-| d09-s052 | greeked/d09/s052.png | One lead per page: identity rail and impact card beside a sectioned biography with bold run-in heads. |
-| d09-s053 | greeked/d09/s053.png | Sibling profile in the same frame, so a team section changes only portrait, impact line and facts. |
+| d03-s002 | refs/views/d03-s002.jpg | A ringed portrait grid of leads split by one diagonal rule from headed lists of the wider bench. |
+| d01-s010 | refs/views/d01-s010.jpg | An edge-cropped title disc beside a full five-column grid of circular portraits with name and role. |
+| d01-s009 | refs/views/d01-s009.jpg | The same disc-anchored grid for a smaller core team, offset rows following the disc edge. |
+| d09-s052 | refs/views/d09-s052.jpg | One lead per page: identity rail and impact card beside a sectioned biography with bold run-in heads. |
+| d09-s053 | refs/views/d09-s053.jpg | Sibling profile in the same frame, so a team section changes only portrait, impact line and facts. |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d01-s008 | greeked/d01/s008.png | Gradient name tags and arcs, cut-out photos over a dot field, a black foot band and only three people shown. |
-| d16-s024 | greeked/d16/s024.png | Most bio runs sit below the 8 pt floor, content runs past the 250 ceiling and bio formatting differs per column. |
-| d09-s051 | greeked/d09/s051.png | A single profile over the 250 ceiling in justified prose under every heading with no bold anchors. |
+| d01-s008 | refs/views/d01-s008.jpg | Gradient name tags and arcs, cut-out photos over a dot field, a black foot band and only three people shown. |
+| d16-s024 | refs/views/d16-s024.jpg | Most bio runs sit below the 8 pt floor, content runs past the 250 ceiling and bio formatting differs per column. |
+| d09-s051 | refs/views/d09-s051.jpg | A single profile over the 250 ceiling in justified prose under every heading with no bold anchors. |
 
 ## Variants
 - Featured portrait grid beside grouped roster lists, split by a diagonal rule (d03-s002).

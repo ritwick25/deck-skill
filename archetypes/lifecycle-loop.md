@@ -68,11 +68,11 @@ Word budget 250 pooled, 90 on the standard canvas and 250 on the wide canvas, ca
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s044 | greeked/d01/s044.png | icon wedges ring a solid hub disc with clockwise arrows, flanked by capability panels |
-| d03-s046 | greeked/d03/s046.png | flat segmented wheel around a dark hub with white gaps, stage levers placed around it |
-| d09-s042 | greeked/d09/s042.png | one rising arc turns into a second loop with ringed stage nodes over phase bars |
-| d15-s030 | greeked/d15/s030.png | closed ring of nodes with the deliberate exceptions pulled out to the side on leaders |
-| d01-s043 | greeked/d01/s043.png | outlined step cards chained by arrows with one elbow return line from last to first |
+| d01-s044 | refs/views/d01-s044.jpg | icon wedges ring a solid hub disc with clockwise arrows, flanked by capability panels |
+| d03-s046 | refs/views/d03-s046.jpg | flat segmented wheel around a dark hub with white gaps, stage levers placed around it |
+| d09-s042 | refs/views/d09-s042.jpg | one rising arc turns into a second loop with ringed stage nodes over phase bars |
+| d15-s030 | refs/views/d15-s030.jpg | closed ring of nodes with the deliberate exceptions pulled out to the side on leaders |
+| d01-s043 | refs/views/d01-s043.jpg | outlined step cards chained by arrows with one elbow return line from last to first |
 
 ## Anti-exemplars
 None.

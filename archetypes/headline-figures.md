@@ -71,11 +71,11 @@ Budget 240 words normalized, 250 on the w13 canvas and 140 on the w10 canvas, ad
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d03-s008 | greeked/d03/s008.png | icon roundels straddle a stat band of six figures, then numbered finding panels resolve into one solid implication panel |
-| d04-s013 | greeked/d04/s013.png | row headers group twelve figure tiles under a period bar into three impact families |
-| d09-s068 | greeked/d09/s068.png | a value equation split into icon-topped term tiles, each lever carried down into a cited driver card |
-| d12-s004 | greeked/d12/s004.png | an arc on a gray ring sizes one time share around a role hub, tied by a leader to the stat and three pain cards |
-| d15-s034 | greeked/d15/s034.png | three headline range tiles decomposed into four lever cards, each closing on one sourced evidence stat |
+| d03-s008 | refs/views/d03-s008.jpg | icon roundels straddle a stat band of six figures, then numbered finding panels resolve into one solid implication panel |
+| d04-s013 | refs/views/d04-s013.jpg | row headers group twelve figure tiles under a period bar into three impact families |
+| d09-s068 | refs/views/d09-s068.jpg | a value equation split into icon-topped term tiles, each lever carried down into a cited driver card |
+| d12-s004 | refs/views/d12-s004.jpg | an arc on a gray ring sizes one time share around a role hub, tied by a leader to the stat and three pain cards |
+| d15-s034 | refs/views/d15-s034.jpg | three headline range tiles decomposed into four lever cards, each closing on one sourced evidence stat |
 
 ## Anti-exemplars
 None.

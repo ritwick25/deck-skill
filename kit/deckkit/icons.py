@@ -57,6 +57,11 @@ VENDOR_ALT = re.compile(r"\(vendor mark ([A-Za-z0-9_./-]+)\)\s*$")
 SVG_FALLBACK_SCALE = 4.0     # an SVG's PNG fallback is 4x its displayed size at 96 dpi
 RASTER_MIN_SCALE = 2.0       # a raster placed bigger than half its pixels at 96 dpi is refused (gate P22)
 VENDOR_HASHES = Path(__file__).resolve().parent.parent / "assets" / "vendor_hashes.json"
+MARKS_DIR = Path(__file__).resolve().parent.parent / "assets" / "marks"   # registry.json and the mark files
+MARK_PREFIX = "mark."
+MARK_ALT = re.compile(r"\(brand mark ([a-z0-9][a-z0-9-]*)\)\s*$")
+MARK_KEY = re.compile(r"[a-z0-9][a-z0-9-]{0,60}")
+MARK_FIELDS = ("name", "file", "sha256", "source", "fetched", "url")
 
 
 # ------------------------------------------------------------------ helpers
@@ -365,6 +370,115 @@ def monogram(slide, box: Box, letters: str, role: str = "ink-strong", *, name: s
     return sh
 
 
+# ------------------------------------------------------------------ brand marks (ruling 19)
+
+def marks_dir(registry=None) -> Path:
+    """The folder holding registry.json and the mark files: `registry` when given (a test fixture), else the kit's
+    kit/assets/marks."""
+    return Path(registry) if registry is not None else MARKS_DIR
+
+
+def mark_registry(registry=None) -> dict:
+    """{key: {name, file, sha256, source, fetched, url}} from <marks_dir>/registry.json; {} when it has none.
+    A malformed entry raises UnsupportedPart: a mark is verified by bytes or not drawn at all."""
+    p = marks_dir(registry) / "registry.json"
+    if not p.is_file():
+        return {}
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except ValueError as e:
+        raise UnsupportedPart("mark registry", need="valid JSON", have=str(e)[:60]) from None
+    out = {}
+    for k, v in (data.get("marks", data) if isinstance(data, dict) else {}).items():
+        if k.startswith("_"):
+            continue
+        if not MARK_KEY.fullmatch(str(k)) or not isinstance(v, dict) or any(not v.get(f) for f in MARK_FIELDS):
+            raise UnsupportedPart("mark registry entry %r" % k, need="a key [a-z0-9-] and " + ", ".join(MARK_FIELDS),
+                                  have=v, hint="every mark records where it came from, when, and its sha256")
+        f = str(v["file"])
+        if "/" in f or "\\" in f or f.startswith(".") or not f.lower().endswith((".svg", ".png")):
+            raise UnsupportedPart("mark registry entry %r file" % k, need="a bare .svg or .png file name", have=f)
+        out[str(k)] = dict(v)
+    return out
+
+
+def mark_key_of(name: str, alt: str) -> str | None:
+    """The key a mark picture records: the alt text's '(brand mark <key>)', when its name is mark.<key> or
+    mark.<key>.<suffix>. None when either record is missing or they disagree."""
+    m = MARK_ALT.search(alt or "")
+    if not m or not (name or "").startswith(MARK_PREFIX):
+        return None
+    key = m.group(1)
+    rest = name[len(MARK_PREFIX):]
+    return key if rest == key or rest.startswith(key + ".") else None
+
+
+def mark_blob_refusal(key: str, svg_blob, png_blob, registry=None) -> str | None:
+    """Why the blobs behind a mark picture are not the registered mark, or None when they are. An SVG mark is
+    verified on its svgBlip part (the file's bytes, embedded unchanged) and must carry a PNG fallback; a PNG mark
+    is verified on its r:embed blob."""
+    entry = mark_registry(registry).get(key)
+    if entry is None:
+        return "mark %r is not in the mark registry (%s)" % (key, marks_dir(registry) / "registry.json")
+    if entry["file"].lower().endswith(".svg"):
+        if svg_blob is None:
+            return "mark %r is registered as an SVG but the picture carries no svgBlip" % key
+        if png_blob is None:
+            return "mark %r has no PNG fallback" % key
+        got = blob_sha256(svg_blob)
+    else:
+        if png_blob is None:
+            return "mark %r has no picture blob (r:embed missing)" % key
+        got = blob_sha256(png_blob)
+    if got != entry["sha256"]:
+        return ("mark %r blob sha256 %s is not the registered mark (%s); a picture renamed as a brand mark"
+                % (key, got[:12], entry["sha256"][:12]))
+    return None
+
+
+@ooxml.transactional
+def mark(slide, key: str, box: Box, *, name: str | None = None, alt: str | None = None, registry=None):
+    """A brand mark from the kit's mark registry (kit/assets/marks/registry.json, ruling 19), aspect kept, centred in
+    box, unaltered. The file's sha256 must equal its registry record or the mark is refused before anything is drawn.
+    An SVG is embedded byte for byte with a PNG fallback rasterised by rsvg-convert (svg_picture); a PNG is embedded
+    as it is and refused when it is under 2x its displayed size. The picture is named mark.<key> (name, when given, is
+    a suffix) and its alt text is '<label> (brand mark <key>)', so gate P22 verifies it against the registry."""
+    k = str(key or "").strip()
+    if not MARK_KEY.fullmatch(k):
+        raise UnsupportedPart("mark %r" % key, need="a registry key [a-z0-9-]", have=key)
+    reg = mark_registry(registry)
+    entry = reg.get(k)
+    if entry is None:
+        close = difflib.get_close_matches(k, list(reg), n=4, cutoff=0.5)
+        raise UnsupportedPart("mark %r" % key, need="a key in %s" % (marks_dir(registry) / "registry.json"),
+                              have="missing", hint=("closest: " + ", ".join(close)) if close else
+                              "fetch it once (ruling 19) and record name, file, sha256, source, fetched and url")
+    path = marks_dir(registry) / entry["file"]
+    if not path.is_file():
+        raise UnsupportedPart("mark %r file" % k, need=str(path), have="missing")
+    blob = path.read_bytes()
+    if blob_sha256(blob) != entry["sha256"]:
+        raise UnsupportedPart("mark %r" % k, need="sha256 %s" % entry["sha256"][:12], have=blob_sha256(blob)[:12],
+                              hint="the file changed since it was registered; re-verify it and update the record")
+    if name is not None:
+        suffix = _name(name, "mark")
+        if not re.fullmatch(r"[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*", suffix):
+            raise GeometryError("mark %s name" % k, need="a dotted suffix (letters, digits, - and _)", have=name)
+    pic_name = MARK_PREFIX + k + ("." + name if name is not None else "")
+    label = _alt(alt or entry["name"])
+    label = _alt("%s (brand mark %s)" % (label, k))
+    if entry["file"].lower().endswith(".svg"):
+        return svg_picture(slide, blob, box, "auto", name=pic_name, alt=label)
+    pw, ph = _png_size(blob)
+    b = _fit(box, pw, ph)
+    _check_raster("mark %s" % k, pw, b)
+    x, y, w, h = b.emu
+    pic = slide.shapes.add_picture(io.BytesIO(blob), x, y, w, h)
+    _set_nv(pic, pic_name, label)
+    ooxml.finish(pic)
+    return pic
+
+
 def fix_svg_ct(path) -> bool:
     """Restore <Default Extension="svg"> in a saved package (python-pptx drops it). True when changed.
     package.save() already does this; this is for a deck saved some other way."""
@@ -386,6 +500,7 @@ def fix_svg_ct(path) -> bool:
     return True
 
 
-__all__ = ["vendor", "vendor_keys", "vendor_path", "vendor_resolves", "vendor_key_of", "vendor_key_refusal",
+__all__ = ["mark", "mark_registry", "mark_key_of", "mark_blob_refusal", "marks_dir", "MARKS_DIR", "MARK_PREFIX",
+           "vendor", "vendor_keys", "vendor_path", "vendor_resolves", "vendor_key_of", "vendor_key_refusal",
            "vendor_hash", "vendor_sizes", "blob_sha256", "VENDOR_PREFIX", "VENDOR_HASHES", "svg_picture", "monogram", "rasterise",
            "svg_size", "fix_svg_ct", "SVG_FALLBACK_SCALE", "RASTER_MIN_SCALE"]

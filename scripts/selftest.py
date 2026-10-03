@@ -8,9 +8,15 @@
   * archetypes.json is not stale against the library export (build_archetypes --check), when the library exists
   * no denylisted name (the library's leak list) in any skill text file, tests and caches excepted
   * every reference file SKILL names exists
+  * the reference pack (ruling 23): every sheet, exemplar view and anti view archetypes.json lists is in refs/, every
+    pack file matches its sha256 in refs/catalog.json, no stray file sits beside them, and every image a card cites
+    resolves inside the skill
+  * self-contained: no runtime code names a path under ~/Codes except paths.LIB_DEFAULT, which DECISIONS.md documents;
+    archetypes.json carries no absolute path
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import subprocess
@@ -19,7 +25,71 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_archetypes import denylist  # noqa: E402
-from paths import ARCH_JSON, PY, SKILL, library_ready  # noqa: E402
+from paths import ARCH_JSON, LIB_DEFAULT, PY, REFS, REFS_CATALOG, SKILL, library_ready, pack_sheet, pack_view  # noqa: E402
+
+
+OUTSIDE = re.compile(r"/Users/[^/\s\"']+/Codes\b|~/Codes\b|[\"']Codes[\"']")
+CITED = re.compile(r"\b(refs/(?:views|sheets)/[\w-]+\.jpg|greeked/d\d{2}/s\d{3}\.png|export/sheets/a\d{2}\.png)")
+# Code that names a folder outside the skill and is never run by a build, a gate run or a lookup. Each entry names
+# what it is exempt for.
+MAINTENANCE = {
+    "scripts/build_glyphs.py": "regenerates kit/assets/glyphs.json from a local lucide-react checkout",
+    "scripts/lift_device.py": "lifts a device from the library's source decks (re-mining)",
+    "gates/characterise.py": "characteriser over the library's real renders; never part of run_all",
+    "scripts/selftest.py": "holds the detector pattern and the documented library home it checks against",
+}
+
+
+def pack_failures(arch: dict) -> list[str]:
+    """Ruling 23: the pack holds every image the archetypes list, untouched, and nothing else."""
+    fails: list[str] = []
+    if not REFS_CATALOG.is_file():
+        return ["refs/catalog.json is missing: run scripts/build_archetypes.py --pack"]
+    cat = json.loads(REFS_CATALOG.read_text())
+    files = cat.get("files") or {}
+    for slug, a in arch.items():
+        want = [pack_sheet(a["id"])] + [pack_view(x) for x in (a.get("exemplars") or []) + (a.get("anti") or [])]
+        for pth in want:
+            if not pth.is_file():
+                fails.append("%s: %s is not in the pack" % (slug, pth.relative_to(SKILL)))
+        if a.get("sheet") != str(pack_sheet(a["id"]).relative_to(SKILL)):
+            fails.append("%s: archetypes.json sheet %r is not the pack path" % (slug, a.get("sheet")))
+    for rel, f in sorted(files.items()):
+        pth = SKILL / rel
+        if not pth.is_file():
+            fails.append("refs/catalog.json lists %s, which is missing" % rel)
+        elif hashlib.sha256(pth.read_bytes()).hexdigest() != f.get("sha256"):
+            fails.append("%s differs from its catalog sha256" % rel)
+    for d in ("sheets", "views"):
+        for pth in sorted((REFS / d).glob("*")):
+            if str(pth.relative_to(SKILL)) not in files:
+                fails.append("%s is not in refs/catalog.json" % pth.relative_to(SKILL))
+    for card in sorted((SKILL / "archetypes").glob("*.md")):
+        for cite in sorted(set(CITED.findall(card.read_text()))):
+            if not cite.startswith("refs/"):
+                fails.append("%s cites %s, a library path" % (card.name, cite))
+            elif not (SKILL / cite).is_file():
+                fails.append("%s cites %s, which is not in the pack" % (card.name, cite))
+    return fails
+
+
+def outside_paths() -> list[str]:
+    """Runtime code names no folder under ~/Codes; the one allowed line is paths.LIB_DEFAULT."""
+    fails: list[str] = []
+    if not LIB_DEFAULT.startswith("~/Codes/Decks-For-Visuals/") or "~/Codes/Decks-For-Visuals/" not in (
+            SKILL / "DECISIONS.md").read_text():
+        fails.append("paths.LIB_DEFAULT %s is not the library home DECISIONS.md documents" % LIB_DEFAULT)
+    for pth in sorted(list((SKILL / "kit").rglob("*.py")) + list((SKILL / "gates").rglob("*.py"))
+                      + list((SKILL / "scripts").glob("*.py"))):
+        rel = str(pth.relative_to(SKILL))
+        if rel in MAINTENANCE or "__pycache__" in rel:
+            continue
+        for n, line in enumerate(pth.read_text(errors="ignore").splitlines(), 1):
+            if OUTSIDE.search(line) and not (rel == "scripts/paths.py" and line.startswith("LIB_DEFAULT = ")):
+                fails.append("%s:%d names a path outside the skill" % (rel, n))
+    if re.search(r"/Users/|~/", ARCH_JSON.read_text()):
+        fails.append("archetypes.json carries an absolute path")
+    return fails
 
 
 def main() -> int:
@@ -49,6 +119,8 @@ def main() -> int:
         fails.append("chooser names %s, which is not an archetype" % s)
     for s in sorted(set(arch) - chooser):
         fails.append("archetype %s is missing from the chooser" % s)
+    fails += pack_failures(arch)
+    fails += outside_paths()
     for ref in set(re.findall(r"`(references/[a-z-]+\.md)`", text)):
         if not (SKILL / ref).is_file():
             fails.append("SKILL names %s, which does not exist" % ref)

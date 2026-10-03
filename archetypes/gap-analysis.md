@@ -66,9 +66,9 @@ Budget 250 words normalized and 250 on the w10 canvas, advisory floor 190, under
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d16-s013 | greeked/d16/s013.png | practice pillars each standing over a card of the failures its absence causes, split by one label row |
-| d18-s003 | greeked/d18/s003.png | as-built cards with identical field pairs facing icon-led rows of what is missing, split by a labelled spine |
-| d16-s016 | greeked/d16/s016.png | an iceberg split by a waterline, visible problems above and capability gaps below, with a rail sorting served from underserved |
+| d16-s013 | refs/views/d16-s013.jpg | practice pillars each standing over a card of the failures its absence causes, split by one label row |
+| d18-s003 | refs/views/d18-s003.jpg | as-built cards with identical field pairs facing icon-led rows of what is missing, split by a labelled spine |
+| d16-s016 | refs/views/d16-s016.jpg | an iceberg split by a waterline, visible problems above and capability gaps below, with a rail sorting served from underserved |
 
 ## Anti-exemplars
 None.

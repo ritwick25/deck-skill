@@ -70,11 +70,11 @@ Budget 220 words normalized and 200 on the w10 canvas, advisory floor 80 and 190
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s013 | greeked/d01/s013.png | one glyph redrawn at rising fill per stage over a row-headed grid of impact and example cells |
-| d17-s004 | greeked/d17/s004.png | diamond milestones on a rising arc head a stage-by-dimension matrix, a fence marking the stall span |
-| d21-s002 | greeked/d21/s002.png | columns climbing as a staircase with fill deepening toward the top, and a band under the top two steps placing the case |
-| d03-s031 | greeked/d03/s031.png | rungs indenting toward the base and darkening toward the top, beside an owner column |
-| d07-s006 | greeked/d07/s006.png | numbered markers on one rising curve pair each stage with a player box, closing on a provider rail |
+| d01-s013 | refs/views/d01-s013.jpg | one glyph redrawn at rising fill per stage over a row-headed grid of impact and example cells |
+| d17-s004 | refs/views/d17-s004.jpg | diamond milestones on a rising arc head a stage-by-dimension matrix, a fence marking the stall span |
+| d21-s002 | refs/views/d21-s002.jpg | columns climbing as a staircase with fill deepening toward the top, and a band under the top two steps placing the case |
+| d03-s031 | refs/views/d03-s031.jpg | rungs indenting toward the base and darkening toward the top, beside an owner column |
+| d07-s006 | refs/views/d07-s006.jpg | numbered markers on one rising curve pair each stage with a player box, closing on a provider rail |
 
 ## Anti-exemplars
 None.

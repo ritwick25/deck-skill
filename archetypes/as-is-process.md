@@ -75,11 +75,11 @@ Word budget 250, the upper quartile of the top exemplars capped at 250. Content 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d10-s004 | greeked/d10/s004.png | Overlapping circles enlarge the costly stages of a track, with steps tied by leaders to marked-up artifacts. |
-| d15-s004 | greeked/d15/s004.png | Status-coded capability cards under stage headers, with the missing return loop struck through. |
-| d01-s066 | greeked/d01/s066.png | Linked process boxes over numbered pain points and tool screens, beside a ring sizing the value at stake. |
-| d13-s030 | greeked/d13/s030.png | Start and end tiles bracket capped stage columns, with outcomes per stakeholder below. |
-| d01-s067 | greeked/d01/s067.png | Numbered tabs head stage columns that open on a question and close on a key output bar. |
+| d10-s004 | refs/views/d10-s004.jpg | Overlapping circles enlarge the costly stages of a track, with steps tied by leaders to marked-up artifacts. |
+| d15-s004 | refs/views/d15-s004.jpg | Status-coded capability cards under stage headers, with the missing return loop struck through. |
+| d01-s066 | refs/views/d01-s066.jpg | Linked process boxes over numbered pain points and tool screens, beside a ring sizing the value at stake. |
+| d13-s030 | refs/views/d13-s030.jpg | Start and end tiles bracket capped stage columns, with outcomes per stakeholder below. |
+| d01-s067 | refs/views/d01-s067.jpg | Numbered tabs head stage columns that open on a question and close on a key output bar. |
 
 ## Anti-exemplars
 None.

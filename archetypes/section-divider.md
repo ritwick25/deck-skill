@@ -60,11 +60,11 @@ Word budget 10 with an advisory floor of 0, under the hard ceiling of 250. The t
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d02-s003 | greeked/d02/s003.png | The contents grid returns with one tile lit in brand and three grayed, so position in the deck is a visible state. |
-| d12-s003 | greeked/d12/s003.png | An oversized pale gray numeral beside a short bold headline and nothing else on the ground. |
-| d13-s003 | greeked/d13/s003.png | The same frame as its sibling dividers, a two-line title against a giant pale numeral. |
-| d01-s004 | greeked/d01/s004.png | A corner quarter disc holds the part numeral and repeats identically on every divider. |
-| d03-s004 | greeked/d03/s004.png | A pictogram built from flat bars of mixed weight faces a two-tone part title. |
+| d02-s003 | refs/views/d02-s003.jpg | The contents grid returns with one tile lit in brand and three grayed, so position in the deck is a visible state. |
+| d12-s003 | refs/views/d12-s003.jpg | An oversized pale gray numeral beside a short bold headline and nothing else on the ground. |
+| d13-s003 | refs/views/d13-s003.jpg | The same frame as its sibling dividers, a two-line title against a giant pale numeral. |
+| d01-s004 | refs/views/d01-s004.jpg | A corner quarter disc holds the part numeral and repeats identically on every divider. |
+| d03-s004 | refs/views/d03-s004.jpg | A pictogram built from flat bars of mixed weight faces a two-tone part title. |
 
 ## Anti-exemplars
 None.

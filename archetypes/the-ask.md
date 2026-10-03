@@ -66,8 +66,8 @@ Word budget 210, the upper quartile of the top exemplars capped at 250. Content 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s053 | greeked/d01/s053.png | Numbered verb-led decision cards chained by chevrons over a dated milestone rail and a next-step bar. |
-| d12-s045 | greeked/d12/s045.png | Two commitment panels around a gate panel of review criteria, over a band splitting now from later. |
+| d01-s053 | refs/views/d01-s053.jpg | Numbered verb-led decision cards chained by chevrons over a dated milestone rail and a next-step bar. |
+| d12-s045 | refs/views/d12-s045.jpg | Two commitment panels around a gate panel of review criteria, over a band splitting now from later. |
 
 ## Anti-exemplars
 None.

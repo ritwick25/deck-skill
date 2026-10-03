@@ -67,11 +67,11 @@ Word budget 250 pooled and 250 on the standard canvas, held at the 250 ceiling b
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d09-s073 | greeked/d09/s073.png | a full width method table where each row runs item to measure to formula to assumption to range to source |
-| d12-s010 | greeked/d12/s010.png | a source column with icons mapped across to what each powers, beside a tinted panel of the questions answered |
-| d16-s010 | greeked/d16/s010.png | a banded catalogue table pairing each item with a description, a link and a maturity tier, sorted by tier |
-| d20-s012 | greeked/d20/s012.png | coded dimension rows with an icon tile, a definition and sources, keyed by color and code to matching clusters in a node graph beside them |
-| d09-s074 | greeked/d09/s074.png | the continuation of the method table, same columns and pitch, so both halves read as one list |
+| d09-s073 | refs/views/d09-s073.jpg | a full width method table where each row runs item to measure to formula to assumption to range to source |
+| d12-s010 | refs/views/d12-s010.jpg | a source column with icons mapped across to what each powers, beside a tinted panel of the questions answered |
+| d16-s010 | refs/views/d16-s010.jpg | a banded catalogue table pairing each item with a description, a link and a maturity tier, sorted by tier |
+| d20-s012 | refs/views/d20-s012.jpg | coded dimension rows with an icon tile, a definition and sources, keyed by color and code to matching clusters in a node graph beside them |
+| d09-s074 | refs/views/d09-s074.jpg | the continuation of the method table, same columns and pitch, so both halves read as one list |
 
 ## Anti-exemplars
 None.

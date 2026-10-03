@@ -71,11 +71,11 @@ Budget 190 words normalized and 180 on the w10 canvas, advisory floor 130 and 16
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d07-s009 | greeked/d07/s009.png | phase columns hung from one dashed rail, each with banner, mini-diagram, question, duration and deliverable list |
-| d09-s038 | greeked/d09/s038.png | phase rows under banner arrows, later rows gaining model cards along a dashed complexity axis |
-| d03-s019 | greeked/d03/s019.png | numbered deliverables on one line through tinted group panels into a tall exit gate |
-| d01-s035 | greeked/d01/s035.png | phase chevrons across and labelled rows down, each phase flow handing off to the next |
-| d02-s004 | greeked/d02/s004.png | milestone track whose current node fans out to the numbered deliverables due there |
+| d07-s009 | refs/views/d07-s009.jpg | phase columns hung from one dashed rail, each with banner, mini-diagram, question, duration and deliverable list |
+| d09-s038 | refs/views/d09-s038.jpg | phase rows under banner arrows, later rows gaining model cards along a dashed complexity axis |
+| d03-s019 | refs/views/d03-s019.jpg | numbered deliverables on one line through tinted group panels into a tall exit gate |
+| d01-s035 | refs/views/d01-s035.jpg | phase chevrons across and labelled rows down, each phase flow handing off to the next |
+| d02-s004 | refs/views/d02-s004.jpg | milestone track whose current node fans out to the numbered deliverables due there |
 
 ## Anti-exemplars
 None.

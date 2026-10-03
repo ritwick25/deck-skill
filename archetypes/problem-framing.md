@@ -71,17 +71,17 @@ Word budget 250, the upper quartile of the top exemplars capped at 250. Content 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s063 | greeked/d01/s063.png | Twin numbered ladders split cause from difficulty over a benchmark figure band, the clearest claim-then-proof form. |
-| d21-s003 | greeked/d21/s003.png | A numbered difficulty list on an even pitch beside one panel that stacks a before range over an after range, so the list resolves into a measured gap. |
-| d07-s002 | greeked/d07/s002.png | Numbered factor columns drop onto pins on a shared map, so separate causes visibly land on one system. |
-| d03-s007 | greeked/d03/s007.png | Today, mandate and required end state read left to right, each with its own device. |
-| d01-s064 | greeked/d01/s064.png | Sector cards repeat one situation and response recipe, so the shared pattern carries the argument. |
+| d01-s063 | refs/views/d01-s063.jpg | Twin numbered ladders split cause from difficulty over a benchmark figure band, the clearest claim-then-proof form. |
+| d21-s003 | refs/views/d21-s003.jpg | A numbered difficulty list on an even pitch beside one panel that stacks a before range over an after range, so the list resolves into a measured gap. |
+| d07-s002 | refs/views/d07-s002.jpg | Numbered factor columns drop onto pins on a shared map, so separate causes visibly land on one system. |
+| d03-s007 | refs/views/d03-s007.jpg | Today, mandate and required end state read left to right, each with its own device. |
+| d01-s064 | refs/views/d01-s064.jpg | Sector cards repeat one situation and response recipe, so the shared pattern carries the argument. |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d01-s012 | greeked/d01/s012.png | A question title that makes no claim, generic slogan bodies, and columns uneven in fill over a chip foundation. |
-| d20-s010 | greeked/d20/s010.png | An even row of three numbered cards carries the problem as bullets, so the argument rides on text and the row reads as a generic tile grid. |
+| d01-s012 | refs/views/d01-s012.jpg | A question title that makes no claim, generic slogan bodies, and columns uneven in fill over a chip foundation. |
+| d20-s010 | refs/views/d20-s010.jpg | An even row of three numbered cards carries the problem as bullets, so the argument rides on text and the row reads as a generic tile grid. |
 
 ## Variants
 - Twin numbered ladders over a figure band, causes against why it is hard (d01-s063).

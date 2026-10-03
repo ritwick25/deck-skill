@@ -67,11 +67,11 @@ Budget 150 words normalized and 150 on the w10 canvas, advisory floor 110 and 90
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d03-s040 | greeked/d03/s040.png | color-keyed bars on a month grid, dashed gate lines landing on triangle milestones, a compact key |
-| d12-s019 | greeked/d12/s019.png | phase rail with icon discs beside a week grid, staggered bars closing on a go-live staircase |
-| d10-s009 | greeked/d10/s009.png | tinted milestone column bands behind alternating bars, a phase caption at the foot of each band |
-| d01-s090 | greeked/d01/s090.png | capability icons placed on swimlane bars, defined once in a key row beneath the chart |
-| d09-s046 | greeked/d09/s046.png | staggered phase bars with pale handover tails, cadence restated as an icon stat pair |
+| d03-s040 | refs/views/d03-s040.jpg | color-keyed bars on a month grid, dashed gate lines landing on triangle milestones, a compact key |
+| d12-s019 | refs/views/d12-s019.jpg | phase rail with icon discs beside a week grid, staggered bars closing on a go-live staircase |
+| d10-s009 | refs/views/d10-s009.jpg | tinted milestone column bands behind alternating bars, a phase caption at the foot of each band |
+| d01-s090 | refs/views/d01-s090.jpg | capability icons placed on swimlane bars, defined once in a key row beneath the chart |
+| d09-s046 | refs/views/d09-s046.jpg | staggered phase bars with pale handover tails, cadence restated as an icon stat pair |
 
 ## Anti-exemplars
 None.

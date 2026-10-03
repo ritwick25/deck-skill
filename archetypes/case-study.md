@@ -66,11 +66,11 @@ Budget 190 words normalized and 190 on the w10 canvas, advisory floor 160, under
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s098 | greeked/d01/s098.png | context, build and outcome columns, the build a disc and chevron process over a foundation strip, closed by a solid figure rail |
-| d09-s057 | greeked/d09/s057.png | background, approach and impact columns with large figures in the impact column and a stepped set of screens as evidence |
-| d13-s027 | greeked/d13/s027.png | a solution card with an industry label beside a value column, closed by a strip of three figure tiles under an impact arrow |
-| d20-s006 | greeked/d20/s006.png | two use case rows each running from a named lobe through the client questions to a snipped outcome panel, under a headline band and beside an engagement rail |
-| d12-s024 | greeked/d12/s024.png | a problem panel crowned by an icon disc facing a solution list stacked over a left to right pipeline |
+| d01-s098 | refs/views/d01-s098.jpg | context, build and outcome columns, the build a disc and chevron process over a foundation strip, closed by a solid figure rail |
+| d09-s057 | refs/views/d09-s057.jpg | background, approach and impact columns with large figures in the impact column and a stepped set of screens as evidence |
+| d13-s027 | refs/views/d13-s027.jpg | a solution card with an industry label beside a value column, closed by a strip of three figure tiles under an impact arrow |
+| d20-s006 | refs/views/d20-s006.jpg | two use case rows each running from a named lobe through the client questions to a snipped outcome panel, under a headline band and beside an engagement rail |
+| d12-s024 | refs/views/d12-s024.jpg | a problem panel crowned by an icon disc facing a solution list stacked over a left to right pipeline |
 
 ## Anti-exemplars
 None.

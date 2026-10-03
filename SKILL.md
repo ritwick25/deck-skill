@@ -166,7 +166,8 @@ title(s, "Every brief passes four steps before it reaches the field", keywords=(
   runs with no size: pass `size=` when measuring them with `text.need_height`. On light fills text takes `ink`
   roles; on a `block`, `circle` or `disc` it takes `paper` (dark fills) or `on-accent` (accent fills).
 - **Type sizes**: a card's type roles are the references' sizes. Translate them up to the house scale: body 11 to
-  12pt, labels 10pt and up, nothing under 8pt. Fewer words, never smaller type.
+  12pt, labels 10pt and up (architecture diagram captions excepted: 9pt names, 8pt roles and flow labels), nothing
+  under 8pt. Fewer words, never smaller type.
 - **Variants**: tag the variant as a short kebab slug of the card's variant line you used (`icon-columns`,
   `numbered-rows`); in a declared series every member's slug differs.
 - **Shapes**: light containers are `prims.card(s, box, fill="card"|"paper"|"accent-tint", line=None|"hairline"|
@@ -196,14 +197,42 @@ title(s, "Every brief passes four steps before it reaches the field", keywords=(
   arrow; an undirected diagonal (a hub spoke) is `connect(..., head="none", role="hairline")`, because outside the
   rule roles an undirected line is refused; `elbow(s, points)` routes orthogonally.
 - **Icons**: `glyph(s, name, box, role="accent", shape_name=)` from 193 curated Lucide glyphs (an unknown name
-  raises with the closest matches); `vendor(s, key, box)` for AWS, Azure and GCP marks; `monogram(s, box, "AB")` for
-  a mark with no asset. Never emoji, never a corpus raster.
+  raises with the closest matches); `vendor(s, key, box)` for AWS, Azure, GCP, onprem, programming, saas and generic
+  marks; `mark(s, key, box)` for a brand mark from `kit/assets/marks/registry.json` (ruling 19, byte-verified);
+  `monogram(s, box, "AB")` for a mark with no asset. Never emoji, never a corpus raster.
+- **Architecture diagrams** (`from deckkit import arch`; ruling 18): every layered-architecture and
+  solution-architecture slide is a declared diagram, never hand-placed tiles.
+  `d = arch.Diagram("aws" | "azure" | "house", l0=False, grid=(cols, rows), weights=, stretch=, gaps=, head_air=)`;
+  `d.group(id, kind, label, parent=, at=(col, row, cols, rows), grid=(cols, rows), weights=, band=, drop=, row_gap=,
+  gutter=)` (aws: aws-cloud, aws-account, aws-region, aws-az, aws-vpc, aws-public-subnet, aws-private-subnet,
+  aws-security-group, aws-asg, corporate-dc, generic; azure: azure-region, azure-subscription,
+  azure-resource-group, azure-vnet (a filled ground its subnets tile), azure-subnet, azure-zone, generic; house:
+  region, rail, band, section, boundary (dashed platform frame), zone (dashed trust zone); every grammar: lane).
+  `band=True` (and every house band) marks a platform or operations band whose marks may carry no flow; `gutter`
+  opens the air between sibling groups where labelled flows run (0.55in or more); `row_gap` reserves room above a
+  child's top edge for pins.
+  `d.node(id, "vendor:<key>" | "mark:<key>" | "glyph:<actor>", name, role, group=, at=(col, row), anchor=,
+  size=, caption=)`: anchor `left` or `right` sets an icon in its cell, `edge:l`, `edge:r` or `edge:t` pins it on
+  its group's frame line (a VPC endpoint, a load balancer, a NAT gateway; the caption sits outside); `caption=`
+  `right` or `left` sets the caption beside the icon so a vertical flow can leave its bottom; `size=0.62` is the
+  L0 anchor tier. `d.align(node, to, axis="y" | "x")` puts two icons on one line or one column.
+  `d.flow(src, dst, label, step=, kind="data" | "async" | "control" | "private", over=True, bend=)`: `private` is a
+  keyed private-endpoint link, labelled by the legend. `d.steps({n: text})`; `d.render(s, box, th, legend="right" |
+  "bottom", legend_cols=)` returns `{marks, actors, icons, flows, labelled, badge_only, boxed_alone}`. Marks float
+  on the group ground, cropped to their ink; flows run edge to edge, never cross, and carry a label (one line, never
+  wrapped), a numbered step or a keyed style; `l0=True` refuses flows. A caption, label, badge or route that does not
+  fit raises; `render(draft=True)` lists them instead while iterating. Diagram captions are 9pt names and 8pt roles
+  (spec 1.2), the exception to the 10pt label size below. AWS and Azure notation colours are identity colours
+  (themes, `identity`), verified in the module's header. Gate P26 holds the grammar (marks, boxed alone, labels,
+  captions, crossings, steps, boundary facts, orphans, notation, collisions, one name one mark, ink size).
+  `scripts/example_arch.py` is the pattern (four slides).
 - **Tables**: python-pptx `add_table` with no table style, cells written by `deckkit.text.write`, and a hairline
   under each row. `table()` in `tests/build_golden.py` is the recipe.
 - **Save**: `package.save(prs, out, title=, theme=th, manifest={"numbers": {stat_name: {"value": v, "kind": k}}},
   overwrite=True, date="YYYY-MM-DD")` is deterministic, which gate P21 proves by rebuilding from `deck.json`.
 - **Worked patterns**: `scripts/example_epic.py` (the epic layer: problem-framing, process-flow,
-  layered-architecture), `scripts/example_build.py` (offering-pillars and process-flow, plain kit) and
+  layered-architecture), `scripts/example_arch.py` (AWS, Azure, house L0 and house deep-dive architecture),
+  `scripts/example_build.py` (offering-pillars and process-flow, plain kit) and
   `tests/build_golden.py` (seven archetypes, the gates' clean fixture).
 - **Client cut**: a theme JSON in the project, verified against the client's production CSS with the date, then
   `$PY -m deckkit theme check THEME.json` and `theme apply THEME.json DECK.pptx`. Identity colours keep their hue;
@@ -211,7 +240,7 @@ title(s, "Every brief passes four steps before it reaches the field", keywords=(
 
 ## Gates
 
-`$PY $K/gates/run_all.py --deck OUT.pptx` runs P01 to P25 cheapest first (`--only P13,P24`, `-v` for every
+`$PY $K/gates/run_all.py --deck OUT.pptx` runs P01 to P26 cheapest first (`--only P13,P24`, `-v` for every
 finding). `references/rules.md` maps each rule to its gate and to the fix. A deck with no build command needs a
 `deck.json` grant for P21 naming its source (a hand-edited deck whose pptx is the source of truth).
 `$PY $K/gates/run_all.py --negatives` proves every gate fails on a planted breakage; run it after editing a gate.

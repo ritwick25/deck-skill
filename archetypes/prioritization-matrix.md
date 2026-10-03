@@ -68,11 +68,11 @@ Word budget 200 pooled and 200 on the standard canvas, under the 250 ceiling. No
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d09-s020 | greeked/d09/s020.png | candidates by criteria with narrow score columns, a stage column and a wide rationale column closing each row |
-| d12-s040 | greeked/d12/s040.png | numbered discs colored by phase on a tinted value by effort quadrant field, decoded by a side key rail |
-| d16-s018 | greeked/d16/s018.png | dashed rings grouping candidate cards into families on a value by complexity grid with a legend |
-| d09-s021 | greeked/d09/s021.png | the second page of the same scoring table, showing how a long candidate set splits across slides |
-| d09-s022 | greeked/d09/s022.png | a further page of the scoring table, same columns and row pitch, a different candidate band |
+| d09-s020 | refs/views/d09-s020.jpg | candidates by criteria with narrow score columns, a stage column and a wide rationale column closing each row |
+| d12-s040 | refs/views/d12-s040.jpg | numbered discs colored by phase on a tinted value by effort quadrant field, decoded by a side key rail |
+| d16-s018 | refs/views/d16-s018.jpg | dashed rings grouping candidate cards into families on a value by complexity grid with a legend |
+| d09-s021 | refs/views/d09-s021.jpg | the second page of the same scoring table, showing how a long candidate set splits across slides |
+| d09-s022 | refs/views/d09-s022.jpg | a further page of the scoring table, same columns and row pitch, a different candidate band |
 
 ## Anti-exemplars
 None.

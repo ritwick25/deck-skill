@@ -7,6 +7,9 @@ share one parent group (the row the kit draws as one group). Two chevrons both l
 they read as one row: the same top and height (within 0.02in) and an overlap no deeper than the point
 (height x adj, 0.5 by default). A chevron in a group and one outside it are compared like any other boxes.
 
+An edge pin (a picture of 0.20 to 0.62in centred on a box's edge: a VPC endpoint or a load balancer pinned to its
+boundary, spec 3.1) overlaps that box by notation and is not compared with it (p04_padding.edge_pin).
+
 Text is judged by what the eye sees: a text block that draws no fill and no outline is its ink box
 (deckkit.read.walk._text_box, occupancy-trimmed and aligned, through _shared.ink_box), so two frames that cross
 while their words do not are not an overlap. Anything that draws keeps its frame, and nesting is judged on the
@@ -17,6 +20,7 @@ from __future__ import annotations
 import sys
 
 from _shared import FAIL, Finding, box_contains, cli, full_bleed, ink_box, is_drawn
+from p04_padding import edge_pin
 
 GATE, TITLE = "P05", "overlap"
 MIN_IN = 0.10
@@ -50,6 +54,8 @@ def run(deck, ctx):
                     continue
                 if box_contains(ab, bb) or box_contains(bb, ab):
                     continue
+                if edge_pin(a, bb) or edge_pin(b, ab):
+                    continue                            # an edge pin sits on its boundary by notation
                 pa, pb = (a.get("geom") or {}).get("prst"), (b.get("geom") or {}).get("prst")
                 if pa in NEST and pb in NEST and a["group_path"] and a["group_path"][-1:] == b["group_path"][-1:]:
                     continue                            # one chevron row, nested by design

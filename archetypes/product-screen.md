@@ -62,11 +62,11 @@ Word budget 10 content words on this canvas, advisory floor 0, hard ceiling 250.
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s074 | greeked/d01/s074.png | A drawn browser bar turns a mockup capture into running software and the screen fills the stage. |
-| d09-s029 | greeked/d09/s029.png | Laptop and browser window straddle a flat band with one pill naming the demo moment. |
-| d10-s008 | greeked/d10/s008.png | One frameless product view with a pinned issue and its record card carries the proof without captions. |
-| d13-s014 | greeked/d13/s014.png | A cropped app capture, headline tiles over a status table, shows the screen instead of describing it. |
-| d12-s028 | greeked/d12/s028.png | A plain laptop frame and one launch pill stage the hand-off to a live demo. |
+| d01-s074 | refs/views/d01-s074.jpg | A drawn browser bar turns a mockup capture into running software and the screen fills the stage. |
+| d09-s029 | refs/views/d09-s029.jpg | Laptop and browser window straddle a flat band with one pill naming the demo moment. |
+| d10-s008 | refs/views/d10-s008.jpg | One frameless product view with a pinned issue and its record card carries the proof without captions. |
+| d13-s014 | refs/views/d13-s014.jpg | A cropped app capture, headline tiles over a status table, shows the screen instead of describing it. |
+| d12-s028 | refs/views/d12-s028.jpg | A plain laptop frame and one launch pill stage the hand-off to a live demo. |
 
 ## Anti-exemplars
 None.

@@ -66,18 +66,18 @@ Budget 250 words normalized and 100 on the w10 canvas, advisory floor 250, under
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d15-s031 | greeked/d15/s031.png | layer rows of chips each ending in the gaps it closes, framed by two full-height cross-cutting rails |
-| d01-s056 | greeked/d01/s056.png | tab-led layer bands of icon components with verb pills on the seams, beside a numbered trace that tags each step with the layer it touches |
-| d18-s007 | greeked/d18/s007.png | a framed proposed layer between a consumer row and a source row, with boundary captions naming what flows up and what never crosses |
-| d09-s036 | greeked/d09/s036.png | outlined layer bands bottom to top with a fixed left label column, centered upward wedges and a source band |
-| d15-s032 | greeked/d15/s032.png | three header-barred tiers narrowing from application cards to shared service chips to iconed tool columns |
+| d15-s031 | refs/views/d15-s031.jpg | layer rows of chips each ending in the gaps it closes, framed by two full-height cross-cutting rails |
+| d01-s056 | refs/views/d01-s056.jpg | tab-led layer bands of icon components with verb pills on the seams, beside a numbered trace that tags each step with the layer it touches |
+| d18-s007 | refs/views/d18-s007.jpg | a framed proposed layer between a consumer row and a source row, with boundary captions naming what flows up and what never crosses |
+| d09-s036 | refs/views/d09-s036.jpg | outlined layer bands bottom to top with a fixed left label column, centered upward wedges and a source band |
+| d15-s032 | refs/views/d15-s032.jpg | three header-barred tiers narrowing from application cards to shared service chips to iconed tool columns |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d01-s130 | greeked/d01/s130.png | A strong tabbed stack whose principle band prints every line twice on top of itself, and an icon breaks the channels tab label. |
-| d12-s042 | greeked/d12/s042.png | A dark slide over the word ceiling, with text glyphs and emoji as icons, type below the floor and color rules as decoration. |
-| d21-s010 | greeked/d21/s010.png | Both panels under the spanning band are bullet lists of tool names with no icons, centered with empty upper bands. |
+| d01-s130 | refs/views/d01-s130.jpg | A strong tabbed stack whose principle band prints every line twice on top of itself, and an icon breaks the channels tab label. |
+| d12-s042 | refs/views/d12-s042.jpg | A dark slide over the word ceiling, with text glyphs and emoji as icons, type below the floor and color rules as decoration. |
+| d21-s010 | refs/views/d21-s010.jpg | Both panels under the spanning band are bullet lists of tool names with no icons, centered with empty upper bands. |
 
 ## Variants
 - Layer rows between two full-height cross-cutting rails, shown by d15-s031.

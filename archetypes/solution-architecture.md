@@ -66,18 +66,18 @@ Budget 180 words normalized and 170 on the w10 canvas, advisory floor 140, under
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d19-s002 | greeked/d19/s002.png | Pinned by ruling for the technical-service-icons variant. Official cloud service icons in tab-headed layer regions, an external sources rail and an experience rail around a platform band. |
-| d19-s004 | greeked/d19/s004.png | Pinned by ruling for the technical-service-icons variant. A dark shared data band caps one row of tab-headed regions, icons float over their names, a platform band closes the foot. |
-| d06-s002 | greeked/d06/s002.png | tab-headed cards joined by arrows that name their payload, a source column and an operations band |
-| d04-s016 | greeked/d04/s016.png | bounded platform of headed stage columns in flow order, sources outside left, consumers outside right, tooling strip beneath |
-| d13-s048 | greeked/d13/s048.png | lanes under header tabs run source to experience over one platform band, each cross-system flow a dashed line named in a one-line key |
-| d03-s038 | greeked/d03/s038.png | headed columns flow from sources through a central platform to analytics, and a legacy strip ends in a dashed arrow on a retire mark |
+| d19-s002 | refs/views/d19-s002.jpg | Pinned by ruling for the technical-service-icons variant. Official cloud service icons in tab-headed layer regions, an external sources rail and an experience rail around a platform band. |
+| d19-s004 | refs/views/d19-s004.jpg | Pinned by ruling for the technical-service-icons variant. A dark shared data band caps one row of tab-headed regions, icons float over their names, a platform band closes the foot. |
+| d06-s002 | refs/views/d06-s002.jpg | tab-headed cards joined by arrows that name their payload, a source column and an operations band |
+| d04-s016 | refs/views/d04-s016.jpg | bounded platform of headed stage columns in flow order, sources outside left, consumers outside right, tooling strip beneath |
+| d13-s048 | refs/views/d13-s048.jpg | lanes under header tabs run source to experience over one platform band, each cross-system flow a dashed line named in a one-line key |
+| d03-s038 | refs/views/d03-s038.jpg | headed columns flow from sources through a central platform to analytics, and a legacy strip ends in a dashed arrow on a retire mark |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d19-s003 | greeked/d19/s003.png | A draft with no title, an image in place of live text, type far under the floor, labels colliding with icons and most panel area empty. |
-| d01-s059 | greeked/d01/s059.png | Most labels sit far below the floor and every column is packed to its edge, so the boundary drawing reads as a spec sheet. |
+| d19-s003 | refs/views/d19-s003.jpg | A draft with no title, an image in place of live text, type far under the floor, labels colliding with icons and most panel area empty. |
+| d01-s059 | refs/views/d01-s059.jpg | Most labels sit far below the floor and every column is packed to its edge, so the boundary drawing reads as a spec sheet. |
 
 ## Variants
 - technical-service-icons: official cloud service icons over the service name inside tab-headed layer regions, an external sources rail at left and an experience rail at right around a full-width platform band, shown by d19-s002, with d19-s004 as its floating-icon form.

@@ -72,11 +72,11 @@ Budget 250 words normalized and 250 on the w13 canvas, advisory floor 220 on the
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s084 | greeked/d01/s084.png | four numbered stage columns, each with its own device carrying the instance's values, closed by a band contrasting the old method on one figure |
-| d18-s016 | greeked/d18/s016.png | a copy chain proven by one named record whose source ids resolve to one key, with the stored entry shown as a code panel |
-| d21-s007 | greeked/d21/s007.png | one run walked as a ladder of step pills, each with one evidence line of figures, landing in a dark verdict panel with the deviation and the confidence restated in two stat pills |
-| d13-s011 | greeked/d13/s011.png | one named case run through a numbered regular row over a numbered exception row that loops back until the check agrees |
-| d15-s024 | greeked/d15/s024.png | a verbatim input beside the field table it becomes, each row with a confidence bar and the uncertain rows flagged back to a person |
+| d01-s084 | refs/views/d01-s084.jpg | four numbered stage columns, each with its own device carrying the instance's values, closed by a band contrasting the old method on one figure |
+| d18-s016 | refs/views/d18-s016.jpg | a copy chain proven by one named record whose source ids resolve to one key, with the stored entry shown as a code panel |
+| d21-s007 | refs/views/d21-s007.jpg | one run walked as a ladder of step pills, each with one evidence line of figures, landing in a dark verdict panel with the deviation and the confidence restated in two stat pills |
+| d13-s011 | refs/views/d13-s011.jpg | one named case run through a numbered regular row over a numbered exception row that loops back until the check agrees |
+| d15-s024 | refs/views/d15-s024.jpg | a verbatim input beside the field table it becomes, each row with a confidence bar and the uncertain rows flagged back to a person |
 
 ## Anti-exemplars
 None.

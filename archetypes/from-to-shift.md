@@ -68,11 +68,11 @@ Budget 190 words normalized and 100 on the w10 canvas, advisory floor 120, under
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d08-s004 | greeked/d08/s004.png | two boundary panels of the same roles, a tangle of crossing lines before and one agent per role after, split by a solid wedge |
-| d12-s005 | greeked/d12/s005.png | tabbed from and to bookend panels joined by one dashed arrow, with the four steps that cause the shift between them |
-| d15-s005 | greeked/d15/s005.png | one scenario plotted twice on shared phase columns, a rising target line against a sinking current line, every node annotated |
-| d18-s021 | greeked/d18/s021.png | labelled rows that each join a current card to its target card with one arrow under a today and target header row |
-| d13-s006 | greeked/d13/s006.png | a current step row, a band of fixes and a future step row stacked on one column grid so each pain lines up with its remedy |
+| d08-s004 | refs/views/d08-s004.jpg | two boundary panels of the same roles, a tangle of crossing lines before and one agent per role after, split by a solid wedge |
+| d12-s005 | refs/views/d12-s005.jpg | tabbed from and to bookend panels joined by one dashed arrow, with the four steps that cause the shift between them |
+| d15-s005 | refs/views/d15-s005.jpg | one scenario plotted twice on shared phase columns, a rising target line against a sinking current line, every node annotated |
+| d18-s021 | refs/views/d18-s021.jpg | labelled rows that each join a current card to its target card with one arrow under a today and target header row |
+| d13-s006 | refs/views/d13-s006.jpg | a current step row, a band of fixes and a future step row stacked on one column grid so each pain lines up with its remedy |
 
 ## Anti-exemplars
 None.

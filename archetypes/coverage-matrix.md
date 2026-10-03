@@ -73,11 +73,11 @@ Word budget 250 pooled, held at the 250 ceiling because the densest exemplars ru
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d03-s014 | greeked/d03/s014.png | three stepped header bars over five row tabs, column tints carried down each cell, a shared control band under the grid |
-| d15-s033 | greeked/d15/s033.png | lane rows ending in three phase cells, filled in the lane hue where value lands and empty where it does not |
-| d16-s012 | greeked/d16/s012.png | clusters by functions grid in three blue shades with no cell text, decoded by one legend strip |
-| d12-s044 | greeked/d12/s044.png | use case columns by phase rows, row shading deepening by phase and one status pill per cell |
-| d01-s045 | greeked/d01/s045.png | a numbered stage disc row over tabbed discipline rows, each cell restating the shared control for that stage |
+| d03-s014 | refs/views/d03-s014.jpg | three stepped header bars over five row tabs, column tints carried down each cell, a shared control band under the grid |
+| d15-s033 | refs/views/d15-s033.jpg | lane rows ending in three phase cells, filled in the lane hue where value lands and empty where it does not |
+| d16-s012 | refs/views/d16-s012.jpg | clusters by functions grid in three blue shades with no cell text, decoded by one legend strip |
+| d12-s044 | refs/views/d12-s044.jpg | use case columns by phase rows, row shading deepening by phase and one status pill per cell |
+| d01-s045 | refs/views/d01-s045.jpg | a numbered stage disc row over tabbed discipline rows, each cell restating the shared control for that stage |
 
 ## Anti-exemplars
 None.

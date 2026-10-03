@@ -62,15 +62,15 @@ Word budget 60 with an advisory floor of 40, under the hard ceiling of 250. The 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d16-s025 | greeked/d16/s025.png | Split close: sign-off and contact on white, one attributed testimonial on a flat full-height panel. |
-| d18-s025 | greeked/d18/s025.png | The closing panel restates the one-line promise, so the last frame carries the argument. |
-| d12-s020 | greeked/d12/s020.png | The same split close with a quote mark and attribution, showing the frame holds across decks. |
+| d16-s025 | refs/views/d16-s025.jpg | Split close: sign-off and contact on white, one attributed testimonial on a flat full-height panel. |
+| d18-s025 | refs/views/d18-s025.jpg | The closing panel restates the one-line promise, so the last frame carries the argument. |
+| d12-s020 | refs/views/d12-s020.jpg | The same split close with a quote mark and attribution, showing the frame holds across decks. |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d03-s049 | greeked/d03/s049.png | A logo end card with no claim or ask, decorative diagonal rules, and a loose build with many off-canvas shapes. |
-| d01-s096 | greeked/d01/s096.png | A dark full-bleed photo sign-off carrying no claim, with an image that reads as generated and a swoosh running off the edge. |
+| d03-s049 | refs/views/d03-s049.jpg | A logo end card with no claim or ask, decorative diagonal rules, and a loose build with many off-canvas shapes. |
+| d01-s096 | refs/views/d01-s096.jpg | A dark full-bleed photo sign-off carrying no claim, with an image that reads as generated and a swoosh running off the edge. |
 
 ## Variants
 - Testimonial close: sign-off beside a quotation panel (d16-s025, d12-s020).

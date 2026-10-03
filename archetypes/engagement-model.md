@@ -71,11 +71,11 @@ Budget 160 words normalized and 180 on the w13 canvas, advisory floor 140, under
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d02-s015 | greeked/d02/s015.png | three abutting panels stepping in hue as a staged path, with an ownership triad and a shared capability strip aligned to their seams |
-| d03-s027 | greeked/d03/s027.png | six numbered stages snaking across two rows into a sign-off gate card, with a lettered stepper rail for the phase that follows |
-| d04-s022 | greeked/d04/s022.png | four phase tabs over named rows of activities and outcomes, with a duration span under each column |
-| d09-s041 | greeked/d09/s041.png | eight numbered discs threaded on one serpentine line across three rows, each with a step name and a short activity list |
-| d01-s039 | greeked/d01/s039.png | a queue of items feeding two standing step tracks whose output stacks as widening reusable layers |
+| d02-s015 | refs/views/d02-s015.jpg | three abutting panels stepping in hue as a staged path, with an ownership triad and a shared capability strip aligned to their seams |
+| d03-s027 | refs/views/d03-s027.jpg | six numbered stages snaking across two rows into a sign-off gate card, with a lettered stepper rail for the phase that follows |
+| d04-s022 | refs/views/d04-s022.jpg | four phase tabs over named rows of activities and outcomes, with a duration span under each column |
+| d09-s041 | refs/views/d09-s041.jpg | eight numbered discs threaded on one serpentine line across three rows, each with a step name and a short activity list |
+| d01-s039 | refs/views/d01-s039.jpg | a queue of items feeding two standing step tracks whose output stacks as widening reusable layers |
 
 ## Anti-exemplars
 None.

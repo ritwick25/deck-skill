@@ -67,18 +67,18 @@ Word budget 70 with an advisory floor of 40, under the hard ceiling of 250. The 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d10-s002 | greeked/d10/s002.png | Each row pairs a numeral and a vertical hairline with a heading and a one-line scope. |
-| d16-s003 | greeked/d16/s003.png | Two-by-two grid with giant numerals where one tile is saturated to mark the current part. |
-| d13-s002 | greeked/d13/s002.png | Numbered rows on dashed hairlines with the appendix demoted to an unnumbered italic row. |
-| d14-s012 | greeked/d14/s012.png | Day plan where tall session blocks span their rows and a band marks the break. |
-| d02-s002 | greeked/d02/s002.png | Four equal numbered tiles that return later as dividers with only the current tile lit. |
+| d10-s002 | refs/views/d10-s002.jpg | Each row pairs a numeral and a vertical hairline with a heading and a one-line scope. |
+| d16-s003 | refs/views/d16-s003.jpg | Two-by-two grid with giant numerals where one tile is saturated to mark the current part. |
+| d13-s002 | refs/views/d13-s002.jpg | Numbered rows on dashed hairlines with the appendix demoted to an unnumbered italic row. |
+| d14-s012 | refs/views/d14-s012.jpg | Day plan where tall session blocks span their rows and a band marks the break. |
+| d02-s002 | refs/views/d02-s002.jpg | Four equal numbered tiles that return later as dividers with only the current tile lit. |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d01-s003 | greeked/d01/s003.png | The whole plan sits on a generated event photo under dark overlays, so the ground is dark and the bars lose contrast. |
-| d09-s003 | greeked/d09/s003.png | Seven full-saturation bars, a stock photo filling half the canvas and raster link buttons crowding the longest label. |
-| d12-s049 | greeked/d12/s049.png | A placeholder title over a plain outline with a struck-through item and no numeral, rule or device. |
+| d01-s003 | refs/views/d01-s003.jpg | The whole plan sits on a generated event photo under dark overlays, so the ground is dark and the bars lose contrast. |
+| d09-s003 | refs/views/d09-s003.jpg | Seven full-saturation bars, a stock photo filling half the canvas and raster link buttons crowding the longest label. |
+| d12-s049 | refs/views/d12-s049.jpg | A placeholder title over a plain outline with a struck-through item and no numeral, rule or device. |
 
 ## Variants
 - Numbered rows on hairlines, the default for five or more parts (d13-s002).

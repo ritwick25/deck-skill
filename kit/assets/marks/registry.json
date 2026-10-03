@@ -1,0 +1,77 @@
+{
+ "_about": "Brand marks with no offline source, taken from each vendor's own published SVG (press kit or official repository; ruling 21, which supersedes the 21st source of ruling 19) and verified by bytes. Each key: {name, file (a .svg or .png in this folder), sha256 of the file, source, fetched (date), url}. deckkit.icons.mark() refuses a file whose sha256 differs; gate P22 checks every mark.* picture against this record. Marks are used nominatively and unaltered, to name the product in a diagram.",
+ "marks": {
+  "anthropic-logo": {
+   "name": "Anthropic",
+   "file": "anthropic-logo.svg",
+   "sha256": "56cc8de50f5c863520c7ae24464a8b2fd5c2f66f9063b9790aff8c37b4a0a554",
+   "source": "vendor first-party (ruling 21)",
+   "fetched": "2026-10-03",
+   "url": "https://www.anthropic.com/press-kit (zip: Anthropic logo - Slate.svg)"
+  },
+  "anthropic-symbol": {
+   "name": "Anthropic",
+   "file": "anthropic-symbol.svg",
+   "sha256": "d55918884053460f24c958fca3fba8d10b48fdd86e73ba3cd1237713bc0a03bb",
+   "source": "vendor first-party (ruling 21)",
+   "fetched": "2026-10-03",
+   "url": "https://www.anthropic.com/press-kit (zip: Anthropic symbol - Slate.svg)"
+  },
+  "claude-logo": {
+   "name": "Claude",
+   "file": "claude-logo.svg",
+   "sha256": "02737f748297f2c6e4863b775809038bda8549c7297e57070ed9e5ceafdf2871",
+   "source": "vendor first-party (ruling 21)",
+   "fetched": "2026-10-03",
+   "url": "https://www.anthropic.com/press-kit (zip: Claude logo - Slate.svg)"
+  },
+  "claude-spark": {
+   "name": "Claude",
+   "file": "claude-spark.svg",
+   "sha256": "6d53db4be375e899c937c26cf16684a80d6e869b1928d72b37748bef2560e219",
+   "source": "vendor first-party (ruling 21)",
+   "fetched": "2026-10-03",
+   "url": "https://www.anthropic.com/press-kit (zip: Claude Spark - Clay.svg)"
+  },
+  "dataiku-logo": {
+   "name": "Dataiku",
+   "file": "dataiku-logo.svg",
+   "sha256": "177752a6cb1b1be68e7ee7d3d9e01cf7bcf8f524a3d218cd4b09541469b6f66f",
+   "source": "vendor first-party (ruling 21)",
+   "fetched": "2026-10-03",
+   "url": "https://cdn.downloads.dataiku.com/public/mediakit/logos/Dataiku_logo_COLOR.svg"
+  },
+  "dataiku-logo-straight": {
+   "name": "Dataiku",
+   "file": "dataiku-logo-straight.svg",
+   "sha256": "cc31261e34ca0b6772f75452490059c68f702f33c1b12c65124addd017262723",
+   "source": "vendor first-party (ruling 21)",
+   "fetched": "2026-10-03",
+   "url": "https://cdn.downloads.dataiku.com/public/mediakit/logos/Dataiku_logo_straight_COLOR.svg"
+  },
+  "langchain-logo": {
+   "name": "LangChain",
+   "file": "langchain-logo.svg",
+   "sha256": "6cfdc5e70f5ee880c7719660d3d0079e91e0266476e3dfaac8c41004cee18160",
+   "source": "vendor first-party (ruling 21)",
+   "fetched": "2026-10-03",
+   "url": "https://raw.githubusercontent.com/langchain-ai/langchain/HEAD/.github/images/logo-light.svg"
+  },
+  "langgraph-logo": {
+   "name": "LangGraph",
+   "file": "langgraph-logo.svg",
+   "sha256": "ae233ae698ba70f316ca6ded63d7d6e7707ab84bc3ccc75c6a5e5a732fb3988f",
+   "source": "vendor first-party (ruling 21)",
+   "fetched": "2026-10-03",
+   "url": "https://raw.githubusercontent.com/langchain-ai/langgraph/HEAD/.github/images/logo-light.svg"
+  },
+  "langfuse-icon": {
+   "name": "Langfuse",
+   "file": "langfuse-icon.svg",
+   "sha256": "daeef880d58644fab4fd9ba5d292086c6d69756a39cff94d510f8ddc35312bf3",
+   "source": "vendor first-party (ruling 21)",
+   "fetched": "2026-10-03",
+   "url": "https://raw.githubusercontent.com/langfuse/langfuse/HEAD/web/public/icon.svg"
+  }
+ }
+}

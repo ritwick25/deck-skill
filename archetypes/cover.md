@@ -63,18 +63,18 @@ Word budget 40 with an advisory floor of 10, under the hard ceiling of 250. The 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d18-s001 | greeked/d18/s001.png | Strict type ladder in one left block, kicker over title over date, balanced by one shape on the right. |
-| d13-s001 | greeked/d13/s001.png | Lockup, two-line title, label line and date all on one left edge against a single large visual. |
-| d01-s001 | greeked/d01/s001.png | Welcome variant: an even row of portrait discs, each over a bold name and a role line, split by dashed hairlines. |
-| d17-s001 | greeked/d17/s001.png | The visual states the thesis: a demo screen points into the grid of parts it hides. |
-| d21-s001 | greeked/d21/s001.png | Corner motif cover: a small cluster of elbow lines joining discs is the only illustration, beside a serif title stack closed by a hairline over the byline. |
+| d18-s001 | refs/views/d18-s001.jpg | Strict type ladder in one left block, kicker over title over date, balanced by one shape on the right. |
+| d13-s001 | refs/views/d13-s001.jpg | Lockup, two-line title, label line and date all on one left edge against a single large visual. |
+| d01-s001 | refs/views/d01-s001.jpg | Welcome variant: an even row of portrait discs, each over a bold name and a role line, split by dashed hairlines. |
+| d17-s001 | refs/views/d17-s001.jpg | The visual states the thesis: a demo screen points into the grid of parts it hides. |
+| d21-s001 | refs/views/d21-s001.jpg | Corner motif cover: a small cluster of elbow lines joining discs is the only illustration, beside a serif title stack closed by a hairline over the byline. |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d15-s001 | greeked/d15/s001.png | Dark ground, and the right half is empty air behind a decorative hexagon that carries no content. |
-| d08-s001 | greeked/d08/s001.png | A full-bleed packaging photo on a dark ground carries the slide, and a subtitle plus a web line add chrome. |
-| d14-s001 | greeked/d14/s001.png | A dark full-bleed brand photograph under a generic ruled stack, with a subtitle, a footer line and a banned glyph. |
+| d15-s001 | refs/views/d15-s001.jpg | Dark ground, and the right half is empty air behind a decorative hexagon that carries no content. |
+| d08-s001 | refs/views/d08-s001.jpg | A full-bleed packaging photo on a dark ground carries the slide, and a subtitle plus a web line add chrome. |
+| d14-s001 | refs/views/d14-s001.jpg | A dark full-bleed brand photograph under a generic ruled stack, with a subtitle, a footer line and a banned glyph. |
 
 ## Variants
 - Title stack beside hero visual, the default (d13-s001).

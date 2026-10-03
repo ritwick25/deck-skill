@@ -69,11 +69,11 @@ Word budget 200 pooled and 200 on the wide canvas, where every exemplar sits, un
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s111 | greeked/d01/s111.png | row lanes run source cards into a hub disc, then use cases and proof figures, one lane tinted in focus |
-| d02-s008 | greeked/d02/s008.png | capability cards on both flanks wire by spokes into a nested core around a numbered stack |
-| d03-s024 | greeked/d03/s024.png | two input lanes meet at a swap disc and land on one locked contract card |
-| d04-s008 | greeked/d04/s008.png | elbow arrows funnel source groups into a hub disc per row that reads across to figures |
-| d18-s009 | greeked/d18/s009.png | a short arrow from each of four source cards lands on one full-width shared band |
+| d01-s111 | refs/views/d01-s111.jpg | row lanes run source cards into a hub disc, then use cases and proof figures, one lane tinted in focus |
+| d02-s008 | refs/views/d02-s008.jpg | capability cards on both flanks wire by spokes into a nested core around a numbered stack |
+| d03-s024 | refs/views/d03-s024.jpg | two input lanes meet at a swap disc and land on one locked contract card |
+| d04-s008 | refs/views/d04-s008.jpg | elbow arrows funnel source groups into a hub disc per row that reads across to figures |
+| d18-s009 | refs/views/d18-s009.jpg | a short arrow from each of four source cards lands on one full-width shared band |
 
 ## Anti-exemplars
 None.

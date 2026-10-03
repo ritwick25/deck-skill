@@ -68,10 +68,10 @@ Budget 110 words normalized and 110 on the w10 canvas, advisory floor 40 and 40,
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d10-s011 | greeked/d10/s011.png | tinted wedges fan from one price pill to a ledger of struck old figures beside new ones |
-| d09-s062 | greeked/d09/s062.png | included and optional scope bands beside a full-height rail holding the price range, investment and cap |
-| d13-s022 | greeked/d13/s022.png | an itemised component table resolves into two pill-framed price figures on a side panel |
-| d12-s035 | greeked/d12/s035.png | a disc-crowned price card ending in a value pill beside a stack of icon-tagged term panels |
+| d10-s011 | refs/views/d10-s011.jpg | tinted wedges fan from one price pill to a ledger of struck old figures beside new ones |
+| d09-s062 | refs/views/d09-s062.jpg | included and optional scope bands beside a full-height rail holding the price range, investment and cap |
+| d13-s022 | refs/views/d13-s022.jpg | an itemised component table resolves into two pill-framed price figures on a side panel |
+| d12-s035 | refs/views/d12-s035.jpg | a disc-crowned price card ending in a value pill beside a stack of icon-tagged term panels |
 
 ## Anti-exemplars
 None.

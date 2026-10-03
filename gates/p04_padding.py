@@ -5,7 +5,9 @@ leaf painted above the container whose top-left corner lies inside it (the start
 header bar from "containing" text five inches below it). Connectors are never children: an arrow's job is
 to leave the shape it starts on. Two idioms are deliberate and pass: an overlay (a text box coincident
 with its shape on every side, within 0.035in) and a span (a child running the container's full width or
-full height, padded by its own insets). state.* marks sit on an edge by definition (a quotation bar).
+full height, padded by its own insets). state.* marks sit on an edge by definition (a quotation bar). An edge pin
+sits on its container's border by notation (spec 3.1: a VPC endpoint or load balancer pinned to the VPC edge): a
+picture of 0.20 to 0.62in whose centre lies on one of the container's edges (within 0.02in) is not its child.
 
 The idioms are judged on the child's frame (they describe how a frame is placed); the clearances are measured on
 what the eye sees: a text block that draws no fill and no outline by its ink box (deckkit.read.walk._text_box,
@@ -19,6 +21,22 @@ import sys
 from _shared import ADVISORY, FAIL, Finding, bx, cli, full_bleed, ink_box, is_drawn, is_rect_like, is_state
 
 GATE, TITLE = "P04", "padding"
+PIN_MIN, PIN_MAX, PIN_TOL = 0.20, 0.62, 0.02
+
+
+def edge_pin(L, box) -> bool:
+    """A picture centred on one edge of box: an endpoint or a load balancer pinned to a boundary (spec 3.1)."""
+    if L["kind"] != "pic":
+        return False
+    x0, y0, x1, y1 = bx(L)
+    w, h = x1 - x0, y1 - y0
+    if not (PIN_MIN <= max(w, h) <= PIN_MAX):
+        return False
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    cl, ct, cr, cb = box
+    on_v = (abs(cx - cl) <= PIN_TOL or abs(cx - cr) <= PIN_TOL) and ct <= cy <= cb
+    on_h = (abs(cy - ct) <= PIN_TOL or abs(cy - cb) <= PIN_TOL) and cl <= cx <= cr
+    return on_v or on_h
 MIN_CLEAR, ADVISE = 0.04, 0.10
 MIN_W, MIN_H = 1.20, 0.45
 EPS, COINCIDENT, SPAN = 0.02, 0.035, 0.02
@@ -42,6 +60,8 @@ def run(deck, ctx):
                 fx0, fy0, fx1, fy1 = bx(L)
                 if (fx1 - fx0) * (fy1 - fy0) >= (cr - cl) * (cb - ct):
                     continue                       # the child is the bigger shape: it is not inside
+                if edge_pin(L, (cl, ct, cr, cb)):
+                    continue                       # an edge pin: on the border by notation
                 fclr = {"left": fx0 - cl, "top": fy0 - ct, "right": cr - fx1, "bottom": cb - fy1}
                 if all(abs(v) <= COINCIDENT for v in fclr.values()):
                     continue                       # overlay: text drawn exactly on its shape

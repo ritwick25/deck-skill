@@ -74,11 +74,11 @@ Word budget 250, the upper quartile of the top exemplars capped at 250. Content 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s042 | greeked/d01/s042.png | A pressure band, a chevron chain with capabilities under each step, and a measures panel stack in three tiers. |
-| d03-s018 | greeked/d03/s018.png | Numbered step cards each draw their own small mechanism and close on a filled result card. |
-| d15-s021 | greeked/d15/s021.png | Arrow-linked step cards each carry the control that fires at that step in a chip beneath. |
-| d18-s014 | greeked/d18/s014.png | Verb-captioned arrows chain the stages, then one failing record is traced to the people who read it. |
-| d20-s011 | greeked/d20/s011.png | Each stage card draws its own small picture of what it does and closes on the same labeled output line, ending in a filled result card. |
+| d01-s042 | refs/views/d01-s042.jpg | A pressure band, a chevron chain with capabilities under each step, and a measures panel stack in three tiers. |
+| d03-s018 | refs/views/d03-s018.jpg | Numbered step cards each draw their own small mechanism and close on a filled result card. |
+| d15-s021 | refs/views/d15-s021.jpg | Arrow-linked step cards each carry the control that fires at that step in a chip beneath. |
+| d18-s014 | refs/views/d18-s014.jpg | Verb-captioned arrows chain the stages, then one failing record is traced to the people who read it. |
+| d20-s011 | refs/views/d20-s011.jpg | Each stage card draws its own small picture of what it does and closes on the same labeled output line, ending in a filled result card. |
 
 ## Anti-exemplars
 None.

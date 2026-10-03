@@ -70,11 +70,11 @@ Budget 170 words normalized and 90 on the w10 canvas, advisory floor 80, under t
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s081 | greeked/d01/s081.png | option rows under one persona, each with a tick, the finding that justifies it and an outlined score box |
-| d15-s029 | greeked/d15/s029.png | scenario columns against fixed outcome rows, cells tinted by win or lose, the chosen column outlined and a decision band giving the reason |
-| d09-s014 | greeked/d09/s014.png | two overlapping circles, one solid and one outlined, with shared principles in the lens and leader-lined benefits on each flank |
-| d18-s005 | greeked/d18/s005.png | a full mesh against the same nodes routed through one shared block, each with its count, beside a reach matrix and a verdict card |
-| d01-s037 | greeked/d01/s037.png | a serial ladder with struck phases beside a loop panel, over a grid that holds the old way against the new way row by row |
+| d01-s081 | refs/views/d01-s081.jpg | option rows under one persona, each with a tick, the finding that justifies it and an outlined score box |
+| d15-s029 | refs/views/d15-s029.jpg | scenario columns against fixed outcome rows, cells tinted by win or lose, the chosen column outlined and a decision band giving the reason |
+| d09-s014 | refs/views/d09-s014.jpg | two overlapping circles, one solid and one outlined, with shared principles in the lens and leader-lined benefits on each flank |
+| d18-s005 | refs/views/d18-s005.jpg | a full mesh against the same nodes routed through one shared block, each with its count, beside a reach matrix and a verdict card |
+| d01-s037 | refs/views/d01-s037.jpg | a serial ladder with struck phases beside a loop panel, over a grid that holds the old way against the new way row by row |
 
 ## Anti-exemplars
 None.

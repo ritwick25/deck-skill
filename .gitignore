@@ -10,3 +10,6 @@ devices/work/**/*.manifest.json
 *.pdf
 # Renders of raw reference slides never enter the skill repo.
 **/corpus-renders/
+# refs/ (the greeked reference pack: sheets, views, catalog.json) is versioned, so the skill runs with no library.
+!refs/
+!refs/**

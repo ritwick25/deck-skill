@@ -69,11 +69,11 @@ Budget 150 words normalized, 170 on the w13 canvas and 140 on the w10 canvas, ad
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d04-s005 | greeked/d04/s005.png | sector tabs crowned by icon roundels hang dashed columns of pills, so column length shows reach per sector |
-| d01-s005 | greeked/d01/s005.png | a full-width stat band over a headcount donut, a delivery stat panel, a map with region columns and a mark strip |
-| d03-s010 | greeked/d03/s010.png | three bar-icon pillars of numeral-led stat lines over a capsule chain and a row of mark tiles |
-| d07-s010 | greeked/d07/s010.png | a framed stat strip states scale, then three bannered panels prove it with a dot plot, a card grid and mark rows |
-| d09-s005 | greeked/d09/s005.png | an icon stat grid split by dashed hairlines over barred bands of award badges and office locations |
+| d04-s005 | refs/views/d04-s005.jpg | sector tabs crowned by icon roundels hang dashed columns of pills, so column length shows reach per sector |
+| d01-s005 | refs/views/d01-s005.jpg | a full-width stat band over a headcount donut, a delivery stat panel, a map with region columns and a mark strip |
+| d03-s010 | refs/views/d03-s010.jpg | three bar-icon pillars of numeral-led stat lines over a capsule chain and a row of mark tiles |
+| d07-s010 | refs/views/d07-s010.jpg | a framed stat strip states scale, then three bannered panels prove it with a dot plot, a card grid and mark rows |
+| d09-s005 | refs/views/d09-s005.jpg | an icon stat grid split by dashed hairlines over barred bands of award badges and office locations |
 
 ## Anti-exemplars
 None.

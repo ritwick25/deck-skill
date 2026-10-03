@@ -69,18 +69,18 @@ Word budget 220, the upper quartile of the top exemplars capped at 250. Content 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d03-s037 | greeked/d03/s037.png | Parallel tier cards each stack checked capabilities and resolve into one shared outcome band. |
-| d01-s029 | greeked/d01/s029.png | Mirrored numbered offer cards close on a name bar, bound by one shared benefit strip. |
-| d15-s003 | greeked/d15/s003.png | Each promised output is proven by a miniature of itself inside its card. |
-| d01-s041 | greeked/d01/s041.png | Roundels on one spine head capability boxes that rest on a shared controls band. |
-| d01-s049 | greeked/d01/s049.png | Stacked why, what and value bands, each split into icon columns, over an audience strip. |
+| d03-s037 | refs/views/d03-s037.jpg | Parallel tier cards each stack checked capabilities and resolve into one shared outcome band. |
+| d01-s029 | refs/views/d01-s029.jpg | Mirrored numbered offer cards close on a name bar, bound by one shared benefit strip. |
+| d15-s003 | refs/views/d15-s003.jpg | Each promised output is proven by a miniature of itself inside its card. |
+| d01-s041 | refs/views/d01-s041.jpg | Roundels on one spine head capability boxes that rest on a shared controls band. |
+| d01-s049 | refs/views/d01-s049.jpg | Stacked why, what and value bands, each split into icon columns, over an audience strip. |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d13-s045 | greeked/d13/s045.png | A generated raster with soft shadows, uneven bullet lengths across peers, and a title that wraps long and names the client. |
-| d09-s040 | greeked/d09/s040.png | The middle column is a bullet wall and the disc labels sit at a very small size. |
-| d02-s016 | greeked/d02/s016.png | Lopsided density across the columns, icons drifting off a shared axis, and an italic substitute face that breaks the type system. |
+| d13-s045 | refs/views/d13-s045.jpg | A generated raster with soft shadows, uneven bullet lengths across peers, and a title that wraps long and names the client. |
+| d09-s040 | refs/views/d09-s040.jpg | The middle column is a bullet wall and the disc labels sit at a very small size. |
+| d02-s016 | refs/views/d02-s016.jpg | Lopsided density across the columns, icons drifting off a shared axis, and an italic substitute face that breaks the type system. |
 
 ## Variants
 - Tier cards with checked capabilities over an outcome band (d03-s037).

@@ -73,9 +73,9 @@ Budget 250 words normalized and 250 on the w13 canvas, advisory floor 230, under
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d15-s020 | greeked/d15/s020.png | two lanes under shared stage tabs with a middle hand-off row of arrows, each labelled with its rule |
-| d02-s007 | greeked/d02/s007.png | phase headers over lanes where automated and human cards alternate, numbered discs on every human gate and loop routes for revision |
-| d12-s015 | greeked/d12/s015.png | a stage rail beside a centered spine that fans into parallel lanes through one shared band and rejoins into one output |
+| d15-s020 | refs/views/d15-s020.jpg | two lanes under shared stage tabs with a middle hand-off row of arrows, each labelled with its rule |
+| d02-s007 | refs/views/d02-s007.jpg | phase headers over lanes where automated and human cards alternate, numbered discs on every human gate and loop routes for revision |
+| d12-s015 | refs/views/d12-s015.jpg | a stage rail beside a centered spine that fans into parallel lanes through one shared band and rejoins into one output |
 
 ## Anti-exemplars
 None.

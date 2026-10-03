@@ -68,11 +68,11 @@ Budget 250 words normalized and 250 on the w13 canvas, held at the ceiling becau
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s015 | greeked/d01/s015.png | challenge strip, numbered chevron steps each with a small working diagram, a value strip and a brief rail closing on the decision supported |
-| d15-s008 | greeked/d15/s008.png | a problem, why and approach triad over expected and received chip rows and a pipeline whose failure lane returns as numbered steps |
-| d18-s026 | greeked/d18/s026.png | a node graph with named edges filling the page, an identity spine at its center and a use case card inside the frame |
-| d01-s016 | greeked/d01/s016.png | a conflicting chip grid resolving across a chevron into one ticked column of agreed inputs, beside a brief rail |
-| d15-s013 | greeked/d15/s013.png | a horizontal waterfall from base to total with signed driver bars, beside a problem, why and approach rail |
+| d01-s015 | refs/views/d01-s015.jpg | challenge strip, numbered chevron steps each with a small working diagram, a value strip and a brief rail closing on the decision supported |
+| d15-s008 | refs/views/d15-s008.jpg | a problem, why and approach triad over expected and received chip rows and a pipeline whose failure lane returns as numbered steps |
+| d18-s026 | refs/views/d18-s026.jpg | a node graph with named edges filling the page, an identity spine at its center and a use case card inside the frame |
+| d01-s016 | refs/views/d01-s016.jpg | a conflicting chip grid resolving across a chevron into one ticked column of agreed inputs, beside a brief rail |
+| d15-s013 | refs/views/d15-s013.jpg | a horizontal waterfall from base to total with signed driver bars, beside a problem, why and approach rail |
 
 ## Anti-exemplars
 None.

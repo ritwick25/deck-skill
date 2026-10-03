@@ -71,11 +71,11 @@ Budget 250 words normalized and 250 on the w10 canvas, held at the ceiling becau
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d09-s013 | greeked/d09/s013.png | a current list bridged through one platform block to a future list, over chevron phases with checked outcomes and duration pills |
-| d16-s002 | greeked/d16/s002.png | a narrow request rail beside a wider response grid of columns, resting on a ladder of delivery stages |
-| d03-s005 | greeked/d03/s005.png | headline stat tiles over scope, approach and deliverable columns, closed by a band of assumption cards |
-| d10-s003 | greeked/d10/s003.png | problem and opportunity panels over a grid of header-barred cells for plan, proof, results, price and team |
-| d13-s004 | greeked/d13/s004.png | quadrants, each led by an icon tile and each carrying its own mini device |
+| d09-s013 | refs/views/d09-s013.jpg | a current list bridged through one platform block to a future list, over chevron phases with checked outcomes and duration pills |
+| d16-s002 | refs/views/d16-s002.jpg | a narrow request rail beside a wider response grid of columns, resting on a ladder of delivery stages |
+| d03-s005 | refs/views/d03-s005.jpg | headline stat tiles over scope, approach and deliverable columns, closed by a band of assumption cards |
+| d10-s003 | refs/views/d10-s003.jpg | problem and opportunity panels over a grid of header-barred cells for plan, proof, results, price and team |
+| d13-s004 | refs/views/d13-s004.jpg | quadrants, each led by an icon tile and each carrying its own mini device |
 
 ## Anti-exemplars
 None.

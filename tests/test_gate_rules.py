@@ -181,9 +181,18 @@ class TestPassSide(Golden):
         self.assertEqual(code, 0, [f.line() for f in found])
         legacy = self.copy("vendor-legacy")
 
-        def fn2(prs):                                   # a blue mark: no identity colour is near it
-            pic = icons.vendor(prs.slides[6], keys[1], Box(10.4, 5.6, 0.5, 0.5))
-            pic._element.find(".//" + negatives.P + "cNvPr").set("name", "icon." + keys[1].replace("/", "."))
+        # a mark whose own hue no identity colour is near (ruling 18 registered the AWS and Azure notation colours,
+        # so the first Azure mark, Azure blue, now has one): the hand-placed name is hue-checked and fails
+        import p22_icons
+        from deckkit.theme import Theme, delta_e00
+        ids = [v["hex"] for v in Theme.load(negatives.THEME).identity.values()]
+        far = next(k for k in icons.vendor_keys() if k.startswith(("azure/", "gcp/", "aws/"))
+                   and (lambda h: h and all(delta_e00(h, i) >= p22_icons.HUE_DE for i in ids))(
+                       p22_icons._dominant(icons.vendor_path(k).read_bytes())))
+
+        def fn2(prs):
+            pic = icons.vendor(prs.slides[6], far, Box(10.4, 5.6, 0.5, 0.5))
+            pic._element.find(".//" + negatives.P + "cNvPr").set("name", "icon." + far.replace("/", "."))
         negatives.with_prs(legacy, fn2)
         code, found = run("P22", legacy)
         self.assertEqual(code, 1)

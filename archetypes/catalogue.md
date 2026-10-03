@@ -70,18 +70,18 @@ Word budget 210, the upper quartile of the top exemplars capped at 250. Content 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s030 | greeked/d01/s030.png | A pure register: icon disc, name, type tag, one-line purpose and link chips on one row pitch. |
-| d04-s007 | greeked/d04/s007.png | Function columns of uniform name and purpose tiles, one star typing a class, over a platform band. |
-| d18-s023 | greeked/d18/s023.png | Component cards list role over tool pairs, a caps role label above a bold name. |
-| d02-s005 | greeked/d02/s005.png | Agent columns share the same fields and each closes on an input, agent, output strip. |
-| d01-s033 | greeked/d01/s033.png | Stage columns of typed entries decoded by a lettered disc legend, each over an outcome block. |
+| d01-s030 | refs/views/d01-s030.jpg | A pure register: icon disc, name, type tag, one-line purpose and link chips on one row pitch. |
+| d04-s007 | refs/views/d04-s007.jpg | Function columns of uniform name and purpose tiles, one star typing a class, over a platform band. |
+| d18-s023 | refs/views/d18-s023.jpg | Component cards list role over tool pairs, a caps role label above a bold name. |
+| d02-s005 | refs/views/d02-s005.jpg | Agent columns share the same fields and each closes on an input, agent, output strip. |
+| d01-s033 | refs/views/d01-s033.jpg | Stage columns of typed entries decoded by a lettered disc legend, each over an outcome block. |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d12-s030 | greeked/d12/s030.png | The third entry carries only placeholder strings, and the alert rows of every card fall below the 8 pt floor. |
-| d01-s115 | greeked/d01/s115.png | Purpose text overruns its row hairlines, a draft banner covers the top row, and every link button is a gradient fill. |
-| d07-s008 | greeked/d07/s008.png | Most entry descriptions sit below the 8 pt floor and entries carry unequal fields, so the set cannot be scanned as uniform. |
+| d12-s030 | refs/views/d12-s030.jpg | The third entry carries only placeholder strings, and the alert rows of every card fall below the 8 pt floor. |
+| d01-s115 | refs/views/d01-s115.jpg | Purpose text overruns its row hairlines, a draft banner covers the top row, and every link button is a gradient fill. |
+| d07-s008 | refs/views/d07-s008.jpg | Most entry descriptions sit below the 8 pt floor and entries carry unequal fields, so the set cannot be scanned as uniform. |
 
 ## Variants
 - Ruled register rows ending in link chips (d01-s030).

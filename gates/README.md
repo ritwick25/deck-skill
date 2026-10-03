@@ -1,6 +1,6 @@
 # gates
 
-The static deck gates (P01 to P25), the runner and the characteriser.
+The static deck gates (P01 to P26), the runner and the characteriser.
 
 | Command | What it is | Can it fail? |
 |---|---|---|

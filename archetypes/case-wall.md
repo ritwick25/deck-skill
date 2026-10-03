@@ -73,19 +73,19 @@ Word budget 190, the upper quartile of the top exemplars capped at 250. Content 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d16-s014 | greeked/d16/s014.png | The purest wall: sector line, headline, short paragraph and a boxed figure per cell on a hairline grid. |
-| d03-s011 | greeked/d03/s011.png | Cases as columns against problem, delivered and outcome row tabs, so the outcome row reads across. |
-| d09-s056 | greeked/d09/s056.png | Four even columns of icon tile, headline and outcome line, over sector panels that link onward. |
-| d07-s011 | greeked/d07/s011.png | Five case cards each ending in a figure pill, numbered tags keyed to theme tiles in a band below. |
-| d01-s046 | greeked/d01/s046.png | Two cases mirrored on one spine, each resolving into a ruled results ledger led by figures. |
+| d16-s014 | refs/views/d16-s014.jpg | The purest wall: sector line, headline, short paragraph and a boxed figure per cell on a hairline grid. |
+| d03-s011 | refs/views/d03-s011.jpg | Cases as columns against problem, delivered and outcome row tabs, so the outcome row reads across. |
+| d09-s056 | refs/views/d09-s056.jpg | Four even columns of icon tile, headline and outcome line, over sector panels that link onward. |
+| d07-s011 | refs/views/d07-s011.jpg | Five case cards each ending in a figure pill, numbered tags keyed to theme tiles in a band below. |
+| d01-s046 | refs/views/d01-s046.jpg | Two cases mirrored on one spine, each resolving into a ruled results ledger led by figures. |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d09-s011 | greeked/d09/s011.png | Case pages cascaded as overlapping screenshots, with unreadable figures and blurred shadows, so proof lives in pictures. |
-| d09-s009 | greeked/d09/s009.png | Over the 250 ceiling with many runs below the 8 pt floor across an uneven tile mosaic with no shared cell grammar. |
-| d04-s027 | greeked/d04/s027.png | One engagement only, told through captured exhibit pages with no headline per case and no outcome figure on the page. |
-| d04-s009 | greeked/d04/s009.png | Client portraits fill the top half and the engagement list below carries only completed or ongoing ticks, no outcome figures. |
+| d09-s011 | refs/views/d09-s011.jpg | Case pages cascaded as overlapping screenshots, with unreadable figures and blurred shadows, so proof lives in pictures. |
+| d09-s009 | refs/views/d09-s009.jpg | Over the 250 ceiling with many runs below the 8 pt floor across an uneven tile mosaic with no shared cell grammar. |
+| d04-s027 | refs/views/d04-s027.jpg | One engagement only, told through captured exhibit pages with no headline per case and no outcome figure on the page. |
+| d04-s009 | refs/views/d04-s009.jpg | Client portraits fill the top half and the engagement list below carries only completed or ongoing ticks, no outcome figures. |
 
 ## Variants
 - Grid of case cells each closing on a stat card (d16-s014).

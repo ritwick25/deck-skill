@@ -11,6 +11,11 @@
     the vendor's own artwork, so no hue check; a mark whose key does not resolve fails;
   * a hand-placed vendor mark (a picture named icon.aws.*, icon.azure.* or icon.gcp.*) keeps its own hue, and that
     hue must be one the theme's identity registry declares (CIEDE2000 under 12), so it is a decision, not drift;
+  * a kit brand mark (a picture named mark.<key>, deckkit.icons.mark, ruling 19) is verified exactly as a vendor
+    mark is: its name and its alt text ('(brand mark <key>)') must agree on the key, the key must be in the mark
+    registry (kit/assets/marks/registry.json, or ctx.extra "marks_dir"), and the picture's bytes must be the
+    registered file's: the svgBlip part for an SVG mark (which must also carry its PNG fallback), the r:embed blob for
+    a PNG mark (deckkit.icons.mark_blob_refusal);
   * emoji are never icons.
 """
 from __future__ import annotations
@@ -20,8 +25,8 @@ import sys
 
 from _shared import FAIL, Finding, cli, text_of
 from deckkit.read.ns import local
-from deckkit.icons import (VENDOR_ALT, VENDOR_HASHES, VENDOR_PREFIX, blob_sha256, vendor_hash, vendor_key_of,
-                           vendor_resolves, vendor_sizes)
+from deckkit.icons import (MARK_ALT, MARK_PREFIX, VENDOR_ALT, VENDOR_HASHES, VENDOR_PREFIX, blob_sha256,
+                           mark_blob_refusal, mark_key_of, vendor_hash, vendor_key_of, vendor_resolves, vendor_sizes)
 from deckkit.read.walk import EMOJI
 from deckkit.theme import delta_e00
 
@@ -107,6 +112,26 @@ def run(deck, ctx):
                                        "registry: %s)" % (key, ", ".join(sorted(ctx.theme.vendors)) or "empty")))
                 else:
                     why = _blob_finding(dr, target, key)
+                    if why:
+                        out.append(Finding(GATE, FAIL, i, name, why))
+            if name.startswith(MARK_PREFIX):
+                alt = c.get("descr", "") if c is not None else ""
+                key = mark_key_of(name, alt)
+                if key is None:
+                    m = MARK_ALT.search(alt)
+                    out.append(Finding(GATE, FAIL, i, name, "brand mark name and alt text disagree on its key (alt %s)"
+                                       % (repr(m.group(1)) if m else "records no key")))
+                else:
+                    sv = None
+                    if svg:
+                        sid = svg[0].get("{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed")
+                        st = rels.get(sid, (None, None, None))[1] if sid else None
+                        sv = dr.blob(st.lstrip("/")) if st and dr.has(st.lstrip("/")) else None
+                    pv = dr.blob(target.lstrip("/")) if target and dr.has(target.lstrip("/")) else None
+                    try:
+                        why = mark_blob_refusal(key, sv, pv, ctx.extra.get("marks_dir"))
+                    except Exception as e:  # a malformed registry is a finding, never a pass
+                        why = "mark registry unreadable: %s" % e
                     if why:
                         out.append(Finding(GATE, FAIL, i, name, why))
         for L in ctx.slide(i)["shapes"]:

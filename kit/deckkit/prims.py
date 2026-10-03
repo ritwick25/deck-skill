@@ -219,7 +219,9 @@ def _recheck_strip(shape, fill_role, line_role, what):
 
 
 def set_fill(shape, role, *, theme=None, allow_strip: bool = False):
-    """Solid fill in a role, or noFill when role is None. Replaces any fill already there.
+    """Solid fill in a role, or noFill when role is None. Replaces any fill already there. role may also name an
+    identity colour (theme JSON "identity"): it is written as that registry hex (srgbClr) and never moves with a
+    theme (a notation colour such as AWS group colours, ruling 18).
 
     The strip rule is re-checked first on the shape as it will be (this fill, the line it already has): a strip
     in a role outside rules.STRIP_ROLES raises GeometryError unless the shape is named state.*. allow_strip=True
@@ -241,7 +243,8 @@ def set_fill(shape, role, *, theme=None, allow_strip: bool = False):
 
 def set_line(shape, role, weight_pt: float | None = None, *, theme=None, dash=None, head=None, cap=None,
              join=None, allow_strip: bool = False):
-    """The shape's a:ln: a role colour at weight_pt, or noFill when role is None.
+    """The shape's a:ln: a role colour (or an identity colour by its registry name) at weight_pt, or noFill when
+    role is None.
 
     head: None/'none', 'end' (tailEnd at the line's end point), 'start' (headEnd), 'both'.
     The rules are re-checked first on the shape as it will be: on a connector or an open path, the line rule

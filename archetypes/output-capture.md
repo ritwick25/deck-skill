@@ -60,11 +60,11 @@ Word budget 10 live content words on this canvas, advisory floor 0, hard ceiling
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d02-s025 | greeked/d02/s025.png | A whole report page captured as evidence, six small multiples isolating the one falling attribute. |
-| d10-s006 | greeked/d10/s006.png | One dashboard output view, tiles over charts, shows what the tool produces at a glance. |
-| d12-s037 | greeked/d12/s037.png | A captured three-column table of condition, output and impact read row by row. |
-| d10-s007 | greeked/d10/s007.png | A triage table output whose status pills do the color work, framed under a short title. |
-| d02-s018 | greeked/d02/s018.png | Three parallel page captures of one generated document, one per market, invite comparison. |
+| d02-s025 | refs/views/d02-s025.jpg | A whole report page captured as evidence, six small multiples isolating the one falling attribute. |
+| d10-s006 | refs/views/d10-s006.jpg | One dashboard output view, tiles over charts, shows what the tool produces at a glance. |
+| d12-s037 | refs/views/d12-s037.jpg | A captured three-column table of condition, output and impact read row by row. |
+| d10-s007 | refs/views/d10-s007.jpg | A triage table output whose status pills do the color work, framed under a short title. |
+| d02-s018 | refs/views/d02-s018.jpg | Three parallel page captures of one generated document, one per market, invite comparison. |
 
 ## Anti-exemplars
 None.

@@ -4,7 +4,7 @@
   "version": "v1",
   "sha256": "6f40a44386d2e633aa1808cc786483039990b5fec9b80c856b53211a00836924"
  },
- "library": "/Users/Nikunj/Codes/Decks-For-Visuals/library",
+ "library": "optional, for re-mining only: DECK_LIBRARY, else paths.LIB_DEFAULT",
  "families": {
   "f01": "Frame",
   "f02": "Parallel columns",
@@ -50,7 +50,7 @@
     "d08-s001",
     "d14-s001"
    ],
-   "sheet": "export/sheets/a01.png",
+   "sheet": "refs/sheets/a01.jpg",
    "card": "archetypes/cover.md",
    "members": 20
   },
@@ -88,7 +88,7 @@
     "d09-s003",
     "d12-s049"
    ],
-   "sheet": "export/sheets/a02.png",
+   "sheet": "refs/sheets/a02.jpg",
    "card": "archetypes/agenda.md",
    "members": 11
   },
@@ -122,7 +122,7 @@
     "d03-s004"
    ],
    "anti": [],
-   "sheet": "export/sheets/a03.png",
+   "sheet": "refs/sheets/a03.jpg",
    "card": "archetypes/section-divider.md",
    "members": 66
   },
@@ -157,7 +157,7 @@
     "d03-s049",
     "d01-s096"
    ],
-   "sheet": "export/sheets/a04.png",
+   "sheet": "refs/sheets/a04.jpg",
    "card": "archetypes/closing.md",
    "members": 16
   },
@@ -192,7 +192,7 @@
     "d01-s012",
     "d20-s010"
    ],
-   "sheet": "export/sheets/a05.png",
+   "sheet": "refs/sheets/a05.jpg",
    "card": "archetypes/problem-framing.md",
    "members": 11
   },
@@ -229,7 +229,7 @@
     "d13-s041",
     "d13-s013"
    ],
-   "sheet": "export/sheets/a06.png",
+   "sheet": "refs/sheets/a06.jpg",
    "card": "archetypes/principles.md",
    "members": 10
   },
@@ -262,7 +262,7 @@
     "d04-s006",
     "d09-s007"
    ],
-   "sheet": "export/sheets/a07.png",
+   "sheet": "refs/sheets/a07.jpg",
    "card": "archetypes/why-us.md",
    "members": 7
   },
@@ -298,7 +298,7 @@
     "d09-s040",
     "d02-s016"
    ],
-   "sheet": "export/sheets/a08.png",
+   "sheet": "refs/sheets/a08.jpg",
    "card": "archetypes/offering-pillars.md",
    "members": 10
   },
@@ -334,7 +334,7 @@
     "d01-s115",
     "d07-s008"
    ],
-   "sheet": "export/sheets/a09.png",
+   "sheet": "refs/sheets/a09.jpg",
    "card": "archetypes/catalogue.md",
    "members": 16
   },
@@ -372,7 +372,7 @@
     "d16-s024",
     "d09-s051"
    ],
-   "sheet": "export/sheets/a10.png",
+   "sheet": "refs/sheets/a10.jpg",
    "card": "archetypes/team-roster.md",
    "members": 8
   },
@@ -411,7 +411,7 @@
     "d04-s027",
     "d04-s009"
    ],
-   "sheet": "export/sheets/a11.png",
+   "sheet": "refs/sheets/a11.jpg",
    "card": "archetypes/case-wall.md",
    "members": 13
   },
@@ -440,7 +440,7 @@
     "d12-s045"
    ],
    "anti": [],
-   "sheet": "export/sheets/a12.png",
+   "sheet": "refs/sheets/a12.jpg",
    "card": "archetypes/the-ask.md",
    "members": 3
   },
@@ -472,7 +472,7 @@
     "d20-s011"
    ],
    "anti": [],
-   "sheet": "export/sheets/a13.png",
+   "sheet": "refs/sheets/a13.jpg",
    "card": "archetypes/process-flow.md",
    "members": 19
   },
@@ -506,7 +506,7 @@
     "d01-s067"
    ],
    "anti": [],
-   "sheet": "export/sheets/a14.png",
+   "sheet": "refs/sheets/a14.jpg",
    "card": "archetypes/as-is-process.md",
    "members": 5
   },
@@ -540,7 +540,7 @@
     "d21-s005"
    ],
    "anti": [],
-   "sheet": "export/sheets/a15.png",
+   "sheet": "refs/sheets/a15.jpg",
    "card": "archetypes/input-process-output.md",
    "members": 11
   },
@@ -574,7 +574,7 @@
     "d12-s052"
    ],
    "anti": [],
-   "sheet": "export/sheets/a16.png",
+   "sheet": "refs/sheets/a16.jpg",
    "card": "archetypes/decision-logic.md",
    "members": 13
   },
@@ -604,7 +604,7 @@
     "d12-s015"
    ],
    "anti": [],
-   "sheet": "export/sheets/a17.png",
+   "sheet": "refs/sheets/a17.jpg",
    "card": "archetypes/swimlane-handoff.md",
    "members": 3
   },
@@ -636,7 +636,7 @@
     "d15-s024"
    ],
    "anti": [],
-   "sheet": "export/sheets/a18.png",
+   "sheet": "refs/sheets/a18.jpg",
    "card": "archetypes/worked-example.md",
    "members": 29
   },
@@ -668,7 +668,7 @@
     "d01-s039"
    ],
    "anti": [],
-   "sheet": "export/sheets/a19.png",
+   "sheet": "refs/sheets/a19.jpg",
    "card": "archetypes/engagement-model.md",
    "members": 17
   },
@@ -704,7 +704,7 @@
     "d12-s042",
     "d21-s010"
    ],
-   "sheet": "export/sheets/a20.png",
+   "sheet": "refs/sheets/a20.jpg",
    "card": "archetypes/layered-architecture.md",
    "members": 19
   },
@@ -742,7 +742,7 @@
     "d19-s003",
     "d01-s059"
    ],
-   "sheet": "export/sheets/a21.png",
+   "sheet": "refs/sheets/a21.jpg",
    "card": "archetypes/solution-architecture.md",
    "members": 28
   },
@@ -776,7 +776,7 @@
     "d01-s094"
    ],
    "anti": [],
-   "sheet": "export/sheets/a22.png",
+   "sheet": "refs/sheets/a22.jpg",
    "card": "archetypes/governance-model.md",
    "members": 9
   },
@@ -810,7 +810,7 @@
     "d13-s006"
    ],
    "anti": [],
-   "sheet": "export/sheets/a23.png",
+   "sheet": "refs/sheets/a23.jpg",
    "card": "archetypes/from-to-shift.md",
    "members": 12
   },
@@ -842,7 +842,7 @@
     "d01-s037"
    ],
    "anti": [],
-   "sheet": "export/sheets/a24.png",
+   "sheet": "refs/sheets/a24.jpg",
    "card": "archetypes/options-comparison.md",
    "members": 6
   },
@@ -874,7 +874,7 @@
     "d16-s016"
    ],
    "anti": [],
-   "sheet": "export/sheets/a25.png",
+   "sheet": "refs/sheets/a25.jpg",
    "card": "archetypes/gap-analysis.md",
    "members": 3
   },
@@ -908,7 +908,7 @@
     "d12-s024"
    ],
    "anti": [],
-   "sheet": "export/sheets/a26.png",
+   "sheet": "refs/sheets/a26.jpg",
    "card": "archetypes/case-study.md",
    "members": 23
   },
@@ -940,7 +940,7 @@
     "d15-s013"
    ],
    "anti": [],
-   "sheet": "export/sheets/a27.png",
+   "sheet": "refs/sheets/a27.jpg",
    "card": "archetypes/deep-dive.md",
    "members": 25
   },
@@ -974,7 +974,7 @@
     "d13-s004"
    ],
    "anti": [],
-   "sheet": "export/sheets/a28.png",
+   "sheet": "refs/sheets/a28.jpg",
    "card": "archetypes/executive-summary.md",
    "members": 8
   },
@@ -1008,7 +1008,7 @@
     "d10-s014"
    ],
    "anti": [],
-   "sheet": "export/sheets/a29.png",
+   "sheet": "refs/sheets/a29.jpg",
    "card": "archetypes/scope-and-assumptions.md",
    "members": 10
   },
@@ -1042,7 +1042,7 @@
     "d01-s065"
    ],
    "anti": [],
-   "sheet": "export/sheets/a30.png",
+   "sheet": "refs/sheets/a30.jpg",
    "card": "archetypes/use-case-map.md",
    "members": 9
   },
@@ -1076,7 +1076,7 @@
     "d01-s045"
    ],
    "anti": [],
-   "sheet": "export/sheets/a31.png",
+   "sheet": "refs/sheets/a31.jpg",
    "card": "archetypes/coverage-matrix.md",
    "members": 10
   },
@@ -1110,7 +1110,7 @@
     "d09-s022"
    ],
    "anti": [],
-   "sheet": "export/sheets/a32.png",
+   "sheet": "refs/sheets/a32.jpg",
    "card": "archetypes/prioritization-matrix.md",
    "members": 11
   },
@@ -1144,7 +1144,7 @@
     "d09-s074"
    ],
    "anti": [],
-   "sheet": "export/sheets/a33.png",
+   "sheet": "refs/sheets/a33.jpg",
    "card": "archetypes/reference-table.md",
    "members": 9
   },
@@ -1182,7 +1182,7 @@
     "d16-s005",
     "d12-s021"
    ],
-   "sheet": "export/sheets/a34.png",
+   "sheet": "refs/sheets/a34.jpg",
    "card": "archetypes/hub-and-spoke.md",
    "members": 13
   },
@@ -1214,7 +1214,7 @@
     "d01-s043"
    ],
    "anti": [],
-   "sheet": "export/sheets/a35.png",
+   "sheet": "refs/sheets/a35.jpg",
    "card": "archetypes/lifecycle-loop.md",
    "members": 7
   },
@@ -1246,7 +1246,7 @@
     "d18-s009"
    ],
    "anti": [],
-   "sheet": "export/sheets/a36.png",
+   "sheet": "refs/sheets/a36.jpg",
    "card": "archetypes/convergence-hub.md",
    "members": 13
   },
@@ -1280,7 +1280,7 @@
     "d12-s019"
    ],
    "anti": [],
-   "sheet": "export/sheets/a37.png",
+   "sheet": "refs/sheets/a37.jpg",
    "card": "archetypes/gantt.md",
    "members": 16
   },
@@ -1314,7 +1314,7 @@
     "d09-s038"
    ],
    "anti": [],
-   "sheet": "export/sheets/a38.png",
+   "sheet": "refs/sheets/a38.jpg",
    "card": "archetypes/phased-roadmap.md",
    "members": 14
   },
@@ -1346,7 +1346,7 @@
     "d14-s002"
    ],
    "anti": [],
-   "sheet": "export/sheets/a39.png",
+   "sheet": "refs/sheets/a39.jpg",
    "card": "archetypes/value-horizons.md",
    "members": 13
   },
@@ -1378,7 +1378,7 @@
     "d07-s006"
    ],
    "anti": [],
-   "sheet": "export/sheets/a40.png",
+   "sheet": "refs/sheets/a40.jpg",
    "card": "archetypes/maturity-model.md",
    "members": 11
   },
@@ -1412,7 +1412,7 @@
     "d15-s034"
    ],
    "anti": [],
-   "sheet": "export/sheets/a41.png",
+   "sheet": "refs/sheets/a41.jpg",
    "card": "archetypes/headline-figures.md",
    "members": 5
   },
@@ -1445,7 +1445,7 @@
     "d12-s035"
    ],
    "anti": [],
-   "sheet": "export/sheets/a42.png",
+   "sheet": "refs/sheets/a42.jpg",
    "card": "archetypes/commercials.md",
    "members": 5
   },
@@ -1479,7 +1479,7 @@
     "d09-s005"
    ],
    "anti": [],
-   "sheet": "export/sheets/a43.png",
+   "sheet": "refs/sheets/a43.jpg",
    "card": "archetypes/credentials.md",
    "members": 14
   },
@@ -1513,7 +1513,7 @@
     "d12-s028"
    ],
    "anti": [],
-   "sheet": "export/sheets/a44.png",
+   "sheet": "refs/sheets/a44.jpg",
    "card": "archetypes/product-screen.md",
    "members": 8
   },
@@ -1547,7 +1547,7 @@
     "d02-s018"
    ],
    "anti": [],
-   "sheet": "export/sheets/a45.png",
+   "sheet": "refs/sheets/a45.jpg",
    "card": "archetypes/output-capture.md",
    "members": 24
   }

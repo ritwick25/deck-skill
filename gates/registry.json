@@ -164,6 +164,16 @@
    ]
   },
   {
+   "id": "P26",
+   "module": "p26_architecture",
+   "title": "architecture",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "tags"
+   ]
+  },
+  {
    "id": "P17",
    "module": "p17_fingerprints",
    "title": "fingerprints",

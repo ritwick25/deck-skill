@@ -66,11 +66,11 @@ Budget 180 words normalized and 130 on the w10 canvas, advisory floor 120, under
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s094 | greeked/d01/s094.png | three numbered columns: an owner hub, a weekly review chain and status cards that each assign a level of intervention |
-| d01-s093 | greeked/d01/s093.png | mini calendar columns per cadence with ownership and decision rows, beside a numbered escalation ladder with time limits |
-| d09-s049 | greeked/d09/s049.png | a three-tier pyramid whose levels point into rows of a cadence matrix with party columns |
-| d13-s020 | greeked/d13/s020.png | stacked cadence tiers mirrored by a center forum column flanked by vendor and client role lists |
-| d03-s044 | greeked/d03/s044.png | client and vendor team panels paired tier by tier across a center spine of tier pills |
+| d01-s094 | refs/views/d01-s094.jpg | three numbered columns: an owner hub, a weekly review chain and status cards that each assign a level of intervention |
+| d01-s093 | refs/views/d01-s093.jpg | mini calendar columns per cadence with ownership and decision rows, beside a numbered escalation ladder with time limits |
+| d09-s049 | refs/views/d09-s049.jpg | a three-tier pyramid whose levels point into rows of a cadence matrix with party columns |
+| d13-s020 | refs/views/d13-s020.jpg | stacked cadence tiers mirrored by a center forum column flanked by vendor and client role lists |
+| d03-s044 | refs/views/d03-s044.jpg | client and vendor team panels paired tier by tier across a center spine of tier pills |
 
 ## Anti-exemplars
 None.

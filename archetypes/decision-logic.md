@@ -72,11 +72,11 @@ Word budget 250, the upper quartile of the top exemplars capped at 250. Content 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d12-s025 | greeked/d12/s025.png | A numbered ladder of why questions, shaded by depth and answered beside each rung, bracketed into the written output. |
-| d03-s028 | greeked/d03/s028.png | A bracket splits one inventory into tinted disposition lanes whose step chains shrink from rebuild to retire. |
-| d12-s051 | greeked/d12/s051.png | A trigger box heads a numbered question ladder that routes each case to an outcome inside numbered tab columns. |
-| d03-s017 | greeked/d03/s017.png | Weighted criterion tiles on one track, fed by a gate and stepping in tint from first to last. |
-| d12-s052 | greeked/d12/s052.png | The same tab columns and trigger ladder on a second case, showing the device carries across inputs. |
+| d12-s025 | refs/views/d12-s025.jpg | A numbered ladder of why questions, shaded by depth and answered beside each rung, bracketed into the written output. |
+| d03-s028 | refs/views/d03-s028.jpg | A bracket splits one inventory into tinted disposition lanes whose step chains shrink from rebuild to retire. |
+| d12-s051 | refs/views/d12-s051.jpg | A trigger box heads a numbered question ladder that routes each case to an outcome inside numbered tab columns. |
+| d03-s017 | refs/views/d03-s017.jpg | Weighted criterion tiles on one track, fed by a gate and stepping in tint from first to last. |
+| d12-s052 | refs/views/d12-s052.jpg | The same tab columns and trigger ladder on a second case, showing the device carries across inputs. |
 
 ## Anti-exemplars
 None.

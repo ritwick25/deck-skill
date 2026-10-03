@@ -628,11 +628,222 @@ def p22_vendor_other_key(p, w):
                                         "Ec2 (vendor mark aws/compute/ec2)"))
 
 
+def _mark_registry(w) -> Path:
+    """A fixture mark registry in the scratch folder: one SVG mark 'acme' and one PNG mark 'acme-png'."""
+    d = Path(w) / "marks"
+    d.mkdir(parents=True, exist_ok=True)
+    svg = (b'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">'
+           b'<circle cx="32" cy="32" r="28" fill="#2B6CB0"/></svg>')
+    (d / "acme.svg").write_bytes(svg)
+    blob = png(300, 300, seed=11)
+    (d / "acme.png").write_bytes(blob)
+    reg = {"marks": {
+        "acme": {"name": "Acme", "file": "acme.svg", "sha256": hashlib.sha256(svg).hexdigest(), "source": "fixture",
+                 "fetched": "2026-10-03", "url": "https://example.invalid/acme.svg"},
+        "acme-png": {"name": "Acme", "file": "acme.png", "sha256": hashlib.sha256(blob).hexdigest(),
+                     "source": "fixture", "fetched": "2026-10-03", "url": "https://example.invalid/acme.png"}}}
+    (d / "registry.json").write_text(json.dumps(reg), encoding="utf-8")
+    return d
+
+
+def p22_mark_unregistered(p, w):
+    """A picture named and captioned as brand mark 'zenith', which the mark registry does not hold."""
+    d = _mark_registry(w)
+    blob = png(300, 300, seed=12)
+    with_prs(p, lambda prs: add_picture(prs, 7, blob, (11.0, 5.5, 0.5, 0.5), "mark.zenith", "Zenith (brand mark zenith)"))
+    return {"marks_dir": str(d)}
+
+
+def p22_mark_forged(p, w):
+    """A raster renamed and captioned as the registered PNG mark 'acme-png': only its sha256 tells it apart."""
+    d = _mark_registry(w)
+    blob = png(300, 300, seed=13)
+    with_prs(p, lambda prs: add_picture(prs, 7, blob, (11.0, 5.5, 0.5, 0.5), "mark.acme-png",
+                                        "Acme (brand mark acme-png)"))
+    return {"marks_dir": str(d)}
+
+
+def p22_mark_svg_swapped(p, w):
+    """The registered SVG mark placed by icons.mark, then its SVG part rewritten after the build."""
+    from deckkit import icons
+    from deckkit.canvas import Box
+    d = _mark_registry(w)
+    with_prs(p, lambda prs: icons.mark(prs.slides[6], "acme", Box(11.0, 5.5, 0.5, 0.5), registry=d))
+    m = members(p)
+    svgs = [n for n in m if n.startswith("ppt/media/") and n.endswith(".svg")]
+    m[svgs[-1]] = m[svgs[-1]].replace(b"#2B6CB0", b"#B02B2B")
+    write(p, m)
+    return {"marks_dir": str(d)}
+
+
 def p23_chip(p, w):
     def fn(r):
         chip = shape(r, "stat.3.basis")
         chip.getparent().remove(chip)
     edit_slide(p, 4, fn)
+
+
+# ------------------------------------------------------------------ P26 architecture (ruling 18)
+
+ARCH_KEYS = ("aws/compute/lambda", "aws/storage/simple-storage-service-s3", "aws/ml/bedrock", "aws/database/rds",
+             "aws/analytics/amazon-opensearch-service", "aws/integration/eventbridge", "aws/network/api-gateway",
+             "aws/security/cognito", "aws/management/cloudwatch", "aws/security/secrets-manager",
+             "aws/compute/fargate", "aws/devtools/codepipeline")
+
+
+def _arch_slide(prs, *, archetype="solution-architecture", variant="aws-reference", boxed=False, captions=True,
+                skip_caption=None, flows=0, labelled=True, keys=ARCH_KEYS):
+    """An architecture slide appended to the golden: twelve vendor marks on a 6 x 2 grid, each captioned below unless
+    told otherwise, optionally each inside its own card, and `flows` headed connectors between row neighbours."""
+    from deckkit import icons, prims, tag, text
+    from deckkit.canvas import Box
+    from deckkit.text import Para, Run
+    th = theme()
+    s = prs.slides.add_slide(prs.slide_layouts[0])
+    tag.tag(s, archetype, variant)
+    boxes = []
+    for k, key in enumerate(keys):
+        x, y = 0.9 + (k % 6) * 2.0, 1.6 + (k // 6) * 2.6
+        b = Box(x, y, 0.42, 0.42)
+        if boxed:
+            prims.card(s, Box(x - 0.29, y - 0.2, 1.0, 1.1), fill="card", line="hairline", name="tile.%d" % k, theme=th)
+        icons.vendor(s, key, b, name="n%d" % k, theme=th)
+        if captions and k != skip_caption:
+            text.textbox(s, Box(x - 0.24, y + 0.47, 0.9, 0.2), [Para((Run("Service %d" % k, size=9.0, bold=True),),
+                                                                      align="center")], "cap.%d" % k, th)
+        boxes.append(b)
+    for k in range(flows):
+        a, b = boxes[k], boxes[k + 1]
+        prims.connect(s, (a.r, a.cy), (b.x, b.cy), name="flow.%d" % k, theme=th)
+        if labelled:
+            text.textbox(s, Box((a.r + b.x) / 2 - 0.4, a.cy - 0.24, 0.8, 0.18),
+                         [Para((Run("raw data", size=8.0),), align="center")], "flow.%d.label" % k, th)
+    return s
+
+
+def p26_marks(p, w):
+    """The pillars slide retagged as a solution architecture: it carries glyphs and no product mark."""
+    from deckkit import tag
+
+    def fn(prs):
+        tag.tag(prs.slides[1], "solution-architecture", "aws-reference")
+    with_prs(p, fn)
+
+
+def p26_boxed(p, w):
+    with_prs(p, lambda prs: _arch_slide(prs, boxed=True))
+
+
+def p26_unlabelled(p, w):
+    with_prs(p, lambda prs: _arch_slide(prs, flows=4, labelled=False))
+
+
+def p26_l0_arrows(p, w):
+    with_prs(p, lambda prs: _arch_slide(prs, archetype="layered-architecture", variant="l0-house", flows=2))
+
+
+def p26_caption(p, w):
+    with_prs(p, lambda prs: _arch_slide(prs, skip_caption=5))
+
+
+def _engine_slide(prs, build, variant="aws-reference"):
+    """An architecture slide drawn by deckkit.arch, appended to the golden."""
+    from deckkit import arch, tag
+    from deckkit.canvas import Box
+    s = prs.slides.add_slide(prs.slide_layouts[0])
+    tag.tag(s, "solution-architecture", variant)
+    d = arch.Diagram("aws", grid=(3, 1), weights=[1, 6, 1])
+    build(d)
+    d.render(s, Box(0.5, 0.9, 12.4, 5.9), theme())
+    return s
+
+
+def p26_crossing(p, w):
+    """Two headed connectors that cross mid-span."""
+    from deckkit import prims
+
+    def fn(prs):
+        s = _arch_slide(prs, flows=2)
+        prims.connect(s, (2.4, 1.2), (2.4, 2.6), name="flow.cross", theme=theme())
+    with_prs(p, fn)
+
+
+def p26_step_gap(p, w):
+    """Step badges numbered 1 and 3: a gap in the numbered path."""
+    def build(d):
+        d.group("cloud", "aws-cloud", "AWS Cloud · probe", at=(1, 0, 1, 1), grid=(3, 1))
+        for k in range(3):
+            d.node("n%d" % k, "vendor:" + ARCH_KEYS[k], "Service %d" % k, group="cloud", at=(k, 0))
+        d.flow("n0", "n1", step=1)
+        d.flow("n1", "n2", step=3)
+        d.steps({1: "One", 3: "Three"})
+    with_prs(p, lambda prs: _engine_slide(prs, build))
+
+
+def p26_bare_boundary(p, w):
+    """The AWS Cloud boundary labelled with its name only: the outer two levels state a fact."""
+    def build(d):
+        d.group("cloud", "aws-cloud", "AWS Cloud", at=(1, 0, 1, 1), grid=(2, 1))
+        for k in range(2):
+            d.node("n%d" % k, "vendor:" + ARCH_KEYS[k], "Service %d" % k, group="cloud", at=(k, 0))
+        d.flow("n0", "n1", "raw data")
+    with_prs(p, lambda prs: _engine_slide(prs, build))
+
+
+def p26_orphan(p, w):
+    """A product mark with no flow, outside any platform band."""
+    def build(d):
+        d.group("cloud", "aws-cloud", "AWS Cloud · probe", at=(1, 0, 1, 1), grid=(3, 1))
+        for k in range(3):
+            d.node("n%d" % k, "vendor:" + ARCH_KEYS[k], "Service %d" % k, group="cloud", at=(k, 0))
+        d.flow("n0", "n1", "raw data")
+    with_prs(p, lambda prs: _engine_slide(prs, build))
+
+
+def p26_actor_inside(p, w):
+    """An actor glyph drawn inside the AWS Cloud boundary."""
+    def build(d):
+        d.group("cloud", "aws-cloud", "AWS Cloud · probe", at=(1, 0, 1, 1), grid=(3, 1))
+        d.node("people", "vendor:aws/general/users", "Field reps", group="cloud", at=(0, 0))
+        for k in range(2):
+            d.node("n%d" % k, "vendor:" + ARCH_KEYS[k], "Service %d" % k, group="cloud", at=(k + 1, 0))
+        d.flow("people", "n0", "requests")
+        d.flow("n0", "n1", "raw data")
+    with_prs(p, lambda prs: _engine_slide(prs, build))
+
+
+def p26_label_on_line(p, w):
+    """A knock-out flow label laid across another connector."""
+    from deckkit import prims, text
+    from deckkit.canvas import Box
+    from deckkit.text import Para, Run
+
+    def fn(prs):
+        s = _arch_slide(prs, flows=2)
+        sh = text.textbox(s, Box(3.75, 1.68, 0.7, 0.16), [Para((Run("raw data", size=8.0),), align="center")],
+                          "flow.9.label", theme())
+        prims.set_fill(sh, "paper", theme=theme())
+    with_prs(p, fn)
+
+
+def p26_two_marks_one_name(p, w):
+    """Two architecture slides drawing 'Service 0' with two different marks."""
+    def fn(prs):
+        _arch_slide(prs)
+        _arch_slide(prs, keys=ARCH_KEYS[1:] + ARCH_KEYS[:1])
+    with_prs(p, fn)
+
+
+def p26_padded_mark(p, w):
+    """A vendor mark with a transparent margin, drawn uncropped: its ink fills about half its picture."""
+    def fn(prs):
+        _arch_slide(prs, keys=ARCH_KEYS[:11] + ("saas/chat/teams",))
+    with_prs(p, fn)
+
+
+def p26_l0_tiles(p, w):
+    """An L0 master as an even grid of same-size marks: no varied regions, one icon tier."""
+    with_prs(p, lambda prs: _arch_slide(prs, archetype="layered-architecture", variant="l0-house"))
 
 
 # ------------------------------------------------------------------ sub-rule planters (one rule each)
@@ -1468,6 +1679,12 @@ PLANTERS = [
             p22_vendor_forged, "renamed as a vendor mark"),
     Planter("vendor-other-key", "P22", "a genuine azure mark under the aws/compute/ec2 name and alt text",
             p22_vendor_other_key, "renamed as a vendor mark"),
+    Planter("mark-unregistered", "P22", "a picture named as brand mark 'zenith', absent from the mark registry",
+            p22_mark_unregistered, "not in the mark registry"),
+    Planter("mark-forged-blob", "P22", "a raster renamed and captioned as the registered PNG mark 'acme-png'",
+            p22_mark_forged, "renamed as a brand mark"),
+    Planter("mark-svg-swapped", "P22", "a registered SVG mark whose SVG part was rewritten after the build",
+            p22_mark_svg_swapped, "renamed as a brand mark"),
     Planter("unlabelled-illustrative", "P23", "an illustrative stat with its chip removed", p23_chip,
             "'Illustrative' chip"),
     Planter("value-drift", "P23", "a stat value changed on glass after the build", p23_drift, "on glass '46%'"),
@@ -1515,6 +1732,31 @@ PLANTERS = [
     Planter("cover-tier-title", "P14", "a 16-word cover title renamed, a two-word line named 'title'",
             p14_cover_tier, "words in the title"),
     Planter("white-on-white", "P25", "white text on a white card", p25_white_on_white, "white.card"),
+    Planter("arch-no-marks", "P26", "the pillars slide retagged solution-architecture: glyphs, no product mark",
+            p26_marks, "product marks"),
+    Planter("arch-boxed-icons", "P26", "an architecture slide with every mark alone in its own card", p26_boxed,
+            "boxed alone"),
+    Planter("arch-bare-flows", "P26", "an architecture slide with four headed connectors and no label or badge",
+            p26_unlabelled, "carry a label"),
+    Planter("arch-l0-arrows", "P26", "an l0-house master carrying two labelled headed connectors", p26_l0_arrows,
+            "L0 master"),
+    Planter("arch-bare-mark", "P26", "an architecture slide with one product mark left without a caption",
+            p26_caption, "without a caption"),
+    Planter("arch-crossing", "P26", "two headed connectors crossing mid-span", p26_crossing, "connector crossing"),
+    Planter("arch-step-gap", "P26", "step badges 1 and 3 with no 2", p26_step_gap, "not 1..N"),
+    Planter("arch-bare-boundary", "P26", "the AWS Cloud boundary labelled 'AWS Cloud' only", p26_bare_boundary,
+            "bare name"),
+    Planter("arch-orphan", "P26", "a product mark with no flow outside a platform band", p26_orphan, "orphan"),
+    Planter("arch-actor-inside", "P26", "an actor glyph inside the AWS Cloud frame", p26_actor_inside,
+            "inside the AWS Cloud"),
+    Planter("arch-label-on-line", "P26", "a knock-out flow label laid across another connector", p26_label_on_line,
+            "lies on connector"),
+    Planter("arch-two-marks", "P26", "one caption name drawn with two different marks on two slides",
+            p26_two_marks_one_name, "one name, one mark"),
+    Planter("arch-padded-mark", "P26", "a vendor mark with a transparent margin drawn uncropped", p26_padded_mark,
+            "mark ink fills"),
+    Planter("arch-l0-tiles", "P26", "an L0 master drawn as an even grid of one icon size", p26_l0_tiles,
+            "region top-and-width"),
     Planter("grey-on-grey-band", "P25", "grey 9pt text on a mid-grey band", p25_grey_band, "grey.band"),
 ]
 

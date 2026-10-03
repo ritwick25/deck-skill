@@ -66,11 +66,11 @@ Budget 250 words normalized and 250 on the w10 canvas, held at the ceiling becau
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d09-s063 | greeked/d09/s063.png | a widening beam from a lens over the in-scope list and a narrowing one over what is out, with assumptions and numbered dependencies beneath |
-| d10-s013 | greeked/d10/s013.png | assumption and dependency lists in parallel panels, each item a number and a bold lead-in term |
-| d13-s012 | greeked/d13/s012.png | paired tab-headed in-scope columns fenced by an exclusion block marked with its own glyph |
-| d12-s031 | greeked/d12/s031.png | title band only over an empty body, kept for the title position and the house title treatment, not for any device |
-| d10-s014 | greeked/d10/s014.png | one numbered list of bold lead-in terms in a single panel, the simplest assumptions form |
+| d09-s063 | refs/views/d09-s063.jpg | a widening beam from a lens over the in-scope list and a narrowing one over what is out, with assumptions and numbered dependencies beneath |
+| d10-s013 | refs/views/d10-s013.jpg | assumption and dependency lists in parallel panels, each item a number and a bold lead-in term |
+| d13-s012 | refs/views/d13-s012.jpg | paired tab-headed in-scope columns fenced by an exclusion block marked with its own glyph |
+| d12-s031 | refs/views/d12-s031.jpg | title band only over an empty body, kept for the title position and the house title treatment, not for any device |
+| d10-s014 | refs/views/d10-s014.jpg | one numbered list of bold lead-in terms in a single panel, the simplest assumptions form |
 
 ## Anti-exemplars
 None.

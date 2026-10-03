@@ -191,7 +191,7 @@ PAGE = "paper"          # free text sits on the slide background, which is paper
 
 def background_hex(background, theme) -> str:
     """The hex behind the text: a theme role name, or a 6-digit hex (with or without #)."""
-    if isinstance(background, str) and background in ROLES:
+    if isinstance(background, str) and (background in ROLES or getattr(theme, "is_identity", lambda n: False)(background)):
         return theme.hex(background).upper()
     h = str(background or "").lstrip("#")
     if re.fullmatch(r"[0-9A-Fa-f]{6}", h):

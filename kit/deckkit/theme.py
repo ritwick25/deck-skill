@@ -241,6 +241,9 @@ class Theme:
             if not (isinstance(v, dict) and _hex_ok(v.get("hex")) and v.get("reason")):
                 raise ThemeInvariant("identity %r" % k, need="{hex, reason}", have=v,
                                      hint="every identity colour states why it keeps its hue")
+            if k in ROLE_DEFAULTS:
+                raise ThemeInvariant("identity %r" % k, need="a name that is not a theme role", have=k,
+                                     hint="identity colours are drawn by name, so a name may not shadow a role")
             self.identity[k] = {"hex": v["hex"].upper(), "reason": v["reason"]}
         # Vendor registry: the vendors whose service marks keep their own artwork and hue on this theme.
         # A key ('aws/compute/ec2') resolves when its first segment is registered here and the mark file
@@ -348,15 +351,38 @@ class Theme:
             raise ThemeInvariant("role %r" % role, need="one of " + ", ".join(ROLES), have=role)
         return e
 
+    def is_identity(self, name) -> bool:
+        """True when name is a colour in the identity registry (drawn as srgbClr, never moved by a theme)."""
+        return isinstance(name, str) and name in self.identity
+
+    def identity_hex(self, name: str) -> str:
+        if not self.is_identity(name):
+            raise ThemeInvariant("identity %r" % name, need="a name in the theme's identity registry",
+                                 have=name, hint="registered: " + (", ".join(sorted(self.identity)) or "none"))
+        return self.identity[name]["hex"]
+
+    def identity_spec(self, name: str):
+        """A fresh `<a:srgbClr>` element for an identity colour: the one place the kit writes a hex, and only a hex
+        the theme's identity registry declares (gate P16 accepts exactly those)."""
+        el = etree.Element(_A + "srgbClr", nsmap={"a": A_NS})
+        el.set("val", self.identity_hex(name))
+        return el
+
     def hex(self, role: str) -> str:
-        """The role's resolved hex, for gates, the twin and contrast. Never written to a slide."""
+        """The role's resolved hex (or an identity colour's hex), for gates, the twin and contrast. Never written to
+        a slide."""
+        if self.is_identity(role):
+            return self.identity_hex(role)
         return self.expr_hex(self._role(role))
 
     def expr(self, role: str) -> str:
         return str(self._role(role))
 
     def spec(self, role: str):
-        """A fresh `<a:schemeClr>` element (with lumMod/lumOff children) for the role."""
+        """A fresh `<a:schemeClr>` element (with lumMod/lumOff children) for the role, or an `<a:srgbClr>` for an
+        identity colour named by its registry key (identity_spec)."""
+        if self.is_identity(role):
+            return self.identity_spec(role)
         e = self._role(role)
         el = etree.Element(_A + "schemeClr", nsmap={"a": A_NS})
         el.set("val", e.slot)
@@ -365,6 +391,8 @@ class Theme:
         return el
 
     def spec_xml(self, role: str) -> str:
+        if self.is_identity(role):
+            return '<a:srgbClr val="%s"/>' % self.identity_hex(role)
         e = self._role(role)
         inner = "".join('<a:%s val="%d"/>' % m for m in e.mods)
         if inner:

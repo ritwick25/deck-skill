@@ -68,18 +68,18 @@ Word budget 160 pooled, 160 on the standard canvas and 100 on the wide canvas, u
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d16-s017 | greeked/d16/s017.png | core disc fanning an arc of icon petals, each petal indexing one capability card in the stack beside it |
-| d09-s055 | greeked/d09/s055.png | three pillar sectors around a score hub, each fanned out to its own card of proof figures |
-| d20-s005 | greeked/d20/s005.png | icon discs strung on an open horseshoe around a central mark, each disc owning a heading set outside the arc |
-| d03-s047 | greeked/d03/s047.png | six flat triangles tiled into a hexagon around a contrasting value disc |
-| d09-s039 | greeked/d09/s039.png | four pillar tiles meeting at a quartered contrasting hub, one tile opened into a detail panel as a spotlight |
+| d16-s017 | refs/views/d16-s017.jpg | core disc fanning an arc of icon petals, each petal indexing one capability card in the stack beside it |
+| d09-s055 | refs/views/d09-s055.jpg | three pillar sectors around a score hub, each fanned out to its own card of proof figures |
+| d20-s005 | refs/views/d20-s005.jpg | icon discs strung on an open horseshoe around a central mark, each disc owning a heading set outside the arc |
+| d03-s047 | refs/views/d03-s047.jpg | six flat triangles tiled into a hexagon around a contrasting value disc |
+| d09-s039 | refs/views/d09-s039.jpg | four pillar tiles meeting at a quartered contrasting hub, one tile opened into a detail panel as a spotlight |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d16-s019 | greeked/d16/s019.png | Nested bands with a wedge crossing them read as convergence rather than peers around a core, and item labels float at tiny size with no tie to a band. |
-| d16-s005 | greeked/d16/s005.png | The lobes float far from their bullet lists, underlined italic keywords clutter the bodies, and gradients and shadows carry the diagram. |
-| d12-s021 | greeked/d12/s021.png | Seven peer claims orbit a mark as second person prose, and the satellite text edges are irregular around the arc. |
+| d16-s019 | refs/views/d16-s019.jpg | Nested bands with a wedge crossing them read as convergence rather than peers around a core, and item labels float at tiny size with no tie to a band. |
+| d16-s005 | refs/views/d16-s005.jpg | The lobes float far from their bullet lists, underlined italic keywords clutter the bodies, and gradients and shadows carry the diagram. |
+| d12-s021 | refs/views/d12-s021.jpg | Seven peer claims orbit a mark as second person prose, and the satellite text edges are irregular around the arc. |
 
 ## Variants
 - Petal fan index, a core disc fanning icon petals that each point to a card in a stack beside it, shown by d16-s017.

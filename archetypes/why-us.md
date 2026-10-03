@@ -66,15 +66,15 @@ Word budget 210, the upper quartile of the top exemplars capped at 250. Content 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s026 | greeked/d01/s026.png | Numbered red-headed pillars each close in a payoff strip, over a strip of outside recognitions. |
-| d16-s023 | greeked/d16/s023.png | Numbered rows pair each claim with its bullets of proof, a ranked list a buyer can repeat. |
-| d01-s027 | greeked/d01/s027.png | Large numerals break each card's top edge, and a band beneath names what powers every reason. |
+| d01-s026 | refs/views/d01-s026.jpg | Numbered red-headed pillars each close in a payoff strip, over a strip of outside recognitions. |
+| d16-s023 | refs/views/d16-s023.jpg | Numbered rows pair each claim with its bullets of proof, a ranked list a buyer can repeat. |
+| d01-s027 | refs/views/d01-s027.jpg | Large numerals break each card's top edge, and a band beneath names what powers every reason. |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d04-s006 | greeked/d04/s006.png | A panel mosaic with generic label rows, inner spacing that varies from panel to panel, and a strip of foreign logos. |
-| d09-s007 | greeked/d09/s007.png | Every service carries equal weight as icon and label pairs, so the slide catalogues and nothing argues. |
+| d04-s006 | refs/views/d04-s006.jpg | A panel mosaic with generic label rows, inner spacing that varies from panel to panel, and a strip of foreign logos. |
+| d09-s007 | refs/views/d09-s007.jpg | Every service carries equal weight as icon and label pairs, so the slide catalogues and nothing argues. |
 
 ## Variants
 - Numbered pillars with payoff foot strips over a recognition strip (d01-s026).

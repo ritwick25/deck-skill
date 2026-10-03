@@ -67,17 +67,17 @@ Word budget 250, the upper quartile of the top exemplars capped at 250. Content 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s024 | greeked/d01/s024.png | Question columns each answered by a mini diagram over principle cards, so every rule arrives with its mechanism. |
-| d01-s086 | greeked/d01/s086.png | Numbered principle cards in a grid, each a heading, a pictogram and a short reason. |
-| d13-s009 | greeked/d13/s009.png | Each numbered card splits a stated need from its design answer under a hairline, cause then response. |
-| d12-s056 | greeked/d12/s056.png | Numbered rows stepped along an arc around one anchoring visual, tied to it by dashed leaders. |
-| d13-s028 | greeked/d13/s028.png | Numbered design themes in columns, each ending in a real screen as its proof. |
+| d01-s024 | refs/views/d01-s024.jpg | Question columns each answered by a mini diagram over principle cards, so every rule arrives with its mechanism. |
+| d01-s086 | refs/views/d01-s086.jpg | Numbered principle cards in a grid, each a heading, a pictogram and a short reason. |
+| d13-s009 | refs/views/d13-s009.jpg | Each numbered card splits a stated need from its design answer under a hairline, cause then response. |
+| d12-s056 | refs/views/d12-s056.jpg | Numbered rows stepped along an arc around one anchoring visual, tied to it by dashed leaders. |
+| d13-s028 | refs/views/d13-s028.jpg | Numbered design themes in columns, each ending in a real screen as its proof. |
 
 ## Anti-exemplars
 | Slide | View | Failure |
 |---|---|---|
-| d13-s041 | greeked/d13/s041.png | Evenly sized cards stretched around short paragraphs, baked into a raster, with one card covered by a stand-in box. |
-| d13-s013 | greeked/d13/s013.png | A generated raster of look-alike cards with gutter rules that double the card edges. |
+| d13-s041 | refs/views/d13-s041.jpg | Evenly sized cards stretched around short paragraphs, baked into a raster, with one card covered by a stand-in box. |
+| d13-s013 | refs/views/d13-s013.jpg | A generated raster of look-alike cards with gutter rules that double the card edges. |
 
 ## Variants
 - A numbered card grid, heading over pictogram over reason (d01-s086).

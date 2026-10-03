@@ -73,11 +73,11 @@ Budget 220 words normalized and 220 on the w10 canvas, advisory floor 150 and 21
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d12-s013 | greeked/d12/s013.png | phase cards raised one step each along a rising curve, every tab carrying a status chip |
-| d08-s002 | greeked/d08/s002.png | year tabs fused to chevrons heading dashed-ruled columns of sketch, callouts and a rising bar |
-| d14-s002 | greeked/d14/s002.png | year chevron band over a rising curve with stage vignettes and icon-led value callouts |
-| d01-s068 | greeked/d01/s068.png | cumulative value curve under tint-ramped year chevrons, workflow vignettes riding the curve |
-| d04-s011 | greeked/d04/s011.png | ascending step outline paired with one shaded map per year and an enabler rail |
+| d12-s013 | refs/views/d12-s013.jpg | phase cards raised one step each along a rising curve, every tab carrying a status chip |
+| d08-s002 | refs/views/d08-s002.jpg | year tabs fused to chevrons heading dashed-ruled columns of sketch, callouts and a rising bar |
+| d14-s002 | refs/views/d14-s002.jpg | year chevron band over a rising curve with stage vignettes and icon-led value callouts |
+| d01-s068 | refs/views/d01-s068.jpg | cumulative value curve under tint-ramped year chevrons, workflow vignettes riding the curve |
+| d04-s011 | refs/views/d04-s011.jpg | ascending step outline paired with one shaded map per year and an enabler rail |
 
 ## Anti-exemplars
 None.

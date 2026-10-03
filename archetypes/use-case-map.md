@@ -70,11 +70,11 @@ Word budget 180 pooled, 180 on the standard canvas and 150 on the wide canvas, u
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d01-s014 | greeked/d01/s014.png | numbered agent cards on two lanes with solid hand off arrows and dashed feedback loops, one band spanning both lanes |
-| d09-s035 | greeked/d09/s035.png | full width row cards chained left to right by chevrons, each row one use case read from role to value |
-| d12-s012 | greeked/d12/s012.png | four numbered header bars over gray trays of equal cards, a heavier outline marking the first wave against one key |
-| d07-s007 | greeked/d07/s007.png | five stage discs as a spine with module cards hung above and below by drop lines to the stages each serves |
-| d01-s065 | greeked/d01/s065.png | agent disc mesh under domain tabs, one tab lit as the starting domain, resting on a platform panel |
+| d01-s014 | refs/views/d01-s014.jpg | numbered agent cards on two lanes with solid hand off arrows and dashed feedback loops, one band spanning both lanes |
+| d09-s035 | refs/views/d09-s035.jpg | full width row cards chained left to right by chevrons, each row one use case read from role to value |
+| d12-s012 | refs/views/d12-s012.jpg | four numbered header bars over gray trays of equal cards, a heavier outline marking the first wave against one key |
+| d07-s007 | refs/views/d07-s007.jpg | five stage discs as a spine with module cards hung above and below by drop lines to the stages each serves |
+| d01-s065 | refs/views/d01-s065.jpg | agent disc mesh under domain tabs, one tab lit as the starting domain, resting on a platform panel |
 
 ## Anti-exemplars
 None.

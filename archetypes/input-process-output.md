@@ -73,11 +73,11 @@ Word budget 250, the upper quartile of the top exemplars capped at 250. Content 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d02-s010 | greeked/d02/s010.png | Pill-headed panels read input to numbered steps to typed outputs, with proof thumbnails and a reuse strip. |
-| d10-s005 | greeked/d10/s005.png | Staggered step cards inside a dashed container close on a cycle arrow, flanked by input and output panels. |
-| d11-s003 | greeked/d11/s003.png | A question card arrows into one engine roundel that fans into three evidence rows. |
-| d13-s031 | greeked/d13/s031.png | Three headed panels with a numbered step chain in the wide center feeding a named engine callout. |
-| d21-s005 | greeked/d21/s005.png | A taller brand-filled method box sits between a pale input box and a dark output box, with block arrows in the gaps and its dimensions as a chip row beneath. |
+| d02-s010 | refs/views/d02-s010.jpg | Pill-headed panels read input to numbered steps to typed outputs, with proof thumbnails and a reuse strip. |
+| d10-s005 | refs/views/d10-s005.jpg | Staggered step cards inside a dashed container close on a cycle arrow, flanked by input and output panels. |
+| d11-s003 | refs/views/d11-s003.jpg | A question card arrows into one engine roundel that fans into three evidence rows. |
+| d13-s031 | refs/views/d13-s031.jpg | Three headed panels with a numbered step chain in the wide center feeding a named engine callout. |
+| d21-s005 | refs/views/d21-s005.jpg | A taller brand-filled method box sits between a pale input box and a dark output box, with block arrows in the gaps and its dimensions as a chip row beneath. |
 
 ## Anti-exemplars
 None.

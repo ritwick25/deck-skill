@@ -31,6 +31,8 @@ overrides win inside that project only, and only when they name their source.
 | Every figure states its kind; planning figures carry a chip; manifest agrees | P23 | `prims.stat(kind=...)` | Declare it in `manifest["numbers"]` |
 | A content slide fills its band (mass, not a union box) | P24 | | Grow the governing visual; never pad with air |
 | Text contrast clears WCAG against what is painted behind it | P25 | `textbox(background=role)` checks before drawing | Pass the fill the text sits on |
+| Architecture slides: 12+ product marks (8 on layered), at most 25% of icons boxed alone, 80% of flows labelled or numbered, no arrows on an L0 master, every mark captioned | P26 | `deckkit.arch` draws the grammar | Declare the diagram in `arch`; a conceptual architecture grants `P26:marks` with its source |
+| Icons: brand marks byte-verified against the mark registry | P22 | `icons.mark` | Register the mark with its source, date and sha256 |
 
 R01 to R03 (render checks) and H01 to H10 (the HTML twin) are registered and report PENDING. They are deferred by
 ruling 9, so rendering and reading every slide is the only render check that runs.

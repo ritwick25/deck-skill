@@ -105,6 +105,82 @@
     "rag-green": {
       "hex": "4EA347",
       "reason": "status On track; keeps its hue under any client theme and always prints with its word"
+    },
+    "aws-cloud": {
+      "hex": "232F3E",
+      "reason": "AWS architecture notation (AWS Architecture Icons toolkit deck 07312026, Groups slide, verified 2026-10-03); keeps its hue under any client theme; AWS Cloud group border and tab, and the step badge (white numeral)"
+    },
+    "aws-account": {
+      "hex": "E7157B",
+      "reason": "AWS architecture notation (AWS Architecture Icons toolkit deck 07312026, Groups slide, verified 2026-10-03); keeps its hue under any client theme; AWS account group"
+    },
+    "aws-region": {
+      "hex": "00A4A6",
+      "reason": "AWS architecture notation (AWS Architecture Icons toolkit deck 07312026, Groups slide, verified 2026-10-03); keeps its hue under any client theme; Region group, dashed"
+    },
+    "aws-az": {
+      "hex": "00A4A6",
+      "reason": "AWS architecture notation (AWS Architecture Icons toolkit deck 07312026, Groups slide, verified 2026-10-03); keeps its hue under any client theme; Availability Zone group, dashed"
+    },
+    "aws-vpc": {
+      "hex": "8C4FFF",
+      "reason": "AWS architecture notation (AWS Architecture Icons toolkit deck 07312026, Groups slide, verified 2026-10-03); keeps its hue under any client theme; VPC group"
+    },
+    "aws-public-subnet": {
+      "hex": "7AA116",
+      "reason": "AWS architecture notation (AWS Architecture Icons toolkit deck 07312026, Groups slide, verified 2026-10-03); keeps its hue under any client theme; public subnet group"
+    },
+    "aws-private-subnet": {
+      "hex": "00A4A6",
+      "reason": "AWS architecture notation (AWS Architecture Icons toolkit deck 07312026, Groups slide, verified 2026-10-03); keeps its hue under any client theme; private subnet group"
+    },
+    "aws-security-group": {
+      "hex": "DD344C",
+      "reason": "AWS architecture notation (AWS Architecture Icons toolkit deck 07312026, Groups slide, verified 2026-10-03); keeps its hue under any client theme; security group"
+    },
+    "aws-asg": {
+      "hex": "ED7100",
+      "reason": "AWS architecture notation (AWS Architecture Icons toolkit deck 07312026, Groups slide, verified 2026-10-03); keeps its hue under any client theme; Auto Scaling group, dashed"
+    },
+    "aws-corporate-dc": {
+      "hex": "7D8998",
+      "reason": "AWS architecture notation (AWS Architecture Icons toolkit deck 07312026, Groups slide, verified 2026-10-03); keeps its hue under any client theme; corporate data center group"
+    },
+    "aws-generic": {
+      "hex": "7D8998",
+      "reason": "AWS architecture notation (AWS Architecture Icons toolkit deck 07312026, Groups slide, verified 2026-10-03); keeps its hue under any client theme; generic group, dashed"
+    },
+    "azure-blue": {
+      "hex": "0078D4",
+      "reason": "Azure architecture notation (Azure Architecture Center reference diagrams, verified 2026-10-03); keeps its hue under any client theme; Azure blue, the step badge (white numeral) and the subscription boundary"
+    },
+    "azure-region": {
+      "hex": "0070C0",
+      "reason": "Azure architecture notation (Azure Architecture Center reference diagrams, verified 2026-10-03); keeps its hue under any client theme; region boundary, dashed (hub-spoke reference)"
+    },
+    "azure-vnet": {
+      "hex": "A4CBFB",
+      "reason": "Azure architecture notation (Azure Architecture Center reference diagrams, verified 2026-10-03); keeps its hue under any client theme; virtual network frame (baseline App Service reference)"
+    },
+    "azure-subnet": {
+      "hex": "BFBFBF",
+      "reason": "Azure architecture notation (Azure Architecture Center reference diagrams, verified 2026-10-03); keeps its hue under any client theme; subnet outline (baseline App Service reference)"
+    },
+    "azure-subnet-fill": {
+      "hex": "F8F8F8",
+      "reason": "Azure architecture notation (Azure Architecture Center reference diagrams, verified 2026-10-03); keeps its hue under any client theme; subnet ground (baseline App Service reference)"
+    },
+    "azure-resource-group": {
+      "hex": "7A7A7A",
+      "reason": "Azure architecture notation (Azure Architecture Center reference diagrams, verified 2026-10-03); keeps its hue under any client theme; resource group boundary, dashed; no published colour, taken from the reference diagram's grey"
+    },
+    "azure-zone": {
+      "hex": "FFD965",
+      "reason": "Azure architecture notation (Azure Architecture Center reference diagrams, verified 2026-10-03); keeps its hue under any client theme; availability zone boundary (baseline App Service reference)"
+    },
+    "azure-step": {
+      "hex": "107C10",
+      "reason": "Azure architecture notation step badge (ruling 21, the Azure Architecture Center's numbered-flow green), white numeral; keeps its hue under any client theme"
     }
   }
 }

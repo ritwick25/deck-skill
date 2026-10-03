@@ -333,3 +333,67 @@ quality. The best reference slides must be used. It must not become a 10-hour jo
   - the font.
   It then builds a client theme (contrast-solved, identity colours kept) and a cover logo lockup. The fallback is the
   house theme, and it is used only when the user says so.
+
+## 2026-10-03 · Ruling 18 built: deckkit.arch, P26, brand marks (workflow task)
+- **Engine** `kit/deckkit/arch.py`: a declared diagram (groups, nodes, flows, steps) drawn in the aws, azure or house
+  grammar on measured grids; marks float with captions; flows run edge to edge (straight, Z, C, L into a top, U over a
+  row), never along a border or another flow, and carry a label or a numbered badge; `l0=True` refuses flows.
+  `align`, `weights`, `stretch`, `gaps`, `head_air` and node `anchor` are the layout levers; `render(draft=True)` lists
+  what does not fit while iterating.
+- **Colours verified 2026-10-03** (detail in the module header): the AWS toolkit deck 07312026 corrects three of the
+  brief's starting values (AZ `#00A4A6` not `#147EBA`; security group `#DD344C` not `#DD3522`; subnets carry no fill).
+  Azure publishes no boundary colours; VNet, subnet, zone and region come from Microsoft's reference diagrams, the
+  subscription and resource group colours are house choices. Azure step badges are `#107C10` (ruling 21). All are
+  identity colours in both themes; `Theme.spec` writes an identity name as srgbClr and refuses a name that shadows a role.
+- **Marks** `icons.mark` and `kit/assets/marks/registry.json` (empty); P22 verifies `mark.*` pictures by bytes.
+- **Gate P26** with five planters; P22 gains three mark planters; 119 negatives behave.
+- **Open, for the user**: P18 flags official vendor marks that the reference decks also embed (10 marks on the example);
+  the example grants them in `deck.json` `media_allow`. A P18 exemption for P22-verified marks is the user's call.
+
+## 2026-10-03 · Ruling 18 fix round: the critics' defects on the four engine slides (workflow task)
+- **Engine** `deckkit.arch` gains the levers the critics' fixes needed, each a general rule, not a slide patch:
+  - notation per grammar: aws flows `#232F3E` 1.25pt open arrow, aws badges 0.30in with a 9pt numeral, aws group
+    labels and node names regular (spec 1.2, 1.4, 1.5); azure and house keep 1.0pt triangles and 0.22in badges;
+  - edge pins (`anchor="edge:l|edge:r|edge:t"`) centred on a group's frame line, caption outside; captions beside
+    an icon (`caption="right|left"`) so a vertical flow can leave its bottom; `align(..., axis="x")`;
+  - `group(..., band=, drop=, row_gap=, gutter=)`; house kinds `section`, `boundary`, `zone`; rails drawn as light
+    cards with a label tab; round header tabs on house cards; the Azure VNet as a filled ground with its label above
+    and an NSG shield on every subnet; flow kind `private` keyed in the legend;
+  - routing picks the route with the fewest crossings and refuses a final leg under 0.15in; badges go first, beside
+    the source end (no destination fallback, never over a line); labels sit on one line (never wrapped) beside the
+    longest segment that holds them, clear of every other flow, else knocked out on their own line;
+  - marks are cropped to their ink with `a:srcRect` (bytes untouched) so they share one optical size; metrics count
+    product marks without actor glyphs and count placed labels (`labelled`, `badge_only`); draft mode lists caption,
+    height, label and badge failures instead of raising;
+  - a house deep dive refuses a name of three words or fewer that wraps; an L0 master and the aws and azure notations
+    wrap long service names, as AWS and Azure do.
+- **Gate P26** now holds the spec's checks: marks without actor glyphs (floor 20; house deep dive 15; layered 16),
+  boxed alone at most 10%, labels or badges or a keyed style on 80% of flows, captions (an edge pin's above), no
+  crossing (h), steps 1..N in one size within the type's band (j), outer boundary labels state a fact and enough
+  boundary kinds (k), L0 regions varied with two icon tiers, no orphan outside a band (r), AWS and Azure notation
+  (s: actors outside the cloud, regional services and PaaS outside the network, VPC crossings land on a pin), label
+  and badge collisions (u), one name one mark across slides (v), ink at least 75% of a mark (w). Nine new planters;
+  P04 and P05 accept an edge pin on its border. 128 negatives behave.
+- **Examples** rebuilt: AWS (Region with 2 AZs, agents and data subnets, S3 and Bedrock endpoints, ALB and NAT on
+  the VPC edge, CloudFront ingress, SaaS outside, ops band, 10 steps, 23 marks), Azure (Region, subscription, VNet
+  tiled by integration, gateway, agents and endpoint subnets, every PaaS service straight across from its private
+  endpoint, shared-services band, the same 10 steps, 24 marks), house L0 (dashed platform boundary, client estate
+  outside, identity and operations rails, regions of unequal width with sections, two icon tiers, delivery band,
+  36 marks, no arrows), house deep dive (account boundary, agent trust zone, sections, 6 numbered hops, legend).
+- **Not applied, with the reason:**
+  - AWS density 28 to 34 marks: the slide carries 23 product marks plus 3 actors. Four nesting levels, ten steps and
+    a legend in the 12.4 x 6.0in field leave no room for more without 2-line wrapping everywhere; spec 3.1's floor
+    is 20.
+  - A CRM SaaS mark outside the AWS Cloud: no CRM vendor mark exists offline (no Salesforce or Veeva in the diagrams
+    package); the L0 shows CRM as an actor glyph.
+  - Claude beside Bedrock on the AWS slide: folded into Bedrock's role ("Claude models"); a separate Claude node
+    could not be routed without a crossing. The house slides keep Claude with its `model call` flow.
+  - V24 Entra ID: the V24 set has no plain Entra ID service icon; the other V24 icons are already in the diagrams
+    package under newer keys and the azure slide uses them.
+  - Azure tiles per PaaS service (AAC convention): the azure grammar floats marks, by ruling 18.
+  - P26.h hop gaps: the engine never draws a crossing, so the gate fails any crossing instead of counting hops.
+  - "Refuse a badge within 0.45in of an icon that already has one": kept as a preference, not a refusal; a hard
+    refusal left steps with no place on the AWS and Azure slides.
+  - A one-line step legend on the AWS slide: ten steps in one bottom row wrap to two lines; the rail is shorter.
+- **For the user:** the showcase deck's rejected architecture slides (v2 slides 22, 23, 32, 34) already failed P26
+  and now fail more of it; they are rebuilt from the engine in the showcase round, not patched.
