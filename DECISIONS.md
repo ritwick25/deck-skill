@@ -184,3 +184,11 @@ a new member's quality reaches its top (cost cap, logged in the library DECISION
 ## 2026-10-03 · RULING 14 — Step 3 at full scale: about 30 devices (user)
 The sanitised device library is built at the original scale of about 30 lifted native devices (ruling 3), quoted at
 about 5M tokens after step 2 ran 2.8M against a 1M estimate.
+
+## 2026-10-03 · Device pilot findings
+- **P09 catches a high foot band.** A wide band no taller than 1in, ending in the bottom 15% of the canvas and
+  carrying one sentence across half its width or more, is a foot summary or next-step band wherever its top sits.
+  The pilot device kept one at 6.06in, above the old 6.20in line. Multi-column content bands still pass. Planter
+  `high-foot-band`.
+- **Device agents hold card bodies to one or two lines.** Density comes from the device, never from paragraphs;
+  cards shrink to their content and the freed height goes to the device.

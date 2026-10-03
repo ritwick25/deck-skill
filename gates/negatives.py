@@ -305,6 +305,20 @@ def p09_cover_sentence(p, w):
                                       "share one demand view and one forecast from next year", 13.0, "cover.sub"))
 
 
+def p09_high_foot_band(p, w):
+    """A next-step band whose top sits above the old 6.20in line: a filled band and one sentence across it."""
+    from deckkit import prims
+    from deckkit.canvas import Box
+    th = theme()
+
+    def fn(prs):
+        with prims.use(th):
+            prims.card(prs.slides[6], Box(0.5, 6.0, 12.4, 0.6), fill="card", line=None, name="next.band")
+        _add_text(prs, 7, (2.0, 6.15, 10.5, 0.3), "The steering group signs the scope note on Friday and access opens "
+                  "on Monday", 12.0, "next.text")
+    with_prs(p, fn)
+
+
 def p09_pagenum(p, w):
     with_prs(p, lambda prs: _add_text(prs, 3, (11.60, 0.14, 1.20, 0.25), "2 / 34", 10.0, "page.number"))
 
@@ -1359,6 +1373,8 @@ PLANTERS = [
     Planter("subtitle", "P09", "a nine-word sentence directly under the title", p09_subtitle, "subtitle under"),
     Planter("cover-sentence", "P09", "a sixteen-word sentence under the cover title", p09_cover_sentence,
             "subtitle under"),
+    Planter("high-foot-band", "P09", "a next-step band from 6.0in carrying one sentence", p09_high_foot_band,
+            "foot band carrying a sentence"),
     Planter("page-number", "P09", "a page number '2 / 34' in the top-right corner", p09_pagenum, "'2 / 34'"),
     Planter("page-number-bare", "P09", "a bare page number in the bottom-right corner", p09_pagenum_bare,
             "page number '3'"),

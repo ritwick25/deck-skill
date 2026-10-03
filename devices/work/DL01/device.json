@@ -1,0 +1,190 @@
+{
+ "id": "DL01",
+ "name": "Decision cards over dated rail",
+ "archetypes": [
+  "the-ask"
+ ],
+ "family": "Parallel columns",
+ "variant": "decision-cards-rail",
+ "mechanism": "Four numbered decision cards chained by chevrons name what the audience must commit to, a dated milestone rail shows what each commitment buys and when, and a next-step band closes on the immediate action.",
+ "canvas": "wide",
+ "source": "d01-s053",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.card.1.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.1.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.1.head",
+   "kind": "text",
+   "role": "decision",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.1.body",
+   "kind": "text",
+   "role": "rationale",
+   "max_words": 28,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.2.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.2.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.2.head",
+   "kind": "text",
+   "role": "decision",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.2.body",
+   "kind": "text",
+   "role": "rationale",
+   "max_words": 28,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.3.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.3.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.3.head",
+   "kind": "text",
+   "role": "decision",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.3.body",
+   "kind": "text",
+   "role": "rationale",
+   "max_words": 28,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.4.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.4.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.4.head",
+   "kind": "text",
+   "role": "decision",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.4.body",
+   "kind": "text",
+   "role": "rationale",
+   "max_words": 28,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.rail.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 5
+  },
+  {
+   "name": "slot.milestone.1",
+   "kind": "text",
+   "role": "date-and-outcome",
+   "max_words": 9
+  },
+  {
+   "name": "slot.milestone.2",
+   "kind": "text",
+   "role": "date-and-outcome",
+   "max_words": 9
+  },
+  {
+   "name": "slot.milestone.3",
+   "kind": "text",
+   "role": "date-and-outcome",
+   "max_words": 9
+  },
+  {
+   "name": "slot.milestone.4",
+   "kind": "text",
+   "role": "date-and-outcome",
+   "max_words": 9
+  },
+  {
+   "name": "slot.band.label",
+   "kind": "text",
+   "role": "band-label",
+   "max_words": 2,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.band.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.band.body",
+   "kind": "text",
+   "role": "next-step",
+   "max_words": 20,
+   "background": "accent-wash"
+  }
+ ],
+ "samples": [
+  "Four decisions this month put the forecasting pilot live by week fourteen",
+  "Steering group signs the scope note on Friday, and data access requests open the following Monday",
+  "Next step",
+  "Scope and business owner confirmed",
+  "First forecasts run beside the current plan",
+  "Accuracy checked against the gate thresholds",
+  "Planners act on pilot forecasts each month",
+  "Approve two product lines and three regions as the first wave. Any later change to scope, budget or timing goes to the steering group for a decision within a week.",
+  "Name one planning lead who signs off accuracy targets, settles disputed numbers and chairs the weekly review with the delivery team, with a deputy named for cover.",
+  "Grant read access to three years of shipment, order and promotion history so model training starts in week two, with the data steward approving new sources.",
+  "Endorse the pilot scope",
+  "Nominate one owner",
+  "Assign data access",
+  "Agree the go-live gate",
+  "Set the accuracy and bias thresholds the pilot must clear for four straight weeks before planners act on its numbers. A missed threshold extends the pilot by one month.",
+  "Outcomes by date"
+ ]
+}

@@ -84,6 +84,19 @@ def run(deck, ctx):
             if L["kind"] == "sp" and not foot_ok and (is_filled(L) or is_lined(L)) and b[2] - b[0] >= BAND_W * W \
                     and b[1] >= BAND_Y * H and b[3] - b[1] > 0.05 * k:
                 out.append(Finding(GATE, FAIL, i, L["name"], "foot band %.1fin wide at %.2fin" % (b[2] - b[0], b[1])))
+            elif L["kind"] == "sp" and not foot_ok and (is_filled(L) or is_lined(L)) and b[2] - b[0] >= BAND_W * W \
+                    and b[3] >= (1 - PAGE_BAND) * H and b[3] - b[1] <= 1.0 * k:
+                # a summary or next-step band whose top sits above BAND_Y: one sentence across most of the band
+                for T in shapes:
+                    if T is L or not has_text(T):
+                        continue
+                    tb = bx(T)
+                    tt = " ".join(text_of(T).split())
+                    if (tb[0] >= b[0] - 0.05 and tb[2] <= b[2] + 0.05 and tb[1] >= b[1] - 0.05 and tb[3] <= b[3] + 0.05
+                            and words(tt) >= FOOT_WORDS and (tb[2] - tb[0]) >= 0.5 * (b[2] - b[0])):
+                        out.append(Finding(GATE, FAIL, i, L["name"], "foot band carrying a sentence at %.2fin: %r"
+                                           % (b[1], tt[:50])))
+                        break
             if L["kind"] == "pic" and b[1] >= LOGO_Y * H:
                 out.append(Finding(GATE, FAIL, i, L["name"], "picture in the foot (a footer logo) at %.2fin" % b[1]))
             if not has_text(L):
