@@ -5,12 +5,18 @@ Run: cd ~/.claude/skills/deck && $PY -m unittest tests.test_gate_rules -v
   * arrows: an enclosing panel is never the touch target; ends rank by edge distance (deckkit.read.connect.touch);
   * page numbers: every spelled-out form in a band is one, a digit on a filled marker or mid-slide is not;
   * figures: ranges and units are figures, ordinals and years are not, a digit in a disc is not;
-  * P10: a neutral hairline (chroma under 0.10, thinner than 1.5pt) beside text is not an accent bar;
+  * P10: a strip under 1.5pt or a line under 2pt beside text is a divider, never a bar; a 2pt line longer than 1.5x
+    its block's height is a reference line; undirected links between two tiles argue the slide;
+  * P04/P05: text is judged by its ink box, so a frame past its card or across another frame is not a defect;
+  * P06: an end under an opaque shape painted above is skipped; an end on another line is a junction;
+  * P17: a banned word inside a URL is not prose; 'WIP' before a capitalised noun is a work-in-process term;
   * P22: a kit vendor mark whose key resolves passes in its own hue; the same picture hand-named icon.aws.* does not;
+    a picture captioned as a vendor mark whose bytes are not that key's resource fails;
   * P12: PowerPoint's extension parts are SKIPPED and buSzPct 100000 is a known value, both printed, the deck passes;
   * P02: a shape whose measurement crashes is a finding on that shape and the gate goes on;
   * P18: an index holding only its canary entry is empty;
-  * P24: a foot line under content that stops halfway never stretches the extent; the golden fills its band;
+  * P24: a foot line under content that stops halfway never stretches the extent; the golden fills its band; the
+    main mass bridges a one-cell gutter and stops at an empty band row; an untagged slide 1 is a frame;
   * P25: text under an opaque shape drawn over it is noted, never measured;
   * P07: fitted frames agree on tops or on centres; a centre-anchored frame with room compares its centre;
   * P09: page labels count only in a page-number position.
@@ -183,6 +189,26 @@ class TestPassSide(Golden):
         self.assertEqual(code, 1)
         self.assertTrue(any("not in the theme identity registry" in f.msg for f in found), [f.line() for f in found])
 
+    def test_vendor_marks_are_checked_by_their_bytes(self):
+        """Name and alt text can be typed onto any picture: P22 compares the blob's sha256 with the table, so the
+        round-4 forgeries (an off-palette PNG, another key's genuine mark) fail and the kit's own mark passes."""
+        from deckkit import icons
+        cases = {"off-palette": negatives.png(300, 300, seed=11),
+                 "other-key": icons.vendor_path("gcp/analytics/bigquery").read_bytes()}
+        for label, blob in cases.items():
+            d = self.copy("forged-" + label)
+            negatives.with_prs(d, lambda prs, b=blob: negatives.add_picture(
+                prs, 7, b, (11.0, 5.5, 0.5, 0.5), "vendor.aws/compute/ec2", "Ec2 (vendor mark aws/compute/ec2)"))
+            code, found = run("P22", d)
+            self.assertEqual(code, 1, label)
+            self.assertTrue(any("renamed as a vendor mark" in f.msg for f in found), [f.line() for f in found])
+        for name in ("vendor-forged", "vendor-forged2"):
+            probe = SKILL / ".cache" / "vb3" / (name + ".pptx")
+            if probe.is_file():
+                code, found = run("P22", probe)
+                self.assertEqual(code, 1, name)
+                self.assertTrue(any(f.where.startswith("vendor.") and "renamed" in f.msg for f in found), name)
+
     def test_extension_parts_skipped_and_known_bullet_size(self):
         d = self.copy("ext")
         negatives._authors_part(d)
@@ -238,7 +264,8 @@ class TestPassSide(Golden):
         try:
             band = ctx.canvas.content
             for i in range(2, 7):
-                extent, share, _n = p24_fill.measures(p24_fill.grid(ctx.slide(i), ctx))
+                extent, share, _n = p24_fill.measures(p24_fill.grid(ctx.slide(i), ctx),
+                                                      p24_fill.grid(ctx.slide(i), ctx, drawn_only=True))
                 self.assertGreaterEqual(extent, p24_fill.EXTENT, i)
                 self.assertGreaterEqual(share, p24_fill.SHARE, i)
                 self.assertGreater(band.y + extent * band.h, band.y + band.h - 1.0, i)
@@ -267,6 +294,135 @@ def tleaf(y, h, anchor="t", occ=1.0, autofit="none", w=1.0):
     return {"kind": "sp", "bbox": {"x_in": 0.0, "y_in": y, "w_in": w, "h_in": h},
             "text": {"text": "Heading", "words": 1, "occupancy": occ,
                      "body": {"anchor": anchor, "autofit": autofit}}}
+
+
+class TestRulings(Golden):
+    """The pass side of the 2026-10-03 gate rulings: what each fix must stop flagging."""
+
+    def _body(self, prs):
+        s = prs.slides[1]
+        return s, next(sh for sh in s.shapes if sh.name == "pillar.1.text.2")
+
+    def _assert_pass(self, gid, d, slide=None):
+        code, found = run(gid, d)
+        fails = [f for f in found if f.level == "fail" and (slide is None or f.slide == slide)]
+        self.assertEqual(fails, [], [f.line() for f in fails])
+
+    def test_strips_under_the_floor_are_dividers(self):
+        d = self.copy("divider")
+        negatives._strip_beside_body(d, 0.01, "D91E18", "accent.hair")        # 0.72pt, the old thin-accent-bar
+        negatives._line_beside_body(d, 1.0, "accent.rule", gap_in=0.20)        # 1pt, the old thin-accent-line
+        self._assert_pass("P10", d)
+
+    def test_a_reference_line_is_not_a_bar(self):
+        d = self.copy("refline")
+        negatives._line_beside_body(d, 2.25, "chart.ref", span=1.6)           # longer than 1.5x the block
+        self._assert_pass("P10", d)
+
+    def test_a_grey_strip_is_not_a_bar(self):
+        d = self.copy("greystrip")
+        negatives._strip_beside_body(d, 0.05, "4A4F55", "grey.strip")         # HLS saturation 0.07
+        self._assert_pass("P10", d)
+
+    def test_undirected_links_between_tiles_argue_the_slide(self):
+        from pptx.dml.color import RGBColor
+        from pptx.enum.shapes import MSO_CONNECTOR
+        from pptx.util import Pt
+        d = self.copy("links")
+        negatives.p10_no_device(d, None)
+
+        def fn(prs):
+            s = prs.slides[1]
+            cards = [next(sh for sh in s.shapes if sh.name == "pillar.%d.card" % k) for k in (1, 2, 3)]
+            for k, (a, b) in enumerate(zip(cards, cards[1:])):
+                y = a.top + a.height // 2
+                ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, a.left + a.width, y, b.left, y)
+                ln.name = "link.%d" % k
+                ln.line.color.rgb = RGBColor.from_string("BFBFBF")
+                ln.line.width = Pt(0.75)
+        negatives.with_prs(d, fn)
+        code, found = run("P10", d)
+        self.assertFalse(any("nothing drawn" in f.msg for f in found), [f.line() for f in found])
+
+    def test_a_frame_past_its_card_with_ink_inside_passes_p04(self):
+        d = self.copy("inkpad")
+
+        def fn(prs):
+            from deckkit import text
+            from deckkit.canvas import Box
+            from deckkit.text import Para, Run
+            s = prs.slides[1]
+            card = next(sh for sh in s.shapes if sh.name == "pillar.1.card")
+            x, y, cw = card.left / negatives.EMU, card.top / negatives.EMU, card.width / negatives.EMU
+            text.textbox(s, Box(x + 0.3, y + 0.9, cw, 0.3), [Para(Run("Weekly", role="ink"))], "wide.frame",
+                         negatives.theme(), size=11.0, require_fit=False)          # the frame runs 0.3in past
+        negatives.with_prs(d, fn)
+        self._assert_pass("P04", d)
+
+    def test_crossing_frames_with_apart_ink_pass_p05(self):
+        d = self.copy("inkapart")
+        negatives.with_prs(d, lambda prs: (
+            negatives._add_text(prs, 7, (0.6, 5.00, 4.0, 0.3), "Pilot regions", 11.0, "ink.a"),
+            negatives._add_text(prs, 7, (2.4, 5.06, 4.0, 0.3), "Weekly", 11.0, "ink.b")))
+        self._assert_pass("P05", d)
+
+    def test_a_loose_chevron_row_nests(self):
+        d = self.copy("looserow")
+        negatives.loose_chevrons(d, 0.25)                                       # exactly the 0.5 x 0.5in point
+        self._assert_pass("P05", d)
+
+    def test_an_end_under_an_opaque_cover_painted_above_is_skipped(self):
+        d = self.copy("hidden")
+        negatives.p06_arrow(d, None)
+        negatives._cover_arrow(d, "lid.card")
+        self._assert_pass("P06", d)
+
+    def test_an_end_on_another_line_is_a_junction(self):
+        from pptx.dml.color import RGBColor
+        from pptx.enum.shapes import MSO_CONNECTOR
+        from pptx.util import Pt
+        d = self.copy("junction")
+        negatives.p06_arrow(d, None)
+
+        def fn(prs):
+            s = prs.slides[2]
+            x = int(negatives.ARROW_END[0] * negatives.EMU)
+            ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, x, int(3.9 * negatives.EMU), x,
+                                        int(4.6 * negatives.EMU))
+            ln.name = "bus.line"
+            ln.line.color.rgb = RGBColor.from_string("BFBFBF")
+            ln.line.width = Pt(0.75)
+        negatives.with_prs(d, fn)
+        self._assert_pass("P06", d)
+
+    def test_urls_and_wip_terms_are_not_prose(self):
+        d = self.copy("urls")
+
+        def fn(r):
+            t = negatives.first_run(negatives.shape(r, "pillar.1.text.2")).find(negatives.A + "t")
+            t.text = ("Source: example.com/blogs/" + "unlock" + "ing-capacity and https://example.org/" + "lever" +
+                      "age, WIP Storage and WIP Aging")
+        negatives.edit_slide(d, 2, fn)
+        self._assert_pass("P17", d)
+
+    def test_strip_urls(self):
+        import p17_fingerprints as g
+        for raw in ("iqvia.com/locations/blogs/2025/11/unlocking-x", "https://a.b/c?d=e", "www.example.com"):
+            self.assertEqual(g.strip_urls(raw).strip(), "", raw)
+        for keep in ("e.g. the plan", "fabric.catalog.asset_index", "3.5% of 1.2M"):
+            self.assertEqual(g.strip_urls(keep), keep)
+
+    def test_an_untagged_cover_is_a_frame(self):
+        d = self.copy("untagged-cover")
+        m = negatives.members(d)
+        m.pop("docProps/custom.xml")
+        negatives.write(d, m)
+        for i in range(1, 8):
+            negatives.edit_slide(d, i, lambda r: r.find("{*}cSld").attrib.pop("name", None))
+        negatives.with_prs(d, lambda prs: negatives._add_text(
+            prs, 1, (0.5, 1.0, 12.0, 0.6), " ".join(negatives.FILLER[:24]), 12.0, "cover.lede"))
+        code, found = run("P24", d)
+        self.assertFalse([f for f in found if f.slide == 1], [f.line() for f in found])
 
 
 class TestRowOffsets(unittest.TestCase):
@@ -306,6 +462,48 @@ class TestFillGrid(unittest.TestCase):
         self.assertEqual(n, 12 * 48 + 5)
         self.assertAlmostEqual(extent, 12 / 27)
         self.assertLess(extent, p24_fill.EXTENT)
+
+    def test_a_foot_sentence_below_an_empty_row_is_not_mass(self):
+        """Top 12 rows full, an empty band row, then a full-width two-row sentence at the foot: excluded, however
+        wide it runs (it is 14% of the marked cells, well past the 3% tail)."""
+        import p24_fill
+        cells = [[r < 12 for _c in range(48)] for r in range(27)]
+        for r in (24, 25):
+            cells[r] = [True] * 48
+        extent, share, n = p24_fill.measures(cells)
+        self.assertEqual(n, 14 * 48)
+        self.assertAlmostEqual(extent, 12 / 27)
+        self.assertLess(extent, p24_fill.EXTENT)
+
+    def test_one_cell_gutters_never_split_the_mass(self):
+        import p24_fill
+        cells = [[c % 16 != 15 for c in range(48)] for _r in range(27)]          # three columns, gutters of one cell
+        mm = p24_fill.main_mass(cells)
+        self.assertEqual(sum(map(sum, mm)), sum(map(sum, cells)))
+        extent, _share, _n = p24_fill.measures(cells)
+        self.assertEqual(extent, 1.0)
+
+    def test_a_tall_block_below_an_empty_row_is_still_mass(self):
+        """Only a thin foot is a sentence: a four-row block under an empty row counts."""
+        import p24_fill
+        cells = [[r < 12 for _c in range(48)] for r in range(27)]
+        for r in (23, 24, 25, 26):
+            cells[r] = [True] * 48
+        extent, _share, _n = p24_fill.measures(cells)
+        self.assertEqual(extent, 1.0)
+
+    def test_a_drawn_band_at_the_foot_is_mass(self):
+        """Ten rows of content and three full foot rows (23% of the marked cells, so the 85% main mass needs them):
+        as text alone they are a foot sentence and left out; drawn as a band (a filled box) they are mass."""
+        import p24_fill
+        cells = [[r < 10 for _c in range(48)] for r in range(27)]
+        for r in (24, 25, 26):
+            cells[r] = [True] * 48
+        text_only, _s, _n = p24_fill.measures(cells)
+        self.assertAlmostEqual(text_only, 10 / 27)
+        drawn = [[r >= 24 for _c in range(48)] for r in range(27)]
+        extent, _share, _n = p24_fill.measures(cells, drawn)
+        self.assertEqual(extent, 1.0)
 
     def test_full_band_passes(self):
         import p24_fill

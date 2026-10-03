@@ -6,12 +6,17 @@ header bar from "containing" text five inches below it). Connectors are never ch
 to leave the shape it starts on. Two idioms are deliberate and pass: an overlay (a text box coincident
 with its shape on every side, within 0.035in) and a span (a child running the container's full width or
 full height, padded by its own insets). state.* marks sit on an edge by definition (a quotation bar).
+
+The idioms are judged on the child's frame (they describe how a frame is placed); the clearances are measured on
+what the eye sees: a text block that draws no fill and no outline by its ink box (deckkit.read.walk._text_box,
+occupancy-trimmed and aligned, through _shared.ink_box), so a frame that runs past a card while its two words sit
+well inside is not an overflow. Anything that draws (a filled text shape, a picture, a card) keeps its frame.
 """
 from __future__ import annotations
 
 import sys
 
-from _shared import ADVISORY, FAIL, Finding, bx, cli, full_bleed, is_drawn, is_rect_like, is_state
+from _shared import ADVISORY, FAIL, Finding, bx, cli, full_bleed, ink_box, is_drawn, is_rect_like, is_state
 
 GATE, TITLE = "P04", "padding"
 MIN_CLEAR, ADVISE = 0.04, 0.10
@@ -34,18 +39,20 @@ def run(deck, ctx):
                     continue
                 if not is_drawn(L) or is_state(L) or L["kind"] == "cell":
                     continue
-                x0, y0, x1, y1 = bx(L)
+                fx0, fy0, fx1, fy1 = bx(L)
+                if (fx1 - fx0) * (fy1 - fy0) >= (cr - cl) * (cb - ct):
+                    continue                       # the child is the bigger shape: it is not inside
+                fclr = {"left": fx0 - cl, "top": fy0 - ct, "right": cr - fx1, "bottom": cb - fy1}
+                if all(abs(v) <= COINCIDENT for v in fclr.values()):
+                    continue                       # overlay: text drawn exactly on its shape
+                if (abs(fclr["left"]) <= SPAN and abs(fclr["right"]) <= SPAN) or \
+                        (abs(fclr["top"]) <= SPAN and abs(fclr["bottom"]) <= SPAN):
+                    if min(fclr.values()) >= -SPAN:
+                        continue                   # span: padded by its own insets
+                x0, y0, x1, y1 = ink_box(L)
                 if not (cl - EPS <= x0 < cr and ct - EPS <= y0 < cb):
                     continue
-                if (x1 - x0) * (y1 - y0) >= (cr - cl) * (cb - ct):
-                    continue                       # the child is the bigger shape: it is not inside
                 clr = {"left": x0 - cl, "top": y0 - ct, "right": cr - x1, "bottom": cb - y1}
-                if all(abs(v) <= COINCIDENT for v in clr.values()):
-                    continue                       # overlay: text drawn exactly on its shape
-                if (abs(clr["left"]) <= SPAN and abs(clr["right"]) <= SPAN) or \
-                        (abs(clr["top"]) <= SPAN and abs(clr["bottom"]) <= SPAN):
-                    if min(clr.values()) >= -SPAN:
-                        continue                   # span: padded by its own insets
                 side = min(clr, key=clr.get)
                 v = clr[side]
                 what = "%s in %s" % (L["name"] or "id %d" % L["id"], C["name"] or "id %d" % C["id"])

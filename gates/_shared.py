@@ -293,6 +293,21 @@ def has_text(L) -> bool:
     return bool(t and t["text"].strip() and t["words"] > 0)
 
 
+def ink_box(L) -> tuple[float, float, float, float]:
+    """Where a leaf is SEEN: a text block that draws no fill and no outline is its ink box (deckkit.read.walk._text_box,
+    occupancy-trimmed, aligned); anything that draws (a card, a filled text shape, a picture, a cell) is its frame."""
+    if L["kind"] == "sp" and has_text(L) and not is_filled(L) and not is_lined(L):
+        from deckkit.read.walk import _text_box
+        return _text_box(L)
+    return bx(L)
+
+
+def box_contains(outer, inner, eps: float = 0.02) -> bool:
+    """inner (x0, y0, x1, y1) lies wholly inside outer, within eps."""
+    return inner[0] >= outer[0] - eps and inner[1] >= outer[1] - eps and inner[2] <= outer[2] + eps and \
+        inner[3] <= outer[3] + eps
+
+
 def text_of(L) -> str:
     t = L.get("text")
     return t["text"] if t else ""
@@ -552,6 +567,7 @@ def cli(mod, argv=None) -> int:
 
 
 __all__ = ["Ctx", "Finding", "InputMissing", "FAIL", "ADVISORY", "NOTE", "run_gate", "verdict", "cli", "bx",
+           "ink_box", "box_contains",
            "has_text", "text_of", "is_filled", "is_lined", "is_drawn", "is_state", "is_bleed", "full_bleed",
            "fill_role", "cards", "kids_of", "text_rect", "measure_paras", "need_in", "crash", "FALLBACK_FACE",
            "contains", "is_rect_like",

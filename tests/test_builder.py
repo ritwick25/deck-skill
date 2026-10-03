@@ -24,6 +24,7 @@ sys.path.insert(0, os.path.join(SKILL, "kit"))
 
 from lxml import etree  # noqa: E402
 from pptx import Presentation  # noqa: E402
+from pptx.dml.color import RGBColor  # noqa: E402
 from pptx.oxml.xmlchemy import OxmlElement  # noqa: E402
 
 from deckkit import canvas, glyphs, icons, measure, ooxml, package, prims, rules, text  # noqa: E402
@@ -304,43 +305,114 @@ class FinishOxml(Base):
 
 # ------------------------------------------------------------------ 5. accent strips
 
+NOT_STRIP = tuple(r for r in SIGMOID.roles if r not in rules.STRIP_ROLES)
+
+
 class Strips(Base):
     """One predicate (deckkit.rules.is_accent_strip) for the builder and gate P10: at most 0.10in thick, longer
-    than 0.18in and more than 2x its thickness, in a colour that is not a neutral grey, not named state.*."""
+    than 0.18in and more than 2x its thickness, not named state.*. The builder runs it by role: a strip may be
+    drawn only in hairline, hairline-soft, rule-strong or ink-muted, whatever the other roles' chroma on the
+    theme. The gate runs it by colour (it reads hexes, on any deck): at least 1.5pt thick and not grey by HLS
+    saturation (0.15)."""
 
-    def coloured(self):
-        return [r for r in ("accent", "accent-tint", "accent-deep", "series-1", "series-2", "series-3", "series-4",
-                            "accent-wash", "navy", "series-5", "ink-strong", "ink-deep")
-                if not rules.is_neutral_role(r, SIGMOID)]
-
-    def test_non_neutral_strips_refused(self):
+    def test_every_role_outside_the_rule_roles_is_refused_as_a_strip(self):
         U = self.unchanged
-        roles = self.coloured()
-        self.assertEqual(roles, ["accent", "accent-tint", "accent-deep", "series-1", "series-2", "series-3",
-                                 "series-4"])
-        for role in roles:
+        self.assertEqual(rules.STRIP_ROLES, ("hairline", "hairline-soft", "rule-strong", "ink-muted"))
+        for must in ("navy", "ink-strong", "ink-deep", "ink", "paper", "card", "accent", "accent-tint", "accent-wash",
+                     "accent-deep", "series-1", "series-5"):
+            self.assertIn(must, NOT_STRIP)
+        for role in NOT_STRIP:
             U(GeometryError, prims.rect, self.s, Box(1, 1, 0.10, 1.0), fill=role, name="edge")      # exactly 0.10
             U(GeometryError, prims.rect, self.s, Box(1, 1, 2.0, 0.06), fill=role, name="top")
+            U(GeometryError, prims.rect, self.s, Box(1, 1, 0.05, 1.5), line=role, name="edge.line")
         U(GeometryError, prims.rect, self.s, Box(1, 1, 0.09, 0.5), fill="accent", name="edge.short")   # 5.6x long
         U(GeometryError, prims.rect, self.s, Box(1, 1, 0.09, 0.19), fill="accent", name="edge.stub")   # past 0.18
-        U(GeometryError, prims.rect, self.s, Box(1, 1, 0.05, 1.5), line="accent", name="edge.line")   # line only
         U(GeometryError, prims.card, self.s, Box(1, 1, 0.08, 1.2), fill="accent-tint", line=None, name="c")
-        U(GeometryError, prims.card, self.s, Box(1, 1, 2.0, 0.09), fill="accent-tint", line=None, radius_in=0,
+        U(GeometryError, prims.card, self.s, Box(1, 1, 3.0, 0.10), fill="card", line="hairline", name="card.thin")
+        U(GeometryError, prims.card, self.s, Box(1, 1, 2.0, 0.09), fill="paper", line="rule-strong", radius_in=0,
           name="c")
         U(GeometryError, prims.zone, self.s, Box(1, 1, 3.0, 0.08), fill="accent-tint", name="z")
         U(GeometryError, prims.person, self.s, Box(1, 1, 0.09, 1.0), role="accent", name="pe")
+        U(GeometryError, prims.person, self.s, Box(1, 1, 0.09, 1.0), role="navy", name="pe")
 
-    def test_neutral_state_and_non_strips_pass(self):
-        for role in prims.NEUTRAL_STRIP + ("ink-strong", "ink-deep", "navy", "accent-wash", "series-5"):
-            self.assertTrue(rules.is_neutral_role(role, SIGMOID), role)          # greys by chroma on this theme
+    def test_grey_looking_roles_are_refused_on_both_themes(self):
+        """navy, ink-strong and series-5 are greys by chroma on the sigmoid theme; the role still decides."""
+        neutral = Theme.load(os.path.join(SKILL, "themes", "neutral.json"))
+        for th in (SIGMOID, neutral):
+            for role in ("navy", "ink-strong", "ink-deep", "series-5", "card"):
+                self.unchanged(GeometryError, prims.rect, self.s, Box(1, 1, 0.05, 2.0), fill=role, name="bar",
+                               theme=th)
+
+    def test_rule_roles_state_and_non_strips_pass(self):
+        for role in rules.STRIP_ROLES:
             prims.rect(self.s, Box(1, 1, 0.05, 2.0), fill=role, name="divider.%s" % role)
-        prims.rect(self.s, Box(1, 1, 3.0, 0.02), line="hairline", name="rule.line")
-        prims.card(self.s, Box(1, 1, 3.0, 0.10), fill="card", line="hairline", name="card.thin")
+            prims.rect(self.s, Box(1, 1, 3.0, 0.02), line=role, name="rule.line.%s" % role)
         prims.rect(self.s, Box(1, 1, 0.05, 1.5), fill="accent", name="state.active")
+        prims.rect(self.s, Box(1, 1, 0.05, 1.5), fill="navy", name="state.selected")
         prims.rect(self.s, Box(1, 1, 0.11, 2.0), fill="accent", name="block.wide")              # thicker than 0.10
         prims.rect(self.s, Box(1, 1, 0.09, 0.18), fill="accent", name="block.stub")             # not past 0.18
         prims.rect(self.s, Box(1, 1, 0.10, 0.20), fill="accent", name="block.square")           # not over 2x
         self.assertEqual(prims.BAR_MAX_IN, 0.10)
+
+    def test_tab_pill_step_and_quote_check_before_drawing(self):
+        U = self.unchanged
+        U(GeometryError, prims.tab, self.s, Box(1, 1, 0.06, 2.0), " ", fill="accent", name="t")
+        U(GeometryError, prims.tab, self.s, Box(1, 1, 2.0, 0.08), " ", fill="navy", name="t")
+        U(GeometryError, prims.pill, self.s, Box(1, 1, 0.06, 2.0), "", fill="accent-deep", name="p")
+        U(GeometryError, prims.pill, self.s, Box(1, 1, 2.0, 0.09), "", fill="card", line="accent", name="p")
+        U(GeometryError, prims.step_header, self.s, Box(1, 1, 6.0, 0.09), ["A", "B"], name="st")
+        U(GeometryError, prims.quote, self.s, Box(1, 1, 3.0, 0.09), "x", "y", name="q")
+        prims.tab(self.s, Box(1, 3, 2.0, 0.3), "Tab", name="t.ok")
+        prims.pill(self.s, Box(1, 4, 1.2, 0.3), "Tag", name="p.ok")
+
+    def test_set_fill_and_set_line_recheck_the_shape_they_modify(self):
+        U = self.unchanged
+        thin = prims.rect(self.s, Box(1, 1, 0.06, 2.0), fill="hairline", name="divider")
+        U(GeometryError, prims.set_fill, thin, "accent")
+        U(GeometryError, prims.set_fill, thin, "navy")
+        U(GeometryError, prims.set_line, thin, "accent", 0.75)
+        prims.set_fill(thin, "rule-strong")
+        prims.set_line(thin, "hairline-soft", 0.75)
+        outlined = prims.rect(self.s, Box(3, 1, 0.06, 2.0), line="accent", name="state.lit")
+        thin_line = prims.rect(self.s, Box(4, 1, 0.06, 2.0), line="ink-muted", name="edge.rule")
+        U(GeometryError, prims.set_fill, thin_line, "card")
+        self.assertIsNotNone(outlined)
+        prims.set_fill(outlined, "accent")                                  # state.* stays exempt
+        wide = prims.rect(self.s, Box(5, 1, 2.0, 1.0), fill="card", name="block")
+        prims.set_fill(wide, "accent")                                      # not a strip
+        h = prims.hairline(self.s, (1, 5), (3, 5), name="rule")
+        U(GeometryError, prims.set_line, h, "accent", 0.75)
+        U(GeometryError, prims.set_line, h, "accent", 2.0, head="end")
+        prims.set_line(h, "accent", 1.0, head="end")
+        e = prims.elbow(self.s, [(1, 6), (1, 6.5), (3, 6.5)], name="e")
+        U(GeometryError, prims.set_line, e, "navy", 0.75)
+        g = glyphs.glyph(self.s, "database", Box(6, 5, 0.4, 0.4), role="accent")
+        prims.set_line(g, "accent-deep", 1.0)                               # a glyph is an icon, not a line
+
+    def test_recheck_reads_kit_paint_back_as_its_role(self):
+        thin = prims.rect(self.s, Box(1, 1, 0.06, 2.0), line="rule-strong", name="divider")
+        prims.set_fill(thin, "hairline")                                   # the rule-strong line reads as a rule role
+        from pptx.enum.shapes import MSO_SHAPE
+        raw = self.s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, int(0.06 * 914400), int(2 * 914400))
+        raw.name = "raw"
+        raw.line.color.rgb = RGBColor.from_string("D91E18")
+        with self.assertRaises(GeometryError):
+            prims.set_fill(raw, "hairline")                                # a foreign srgb line is not a rule role
+
+    def test_allow_strip_is_passed_only_by_the_negatives(self):
+        """Every call that passes allow_strip (other than False) in the skill's Python, read by AST."""
+        import ast
+        users = set()
+        for p in Path(SKILL).rglob("*.py"):
+            if ".cache" in p.parts:
+                continue
+            for node in ast.walk(ast.parse(p.read_text(encoding="utf-8"))):
+                if isinstance(node, ast.Call):
+                    for kw in node.keywords:
+                        off = isinstance(kw.value, ast.Constant) and kw.value.value is False
+                        if kw.arg == "allow_strip" and not off:
+                            users.add(str(p.relative_to(SKILL)))
+        self.assertEqual(sorted(users), ["gates/negatives.py"])
 
     def test_builder_and_gate_share_the_predicate(self):
         import importlib.util
@@ -354,18 +426,32 @@ class Strips(Base):
         self.assertIs(mod.is_accent_strip, rules.is_accent_strip)
         src = Path(KIT, "prims.py").read_text(encoding="utf-8")
         self.assertIn("rules.is_accent_strip(", src)
+        self.assertIn('by="role"', src)
+        # by colour (2026-10-03 ruling): at least 1.5pt thick, and grey only by HLS saturation under 0.15 (or a rule
+        # role's hex), so a pale tint (DDE4F6, saturation 0.58) is a bar and a 1pt strip in any colour is a divider
         for w, h, hx, nm, want in ((0.09, 0.5, "D91E18", "edge", True), (0.09, 0.5, "D91E18", "state.on", False),
-                                   (0.09, 0.5, "8C8C8C", "edge", False), (0.09, 0.5, "DDE4F6", "edge", False),
+                                   (0.09, 0.5, "8C8C8C", "edge", False), (0.09, 0.5, "DDE4F6", "edge", True),
                                    (0.10, 0.20, "D91E18", "edge", False), (0.5, 0.06, "1E3C7D", "top", True),
-                                   (0.11, 2.0, "D91E18", "edge", False)):
+                                   (0.11, 2.0, "D91E18", "edge", False), (1.0 / 72, 2.0, "D91E18", "edge", False),
+                                   (1.5 / 72, 2.0, "D91E18", "edge", True), (0.05, 2.0, "4A4F55", "edge", False),
+                                   (0.05, 2.0, "BFBFBF", "edge", False)):
             self.assertEqual(rules.is_accent_strip(w, h, hx, nm, SIGMOID), want, (w, h, hx, nm))
+        self.assertLess(rules.hls_saturation("4A4F55"), rules.GREY_SAT)
+        self.assertGreaterEqual(rules.hls_saturation("DDE4F6"), rules.GREY_SAT)
+        self.assertTrue(rules.is_accent_strip(0.01, 2.0, "navy", "edge", SIGMOID, by="role"))   # no floor by role
         self.assertTrue(rules.is_accent_strip(0.07, 0.5, "D91E18", "e", SIGMOID, k=0.75))
         self.assertFalse(rules.is_accent_strip(0.09, 0.5, "D91E18", "e", SIGMOID, k=0.75))   # compact: 0.075 thin
+        for role, want in (("navy", True), ("ink-strong", True), ("card", True), ("accent-wash", True),
+                           ("hairline", False), ("ink-muted", False), (None, False)):
+            self.assertEqual(rules.is_accent_strip(0.05, 2.0, role, "edge", SIGMOID, by="role"), want, role)
+        self.assertFalse(rules.is_accent_strip(0.05, 2.0, "navy", "state.on", SIGMOID, by="role"))
+        with self.assertRaises(ValueError):
+            rules.is_accent_strip(0.05, 2.0, "navy", "edge", SIGMOID, by="chroma")
 
 
 class Lines(Base):
-    """Line creators refuse a coloured edge strip: a non-neutral line needs an arrowhead (or a state.* / link.*
-    name) and a non-neutral connector is at most 1.5pt (rules.line_refusal)."""
+    """Line creators and set_line refuse a coloured edge strip: a line outside the rule roles needs an arrowhead
+    whatever its name (only state.* is exempt, link.* is not) and is at most 1.5pt (rules.line_refusal)."""
 
     def test_coloured_undirected_lines_refused(self):
         U = self.unchanged
@@ -373,24 +459,39 @@ class Lines(Base):
         U(GeometryError, prims.hairline, self.s, (1.1, 1), (1.1, 3), role="accent", weight_pt=2.25, name="edge")
         U(GeometryError, prims.hairline, self.s, (1.1, 1), (1.1, 3), role="accent", weight_pt=0.5, name="edge")
         U(GeometryError, prims.hairline, self.s, (1.1, 1), (1.1, 3), role="series-1", name="edge")
+        U(GeometryError, prims.hairline, self.s, (1.1, 1), (1.1, 3), role="navy", name="edge")
+        U(GeometryError, prims.hairline, self.s, (1.1, 1), (1.1, 3), role="ink-strong", name="edge")
         U(GeometryError, prims.connect, self.s, (1, 1), (3, 1), head="none", role="accent", name="c")
         U(GeometryError, prims.connect, self.s, (1, 1), (1, 3), head=None, role="accent", weight_pt=6.5, name="c")
         U(GeometryError, prims.elbow, self.s, [(1, 1), (1, 3)], head="none", role="accent", weight_pt=6.5, name="e")
         U(GeometryError, prims.elbow, self.s, [(1, 1), (1, 2), (3, 2)], head="none", role="accent-deep", name="e")
 
+    def test_link_names_are_not_exempt(self):
+        U = self.unchanged
+        self.assertFalse(hasattr(rules, "LINK_PREFIX"))
+        for weight in (0.5, 1.0, 1.5, 2.0):
+            U(GeometryError, prims.hairline, self.s, (4, 1), (4, 3), role="accent", weight_pt=weight, name="link.ab")
+            U(GeometryError, prims.connect, self.s, (4, 1), (4, 3), head="none", role="navy", weight_pt=weight,
+              name="link.ab")
+            U(GeometryError, prims.elbow, self.s, [(4, 1), (4, 2), (5, 2)], head="none", role="series-2",
+              weight_pt=weight, name="link.ab")
+        self.assertIsNotNone(rules.line_refusal("accent", None, 1.0, "link.ab", SIGMOID))
+        self.assertIsNotNone(rules.line_refusal("D91E18", None, 1.0, "link.ab", SIGMOID, by="colour"))
+
     def test_heavy_coloured_connectors_refused(self):
         U = self.unchanged
         U(GeometryError, prims.connect, self.s, (1, 1), (3, 1), head="end", role="accent", weight_pt=2.0, name="c")
+        U(GeometryError, prims.connect, self.s, (1, 1), (3, 1), head="end", role="ink-strong", weight_pt=2.0,
+          name="c")
         U(GeometryError, prims.elbow, self.s, [(1, 1), (1, 2), (3, 2)], role="accent", weight_pt=1.75, name="e")
-        U(GeometryError, prims.hairline, self.s, (1, 1), (3, 1), role="accent", weight_pt=2.0, name="link.x")
 
-    def test_connectors_rules_and_named_lines_pass(self):
+    def test_connectors_rules_and_state_lines_pass(self):
         prims.connect(self.s, (1, 1), (3, 1), head="end", role="accent", weight_pt=0.75, name="a1")
         prims.connect(self.s, (1, 2), (3, 2), head="both", role="accent", weight_pt=1.5, name="a2")
+        prims.connect(self.s, (1, 2.5), (3, 2.5), head="start", role="navy", weight_pt=1.0, name="a2n")
         prims.elbow(self.s, [(1, 3), (1, 4), (3, 4)], role="accent", weight_pt=1.0, name="a3")
         prims.connect(self.s, (1, 5), (3, 5), head="none", role="ink-muted", weight_pt=3.0, name="rule.heavy")
         prims.hairline(self.s, (1, 6), (3, 6), role="rule-strong", weight_pt=2.25, name="rule.strong")
-        prims.hairline(self.s, (4, 1), (4, 3), role="accent", weight_pt=1.0, name="link.ab")
         prims.hairline(self.s, (5, 1), (5, 3), role="accent", weight_pt=3.0, name="state.active")
 
 
@@ -479,6 +580,49 @@ class Vendors(Base):
         from deckkit.errors import UnsupportedPart
         self.unchanged(UnsupportedPart, icons.vendor, self.s, key, Box(1, 1, 0.5, 0.5), theme=th)
         self.assertFalse(icons.vendor_resolves(key, th))
+
+    BAD_KEYS = ("aws/../azure/compute/vm", "aws/compute/..", "aws/compute/ec2/../ec2", "..aws/compute/ec2",
+                "aws/compute/ec2..", "/aws/compute/ec2", "//aws/compute/ec2", "aws\\compute\\ec2",
+                "aws/compute\\ec2", "aws//compute/ec2", "aws/./compute/ec2", "")
+
+    def test_traversal_keys_refused_with_and_without_a_theme(self):
+        from deckkit.errors import UnsupportedPart
+        self.ctx.__exit__(None, None, None)                     # no theme bound
+        try:
+            self.assertEqual(prims._ACTIVE, [])
+            for key in self.BAD_KEYS:
+                self.assertIsNotNone(icons.vendor_key_refusal(key), key)
+                self.assertFalse(icons.vendor_resolves(key), key)
+                self.assertFalse(icons.vendor_resolves(key, SIGMOID), key)
+                with self.assertRaises(UnsupportedPart, msg=key):
+                    icons.vendor_path(key)
+                self.unchanged(UnsupportedPart, icons.vendor, self.s, key, Box(1, 1, 0.5, 0.5))
+                self.unchanged(UnsupportedPart, icons.vendor, self.s, key, Box(1, 1, 0.5, 0.5), theme=SIGMOID)
+        finally:
+            self.ctx = prims.use(SIGMOID)                       # tearDown exits a live binding
+            self.ctx.__enter__()
+        self.assertIsNone(icons.vendor_key_refusal("aws/compute/ec2"))
+        self.assertTrue(icons.vendor_path("aws/compute/ec2").is_file())
+
+    def test_hash_table_is_current_and_covers_every_key(self):
+        import subprocess
+        r = subprocess.run([sys.executable, os.path.join(SKILL, "scripts", "build_vendor_hashes.py"), "--check"],
+                           capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        table = json.loads(icons.VENDOR_HASHES.read_text())["keys"]
+        self.assertEqual(sorted(table), sorted(icons.vendor_keys()))
+        blob = icons.vendor_path("aws/compute/ec2").read_bytes()
+        from PIL import Image
+        import io
+        w, h = Image.open(io.BytesIO(blob)).size
+        self.assertEqual(icons.vendor_hash("aws/compute/ec2", w, h), icons.blob_sha256(blob))
+
+    def test_vendor_refuses_when_the_table_does_not_vouch_for_the_file(self):
+        from deckkit.errors import UnsupportedPart
+        with mock.patch.object(icons, "vendor_hash", lambda *a: None):
+            self.unchanged(UnsupportedPart, icons.vendor, self.s, "aws/compute/ec2", Box(1, 1, 0.5, 0.5))
+        with mock.patch.object(icons, "vendor_hash", lambda *a: "0" * 64):
+            self.unchanged(UnsupportedPart, icons.vendor, self.s, "aws/compute/ec2", Box(1, 1, 0.5, 0.5))
 
 
 # ------------------------------------------------------------------ 6. WIDE title box

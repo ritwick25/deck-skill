@@ -299,8 +299,8 @@ def p10_bar(p, w):
         x, y, h = body.left / EMU, body.top / EMU, body.height / EMU
         bar = prims._add(s, "RECTANGLE", __import__("deckkit.canvas", fromlist=["Box"]).Box(x - 0.12, y, 0.05, h),
                          "accent.bar")
-        prims.set_fill(bar, "accent", theme=th)
-        prims.set_line(bar, None, theme=th)
+        prims.set_fill(bar, "accent", theme=th, allow_strip=True)
+        prims.set_line(bar, None, theme=th, allow_strip=True)
         prims._drop_text(bar)
         ooxml.finish(bar)
     with_prs(p, fn)
@@ -569,6 +569,23 @@ def p22_vendor_key(p, w):
     with_prs(p, fn)
 
 
+def p22_vendor_forged(p, w):
+    """An off-palette 300px picture renamed and re-captioned as the aws/compute/ec2 mark (name and alt agree, the
+    key resolves, the size matches the resource): only the blob's sha256 tells it from the vendor's artwork."""
+    blob = png(300, 300, seed=7)
+    with_prs(p, lambda prs: add_picture(prs, 7, blob, (11.0, 5.5, 0.5, 0.5), "vendor.aws/compute/ec2",
+                                        "Ec2 (vendor mark aws/compute/ec2)"))
+
+
+def p22_vendor_other_key(p, w):
+    """A genuine diagrams mark of one key placed under another key's name and alt text."""
+    from deckkit import icons
+    src = next(k for k in icons.vendor_keys() if k.startswith("azure/"))
+    blob = icons.vendor_path(src).read_bytes()
+    with_prs(p, lambda prs: add_picture(prs, 7, blob, (11.0, 5.5, 0.5, 0.5), "vendor.aws/compute/ec2",
+                                        "Ec2 (vendor mark aws/compute/ec2)"))
+
+
 def p23_chip(p, w):
     def fn(r):
         chip = shape(r, "stat.3.basis")
@@ -813,24 +830,6 @@ def p07_ragged_under(p, w):
     edit_slide(p, 2, fn)
 
 
-def p10_thin_accent(p, w):
-    """A 0.01in strip in the accent colour beside a card body: thin, but not a neutral hairline."""
-    from deckkit import ooxml, prims
-    from deckkit.canvas import Box
-    th = theme()
-
-    def fn(prs):
-        s = prs.slides[1]
-        body = next(sh for sh in s.shapes if sh.name == "pillar.1.text.2")
-        x, y, h = body.left / EMU, body.top / EMU, body.height / EMU
-        bar = prims._add(s, "RECTANGLE", Box(x - 0.08, y, 0.01, h), "accent.hair")
-        prims.set_fill(bar, "accent", theme=th)
-        prims.set_line(bar, None, theme=th)
-        prims._drop_text(bar)
-        ooxml.finish(bar)
-    with_prs(p, fn)
-
-
 def p11_radius(p, w):
     """A card drawn at a 0.15in corner radius on a canvas that sets 0.05in."""
     def fn(r):
@@ -983,24 +982,6 @@ def p05_loose_chevron(p, w):
 
 # ------------------------------------------------------------------ planters for the fourth fix round
 
-def p10_thin_line(p, w):
-    """A 1pt undirected line in the accent colour down the left of a card body: a line's thickness is its weight,
-    so it is a strip under deckkit.rules.is_accent_strip (the gate used to wave lines under 2pt through)."""
-    from pptx.dml.color import RGBColor
-    from pptx.enum.shapes import MSO_CONNECTOR
-    from pptx.util import Pt
-
-    def fn(prs):
-        s = prs.slides[1]
-        body = next(sh for sh in s.shapes if sh.name == "pillar.1.text.2")
-        x, y, h = body.left - int(0.08 * EMU), body.top, body.height
-        ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, x, y, x, y + h)
-        ln.name = "accent.line"
-        ln.line.color.rgb = RGBColor.from_string("D91E18")
-        ln.line.width = Pt(1.0)
-    with_prs(p, fn)
-
-
 def _recolour_runs(sh, hex_):
     for rn in runs_of(sh):
         rpr = rn.find(A + "rPr")
@@ -1102,6 +1083,228 @@ def p14_cover_tier(p, w):
     with_prs(p, lambda prs: _add_text(prs, 1, (0.5, 6.40, 3.0, 0.25), "Regional planning", 10.0, "title"))
 
 
+
+# ------------------------------------------------------------------ planters for the gate rulings (2026-10-03)
+
+FOOT_ONE = ("Every region signs one shared demand view each Friday, and finance, supply and sales read the same "
+            "figures before the cycle closes, so capacity is confirmed for every market")
+FOOT_TWO = (FOOT_ONE + ", so a gap between plan and actuals is visible a week earlier and capacity is confirmed for "
+            "every product family in every market before the next cycle opens")
+
+
+def _strip_beside_body(p, thick_in, hex_, name, gap_in=0.08):
+    """A filled strip thick_in wide in hex_ down the left of the first pillar's body, gap_in clear of its frame."""
+    from deckkit import ooxml, prims
+    from deckkit.canvas import Box
+    from pptx.dml.color import RGBColor
+
+    def fn(prs):
+        s = prs.slides[1]
+        body = next(sh for sh in s.shapes if sh.name == "pillar.1.text.2")
+        x, y, h = body.left / EMU, body.top / EMU, body.height / EMU
+        bar = prims._add(s, "RECTANGLE", Box(x - gap_in - thick_in, y, thick_in, h), name)
+        bar.fill.solid()
+        bar.fill.fore_color.rgb = RGBColor.from_string(hex_)
+        bar.line.fill.background()
+        prims._drop_text(bar)
+        ooxml.finish(bar)
+    with_prs(p, fn)
+
+
+def _line_beside_body(p, weight_pt, name, hex_="D91E18", gap_in=0.08, span=1.0):
+    """An undirected line weight_pt heavy, gap_in left of the first pillar's body, span x the body's height."""
+    from pptx.dml.color import RGBColor
+    from pptx.enum.shapes import MSO_CONNECTOR
+    from pptx.util import Pt
+
+    def fn(prs):
+        s = prs.slides[1]
+        body = next(sh for sh in s.shapes if sh.name == "pillar.1.text.2")
+        x, y, h = body.left - int(gap_in * EMU), body.top, int(body.height * span)
+        ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, x, y, x, y + h)
+        ln.name = name
+        ln.line.color.rgb = RGBColor.from_string(hex_)
+        ln.line.width = Pt(weight_pt)
+    with_prs(p, fn)
+
+
+def p10_bar_at_floor(p, w):
+    """A 1.5pt (0.0208in) accent strip beside a card body: the thinnest a bar can be."""
+    _strip_beside_body(p, 1.5 / 72.0, "D91E18", "accent.floor")
+
+
+def p10_pale_bar(p, w):
+    """A 0.05in strip in a pale tint (HLS saturation well over 0.15) beside a card body: pale is not grey."""
+    _strip_beside_body(p, 0.05, "F6C9C7", "pale.bar")
+
+
+def p10_line_2pt(p, w):
+    """A 2pt undirected accent line down the left of a card body: a line at the weight floor."""
+    _line_beside_body(p, 2.0, "accent.line")
+
+
+def p10_link_line_2pt(p, w):
+    """The same 2pt line named link.edge: no name but state.* exempts an undirected line."""
+    _line_beside_body(p, 2.0, "link.edge")
+
+
+def p10_loose_links(p, w):
+    """The pillars slide with its icons removed and two undirected lines that join no tile: a link counts only when
+    both its ends land on two distinct tiles."""
+    from pptx.dml.color import RGBColor
+    from pptx.enum.shapes import MSO_CONNECTOR
+    from pptx.util import Pt
+    p10_no_device(p, w)
+
+    def fn(prs):
+        s = prs.slides[1]
+        for k, y in enumerate((0.40, 0.55)):
+            ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, int(9.0 * EMU), int(y * EMU), int(11.0 * EMU),
+                                        int(y * EMU))
+            ln.name = "loose.link.%d" % k
+            ln.line.color.rgb = RGBColor.from_string("1E3C7D")
+            ln.line.width = Pt(1.0)
+    with_prs(p, fn)
+
+
+def p04_ink_on_edge(p, w):
+    """A right-aligned one-word label with no insets, its frame starting inside the first pillar card and ending
+    0.01in short of the card's right edge: its ink sits on the edge, so the ink test must still fail it."""
+    from pptx.enum.text import PP_ALIGN
+
+    def fn(prs):
+        from deckkit import text
+        from deckkit.canvas import Box
+        from deckkit.text import Para, Run
+        s = prs.slides[1]
+        card = next(sh for sh in s.shapes if sh.name == "pillar.1.card")
+        x, y, cw = card.left / EMU, card.top / EMU, card.width / EMU
+        tb = text.textbox(s, Box(x + 0.6, y + 0.9, cw - 0.61, 0.3), [Para(Run("Weekly", role="ink"))],
+                          "ink.edge", theme(), size=11.0, require_fit=False)
+        tf = tb.text_frame
+        tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
+        tf.paragraphs[0].alignment = PP_ALIGN.RIGHT
+    with_prs(p, fn)
+
+
+def p05_ink_collide(p, w):
+    """Two one-line labels offset 0.10in across and 0.03in down: their words are drawn into each other, so the ink
+    boxes overlap and the ink test must still fail them."""
+    with_prs(p, lambda prs: (_add_text(prs, 7, (0.6, 5.00, 3.0, 0.3), "Pilot regions confirm", 11.0, "ink.a"),
+                             _add_text(prs, 7, (0.7, 5.03, 3.0, 0.3), "Pilot regions confirm", 11.0, "ink.b")))
+
+
+ARROW_END = (3.551, 4.245)     # step.arrow.1's end once p06_arrow has shifted it 0.30in back
+
+
+def _cover_arrow(p, name, *, alpha=None, under=False):
+    """A card drawn over the shifted step.arrow.1 (holding both its ends, so it is never the arrow's target): painted
+    above the arrow, or moved to the bottom of the z-order with under=True; alpha < 1 makes it translucent."""
+    from deckkit import prims
+    from deckkit.canvas import Box
+    from lxml import etree as _et
+
+    def fn(prs):
+        s = prs.slides[2]
+        with prims.use(theme()):
+            card = prims.card(s, Box(2.95, 4.05, 0.75, 0.40), fill="card", line=None, name=name)
+        if alpha is not None:
+            clr = card._element.spPr.find(".//" + A + "solidFill")[0]
+            a = _et.SubElement(clr, A + "alpha")
+            a.set("val", str(int(alpha * 100000)))
+        if under:
+            tree = s.shapes._spTree
+            tree.remove(card._element)
+            tree.insert(2, card._element)
+    with_prs(p, fn)
+
+
+def loose_chevrons(p, overlap_in, names=("loose.a", "loose.b")):
+    """Two chevrons loose on the closing slide, 0.5in tall, the second overlapping the first by overlap_in."""
+    from pptx.enum.shapes import MSO_SHAPE
+
+    def fn(prs):
+        s = prs.slides[6]
+        for k, x in enumerate((1.0, 1.0 + 1.5 - overlap_in)):
+            ch = s.shapes.add_shape(MSO_SHAPE.CHEVRON, int(x * EMU), int(5.0 * EMU), int(1.5 * EMU), int(0.5 * EMU))
+            ch.name = names[k]
+            ch.shadow.inherit = False
+    with_prs(p, fn)
+
+
+def p05_loose_deep(p, w):
+    """Two loose chevrons in one row overlapping 0.60in, past their 0.25in point: a collision, not a nest."""
+    loose_chevrons(p, 0.60)
+
+
+def p06_opaque_under(p, w):
+    """The shifted arrow with an opaque card UNDER it covering its loose end: only a cover painted above hides."""
+    p06_arrow(p, w)
+    _cover_arrow(p, "under.card", under=True)
+
+
+def p06_translucent_cover(p, w):
+    """The shifted arrow with a 50% translucent card painted above its loose end: the end still shows."""
+    p06_arrow(p, w)
+    _cover_arrow(p, "glass.card", alpha=0.5)
+
+
+def p06_near_line(p, w):
+    """The shifted arrow with a vertical hairline 0.08in past its loose end: a junction is a line the end lies on,
+    not one it stops short of."""
+    from pptx.dml.color import RGBColor
+    from pptx.enum.shapes import MSO_CONNECTOR
+    from pptx.util import Pt
+    p06_arrow(p, w)
+
+    def fn(prs):
+        s = prs.slides[2]
+        x = int((ARROW_END[0] + 0.08) * EMU)
+        ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, x, int((ARROW_END[1] - 0.3) * EMU), x,
+                                    int((ARROW_END[1] + 0.3) * EMU))
+        ln.name = "near.line"
+        ln.line.color.rgb = RGBColor.from_string("BFBFBF")
+        ln.line.width = Pt(0.75)
+    with_prs(p, fn)
+
+
+def p17_word_beside_url(p, w):
+    """A banned word in prose beside a source link: only the link is blanked."""
+    def fn(r):
+        t = first_run(shape(r, "pillar.1.text.2")).find(A + "t")
+        t.text = "Teams " + "unlock" + " capacity, see example.com/blogs/unlocking-capacity"
+    edit_slide(p, 2, fn)
+
+
+def p17_bare_wip(p, w):
+    """A bare 'WIP' status on glass: only WIP before a capitalised noun is a work-in-process term."""
+    def fn(r):
+        t = first_run(shape(r, "pillar.1.text.2")).find(A + "t")
+        t.text = "Status: WIP"
+    edit_slide(p, 2, fn)
+
+
+def p24_foot_sentence(p, w):
+    """The pillars squeeze, then one full-width sentence on one line at 6.45in: the sentence is not mass."""
+    p24_top_heavy(p, w)
+    with_prs(p, lambda prs: _add_text(prs, 2, (0.5, 6.45, 12.4, 0.30), FOOT_ONE, 11.0, "foot.sentence"))
+
+
+def p24_foot_two_lines(p, w):
+    """The pillars squeeze, then a full-width two-line sentence at 6.20in."""
+    p24_top_heavy(p, w)
+    with_prs(p, lambda prs: _add_text(prs, 2, (0.5, 6.20, 12.4, 0.55), FOOT_TWO, 11.0, "foot.sentence"))
+
+
+def p24_cover_as_content(p, w):
+    """The cover retagged as a content archetype: a tagged cover is judged as content, and one title fills nothing."""
+    def fn(r):
+        for prop in r:
+            if (prop[0].text or "").startswith("cover:"):
+                prop[0].text = "pillars:icon-row"
+    edit_part(p, "docProps/custom.xml", fn)
+
+
 PLANTERS = [
     Planter("run-7.5pt", "P01", "a body run set at 7.5pt", p01_75, "7.50pt run"),
     Planter("autofit-75pct", "P01", "a 10pt run under normAutofit fontScale 75% (7.5pt drawn)", p01_scale,
@@ -1136,8 +1339,10 @@ PLANTERS = [
     Planter("no-device", "P10", "a content slide with its icons removed and no arrows", p10_no_device,
             "nothing drawn"),
     Planter("caps-kicker", "P10", "every card heading set in capitals", p10_caps, "caps label"),
-    Planter("thin-accent-bar", "P10", "a 0.01in accent strip beside a card body (thin, but not grey)",
-            p10_thin_accent, "left accent bar"),
+    Planter("bar-at-floor", "P10", "a 1.5pt (0.0208in) accent strip beside a card body", p10_bar_at_floor,
+            "left accent bar"),
+    Planter("pale-bar", "P10", "a 0.05in pale-tint strip beside a card body (pale, not grey)", p10_pale_bar,
+            "left accent bar"),
     Planter("ghost-style", "P11", "an injected <p:style> with effectRef idx 2 on a card", p11_style, "<p:style>"),
     Planter("gradient", "P11", "a gradient fill on a card", p11_gradient, "gradient fill"),
     Planter("blurred-shadow", "P11", "a 3pt blurred outer shadow on a card", p11_shadow, "shadow blur"),
@@ -1210,6 +1415,10 @@ PLANTERS = [
     Planter("emoji-icon", "P22", "an emoji after a card heading", p22_emoji, "emoji"),
     Planter("vendor-unresolved", "P22", "a vendor.* mark whose key names no mark in the source", p22_vendor_key,
             "does not resolve"),
+    Planter("vendor-forged-blob", "P22", "an off-palette picture renamed and captioned as a resolving vendor mark",
+            p22_vendor_forged, "renamed as a vendor mark"),
+    Planter("vendor-other-key", "P22", "a genuine azure mark under the aws/compute/ec2 name and alt text",
+            p22_vendor_other_key, "renamed as a vendor mark"),
     Planter("unlabelled-illustrative", "P23", "an illustrative stat with its chip removed", p23_chip,
             "'Illustrative' chip"),
     Planter("value-drift", "P23", "a stat value changed on glass after the build", p23_drift, "on glass '46%'"),
@@ -1219,8 +1428,33 @@ PLANTERS = [
             p24_top_heavy, "content spans"),
     Planter("top-heavy-plus-source", "P24", "the same squeeze plus a three-word source line at the foot",
             p24_top_heavy_source, "content spans"),
-    Planter("thin-accent-line", "P10", "a 1pt undirected accent line down the left of a card body", p10_thin_line,
+    Planter("line-at-floor", "P10", "a 2pt undirected accent line down the left of a card body", p10_line_2pt,
             "left accent bar"),
+    Planter("link-named-line", "P10", "a 2pt undirected accent line named link.edge beside a card body",
+            p10_link_line_2pt, "left accent bar"),
+    Planter("loose-links", "P10", "icons removed, two undirected lines that join no tile", p10_loose_links,
+            "nothing drawn"),
+    Planter("ink-on-edge", "P04", "a right-aligned label whose words reach past its card's right edge",
+            p04_ink_on_edge, "ink.edge in pillar.1.card"),
+    Planter("ink-collide", "P05", "two labels whose words are drawn into each other", p05_ink_collide,
+            "ink.a / ink.b"),
+    Planter("loose-chevron-deep", "P05", "two loose chevrons in a row overlapping past their point",
+            p05_loose_deep, "loose.a / loose.b"),
+    Planter("opaque-under", "P06", "the shifted arrow with an opaque card under it, covering its loose end",
+            p06_opaque_under, "end lands on nothing"),
+    Planter("translucent-cover", "P06", "the shifted arrow with a 50% card painted above its loose end",
+            p06_translucent_cover, "end lands on nothing"),
+    Planter("near-line", "P06", "the shifted arrow with a hairline 0.08in past its loose end", p06_near_line,
+            "end lands on nothing"),
+    Planter("word-beside-url", "P17", "a banned word in prose beside a source link", p17_word_beside_url,
+            "wrd-unlock"),
+    Planter("bare-wip", "P17", "a bare 'WIP' status on glass", p17_bare_wip, "dv-placeholder"),
+    Planter("foot-sentence", "P24", "the squeeze plus one full-width sentence line at 6.45in", p24_foot_sentence,
+            "content spans"),
+    Planter("foot-two-lines", "P24", "the squeeze plus a full-width two-line sentence at 6.20in",
+            p24_foot_two_lines, "content spans"),
+    Planter("cover-as-content", "P24", "the cover retagged as a content archetype", p24_cover_as_content,
+            "content"),
     Planter("icon-centre-drop", "P07", "one pillar glyph grown 0.30in from its top (centres drop 0.15in)",
             p07_icon_centre, "first content at"),
     Planter("header-bar-drop", "P07", "full-width header bars on three cards, the second 0.10in low", p07_header_bar,

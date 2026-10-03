@@ -58,3 +58,55 @@ verified them. Never push. No other repo is touched.
   (never in hook mode, never in `--all`; the deck gates name it in `--tiers`). One home kept.
 - The A4 one-pager is a device, not an archetype (n = 1).
 - `SKILL.draft.md` until acceptance, so no parallel session triggers a half-built skill.
+
+## 2026-10-03 · Builder strips decided by role; no link.* exemption; vendor marks verified by bytes
+- A strip in the kit (at most 0.10in x k thick, longer than 0.18in x k and more than 2x its thickness) may be
+  drawn only in `hairline`, `hairline-soft`, `rule-strong` or `ink-muted`, or on a shape named `state.*`. Every
+  other role raises GeometryError (navy, the inks, paper, card, accent and its tints, the series), whatever its
+  chroma on the theme. `rules.is_accent_strip` is the one predicate: `by="role"` in the builder, `by="colour"`
+  in the gates, which read hexes.
+- No `link.*` exemption: an undirected line outside the rule roles is refused whatever its name, by the builder
+  (`rules.line_refusal`) and by P10. `state.*` stays exempt.
+- `tab()`, `pill()`, `step_header()` and `quote()` run the strip check before drawing. `set_fill()` and
+  `set_line()` re-check the strip rule (and the line rule on a connector or open path) on the shape they modify,
+  before modifying it. `allow_strip=True` skips the re-check; only `gates/negatives.py` passes it (a test reads
+  every call by AST).
+- `vendor_path` / `vendor_resolves` refuse a key with `..`, a leading `/` or a backslash, with or without a theme.
+  P22 checks a `vendor.*` picture's blob: its sha256 must equal `kit/assets/vendor_hashes.json` for that key at
+  the blob's pixel size (the diagrams resource, embedded byte for byte; `scripts/build_vendor_hashes.py` rebuilds
+  it, `--check` reports staleness). `vendor()` checks the same table before drawing.
+
+## 2026-10-03 · Gate rulings after the round-4 real-deck review (relayed by the gate-rulings workflow task)
+- **P10 bars by colour, any deck.** A filled strip (`rules.is_strip`) is a bar when it is at least 1.5pt (0.0208in)
+  thick, not grey (HLS saturation 0.15 or more, and not a rule role's hex), not `state.*`, and within 0.30in (x k) of a
+  text block's left edge (vertical) or top edge (horizontal), parallel to it. Thinner strips are dividers. A line
+  (cxnSp or line-like sp) without an arrowhead counts only when at least 2pt, vertical or horizontal, not grey, within
+  0.15in (x k) of a text block's left edge and no longer than 1.5x that block's height. A text edge is the frame's or
+  the ink box's. `rules.is_accent_strip(by="colour")` carries the 1.5pt floor and the HLS test (`rules.is_grey`);
+  `by="role"` (the builder) is unchanged and has no floor, so kit decks stay under the stricter role rule.
+- **P10 density counts links.** An undirected connector whose two ends land on two distinct tiles (filled or outlined
+  shapes, pictures, graphic frames, at least 0.04 sq in) counts beside headed arrows, for the device rule and the
+  identical-tiles rule.
+- **P04 and P05 judge text by its ink box** (`walk._text_box`, occupancy-trimmed; `_shared.ink_box`) when the text
+  block draws no fill and no outline. P04's overlay and span idioms are still judged on the frame. P05 nests two loose
+  chevron-family shapes when they read as one row (same top and height within 0.02in, overlap no deeper than the
+  point); a grouped chevron against a loose one is still compared.
+- **P06 hidden ends and junctions.** An end under an opaque picture (no alpha, no alphaModFix below 100%) or an opaque
+  solid fill painted above the connector is skipped. An end within 0.03in of another straight line's stroke is a
+  junction and touches.
+- **P17 strips URLs** (http, https, www. and bare domain paths) before matching. The hook's dv-placeholder WIP clause
+  is `\bWIP\b(?!\s+[A-Z][a-z])`; every other pattern byte-identical; hook default and `--all` outputs verified
+  unchanged on a probe; recorded in `fingerprints.json` `_opt_in`.
+- **P24 measures the main mass.** Marked cells dilated by one cell (never across an empty band row), components
+  largest first to 85% of the marked cells, then a component at most 3 rows tall wholly below the largest one, past an
+  empty band row, is a foot sentence and left out. An untagged slide 1 is a frame; a cover is content only when
+  tagged as one.
+- **Real-deck false-positive rates are a characteriser** (`gates/characterise.py`, `.cache/fp_report.json`, a
+  stratified sample of 3 per gate for review), never a gate. Planters retired: `thin-accent-bar` (0.01in) and
+  `thin-accent-line` (1pt) are dividers now and live as pass-side tests.
+
+## 2026-10-03 · CP1 — taxonomy v1 approved (user)
+The library taxonomy v1 is frozen: 10 visual families (Frame, Parallel columns, Directed sequence, Stacked
+layers, Split, Two-dimensional field, Radial hub, Axis of time or maturity, Numbers-led, Exhibit-led), 45
+archetypes, 59 devices. The variety gate counts these families. The form decides the family; the job
+decides the archetype.

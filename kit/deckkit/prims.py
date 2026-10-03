@@ -22,10 +22,15 @@ Contract for every creator:
   * text is refused (ThemeInvariant) when its role does not clear 4.5:1 (3.0:1 for 14pt bold or 18pt and larger)
     against what is behind it: the creator's own fill, or for free text the background= it is given (paper,
     the slide background, by default)
-  * geometry the kit will not draw raises GeometryError: a radius on a non-rounded preset, a strip in
-    any non-neutral colour (rules.is_accent_strip, the predicate gate P10 runs; only state.* shapes may
-    carry one), an undirected line in a non-neutral role or a non-neutral connector over 1.5pt
-    (rules.line_refusal), a chevron point outside 31-35% of its height
+  * geometry the kit will not draw raises GeometryError: a radius on a non-rounded preset; a strip (at most
+    0.10in x k thick, longer than 0.18in x k and more than 2x its thickness) in any role outside
+    rules.STRIP_ROLES (hairline, hairline-soft, rule-strong, ink-muted), decided by role and never by the
+    role's chroma on this theme (rules.is_accent_strip by='role'; only state.* shapes may carry one); an
+    undirected line outside those roles whatever its name, or a headed one over 1.5pt (rules.line_refusal);
+    a chevron point outside 31-35% of its height
+  * the setters hold the same rules: set_fill() and set_line() re-check the strip rule (and, on a connector or
+    an open path, the line rule) on the shape they modify, before they modify it. allow_strip=True skips that
+    re-check; it exists for gates/negatives.py to plant breakages and nothing else passes it
 
 The theme is bound once with use(theme) (a context manager) or passed per call as theme=.
 """
@@ -95,10 +100,9 @@ ON_FILL = {
 CARD_FILLS = ("paper", "card", "accent-tint")
 CARD_LINES = ("hairline", "rule-strong", None)
 ZONE_FILLS = ("accent-tint", "accent-wash", "card")
-# Roles a thin strip is always allowed in (paper, card and the rule greys). The test itself is
-# rules.is_accent_strip, the one predicate gate P10 also runs: any role whose colour is a neutral grey passes,
-# so on a theme whose navy or inks are greys those pass too; accent, its tints and the series never do.
-NEUTRAL_STRIP = ("paper", "card", "hairline-soft", "hairline", "rule-strong")
+# The only roles a strip may be drawn in (rules.STRIP_ROLES). The builder decides by role, never by chroma:
+# navy, the inks, paper, card, accent and its tints and the series are all refused as a strip on every theme.
+STRIP_ROLES = rules.STRIP_ROLES
 STAT_KINDS = {"measured": None, "delivered": None, "illustrative": "Illustrative", "target": "Target",
               "benchmark": "Benchmark"}
 DASHES = ("dash", "sysDash", "sysDot", "lgDash", "dashDot")
@@ -138,10 +142,92 @@ def _insert_after(sp, new, kinds):
     sp.insert(pos, new)
 
 
-def set_fill(shape, role, *, theme=None):
-    """Solid fill in a role, or noFill when role is None. Replaces any fill already there."""
+_LN_HEADS = {("headEnd", "tailEnd"): "both", ("headEnd",): "start", ("tailEnd",): "end"}
+
+
+def _el(shape):
+    return getattr(shape, "_element", shape)
+
+
+def _shape_name(el) -> str:
+    c = el.find(".//" + _P + "cNvPr")
+    return c.get("name", "") if c is not None else ""
+
+
+def _frame_in(el):
+    """(w, h) of the shape's own frame in inches, or None before it has one."""
+    ext = el.find(_P + "spPr/" + _A + "xfrm/" + _A + "ext")
+    if ext is None:
+        return None
+    return int(ext.get("cx", "0")) / EMU_PER_IN, int(ext.get("cy", "0")) / EMU_PER_IN
+
+
+def _k_of(shape) -> float:
+    """The canvas scale of the deck the shape sits in; 1.0 (the widest net) for a bare element."""
+    try:
+        return canvas_of(shape.part.package.presentation_part.presentation).k
+    except Exception:
+        return 1.0
+
+
+def _sig(clr):
+    return (etree.QName(clr).localname, clr.get("val"), tuple((etree.QName(m).localname, m.get("val")) for m in clr))
+
+
+def _paint_role(container, th):
+    """The role a solidFill under `container` (an spPr or an a:ln) paints in: None when it paints nothing, a
+    STRIP_ROLES role when the colour is one, else any role that writes the same colour, else a description of
+    the foreign paint (never a strip role, so the strip rule refuses it)."""
+    if container is None:
+        return None
+    sf = container.find(_A + "solidFill")
+    if sf is None:
+        other = [etree.QName(c).localname for c in container if etree.QName(c).localname in _FILL_TAGS - {"noFill"}]
+        return other[0] if other else None
+    if not len(sf):
+        return None
+    want = _sig(sf[0])
+    match = [r for r in th.roles if _sig(th.spec(r)) == want]
+    for r in rules.STRIP_ROLES:
+        if r in match:
+            return r
+    if match:
+        return match[0]
+    return "%s %s" % (want[0], want[1])
+
+
+def _line_like(el) -> bool:
+    """A drawn line: a connector, or an open custGeom whose every path is unfilled (an elbow). A kit glyph
+    (paths in the glyph space, deckkit.glyphs) is an icon, not a line."""
+    if etree.QName(el).localname == "cxnSp":
+        return True
+    paths = el.findall(_P + "spPr/" + _A + "custGeom/" + _A + "pathLst/" + _A + "path")
+    if not paths or any(p.get("fill") != "none" for p in paths):
+        return False
+    from .glyphs import SCALE, SPACE
+    side = str(int(SPACE * SCALE))
+    return not all(p.get("w") == side and p.get("h") == side for p in paths)
+
+
+def _recheck_strip(shape, fill_role, line_role, what):
+    """The strip rule on the shape as it will be after the setter: its frame, its name, both its paints."""
+    el = _el(shape)
+    wh = _frame_in(el)
+    if wh is None:
+        return
+    _strip_refusal(wh[0], wh[1], (fill_role, line_role), _shape_name(el), what, k=_k_of(shape))
+
+
+def set_fill(shape, role, *, theme=None, allow_strip: bool = False):
+    """Solid fill in a role, or noFill when role is None. Replaces any fill already there.
+
+    The strip rule is re-checked first on the shape as it will be (this fill, the line it already has): a strip
+    in a role outside rules.STRIP_ROLES raises GeometryError unless the shape is named state.*. allow_strip=True
+    skips the check (gates/negatives.py plants a bar with it; nothing else passes it)."""
     th = theme_of(theme)
     sp = _sppr(shape)
+    if not allow_strip and not _line_like(_el(shape)):
+        _recheck_strip(shape, role, _paint_role(sp.find(_A + "ln"), th), "set_fill")
     for c in [c for c in sp if etree.QName(c).localname in _FILL_TAGS]:
         sp.remove(c)
     if role is None:
@@ -154,12 +240,22 @@ def set_fill(shape, role, *, theme=None):
 
 
 def set_line(shape, role, weight_pt: float | None = None, *, theme=None, dash=None, head=None, cap=None,
-             join=None):
+             join=None, allow_strip: bool = False):
     """The shape's a:ln: a role colour at weight_pt, or noFill when role is None.
 
-    head: None/'none', 'end' (tailEnd at the line's end point), 'start' (headEnd), 'both'."""
+    head: None/'none', 'end' (tailEnd at the line's end point), 'start' (headEnd), 'both'.
+    The rules are re-checked first on the shape as it will be: on a connector or an open path, the line rule
+    (rules.line_refusal: outside rules.STRIP_ROLES it needs an arrowhead and at most 1.5pt, whatever its name;
+    only state.* is exempt); on any other shape, the strip rule on its fill and this line. allow_strip=True
+    skips both (gates/negatives.py only)."""
     th = theme_of(theme)
     sp = _sppr(shape)
+    if not allow_strip:
+        el = _el(shape)
+        if _line_like(el):
+            _line_check(role, None if head == "none" else head, weight_pt, _shape_name(el), "set_line", th)
+        else:
+            _recheck_strip(shape, _paint_role(sp, th), role, "set_line")
     for c in sp.findall(_A + "ln"):
         sp.remove(c)
     ln = etree.Element(_A + "ln")
@@ -263,23 +359,27 @@ def _adj(radius_in: float, box: Box) -> float:
     return min(0.5, radius_in / min(box.w, box.h))
 
 
-def _bar_check(box: Box, roles, name: str, what: str, *, th, k: float = 1.0):
-    """rules.is_accent_strip (the predicate gate P10 runs) on every fill or line role of the box: a strip
-    in a non-neutral colour is the left/top accent bar, banned unless it encodes a state (named state.*).
-    Strips in a neutral grey are dividers and pass."""
-    bad = [r for r in roles if r is not None and rules.is_accent_strip(box.w, box.h, th.hex(r), name, th, k=k)]
+def _strip_refusal(w: float, h: float, roles, name: str, what: str, *, k: float = 1.0, th=None):
+    """rules.is_accent_strip by role (the predicate gate P10 runs by colour) on every fill or line role: a strip
+    in any role outside rules.STRIP_ROLES is the left/top accent bar, banned unless it encodes a state (named
+    state.*). Strips in a rule role are dividers and pass. The decision is the role's, not its chroma."""
+    bad = [str(r) for r in roles if r is not None and rules.is_accent_strip(w, h, r, name, th, k=k, by="role")]
     if bad:
-        raise GeometryError("%s %s" % (what, name), need="a strip in a neutral grey (%s), or no strip"
-                            % " / ".join(NEUTRAL_STRIP),
-                            have="%.3f x %.3f in strip in %s" % (box.w, box.h, " and ".join(bad)),
-                            hint="a coloured edge bar is allowed only where it encodes a state; name it "
-                                 "state.<what>, or draw a divider with hairline()")
+        raise GeometryError("%s %s" % (what, name), need="a strip in a rule role (%s), or no strip"
+                            % " / ".join(STRIP_ROLES),
+                            have="%.3f x %.3f in strip in %s" % (w, h, " and ".join(bad)),
+                            hint="a strip in any other role is an edge bar, allowed only where it encodes a state; "
+                                 "name it state.<what>, or draw a divider with hairline()")
+
+
+def _bar_check(box: Box, roles, name: str, what: str, *, th, k: float = 1.0):
+    _strip_refusal(box.w, box.h, roles, name, what, k=k, th=th)
 
 
 def _line_check(role, head, weight_pt, name: str, what: str, th):
-    """rules.line_refusal: an undirected line in a non-neutral role is an edge strip (allowed only named
-    state.* or link.*), and a non-neutral connector is at most 1.5pt."""
-    why = rules.line_refusal(role, head, weight_pt, name, th)
+    """rules.line_refusal by role: an undirected line outside rules.STRIP_ROLES is an edge strip whatever its
+    name (only state.* is exempt), and a connector outside them is at most 1.5pt."""
+    why = rules.line_refusal(role, head, weight_pt, name, th, by="role")
     if why:
         raise GeometryError("%s %s" % (what, name), need="a rule role, or an arrowhead at <= %.1fpt"
                             % rules.CONNECTOR_MAX_PT, have="%s, head %s, %spt" % (role, head or "none", weight_pt),
@@ -299,8 +399,8 @@ def _shape(slide, prst, box, *, fill, line, weight_pt, name, theme, keep_text=Fa
 
 @ooxml.transactional
 def rect(slide, box: Box, *, fill=None, line=None, weight_pt=None, radius_in=None, name: str, theme=None):
-    """A square-cornered rectangle. A radius here raises: use card() for a rounded box. A strip in a
-    non-neutral fill or line role raises unless it is named state.* (see _bar_check)."""
+    """A square-cornered rectangle. A radius here raises: use card() for a rounded box. A strip in a fill or
+    line role outside rules.STRIP_ROLES raises unless it is named state.* (see _strip_refusal)."""
     _name(name, "rect")
     if radius_in is not None:
         raise GeometryError("rect %s radius" % name, need="no radius on the rect preset", have=radius_in, unit="in",
@@ -318,7 +418,7 @@ def card(slide, box: Box, *, fill="card", line="hairline", radius_in=None, name:
     radius_in None takes the canvas radius; 0 draws a square card. The radius is converted to the
     preset's normalised adjustment (adj = min(0.5, r / min(w, h))). An outline-only card on white
     (fill paper) uses rule-strong, never the decorative hairline (DECISIONS: hairline scoping). A card
-    thin enough to be a strip in a non-neutral fill (accent-tint) raises unless named state.*."""
+    thin enough to be a strip raises unless named state.*: none of its fills is a rule role."""
     _name(name, "card")
     if fill not in CARD_FILLS:
         raise ThemeInvariant("card %s fill" % name, need=" / ".join(CARD_FILLS), have=fill)
@@ -353,6 +453,7 @@ def tab(slide, box: Box, label: str, *, fill="ink-strong", pt=None, radius_in=No
         raise ThemeInvariant("tab %s fill" % name, need=" / ".join(ON_FILL), have=fill)
     th = theme_of(theme)
     cv = canvas_for(slide)
+    _bar_check(box, (fill,), name, "tab", th=th, k=cv.k)
     pt = cv.ramp["label"] if pt is None else pt
     r = cv.radius_in if radius_in is None else float(radius_in)
     ins = 0.10 * cv.k
@@ -379,6 +480,7 @@ def pill(slide, box: Box, text: str, *, fill="card", line=None, role=None, pt=No
         raise ThemeInvariant("pill %s fill" % name, need=" / ".join(ON_FILL), have=fill)
     th = theme_of(theme)
     cv = canvas_for(slide)
+    _bar_check(box, (fill, line), name, "pill", th=th, k=cv.k)
     pt = cv.ramp["small"] if pt is None else pt
     side = min(box.w, box.h) / 2.0 * (1 - math.sqrt(0.5))   # the preset's text rectangle is inset by this
     ins = 0.04 * cv.k
@@ -432,6 +534,7 @@ def step_header(slide, box: Box, labels, *, fill="ink-strong", active=None, dept
         b = Box(box.x + i * (sw - d + gap_in), box.y, sw, box.h)
         left = 0.0 if i == 0 else d
         what = "step %d of %s" % (i + 1, name)
+        _bar_check(b, (f,), "%s.%d" % (name, i + 1), "step", th=th, k=cv.k)
         paras = _label(label, pt, ON_FILL[f], what=what, bold=True, align="c")
         _fit(what, paras, (b.w - left - d, b.h), insets, th, background=f)
         plan.append((f, b, paras))
@@ -516,8 +619,8 @@ def _connector(slide, p1, p2, name):
 
 @ooxml.transactional
 def hairline(slide, p1, p2, *, role="hairline", weight_pt=None, name: str, theme=None):
-    """A divider from p1 to p2 (inches), horizontal or vertical, no heads. It has no head, so a role that is
-    not a neutral grey is refused unless the line is named state.* or link.* (rules.line_refusal)."""
+    """A divider from p1 to p2 (inches), horizontal or vertical, no heads. It has no head, so a role outside
+    rules.STRIP_ROLES is refused whatever the line's name, unless it is named state.* (rules.line_refusal)."""
     _name(name, "hairline")
     (x1, y1), (x2, y2) = p1, p2
     if abs(x1 - x2) > 1e-6 and abs(y1 - y2) > 1e-6:
@@ -536,8 +639,8 @@ def connect(slide, p1, p2, *, head="end", dash=None, role="ink-muted", weight_pt
     """A straight connector from p1 to p2 (inches), a triangle head at the end by default.
 
     Unglued on purpose (no stCxn/endCxn): LibreOffice re-routes glued connectors on import. Endpoints
-    must sit on the boxes they join; gate P06 measures both. In a non-neutral role it needs a head and
-    at most 1.5pt (head='none' only named state.* or link.*): rules.line_refusal."""
+    must sit on the boxes they join; gate P06 measures both. Outside rules.STRIP_ROLES it needs a head and
+    at most 1.5pt (head='none' only named state.*): rules.line_refusal."""
     _name(name, "connect")
     th = theme_of(theme)
     if head not in HEADS:
@@ -677,6 +780,7 @@ def quote(slide, box: Box, text: str, attribution: str, *, fill="card", bar_role
     cv = canvas_for(slide)
     pt = cv.ramp["body"] if pt is None else pt
     body = text.strip().strip('"' + chr(0x201C) + chr(0x201D))     # curly marks are a banned glyph
+    _bar_check(box, (fill,), "%s.panel" % name, "quote", th=th, k=cv.k)
     bar_w = 0.05 * cv.k
     pad = 0.14 * cv.k
     tx = box.x + bar_w + pad
@@ -706,7 +810,7 @@ def quote(slide, box: Box, text: str, attribution: str, *, fill="card", bar_role
 def zone(slide, box: Box, *, fill="accent-tint", label=None, radius_in=None, name: str, theme=None):
     """A grouping container in a brand tint, no border. An optional caps label sits inside its top-left
     corner as name.label (a sibling shape). Returns the zone shape. A zone thin enough to be a strip
-    raises like rect() and card() do (its fills are all non-neutral)."""
+    raises like rect() and card() do (none of its fills is a rule role)."""
     _name(name, "zone")
     if fill not in ZONE_FILLS:
         raise ThemeInvariant("zone %s fill" % name, need=" / ".join(ZONE_FILLS), have=fill)
@@ -735,4 +839,4 @@ def zone(slide, box: Box, *, fill="accent-tint", label=None, radius_in=None, nam
 
 __all__ = ["use", "bind", "theme_of", "canvas_for", "set_fill", "set_line", "check_pt", "rect", "card", "tab", "pill",
            "step_header", "disc", "person", "hairline", "stat", "quote", "caps_label", "connect", "elbow", "zone",
-           "ON_FILL", "NEUTRAL_STRIP", "STAT_KINDS", "CHEVRON_DEPTH"]
+           "ON_FILL", "STRIP_ROLES", "STAT_KINDS", "CHEVRON_DEPTH"]

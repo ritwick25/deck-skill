@@ -8,7 +8,9 @@ deck-voice rules dv-person, dv-al-ai and dv-placeholder by id) must be hit by at
 tier or id. A tier missing from the file, emptied, renamed or broken leaves its sentence unhit and the gate FAILS
 naming it; an empty or unreadable rules file fails the same way, so it can never read as clean. Quotations and
 the exact phrase "Thank you" are exempt from dv-person. dv-semicolon is advisory and counted. Text is every
-text block on every slide (group children, cells, master and layout chrome) plus every alt text.
+text block on every slide (group children, cells, master and layout chrome) plus every alt text. URLs are blanked
+before any rule reads the text (strip_urls: http and https links, www. hosts and bare domain paths such as
+example.com/blogs/unlocking-x), so a word in a source link's slug is never prose on glass.
 """
 from __future__ import annotations
 
@@ -39,6 +41,14 @@ CANARY = (
     ("deck-voice", "dv-placeholder", "Owner: {{slot:owner}}"),
 )
 QUOTES = ('"', chr(0x201C), chr(0x2018), "'")
+URL = re.compile(r"(?i)\b(?:https?://|www\.)[^\s<>\"']+"
+                 r"|\b[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)*\.[a-z]{2,24}/[^\s<>\"']*")
+
+
+def strip_urls(text: str) -> str:
+    """The text with every URL blanked to spaces of the same length (offsets kept): http(s) links, www. hosts and
+    bare domain paths (a domain followed by a slash)."""
+    return URL.sub(lambda m: " " * len(m.group(0)), text)
 
 
 def load_rules(path):
@@ -101,6 +111,7 @@ def run(deck, ctx):
     semis = 0
     for i in range(1, ctx.n + 1):
         for where, t, is_quote in blocks(ctx, i):
+            t = strip_urls(t)
             for rid, tier, rx in rules:
                 txt = t.replace("Thank you", "") if rid == "dv-person" else t
                 if rid == "dv-person" and is_quote:

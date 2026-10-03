@@ -7,6 +7,12 @@ ranked by the distance from the end to their EDGE. Straight and bent connectors,
 open custom-geometry paths (deckkit.prims.elbow) all carry the read layer's connector block. A headed custom path
 the read layer did not classify as a line is measured at its path's first and last points, through the same
 touch(). An arrow whose two ends sit on the same shape points at nothing.
+
+Two ends are not judged by touch() alone:
+  * hidden: an end that lies under an opaque picture (no alpha channel, no alphaModFix below 100%) or an opaque
+    solid-filled shape painted later (z above the connector) is invisible, so it is skipped, never a finding;
+  * junction: an end within JUNCTION_TOL of another straight connector or line (a bus, a branch point) touches
+    it, the way a tree of lines is drawn.
 """
 from __future__ import annotations
 
@@ -17,6 +23,8 @@ from deckkit.read import connect as cx
 from deckkit.read.ns import A
 
 GATE, TITLE = "P06", "arrows"
+JUNCTION_TOL = 0.03     # an end this close to another line's stroke meets it
+OPAQUE = 0.99           # alpha at or above this hides what lies under it
 
 
 def _headed(line) -> bool:
@@ -54,6 +62,43 @@ def _path_ends(ctx, i, L):
     return at(*pts[0]), at(*pts[-1])
 
 
+def _opaque(L) -> bool:
+    """A leaf that hides what is painted under it: a picture with no transparency, or an opaque solid fill."""
+    if L.get("line_like") or L.get("connector") is not None or L.get("on_canvas") == "off":
+        return False
+    if L["kind"] == "pic":
+        pic = L.get("picture") or {}
+        return not pic.get("has_alpha") and (pic.get("alpha") if pic.get("alpha") is not None else 1.0) >= OPAQUE
+    f = L.get("fill") or {}
+    return L["kind"] == "sp" and f.get("type") == "solid" and \
+        (f.get("alpha") if f.get("alpha") is not None else 1.0) >= OPAQUE
+
+
+def hidden(pt, L, leaves) -> int | None:
+    """The id of an opaque leaf painted above connector L that covers pt, else None."""
+    z = L.get("z", 0)
+    for o in leaves:
+        if o is L or o.get("z", 0) <= z or not _opaque(o):
+            continue
+        if cx.gap(pt, o) == 0.0:
+            return o["id"]
+    return None
+
+
+def junction(pt, L, leaves) -> int | None:
+    """The id of another straight connector or line whose stroke pt lies on (within JUNCTION_TOL), else None."""
+    for o in leaves:
+        c = o.get("connector")
+        if o is L or c is None or (o.get("line") or {}).get("type") in (None, "none"):
+            continue
+        if c.get("orientation") not in ("h", "v", "diag") or not c.get("start_in") or not c.get("end_in"):
+            continue
+        half = (o.get("line") or {}).get("w_pt") or 0.75
+        if cx._seg_dist(pt, tuple(c["start_in"]), tuple(c["end_in"])) <= JUNCTION_TOL + half / 144.0:
+            return o["id"]
+    return None
+
+
 def run(deck, ctx):
     out = []
     area = ctx.W * ctx.H
@@ -68,6 +113,8 @@ def run(deck, ctx):
                     continue
                 t = c.get("touch") or {}
                 st, en = t.get("start") or {}, t.get("end") or {}
+                if c.get("start_in") and c.get("end_in"):
+                    ends = (tuple(c["start_in"]), tuple(c["end_in"]))
             elif (L.get("geom") or {}).get("cust") and _headed(L.get("line")):
                 ends = _path_ends(ctx, i, L)
                 if ends is None:
@@ -76,11 +123,15 @@ def run(deck, ctx):
                 en = cx.touch(ends[1], leaves, L["id"], area, other=ends[0])
             else:
                 continue
-            for which, tt in (("start", st), ("end", en)):
-                if not tt.get("ok"):
-                    gap = tt.get("gap_in")
-                    out.append(Finding(GATE, FAIL, i, L["name"], "%s lands on nothing (%s from the nearest edge)"
-                                       % (which, "%.3fin" % gap if gap is not None else "no shape")))
+            for k, (which, tt) in enumerate((("start", st), ("end", en))):
+                if tt.get("ok"):
+                    continue
+                if ends is not None and (hidden(ends[k], L, leaves) is not None or
+                                         junction(ends[k], L, leaves) is not None):
+                    continue
+                gap = tt.get("gap_in")
+                out.append(Finding(GATE, FAIL, i, L["name"], "%s lands on nothing (%s from the nearest edge)"
+                                   % (which, "%.3fin" % gap if gap is not None else "no shape")))
             if st.get("ok") and en.get("ok") and st.get("id") == en.get("id"):
                 out.append(Finding(GATE, FAIL, i, L["name"], "both ends on the same shape (id %s)" % st.get("id")))
     return out

@@ -1,0 +1,4376 @@
+{
+ "count": 1456,
+ "keys": {
+  "aws/analytics/amazon-opensearch-service": {
+   "256x256": "57ac3c7c20d3f3e748b3b952b04bd2aeab19688c80c19faac8fa58acecd7a43c"
+  },
+  "aws/analytics/analytics": {
+   "400x400": "61bedebfa9173cc89edc0a32626e9f58c42fce73fce53e02e341232714598478"
+  },
+  "aws/analytics/athena": {
+   "300x300": "efd3e62f504c7fd663a863d17c18314560f2c604be0a0e72d467e696203101de"
+  },
+  "aws/analytics/cloudsearch": {
+   "300x300": "303d699baf4b6efcdd00b81bad20c96e544dbbb089eb9afb68ec098709ad4a25"
+  },
+  "aws/analytics/cloudsearch-search-documents": {
+   "200x200": "ce1200c82edf99bb7d9acfcec205008a5fe55400484d5b64a78811e0f3f5d24c"
+  },
+  "aws/analytics/data-lake-resource": {
+   "256x256": "5f385e136948bb8b972d450c859b0486ddca8997e9f6b2a3daa1ae063fb08c21"
+  },
+  "aws/analytics/data-pipeline": {
+   "300x300": "263db09a311974d1e20406b3bbbc5d09b3ec3f061f30529c92b68596499851af"
+  },
+  "aws/analytics/elasticsearch-service": {
+   "300x300": "00e0e004c614152f9635bdb674b74bf8fbb7e7a32ab09d2d257d84d48cceb4ef"
+  },
+  "aws/analytics/emr": {
+   "300x300": "a43ecc68e380bb30f19c90f3b2556fe18f292b6cfad984c025c639c4727bde91"
+  },
+  "aws/analytics/emr-cluster": {
+   "200x200": "9777fdbd3846d8cd726f5fdeef6d629956527e55090dff6de3dc3a7b653ef86e"
+  },
+  "aws/analytics/emr-engine": {
+   "256x256": "3226a179e81af8fc2457568c6ccefb5fd9d2a9c8361c49255db6350336f14029"
+  },
+  "aws/analytics/emr-engine-mapr-m3": {
+   "256x256": "5910f104f680ce80b09418d3ddd8717d068621871bd71c6a055fb44f105aaa07"
+  },
+  "aws/analytics/emr-engine-mapr-m5": {
+   "256x256": "7c4a0344efd98c3aba0d7947ce60e53707a310042b68438897dab94d3b198dc2"
+  },
+  "aws/analytics/emr-engine-mapr-m7": {
+   "256x256": "df8e0c462444c302ce689e824dd7132943e5fdc31c4440e3279add6c43cffa3b"
+  },
+  "aws/analytics/emr-hdfs-cluster": {
+   "200x200": "8e823618df0fb43935a86d695ef8f856a14add32c265a78591af346ce15ff92b"
+  },
+  "aws/analytics/glue": {
+   "300x300": "3401adc3cdd9d39569af18caa1d7b5273608b977e2152b81be6ece7a96a7ead0"
+  },
+  "aws/analytics/glue-crawlers": {
+   "200x200": "0a82f2a3eb64a69627ffe684c3387d4cd5affd3fc7a7e6bd04623c76178cd582"
+  },
+  "aws/analytics/glue-data-catalog": {
+   "200x200": "a900f1ab24e40bfe4a620c75fc491f0bd96337de627067b263778734f7ab96ab"
+  },
+  "aws/analytics/kinesis": {
+   "300x300": "d6e0f0c1466bd9ee8f46c55846709f36e4f999f77e277ea3c4ad31b630ba792d"
+  },
+  "aws/analytics/kinesis-data-analytics": {
+   "300x300": "a8080bc8b5a03b5d3cc6d3842bda489253821c560d6d70397b108a3059eb23e0"
+  },
+  "aws/analytics/kinesis-data-firehose": {
+   "300x300": "baf407513f4a0b794ce84134eb353514cfe7e9e354a84ab4524d2062492e0e7d"
+  },
+  "aws/analytics/kinesis-data-streams": {
+   "300x300": "82927479667367003c2697d041c780df9a198b7d1745b80ca7ac433f9f9fdd8a"
+  },
+  "aws/analytics/kinesis-video-streams": {
+   "300x300": "1042485bb4d39d724dc198c92b954f2d4e2b5a95e18f6007361523d79d3ee5f0"
+  },
+  "aws/analytics/lake-formation": {
+   "300x300": "8eb0d341533c1cda9261387ea1242331b4521de4b9b76fcb95f4f9f9b9ef5540"
+  },
+  "aws/analytics/managed-streaming-for-kafka": {
+   "300x300": "56621181dccc6e500abe634142c6728c9273f76bb8e3b4dd8a4f9e31d9948465"
+  },
+  "aws/analytics/quicksight": {
+   "300x300": "43e871e8338641dbda15a12df8446f40f81089eb9a069e539c967d5db39aa485"
+  },
+  "aws/analytics/redshift": {
+   "300x300": "53d11451ad0d360907a6ffb8e144141f5985bd49eeaccf096f8a9f5d26a60a5c"
+  },
+  "aws/analytics/redshift-dense-compute-node": {
+   "200x200": "7e6a8cc15f42a7e5b94d88ae7fe6d6f7ccbe3d391cee00bcc69fc9e5bc550344"
+  },
+  "aws/analytics/redshift-dense-storage-node": {
+   "200x200": "058d92ceabc0852fe319b5b17eabbae665bf3edc7ca0d177a72c8b4b17632520"
+  },
+  "aws/ar/ar-vr": {
+   "256x256": "00925bc182a732bd41ee382d5e89db070674e3ed7a8a8756e937779aa82b1063"
+  },
+  "aws/ar/sumerian": {
+   "300x300": "7a4d3a5600cddb92c96e62398512d12cc82031dc6c3138017bc7917f2f78dfe5"
+  },
+  "aws/aws": {
+   "256x174": "32f00df818767e4ed6cd6f8a91d890362b3382550c15112fe098c0035a0c9d7e"
+  },
+  "aws/blockchain/blockchain": {
+   "256x256": "50071516aaa00899cacb37dd8a6f4f7006400c2d28f4192c61f9cb33ee40543e"
+  },
+  "aws/blockchain/blockchain-resource": {
+   "256x256": "847e92509cef84181dbc03e151553c67c46048b20482388d2d91bd5b50438ce8"
+  },
+  "aws/blockchain/managed-blockchain": {
+   "300x300": "aab8c432bf97aee411fbc0d32cbf76e6431158e74b66c3672784bf487829faf1"
+  },
+  "aws/blockchain/quantum-ledger-database-qldb": {
+   "300x300": "0afcc36c2bcd86ed66dbac6e7c2e56f4c74291baf370fdb741698d216fadb9ea"
+  },
+  "aws/business/alexa-for-business": {
+   "300x300": "9240e1eb6dbce3d2cd7f5187a00670608dfe6575db7ba983d02b3dd7d649673c"
+  },
+  "aws/business/business-applications": {
+   "256x256": "24f615eee5ba5143f18127d8b4aa52852e8b72a1856d1af628197bcac32b57c4"
+  },
+  "aws/business/chime": {
+   "300x300": "954f4a113baa9cec69b6bd8ad6f9f085a1b84742cb925c17f476995d2b3ee44e"
+  },
+  "aws/business/workmail": {
+   "300x300": "5c430e20dd008e6fb4de930b854752030a957d430e680eeb311ea5e8ffeecdf3"
+  },
+  "aws/compute/app-runner": {
+   "256x256": "243b958450fd0361a29061ed441bb295f9886f15b9fb8f88fdf7de0407aca498"
+  },
+  "aws/compute/application-auto-scaling": {
+   "500x500": "6c29de0a608c4a7842a3dcd502fbc7f092cebbd717ce1d3f5eae3239937094cf"
+  },
+  "aws/compute/application-auto-scaling-rounded": {
+   "500x500": "6c29de0a608c4a7842a3dcd502fbc7f092cebbd717ce1d3f5eae3239937094cf"
+  },
+  "aws/compute/batch": {
+   "300x300": "7d664fcb29d1fd99c3fc5999461b34e297a7e1ca311bac690b9e591b483fd60c"
+  },
+  "aws/compute/batch-rounded": {
+   "300x300": "7d664fcb29d1fd99c3fc5999461b34e297a7e1ca311bac690b9e591b483fd60c"
+  },
+  "aws/compute/compute": {
+   "400x400": "d538b9e58e26633a40e79c56dbcb2c1d1847743ef3853e75e753072a78859849"
+  },
+  "aws/compute/compute-optimizer": {
+   "256x256": "28af9a3de025fdd3d1c33e71370dae9cd522f936f223c550bf3e1031ffe9cab2"
+  },
+  "aws/compute/compute-rounded": {
+   "400x400": "d538b9e58e26633a40e79c56dbcb2c1d1847743ef3853e75e753072a78859849"
+  },
+  "aws/compute/ec2": {
+   "300x300": "b77c918ad4ed02d54fd28f547d81eafd88bb1d1bb0c08ad8e0bf048845998fc2"
+  },
+  "aws/compute/ec2-ami": {
+   "256x256": "32df1ca0ef73c1eb1b237450a682b7c79df08e9d875895e9365ee86b83d3969a"
+  },
+  "aws/compute/ec2-auto-scaling": {
+   "256x256": "d2efc310fa5c56ce6007e34817ca649483f24f3f643d78a215162193cfe8fcd2"
+  },
+  "aws/compute/ec2-container-registry": {
+   "300x300": "eb130f8b7da48fd6a0c9b7a053945ebbae4b7dd30868fe4c97d50568865b243d"
+  },
+  "aws/compute/ec2-container-registry-image": {
+   "256x256": "87ef89b0d3ec28d6484edb6bf30b4085ca64224d649173c7faaa18c63689a882"
+  },
+  "aws/compute/ec2-container-registry-registry": {
+   "256x256": "24ddc35e58da370af6609ead6487d029b21f819d74676b861acd96a55ab63ed2"
+  },
+  "aws/compute/ec2-container-registry-rounded": {
+   "300x300": "eb130f8b7da48fd6a0c9b7a053945ebbae4b7dd30868fe4c97d50568865b243d"
+  },
+  "aws/compute/ec2-elastic-ip-address": {
+   "256x256": "7d900211494fe8533247ec68c7ac87f6e0651ba448e09c9972f0ff604c5dede3"
+  },
+  "aws/compute/ec2-image-builder": {
+   "256x256": "b1375fcacdfdc3cde161cbe286f72b65e207ba90de8bb65ece9c8513c9313fc4"
+  },
+  "aws/compute/ec2-instance": {
+   "256x256": "e9874ce9071cb4dd046fc231dd2e71e569503395f680c577cb41a24dd98b2a3d"
+  },
+  "aws/compute/ec2-instances": {
+   "256x256": "de9c596ea5c2314e5799ec1b9ed534973132f3e183ad070553322240074ed79c"
+  },
+  "aws/compute/ec2-rescue": {
+   "256x256": "33a3124a8b29bc712bb2cde22fc64e6d7421ec29d0ba07ab6562fa552b732b5e"
+  },
+  "aws/compute/ec2-rounded": {
+   "300x300": "b77c918ad4ed02d54fd28f547d81eafd88bb1d1bb0c08ad8e0bf048845998fc2"
+  },
+  "aws/compute/ec2-spot-instance": {
+   "256x256": "81c68e1a4740a9f3a7fb8de20abbffad62662fa58e3c8e50d14e05ea2855aafe"
+  },
+  "aws/compute/elastic-beanstalk": {
+   "300x300": "dd8b2bf2291255a37e286fc58404fec5190dcf65b206e0b74d97f05af7fef659"
+  },
+  "aws/compute/elastic-beanstalk-application": {
+   "256x256": "25b9110132a6a44df6472e0a0b0bb7d385550b6a550aa17bd561c24529d55039"
+  },
+  "aws/compute/elastic-beanstalk-deployment": {
+   "256x256": "68400c9f4d18b0b03c6c94f363b86bc7731bf2359cbae060a2aaacb1642f3c3d"
+  },
+  "aws/compute/elastic-beanstalk-rounded": {
+   "300x300": "dd8b2bf2291255a37e286fc58404fec5190dcf65b206e0b74d97f05af7fef659"
+  },
+  "aws/compute/elastic-container-service": {
+   "300x300": "c1eb220ee1ff2f196d6dff2c0e4cd13bec873c5468386d3380fc197dbbfcbc4b"
+  },
+  "aws/compute/elastic-container-service-container": {
+   "256x256": "bd619c2961fbbf354b09eff14f862684fa212b74f6095a79ca60b2b9fc4ce717"
+  },
+  "aws/compute/elastic-container-service-rounded": {
+   "300x300": "c1eb220ee1ff2f196d6dff2c0e4cd13bec873c5468386d3380fc197dbbfcbc4b"
+  },
+  "aws/compute/elastic-container-service-service": {
+   "256x256": "1e82320154c2b2a9fe148362d08e25058d08039e98254f06dce78c1de11fd449"
+  },
+  "aws/compute/elastic-container-service-service-connect": {
+   "256x256": "f13649daec1bb8796dba3d4e82be73c861330e43c86e1d544af5f96b68c0883e"
+  },
+  "aws/compute/elastic-container-service-task": {
+   "256x256": "5ebc2eaa4150683e21022098f1f4dadc7ad344d57f4d8ce7488d8a3bf527ff30"
+  },
+  "aws/compute/elastic-kubernetes-service": {
+   "300x300": "2e13d9bf26e01849cb41eafafc2a661eccfe3204af61b00be1b8119543fbbf07"
+  },
+  "aws/compute/elastic-kubernetes-service-rounded": {
+   "300x300": "2e13d9bf26e01849cb41eafafc2a661eccfe3204af61b00be1b8119543fbbf07"
+  },
+  "aws/compute/fargate": {
+   "300x300": "8e16a7456fe9fc3aa8f98b23b597f01d2d75112ffd35f49c6ed5daaa7ebcb676"
+  },
+  "aws/compute/fargate-rounded": {
+   "300x300": "8e16a7456fe9fc3aa8f98b23b597f01d2d75112ffd35f49c6ed5daaa7ebcb676"
+  },
+  "aws/compute/lambda": {
+   "300x300": "e15932c1bce58ac2f9490e75eba738f8299c5bbfbe4f70f3fcbfea9b5514a800"
+  },
+  "aws/compute/lambda-function": {
+   "256x256": "e5ab307955faaca38ab05a4a564b8693c135b807e160cbc41d41cb618d8ccef7"
+  },
+  "aws/compute/lambda-rounded": {
+   "300x300": "e15932c1bce58ac2f9490e75eba738f8299c5bbfbe4f70f3fcbfea9b5514a800"
+  },
+  "aws/compute/lightsail": {
+   "300x300": "55cb34de90933bef44835ea0f6e21097648159f8064a0aad3212af10b518bb65"
+  },
+  "aws/compute/lightsail-rounded": {
+   "300x300": "55cb34de90933bef44835ea0f6e21097648159f8064a0aad3212af10b518bb65"
+  },
+  "aws/compute/local-zones": {
+   "256x256": "9c5a15a9322cf4683af200f600ef2b0c3f38980ff50764e815722ac513148887"
+  },
+  "aws/compute/outposts": {
+   "300x300": "b829f281fedc7010a349cd54c8062e06d1ae2e8583e60292bc1a2b3373887bc8"
+  },
+  "aws/compute/outposts-rounded": {
+   "300x300": "b829f281fedc7010a349cd54c8062e06d1ae2e8583e60292bc1a2b3373887bc8"
+  },
+  "aws/compute/serverless-application-repository": {
+   "300x300": "50a86490ef9b7608d5fadf6606b5d94d4d8c7bbad995dc318c07ca9f0fa4382d"
+  },
+  "aws/compute/serverless-application-repository-rounded": {
+   "300x300": "50a86490ef9b7608d5fadf6606b5d94d4d8c7bbad995dc318c07ca9f0fa4382d"
+  },
+  "aws/compute/thinkbox-deadline": {
+   "500x500": "eaa3a612af1a2b780680955c506d692b6dc8f893fb89b98fef01fe3776b18a75"
+  },
+  "aws/compute/thinkbox-deadline-rounded": {
+   "500x500": "eaa3a612af1a2b780680955c506d692b6dc8f893fb89b98fef01fe3776b18a75"
+  },
+  "aws/compute/thinkbox-draft": {
+   "500x500": "be85be412db203e923e4fd8fa925a6a708903357c47a8091a47c486e8c535e63"
+  },
+  "aws/compute/thinkbox-draft-rounded": {
+   "500x500": "be85be412db203e923e4fd8fa925a6a708903357c47a8091a47c486e8c535e63"
+  },
+  "aws/compute/thinkbox-frost": {
+   "500x500": "e516f23c7c135cdb74dc1ec7720fe0dab67611e9715ac529f538523d13d932f5"
+  },
+  "aws/compute/thinkbox-frost-rounded": {
+   "500x500": "e516f23c7c135cdb74dc1ec7720fe0dab67611e9715ac529f538523d13d932f5"
+  },
+  "aws/compute/thinkbox-krakatoa": {
+   "500x500": "70f0c57a55ef85bf7a1ac0da42f3d6a9856888bf499020a3f29706a4ec14621d"
+  },
+  "aws/compute/thinkbox-krakatoa-rounded": {
+   "500x500": "70f0c57a55ef85bf7a1ac0da42f3d6a9856888bf499020a3f29706a4ec14621d"
+  },
+  "aws/compute/thinkbox-sequoia": {
+   "500x500": "78691cd1adc31fce38360b079694a0b3094bc721ab1a09c04d39b1d9ce6e17b3"
+  },
+  "aws/compute/thinkbox-sequoia-rounded": {
+   "500x500": "78691cd1adc31fce38360b079694a0b3094bc721ab1a09c04d39b1d9ce6e17b3"
+  },
+  "aws/compute/thinkbox-stoke": {
+   "500x500": "fb7188da4df31cc57f59e73d0f95070e1ff313bf864460d82ebcd4ad9b164b6e"
+  },
+  "aws/compute/thinkbox-stoke-rounded": {
+   "500x500": "fb7188da4df31cc57f59e73d0f95070e1ff313bf864460d82ebcd4ad9b164b6e"
+  },
+  "aws/compute/thinkbox-xmesh": {
+   "500x500": "c252f276534340589aa699e08b3ed4693bfdf04290450561c1d14557f54ed0b9"
+  },
+  "aws/compute/thinkbox-xmesh-rounded": {
+   "500x500": "c252f276534340589aa699e08b3ed4693bfdf04290450561c1d14557f54ed0b9"
+  },
+  "aws/compute/vmware-cloud-on-aws": {
+   "300x300": "6a09c41b6f11cf7be040d4afa12197773b26f65a630cabae16e018e691f1a30e"
+  },
+  "aws/compute/vmware-cloud-on-aws-rounded": {
+   "300x300": "6a09c41b6f11cf7be040d4afa12197773b26f65a630cabae16e018e691f1a30e"
+  },
+  "aws/compute/wavelength": {
+   "256x256": "3acb666c22df051dc1a41e0bfabdef0ce0875b037756c507a60dfdab9bbf52a1"
+  },
+  "aws/cost/budgets": {
+   "300x300": "0bfe35c508f00603ae405aea6cbd09208fbb8efc148b8b4f09f5c48104294f2a"
+  },
+  "aws/cost/cost-and-usage-report": {
+   "300x300": "65e7c65a6a1b8f0bfb48de936ada533dfbc6dbd4b722d11cee3c6b1102e97306"
+  },
+  "aws/cost/cost-explorer": {
+   "300x300": "ba8ab54766d9bfeabf08fc1e61303845c1650b5134501320b427378c54ad2037"
+  },
+  "aws/cost/cost-management": {
+   "256x256": "58817f237c543c45913fba62adc2ee8832dd32e9431940c226a675a965809c52"
+  },
+  "aws/cost/reserved-instance-reporting": {
+   "300x300": "48c7a282db2d35fe71bd28ab2eb3e4109ca8ad343195b74022bc3b2385b7ded5"
+  },
+  "aws/cost/savings-plans": {
+   "500x500": "ca861cb9e27e7bb2efb453dca6a550a8750fd13573a4e970f8b9f13cca2e3818"
+  },
+  "aws/database/aurora": {
+   "300x300": "9200c8ed3cb6a0f46d05d904565106ca828b312e578fd6151c54e224e76a3ba8"
+  },
+  "aws/database/aurora-instance": {
+   "256x256": "39376344e4fb4f0d3f79a977998312bc246c17dac84321172aa3b31587137c5b"
+  },
+  "aws/database/database": {
+   "400x400": "8064c8f09a081d8663d9b819ace5725de9c385cdf89c9404f965a0836a7b84a8"
+  },
+  "aws/database/database-migration-service": {
+   "300x300": "d9abfd349112d2f61ddc11c89400ed71df195f71078f78625bb6f2d68590b344"
+  },
+  "aws/database/database-migration-service-database-migration-workflow": {
+   "256x256": "251ebeb22ffbf1871f7f4d38c1a167c15ec7658cf05e23e34d2f5da9b62bbe66"
+  },
+  "aws/database/documentdb-mongodb-compatibility": {
+   "300x300": "10cec038e6b11ef6d62aac4a8559677fa84107bb2f6b0c005cf16ec7e5b58e8e"
+  },
+  "aws/database/dynamodb": {
+   "300x300": "1c577caafe295a2cf1c693689a73a6b6cfbaa2420f4c7492ddc18e700ca160e8"
+  },
+  "aws/database/dynamodb-attribute": {
+   "256x256": "173e86e4976d982c91e6ed2460fedf17e415cee78db639d5767cbb9d5bd98811"
+  },
+  "aws/database/dynamodb-attributes": {
+   "256x256": "41d4d36675de65a1912be4404b8cf8f179dcf0195e3a51cb53320a65cd9217f3"
+  },
+  "aws/database/dynamodb-dax": {
+   "500x500": "3b8234e1307d3ca93d8913c3a4c77039b733df2ba50e2c8541d05d4991bb29a3"
+  },
+  "aws/database/dynamodb-global-secondary-index": {
+   "200x200": "20e775c3246cfb2ed45e5aff04caca16388840195243d469255d0e7638de3f5d"
+  },
+  "aws/database/dynamodb-item": {
+   "256x256": "3a0925e3027d424fca1ff7012bde2550502df811f82ec187fc3babc8cc93c3f8"
+  },
+  "aws/database/dynamodb-items": {
+   "256x256": "4963bf097b0dc7fc8e4ece87cf296f1f597576c83552e60b03e5f1638845d554"
+  },
+  "aws/database/dynamodb-streams": {
+   "256x256": "e9284d0d5d5031c743239e9409ae29702e7d131186d860ecd545ab5d03f1cf7f"
+  },
+  "aws/database/dynamodb-table": {
+   "200x200": "05757db44933a521990c8842eaae3bb14cd822afdbf737c1298c04856ad20e84"
+  },
+  "aws/database/elasticache": {
+   "300x300": "251cf655f84e64c210f2fcdcf049deaa5bc87215b5b60754536c1a0ebcfb372f"
+  },
+  "aws/database/elasticache-cache-node": {
+   "256x256": "496243593c0545e1b2e112cdab93ef562462e86c5537d3e28b44f4c1ada9e049"
+  },
+  "aws/database/elasticache-for-memcached": {
+   "256x256": "805036a481b432eef1aebaec374a7860b239c1c787961fadaceaa75c11e9d3fc"
+  },
+  "aws/database/elasticache-for-redis": {
+   "256x256": "082459c866cb1145300a894126866464767f4b45cc96f38d57703f644e91b7d7"
+  },
+  "aws/database/keyspaces-managed-apache-cassandra-service": {
+   "256x256": "1509e12db792556f579c82831970021316a13ac1ab739a120f4ee2f09b92239d"
+  },
+  "aws/database/neptune": {
+   "300x300": "4fa2316106ee3dce2ba5f3a7908609ba34cbb0e0c634dbbb5e789e815032028d"
+  },
+  "aws/database/quantum-ledger-database-qldb": {
+   "300x300": "295afe649a4f93ce09b0e129c508f746e4034d3fd0e0229fd1b1b15c02b7d3e3"
+  },
+  "aws/database/rds": {
+   "300x300": "92508cd5c2cc82a3cbebe0657d02b69294277a876b20010d4bbe73cca2b3c935"
+  },
+  "aws/database/rds-instance": {
+   "256x256": "72037ae7ad1a6add06c7e5d68b0f95f28bd6e28dc88c2ece672c57ca5cb3edb9"
+  },
+  "aws/database/rds-mariadb-instance": {
+   "256x256": "a6847794a24d42b6c9a5e636cd407c505a397246a8aa3369a8f0aeb4097628af"
+  },
+  "aws/database/rds-mysql-instance": {
+   "256x256": "ab29aa1eb500020f4148230c73930b6f7cb6145844e72e94b3d58fe02a6c852e"
+  },
+  "aws/database/rds-on-vmware": {
+   "300x300": "0a7f1784513df128b09684f0ced7b6fee5f19e6500fdb61757a628eceb72d05e"
+  },
+  "aws/database/rds-oracle-instance": {
+   "256x256": "e9c95aeefc6262046c7f7abcfe55ebd1d287c17852c12bb74cd4e4ea8d9284ad"
+  },
+  "aws/database/rds-postgresql-instance": {
+   "256x256": "9fcb0f19555794c544db7113aa3d2f51f27193aba07d6281abf7f01cb4848278"
+  },
+  "aws/database/rds-sql-server-instance": {
+   "256x256": "514fc56a826a59c076aa1ebd1593abf64038c6080fa09840238241b29b546e72"
+  },
+  "aws/database/redshift": {
+   "300x300": "200d92f7539ad0b8252253b7e247eb743eaad24305ba06a809e74dbda5a246a5"
+  },
+  "aws/database/redshift-dense-compute-node": {
+   "256x256": "06e7272b701c7b831a3aa23dea85afea0e218d40c36729c1ba8ced3c14bfe791"
+  },
+  "aws/database/redshift-dense-storage-node": {
+   "256x256": "411f330019bbb337ed5a86dfb5aeab46566466743cd92ae67f9aa437297ca8d3"
+  },
+  "aws/database/timestream": {
+   "300x300": "62a7ab07d823832bfdb66b37cfe38bb256eb1db844c730ebb1312ac996f99303"
+  },
+  "aws/devtools/cloud-development-kit": {
+   "500x500": "6316db8e13bc6436a8ca5f08c0cd12706e535a1a9344f76722e3e2f2cd25da7e"
+  },
+  "aws/devtools/cloud9": {
+   "300x300": "0afa6a8b0f44aca9ec3eeda6318f8513cfd9ae07e6c6a64d7a47491ca91c88db"
+  },
+  "aws/devtools/cloud9-resource": {
+   "256x256": "fb0a33dd5c0f20c98a705b56a69324c5d0b6fcf6613fa80bf1f06926f8158bdc"
+  },
+  "aws/devtools/cloudshell": {
+   "256x256": "13a004a28ebbe6b7eaa648507a689aad260dab1ea8aff50a5f92ce798ea125d2"
+  },
+  "aws/devtools/codeartifact": {
+   "256x256": "077ed0f5c729dfb733c45600d8696902ecd2fdda78c74b97c2af1077860a5eb7"
+  },
+  "aws/devtools/codebuild": {
+   "300x300": "8f23f1525955dc976d52e49c1d0760a0411ecfff85f6e42d0cce874b9ca54a33"
+  },
+  "aws/devtools/codecommit": {
+   "300x300": "ce97ef47adad05b897733c33e70a1a2a5e3ab2548d05804dc20bcc0854a4f0f2"
+  },
+  "aws/devtools/codedeploy": {
+   "300x300": "4ccc6c9d689a85f762534b7ece620d619c32c064182272ff188bd7316673de50"
+  },
+  "aws/devtools/codepipeline": {
+   "300x300": "8361ec0d6abd08d840dba102ad749057f567d73a22f1b10065b61e72501578b4"
+  },
+  "aws/devtools/codestar": {
+   "300x300": "535b26c4424ffe457e5264cdb9331b899d35377c60f7af2d84ddf79b285950f8"
+  },
+  "aws/devtools/command-line-interface": {
+   "300x300": "d816078cfdefa3d977a44081d12d5305fde89bbf4647d5e9f8e56b86c302f55e"
+  },
+  "aws/devtools/developer-tools": {
+   "400x400": "de4de36557a26e7e0203e4486476e2a34f4fe2cdc5b12e70d98375bbc033b02d"
+  },
+  "aws/devtools/tools-and-sdks": {
+   "300x300": "b9efc0fc77e21d6e918bba1de83790a3f4729e12f7c299ef8e7f05a38f7e18fd"
+  },
+  "aws/devtools/x-ray": {
+   "300x300": "4ca7ac13be49bbfea7f926f9e3f6cf2a59e19be57c6b06bf0920da6c9c018eac"
+  },
+  "aws/enablement/customer-enablement": {
+   "256x256": "09d3d577a3d2912d53f82d5f699a24f117b570ee96d168ded2252db65589c96e"
+  },
+  "aws/enablement/iq": {
+   "500x500": "ce218957df39a5a83189b590c63d0ac82c575201f9c9c2a04b7aaa6959d3dfeb"
+  },
+  "aws/enablement/managed-services": {
+   "500x500": "f9131d3b51365816d8b0409484a65ebe51e09b423a407be433f5a850fc5c7491"
+  },
+  "aws/enablement/professional-services": {
+   "500x500": "67ee95498c38a802b15abd36316d644ab254a760e6ea2c4672068599f129e40c"
+  },
+  "aws/enablement/support": {
+   "500x500": "5ba44b626d503025123213710459c1040ac2a7898a411e6b8d2e24aba3d5fef8"
+  },
+  "aws/enduser/appstream-2-0": {
+   "300x300": "d9375e657ea483722eeae7cb58d36218f199abd4b2f596b3b1599a16a3835f25"
+  },
+  "aws/enduser/desktop-and-app-streaming": {
+   "256x256": "41aa7481a33f19b07b4789d375d59f040be16ea45bdcce85f9d27e68405de4b8"
+  },
+  "aws/enduser/workdocs": {
+   "300x300": "3237daa6e424e73666ac21fe0b169dde2e710a36378a7d1c814008465a071eb7"
+  },
+  "aws/enduser/worklink": {
+   "300x300": "36236bd53158611a631bd3815636e0f9a00771251eef66518e2945c21e0ec62a"
+  },
+  "aws/enduser/workspaces": {
+   "300x300": "c39132b1f6f5d124bfe677f6ab2a503e2a3e8f98fa82545c5d4e5608d0afde35"
+  },
+  "aws/engagement/connect": {
+   "300x300": "847f61b6b4efd02f28c7aa61df4829ab9b0affdc8a059dbcdc9b54bbc6d6649f"
+  },
+  "aws/engagement/customer-engagement": {
+   "256x256": "11d0193a0f07f504a7304e4ebb6e0e98d94b8ad0c2d7f45ad7fdc63f52aebe40"
+  },
+  "aws/engagement/pinpoint": {
+   "300x300": "23843a3d9a85b06ffd31589f9b5b29e389e02b94be696fe47845cf6661659224"
+  },
+  "aws/engagement/simple-email-service-ses": {
+   "300x300": "4349baed7d3bd0047f18b8382bd576d584e7ba199df1503e5f0a9eff0cb49e8b"
+  },
+  "aws/engagement/simple-email-service-ses-email": {
+   "256x256": "edc5bae4dc558688624f2d0b05c09c947698e820970fefce4d3a9dd442654edb"
+  },
+  "aws/game/game-tech": {
+   "256x256": "addc90db02adc3452a03d19988b8561430c0f5eda2e252696bb69368b5ce1bd6"
+  },
+  "aws/game/gamelift": {
+   "300x300": "3626aa6a6f26bea216b2db423596512a81d667d8115513fb47f46913801ee4d5"
+  },
+  "aws/general/client": {
+   "256x256": "e5f9de53052b5e52fd54fce87ba120fcd1f03b7a499a643d9f9d23c50640d75c"
+  },
+  "aws/general/disk": {
+   "200x200": "7672625586609db59b5d1d5219fbdc820fd1d39f4ef5abc6f16ae4ba5687ce9a"
+  },
+  "aws/general/forums": {
+   "256x256": "d8515fd1ab3dc5c14944e9c1a8b232776e4e0b28d8f887b2637530a0d50f5863"
+  },
+  "aws/general/general": {
+   "400x400": "6f800183ca23950273674ef2e40e9627aa3d82055e01b3da120eb2c2c69e70e8"
+  },
+  "aws/general/generic-database": {
+   "200x200": "302222df559ba17eec32d2a6cfb8eac91976f4c512d446c193dc454bd8a162ba"
+  },
+  "aws/general/generic-firewall": {
+   "250x250": "aa814bf02de0a0205b34f7dcaf1f6582177a4d219d8dd39153b20ea624a02f41"
+  },
+  "aws/general/generic-office-building": {
+   "200x200": "ed06825ed3fe387e66d6e04e251cb6dbf830f602d8f08f818220d41b3f9944f4"
+  },
+  "aws/general/generic-saml-token": {
+   "200x200": "d52c85e09ec7f77decc2836fd8bd8aac1ee694d4ea29d2a9d1bb5cbc6204b9de"
+  },
+  "aws/general/generic-sdk": {
+   "200x200": "1a2b53cf5345c70f20c27b25283d42755972287bc7cd3353ff97cf7ade1dc332"
+  },
+  "aws/general/internet-alt1": {
+   "256x256": "ff2566146cad4cc700b823cdfcaace1a9d9a57f5a56d691fa2df06c2bd6813d4"
+  },
+  "aws/general/internet-alt2": {
+   "256x256": "6679590979da47893b2d194dfa55b9881b48475f8fbbb412780b16a8f5e39fff"
+  },
+  "aws/general/internet-gateway": {
+   "256x256": "4df311cf0f76e1634ade88be8a39ae07701b9f85c9ad9d161edeb960c691767d"
+  },
+  "aws/general/marketplace": {
+   "300x300": "e7ad573f0a46f878f4bdf7fd6a8499e8bdb1bd8a2959905bf799cb31fa7b4091"
+  },
+  "aws/general/mobile-client": {
+   "256x256": "ed4c4589c94ed477810884c4ea8860cc037237784130f17ca473a01bc4325804"
+  },
+  "aws/general/multimedia": {
+   "256x256": "27d450a5d8e3cfc25e5d66694ad1037797e78c18ed68aba8d61b18439a510a83"
+  },
+  "aws/general/office-building": {
+   "256x256": "dd732e67bac10488b1f8519f55d79fcd53f8f8b19eca400dd0307fb7a3834b06"
+  },
+  "aws/general/saml-token": {
+   "256x256": "7ab0a53b1d287473609a74dab567581d22cb5374fbae1bb076e81a39110c7299"
+  },
+  "aws/general/sdk": {
+   "256x256": "f8f4feff15f57c5bbe3866a28b396a84e79e36953f953026f54ad83839ec5a0a"
+  },
+  "aws/general/ssl-padlock": {
+   "256x256": "7ca9bd95c9e472bd4dc6459e515f14dff0b5eac58e4c8ccc52ded59c64675ff8"
+  },
+  "aws/general/tape-storage": {
+   "256x256": "ee4835d8df8d2941796dbb8e03d3b538ff9ec5deafa2bb77f5b727e5bc57e290"
+  },
+  "aws/general/toolkit": {
+   "256x256": "f36528eca5256ec7632e9c4741276e16e8d83fa110138993a50a169c85124dfe"
+  },
+  "aws/general/traditional-server": {
+   "200x200": "58304e879ce163592a05f74b69273c4c3428048ea884011748d880ea8171ff3c"
+  },
+  "aws/general/user": {
+   "200x200": "6753894d304066c3d9979fae23eed6b4f7ad39358a4eb4d561ca20c620d94e38"
+  },
+  "aws/general/users": {
+   "200x200": "5924105c0c0a5d809b21dbbb588a5b864ac3b25a197c08fda3ebd304667a9a75"
+  },
+  "aws/integration/application-integration": {
+   "400x400": "82f8ffc076627d13bc2dfd1415d13a6114c264c285d6f250c134a35041303c9d"
+  },
+  "aws/integration/appsync": {
+   "300x300": "fa119ab83abea7ad2b9c6176c383fb7bb74baa1d8ad100655b1d971ba19e0cf3"
+  },
+  "aws/integration/console-mobile-application": {
+   "500x500": "e993c69a072f5e886e9013bbd0fc31b846114c51a7e4dbf5640b27d71fcba68a"
+  },
+  "aws/integration/event-resource": {
+   "256x256": "ab59ccd13aceb48047b0695d789661101cead622471a33dc3562b1ae9d04682f"
+  },
+  "aws/integration/eventbridge": {
+   "500x500": "e963ed46f56908c6cc9c3f291a556b5065a53e4a49aabbfd2fe0bb1ca7e8ab49"
+  },
+  "aws/integration/eventbridge-custom-event-bus-resource": {
+   "256x256": "80231e08ad3fad6648576936dc86e99e13822683fdeff41ce2a295ec1a5e4211"
+  },
+  "aws/integration/eventbridge-default-event-bus-resource": {
+   "256x256": "eb4f7e8ff44ca83ca38a3b29c04ab6cdffea0e2512cc6857c7df3130cba75d37"
+  },
+  "aws/integration/eventbridge-event": {
+   "256x256": "8b671d9bb15ca4adda48c98e93422f83228726df70e8b0bac2207cf07cc1e30f"
+  },
+  "aws/integration/eventbridge-pipes": {
+   "256x256": "f3cb5b86b4f288032ee979f73e1a9e11d219fd3940c17caaff9f660b5f689971"
+  },
+  "aws/integration/eventbridge-rule": {
+   "256x255": "6ffce83226e36cc20e7738bd99e21423f4d99929aed72b98efaafaa6425859bd"
+  },
+  "aws/integration/eventbridge-saas-partner-event-bus-resource": {
+   "256x256": "3eb742e18a5b646e2c14b93c7e8704b7044d177c2136e2d32d699ddcccf9f185"
+  },
+  "aws/integration/eventbridge-scheduler": {
+   "256x256": "2b785c66b18b979547e8b279769fe4a93e5c7dceca923f441515144dbd12ccd4"
+  },
+  "aws/integration/eventbridge-schema": {
+   "256x255": "b55e947b6a6deb2fc006f7c01ccb504309d9a860bd18ca7ecbd5bb5cce24cb82"
+  },
+  "aws/integration/express-workflows": {
+   "256x256": "3fb36c73157f7d8dc7b1cb816978b9d9245383b71d63dac4be13f71b0ec364c0"
+  },
+  "aws/integration/mq": {
+   "300x300": "c99de342346e236353e755974378c87cdf26dbe9c6aadbfa74bf16c027824da2"
+  },
+  "aws/integration/simple-notification-service-sns": {
+   "300x300": "9c1d2c00eef972fb4a57c78a5dfc7938b84247698428fea0c5502c8af5dbd15b"
+  },
+  "aws/integration/simple-notification-service-sns-email-notification": {
+   "256x256": "ce22dca33e555f128ba8c806f3490ee3ea7e3b1f4b31bf7ed377b1c8d823f3f1"
+  },
+  "aws/integration/simple-notification-service-sns-http-notification": {
+   "256x256": "b918e0cbc4ca680fdb76318e5697b2d1a3844fcb619785d1674cc4c3ba11f626"
+  },
+  "aws/integration/simple-notification-service-sns-topic": {
+   "256x256": "0df9246775d11be19b300d614ecb0a08d77684a1223a38ac7d866ae5aa4f4369"
+  },
+  "aws/integration/simple-queue-service-sqs": {
+   "300x300": "9e9c8b3aa72634b2463eed5ee25aaed1628d49d302777c1d2f1ac0fb66cfc69a"
+  },
+  "aws/integration/simple-queue-service-sqs-message": {
+   "256x256": "fba712acaa4b37f12f26df1b8a67326782fdea8e42cb2e6d5201849ae953e288"
+  },
+  "aws/integration/simple-queue-service-sqs-queue": {
+   "256x256": "381158e378c721f8bdf16d9794c9e2b72b845176427cd8b203483690d1b25fb5"
+  },
+  "aws/integration/step-functions": {
+   "300x300": "0c2c28abc15f96bdbb571646750a77d96e61bc5a51aa89be8030bb581adb78d0"
+  },
+  "aws/iot/freertos": {
+   "300x300": "34acef8ef648cc0b85941cbb250c67c3d5d1640bf3f29bb058af4cee1bdc6a2b"
+  },
+  "aws/iot/internet-of-things": {
+   "400x400": "dc3748970b6936a45f01bd01351ad9b4e1a57f1bb4b6972e5bc8f02fbffdbd78"
+  },
+  "aws/iot/iot-1-click": {
+   "300x300": "f4983259d2abbdddbf651cf11ea968048c22150405ae528c4e9fefe07a6e65fd"
+  },
+  "aws/iot/iot-action": {
+   "200x200": "2c75999f4371275584384bdf0dcaa13fa20b50f9dce78da99bb2f46ae75187e6"
+  },
+  "aws/iot/iot-actuator": {
+   "256x256": "db3bc3bff32847e7be7f1c7aa732fbaaa1ec1b16796916e63f96ed0338ed7162"
+  },
+  "aws/iot/iot-alexa-echo": {
+   "200x200": "edabeb002e4460ed6b809e8549ad0a9d34f4edfbfe9ea39d817a4d680b156ce1"
+  },
+  "aws/iot/iot-alexa-enabled-device": {
+   "256x256": "fc8fda042cd716c0a8940420d2191e7f63cf330a79698752ef8435d15de021ba"
+  },
+  "aws/iot/iot-alexa-skill": {
+   "200x200": "f70753d3e8b5f8acbb2311c445175d16d8330fd2aa84b953e916b5d928b9f4c8"
+  },
+  "aws/iot/iot-alexa-voice-service": {
+   "256x256": "8b796997d0ffd706f7ca874823463a46a8db5b1b62dbfe15b42d86ff3c69b4ad"
+  },
+  "aws/iot/iot-analytics": {
+   "300x300": "4dad981f9e3a86c9b5b998f9224c81bd22ae140b93f8719d6b182df04613e114"
+  },
+  "aws/iot/iot-analytics-channel": {
+   "256x256": "eedb8329b1217552238e19011a32db4b169d8d0a5c6868f6cbdb84855449dec5"
+  },
+  "aws/iot/iot-analytics-data-set": {
+   "256x256": "47bbb485dfaa6a509dd7c6b3c06d18762cc099208a06f5f45835a444ec150727"
+  },
+  "aws/iot/iot-analytics-data-store": {
+   "256x256": "93b7c08b08b0a02aa884370b9cba33c2bf648c06753d44e2bc6b0dcfe7daec43"
+  },
+  "aws/iot/iot-analytics-notebook": {
+   "256x256": "e8ac7d557feb30c31eedbacd9d084375a6d685174db59187d25b9aabc7f98bc7"
+  },
+  "aws/iot/iot-analytics-pipeline": {
+   "256x256": "bfcdd9da4be3375a41d438ecdc24a2c06b1876909efe8955b8610656ac233522"
+  },
+  "aws/iot/iot-bank": {
+   "256x256": "506618d5c0b2a6f1a7bb8d21d9a16b6df6f69735c3f6396ce7551911434150b6"
+  },
+  "aws/iot/iot-bicycle": {
+   "256x256": "4de9c1560762922639449edf4539fe85acd904861815c582eb47be8d29814418"
+  },
+  "aws/iot/iot-button": {
+   "300x300": "e578dfa6dd13402e8e940bf7c6e8f71d213fb9f88c39901e9105ac48d1f6bfaf"
+  },
+  "aws/iot/iot-camera": {
+   "200x200": "7d4559a71eb9fd49f2acabfb9e88287dac4828e23016e531d0bc80466d8c245c"
+  },
+  "aws/iot/iot-car": {
+   "256x256": "2c4661f2ed8a41d593c8dd5da20d909c531a86ae2ca121a51dd8ae8275b604de"
+  },
+  "aws/iot/iot-cart": {
+   "256x256": "66fbe98744d6f8dc86b665170ea874bd9174cbf60cb6b41ec892188972f8534a"
+  },
+  "aws/iot/iot-certificate": {
+   "200x200": "8618ea9ee4e010c23b50bec689e98bd9870a585d778c0374c162f341ecaaffd2"
+  },
+  "aws/iot/iot-coffee-pot": {
+   "256x256": "db63433f1357da033a3ef97ef8cc2b3994c8391a0d0279bd52a625e1e51a33bc"
+  },
+  "aws/iot/iot-core": {
+   "300x300": "b904a5f7c55019ba7bbde522fee29498606469d9067dad94fb0c5f3d7bff6d52"
+  },
+  "aws/iot/iot-desired-state": {
+   "256x256": "2c8015dd1493d4ac0911df3ca1da136fe7ea39a75df7c6a3ae7179fe9bff7ae9"
+  },
+  "aws/iot/iot-device-defender": {
+   "300x300": "b56cfeaa182b5032a1cf3b4a95741b37c6a77d095ae2ed06c2791fe5d9c1520d"
+  },
+  "aws/iot/iot-device-gateway": {
+   "256x256": "501450d3cfa7f786290c7e5e8309b3ae1703fbf68242455ff07943d0ce784d02"
+  },
+  "aws/iot/iot-device-management": {
+   "300x300": "b0bb475081d46c9103b85e15c03bb2686e5166c3d2efe2a7ee0500688a59e526"
+  },
+  "aws/iot/iot-door-lock": {
+   "256x256": "600e59f86233af83439edecb091722522d2997c69ec4a20e51d78f6c31c1bc13"
+  },
+  "aws/iot/iot-events": {
+   "300x300": "cb481fd23b9184c24fe0fd4791488beb0f637962a613c3878f0b163e07d5f051"
+  },
+  "aws/iot/iot-factory": {
+   "256x256": "41024d4d2aa2b08336e69cdc7d52023a810d59e277f423aacc370c4f0a570d9b"
+  },
+  "aws/iot/iot-fire-tv": {
+   "256x256": "7fa09c4d86e3b93bb2a6d0ce4bb45f0da5cee2ba7d398c31ada52d4304f64a6b"
+  },
+  "aws/iot/iot-fire-tv-stick": {
+   "256x256": "f03f67509f98f4b156fe2e34a0fb082e3eb55dd29a49d5dc26edb925a764bfbc"
+  },
+  "aws/iot/iot-generic": {
+   "256x256": "0b4ad1413393223a04e9c70bb516a123e7bd957a182f7a0561a41d5a6c65a110"
+  },
+  "aws/iot/iot-greengrass": {
+   "300x300": "c54079e91678bcbddb9807de64ee69983f9e814d942b04165b5b18a2ebdbfaeb"
+  },
+  "aws/iot/iot-greengrass-connector": {
+   "200x200": "9707381b9703f39a59966431423443e98ba6220f729597727fd9a48ccadb675b"
+  },
+  "aws/iot/iot-hardware-board": {
+   "200x200": "11c6144acefa43887137281664169f0ff12b58d5d8cb225bb2c468caf59feb16"
+  },
+  "aws/iot/iot-house": {
+   "256x256": "2307795c4707c0eaa1d88c941316583dba5118ecd99e9736f42f86860ccaaf6c"
+  },
+  "aws/iot/iot-http": {
+   "200x200": "edc41686706de21cae9cdb365be821325b44b968b52ad17f4079321d2a4198a2"
+  },
+  "aws/iot/iot-http2": {
+   "200x200": "0d9a0025c6e7bc5284a332998d1ca09e085fdb86c66ecdc72eba8bb406f519ab"
+  },
+  "aws/iot/iot-jobs": {
+   "240x240": "fb7d1e608b482aecdfa07a5b6c76a45c45b16c79b06dc99c2fdac3d2f464170e"
+  },
+  "aws/iot/iot-lambda": {
+   "200x200": "bc84a055316870c457ea4a6ff630a638389d66f2ceff6b32924a8282ee3c446c"
+  },
+  "aws/iot/iot-lightbulb": {
+   "256x256": "c5267079476d0dc13846e33e662727e0813f69deb9ae75263c1142804aca43a6"
+  },
+  "aws/iot/iot-medical-emergency": {
+   "256x256": "2ce16b68c839059fc2138ca1544cc5311820472c6f4596f1037e5a56ce60f8bb"
+  },
+  "aws/iot/iot-mqtt": {
+   "200x200": "71ece7b00a2fc5c2bc8d3283597bfd320083a52407b7c11e52d25c8606c7a530"
+  },
+  "aws/iot/iot-over-the-air-update": {
+   "256x256": "3574fd6f06265d486560bc24cd5103ede878a043674a48ca7feb1c4576fab9cd"
+  },
+  "aws/iot/iot-policy": {
+   "200x200": "fbe2452b7f4af83f79c626baa0b8c46aae2c8196e37ec404fd331c01b0e30e0b"
+  },
+  "aws/iot/iot-policy-emergency": {
+   "200x200": "aec07f7d90eef86ca8a28175f6f6e581966f211ebe32815ce206e4ab44841ecf"
+  },
+  "aws/iot/iot-reported-state": {
+   "256x256": "11171d9eaf9d32067e86c41a0d752aee6366c0b825ca49aa04ea8e13a652bc11"
+  },
+  "aws/iot/iot-rule": {
+   "200x200": "5c929bc2388370be4f7df13995394ea7defe7550d4b61670e2b85f8b5defded4"
+  },
+  "aws/iot/iot-sensor": {
+   "256x256": "dff2ec3cd228523f36a10be198a54048c6fdbd745caade257a8e73258b660db4"
+  },
+  "aws/iot/iot-servo": {
+   "256x256": "e7f948649897a09df73b132fa042ff2fa6c2dc65b0345ef61145911e03634906"
+  },
+  "aws/iot/iot-shadow": {
+   "200x200": "4bcc84252573847b43318a10f9327e24bc69cc51824b2321edbcb5a17adb11c3"
+  },
+  "aws/iot/iot-simulator": {
+   "256x256": "59bb305432430e10f4364f85d52db9700ff9a3b6cc211fbbeb03291724386bca"
+  },
+  "aws/iot/iot-sitewise": {
+   "300x300": "c93c6772f87ec3a7df01285e7d54d37b2a781e276f0ee59b52076ba3f9337595"
+  },
+  "aws/iot/iot-thermostat": {
+   "256x256": "5ebd33a54dc879cbae92a8987b95931e4353e9172bf8b511d210de846bea5408"
+  },
+  "aws/iot/iot-things-graph": {
+   "300x300": "a1fa22c0bf238eecbc3f6cf11e326c1e0bb35d35a1321f4df137e477c19dacf8"
+  },
+  "aws/iot/iot-topic": {
+   "200x200": "abbe0349f500bcf9742effb5abe4b0a3cb25f69c5fdc66f0eb9f75b1637e0ba2"
+  },
+  "aws/iot/iot-travel": {
+   "256x256": "1079fb4aa7632c1e831d489e047d23ae1a926761fe8cd0262efaf493bdda768a"
+  },
+  "aws/iot/iot-utility": {
+   "256x256": "c5abd7945dcb6143543ea509ec7d0ef348e4c009ef0f95f5d73628bd7a1a0f95"
+  },
+  "aws/iot/iot-windfarm": {
+   "256x256": "11e92a01d7856ebcd9695291449b4309a29772dd1414650cb8faa557fc56700c"
+  },
+  "aws/management/amazon-devops-guru": {
+   "256x256": "9d9fd5afb4ebac1882c6ca11281183c15efb9eba630b0c2498c4d8cb39e75131"
+  },
+  "aws/management/amazon-managed-grafana": {
+   "256x256": "b93c7b96479ff7f92d681f332c7a043f8e0922373adbe6f2b2bf2585be89ed2b"
+  },
+  "aws/management/amazon-managed-prometheus": {
+   "256x256": "fc1277d35230ca3bb28ade0ebef039ce5a216d8db5913b7860cd27ffa584fe99"
+  },
+  "aws/management/amazon-managed-workflows-apache-airflow": {
+   "256x256": "ddc412801aac77ac1435fdc838f56f020a9bb00e041bec4ee99f032d5faefe10"
+  },
+  "aws/management/auto-scaling": {
+   "300x300": "3fce77351758aa0a936f5e111cb604843f3680fc400ef56d46353789a08b9b93"
+  },
+  "aws/management/chatbot": {
+   "256x256": "3d5792f8f4bc817b955eb1cc0363fd5a0ad7e3e223e8ca745bfac934acd12c9d"
+  },
+  "aws/management/cloudformation": {
+   "300x300": "592a1762826920def95c58b40c0ac23bf43d5510e9bae390e92cf37ddb2506ac"
+  },
+  "aws/management/cloudformation-change-set": {
+   "256x256": "eb41d9a19215af7dafab9c76337ea9be6ed9ca8f07da12a79ba8914ecb062b38"
+  },
+  "aws/management/cloudformation-stack": {
+   "256x256": "9cbc0e1ebc7d164beb883b51e9064eab0e66b17328f46fabb7b6a41cef9cc5bb"
+  },
+  "aws/management/cloudformation-template": {
+   "256x256": "95f72797d09036999a44d20336e03315463741bfb5141861a604fab98b7dc8c7"
+  },
+  "aws/management/cloudtrail": {
+   "300x300": "4996fd12c95b4f9964741e8358e38ffcd2393b1f9fe06cf55237d4668225a450"
+  },
+  "aws/management/cloudwatch": {
+   "300x300": "f2bfe7bca7e17455a668364fbc67d61e2a1a2ef16aa639f960fc75409d5073d8"
+  },
+  "aws/management/cloudwatch-alarm": {
+   "256x256": "40a31cad02e1be6c526c1940c1077e8468af19a5bf20e4870829e03ae39107ef"
+  },
+  "aws/management/cloudwatch-event-event-based": {
+   "256x256": "f5b73ee2e292e3800ad817cbf3afd004b2ece2bbd4eb641643aa36f4d7ee9388"
+  },
+  "aws/management/cloudwatch-event-time-based": {
+   "256x256": "e3170efe5f6d02ef130fe9c57b13fbb3d9199ef08c7fc802ac860e5f9b0c8a15"
+  },
+  "aws/management/cloudwatch-logs": {
+   "256x256": "ac5ce1062e6c9b61f6db2b14a8fad0abc6dcaca3d570a3d79afab7d5c5dd2cdf"
+  },
+  "aws/management/cloudwatch-rule": {
+   "256x256": "40a71b97ab383cdc65e05f1e68d9b41085f92b5a6c6250102e6d3187a6fbbb8a"
+  },
+  "aws/management/codeguru": {
+   "375x375": "d5e849201623a2e6d80b8c28f427d6e2b0d87fc8a45ce3ae78fcaa6c2bb973b1"
+  },
+  "aws/management/command-line-interface": {
+   "300x300": "917a60a2f41f31d1a986f25c545b26639157a0c4dee591e2cd78024af0aae630"
+  },
+  "aws/management/config": {
+   "300x300": "232a63242537f0071ccecd4df48cf5e710ac56abc40f564ddd2c900ef63a0c05"
+  },
+  "aws/management/control-tower": {
+   "300x300": "a926e1d9b76377f7636758cd89f3a8027db5bef0d8960373262f408307f8c693"
+  },
+  "aws/management/license-manager": {
+   "300x300": "631144189cc874725bc5daef9527898d491431c414d8dc35480cb60e929a2189"
+  },
+  "aws/management/managed-services": {
+   "300x300": "9bb7bc3bea7b167a6c6c446f67a910e2d6eb3d88332718e997a5161da8da9aac"
+  },
+  "aws/management/management-and-governance": {
+   "256x256": "3896b61591b6656186213639a378d54363b7a536682ab07147349e9a6fa72fd5"
+  },
+  "aws/management/management-console": {
+   "300x300": "2af2a9cd8a18741aff4b49a1e3b59060ace6fa255d8112cc11e15f0ff05f23c6"
+  },
+  "aws/management/opsworks": {
+   "300x300": "f69422ee01bf0dcf34d213b03d0e8f2959f101f16831a532af7ce7b2b36d1483"
+  },
+  "aws/management/opsworks-apps": {
+   "256x256": "f00533399945fc29e32f19586971aa11c428e669845e8d8101c5e3f315f3fbaf"
+  },
+  "aws/management/opsworks-deployments": {
+   "256x256": "9ddc593cb604ce19588fe0719b496ced59a0850ffb56ab53e0e0a65031fad452"
+  },
+  "aws/management/opsworks-instances": {
+   "256x256": "fc1ce5deb986ba1ed663237fdceb38dbf5a1902c4c8fffc71a455841aff7ffc1"
+  },
+  "aws/management/opsworks-layers": {
+   "256x256": "f333ec3b1c41fcd816267e2a550c4b1565ff73198781362552e5870ffe3ef4b1"
+  },
+  "aws/management/opsworks-monitoring": {
+   "256x256": "8f99da6c913c8f18bef877887b44a887ed3483ce9908afd5d83c74f4141be085"
+  },
+  "aws/management/opsworks-permissions": {
+   "256x256": "c8eb05bbaee528059de165bf4872f4315cada5b09f67eb82ba699fc8b41a2df6"
+  },
+  "aws/management/opsworks-resources": {
+   "256x256": "fd8d162f533ec4f13129dc88227cbbd2738361623a323b86b3829adf65b7fe12"
+  },
+  "aws/management/opsworks-stack": {
+   "256x256": "76e2644e20c4b9946461e5a0499e5f265bfb874cbced45b8a0326d04c3b86249"
+  },
+  "aws/management/organizations": {
+   "300x300": "fbccda6a6aacb4b1be368ca62d4f4cbc11b0d6a8ab1b8db59b801fed301758fd"
+  },
+  "aws/management/organizations-account": {
+   "256x256": "0ff8f581b192ce8c5a2d0fbffdbe38ec83bc16fd78aec31028a584c46f123af5"
+  },
+  "aws/management/organizations-organizational-unit": {
+   "256x256": "71ad65dcb447781425c7adf57faf8374c1e32e19f8c8e9a55784b9eded2f220e"
+  },
+  "aws/management/personal-health-dashboard": {
+   "256x256": "5e14950ddcba395625ffb2030f55a8a990ec6d070790d613d286453ecba25c56"
+  },
+  "aws/management/proton": {
+   "256x256": "877b464684129db2fa5dd5709a9bb0e76827f66494b4fa8fe81025b58f04d792"
+  },
+  "aws/management/service-catalog": {
+   "300x300": "72fc72619b6ff30dcfebba5ba8cccc37af9a458b5b6f8c31598a54c4c0ffabad"
+  },
+  "aws/management/systems-manager": {
+   "300x300": "086e42f55f32d1dd666f1d087e9e9f86c96ed65d2d64ae0873b0651e91d92dff"
+  },
+  "aws/management/systems-manager-app-config": {
+   "256x256": "34d6d836c72735708ac6c12ef569004b6b34f185756f1eb070b77b7bc3a86e2f"
+  },
+  "aws/management/systems-manager-automation": {
+   "256x256": "2240e553be88145a43aa026667c725d39c9a21a06fb66ee5009a3aff48afbec9"
+  },
+  "aws/management/systems-manager-documents": {
+   "256x256": "89ba90cd0b242ea94fb1f7b908fc86462ab259c27f04b711edc46c615501d3b0"
+  },
+  "aws/management/systems-manager-inventory": {
+   "256x256": "a2b55720019b36b9d7c9e2104321446421fc264e85a6d366660e9e7e36e9f509"
+  },
+  "aws/management/systems-manager-maintenance-windows": {
+   "256x256": "62c43d4084f15e9b1eee43b25a6cac9d10bc5791c4a2bc7ec2e2e56fab433df9"
+  },
+  "aws/management/systems-manager-opscenter": {
+   "256x256": "0f91b35936997b08fc2b4e6837b857005d580795f642e0b60fc4629c2c601342"
+  },
+  "aws/management/systems-manager-parameter-store": {
+   "200x200": "e4bfb2e773916a9749f8c81f72c4ecfafc38911184d02c688ebf7c4482000c0d"
+  },
+  "aws/management/systems-manager-patch-manager": {
+   "256x256": "c7041a1ffa2fd6d933d91c67768db1eb4f0846bc0ddfdc23e3c1ce2527a878da"
+  },
+  "aws/management/systems-manager-run-command": {
+   "256x256": "1fff28fcfe80193743420baac1ae41dcf36db6c21bebfd360141c693a3a7dda5"
+  },
+  "aws/management/systems-manager-state-manager": {
+   "256x256": "bc39ca0e132160ccd0c1080cfc87e9e2827a5b8f95bcb99e624e02f68250cf38"
+  },
+  "aws/management/trusted-advisor": {
+   "300x300": "90029eac0965709102abea50e9077134db9e273acd910952e3eb0a937791f6ca"
+  },
+  "aws/management/trusted-advisor-checklist": {
+   "256x256": "261fd193e5ca7cc219b6804567cee44e388af3d304477f739815654c1aa25b6a"
+  },
+  "aws/management/trusted-advisor-checklist-cost": {
+   "256x256": "c2a01d0282fe11e9559df46d9edf81a5c5a3fbc5b6b17284a932cb9ca754859b"
+  },
+  "aws/management/trusted-advisor-checklist-fault-tolerant": {
+   "256x256": "47482d1836c6ef1b592093206fa868f76da1299718518a453c8d393aca8dc457"
+  },
+  "aws/management/trusted-advisor-checklist-performance": {
+   "256x256": "dd3ef0b64b9622407447b7079d33f7ad2c7b7e7b2f4e314456fa50429e31a266"
+  },
+  "aws/management/trusted-advisor-checklist-security": {
+   "256x256": "c92d569c2a23ddef86c0280572f880a4d5dc2f1f57a55de91d09ec5e7bf06bc8"
+  },
+  "aws/management/user-notifications": {
+   "256x256": "276082f5718402db2c354ef2af88eabab783afea50bf690bc41a30547cde0ae0"
+  },
+  "aws/management/well-architected-tool": {
+   "300x300": "63bf17bd5578652e1fa0f7d9dc04f87d3910f07fb698457e9e40b78235ac54bd"
+  },
+  "aws/media/elastic-transcoder": {
+   "256x256": "c561bfa03bab5a1e07b54c6156c74c371593b2115d041fb90cb8312629f531d3"
+  },
+  "aws/media/elemental-conductor": {
+   "256x256": "2c8745f86188cf90c8d518fb3c4806ed3253f77d6a05feff53551fad5626a062"
+  },
+  "aws/media/elemental-delta": {
+   "256x256": "2c8745f86188cf90c8d518fb3c4806ed3253f77d6a05feff53551fad5626a062"
+  },
+  "aws/media/elemental-live": {
+   "256x256": "2c8745f86188cf90c8d518fb3c4806ed3253f77d6a05feff53551fad5626a062"
+  },
+  "aws/media/elemental-mediaconnect": {
+   "256x256": "57671de86bbb65961c9657c33746bc18e5c74737cfe2a2143c862a844bc8d6a5"
+  },
+  "aws/media/elemental-mediaconvert": {
+   "256x256": "d604b6895ab2d3375d2813314cd09e17dcda151ee25b89ba7513ac3c2ae5511f"
+  },
+  "aws/media/elemental-medialive": {
+   "256x256": "68061c7b1d88f1da802a0065b6969bb8ffa3fd3b5b7e1882a115728edfc5b3f6"
+  },
+  "aws/media/elemental-mediapackage": {
+   "256x256": "70716482aec552e00e985577518cb9088ef89871210dfc09a7789b6aa49267d2"
+  },
+  "aws/media/elemental-mediastore": {
+   "256x256": "b5f9e8e657683718960b92623ad647e6609c56edb8a46811f1e11cd494cc8969"
+  },
+  "aws/media/elemental-mediatailor": {
+   "256x256": "a04bf79ad6dbc3698c7c6ded571aec77b12c4e61b85fcd85a0a501bef7472d11"
+  },
+  "aws/media/elemental-server": {
+   "256x256": "2c8745f86188cf90c8d518fb3c4806ed3253f77d6a05feff53551fad5626a062"
+  },
+  "aws/media/kinesis-video-streams": {
+   "256x256": "e07df36516885cf9d5099f7105084c9cc49d672e214374d3a6ea04cd9d9eb480"
+  },
+  "aws/media/media-services": {
+   "256x256": "1a1d254fea48c4b3ec763dc99710b732ca211c36e870dce17b7c1f6f58475c1c"
+  },
+  "aws/migration/application-discovery-service": {
+   "300x300": "ce6d24e3931498bac63ddcadf4a46d58e9b8a8c1936be1dcc6757bd4d55d7cf7"
+  },
+  "aws/migration/cloudendure-migration": {
+   "500x500": "6c2e5780492ce306356a574de84779a7a7890714776e5496a8a12f2673fac79d"
+  },
+  "aws/migration/database-migration-service": {
+   "300x300": "289d87a0296a8e38cd4bb0b95bbbeeb08b5112baa264261c76a5b85861e34ad4"
+  },
+  "aws/migration/datasync": {
+   "300x300": "622e66c27ac8a421d4d2d9a59133ef876f74306ba34e8b6fe63526c79a523437"
+  },
+  "aws/migration/datasync-agent": {
+   "256x256": "4fbb42ed50d518d897c59dc0363f47ff33e0e2b781e024fec960a4011094a456"
+  },
+  "aws/migration/migration-and-transfer": {
+   "400x400": "6f20f2e574f26832a32707f34ee5b86449d405d8c96a208c8c9c88003d959bc7"
+  },
+  "aws/migration/migration-hub": {
+   "300x300": "ed3a57b0863c2e5b7db29911b5181bc01e72f37e1d6de217c595740a2f84eab2"
+  },
+  "aws/migration/server-migration-service": {
+   "300x300": "057be48120dfca856718e416a34368e029fb2a5b22205d0180f746c282b679eb"
+  },
+  "aws/migration/snowball": {
+   "300x300": "edcc8b6db51776505f48b4042b86949f3ff440aa8dd013e63b87802133050747"
+  },
+  "aws/migration/snowball-edge": {
+   "300x300": "fd5c869bbbbef821abe2584334071a05cc8ecb9e9b767b2624b879a7b4230bb3"
+  },
+  "aws/migration/snowmobile": {
+   "300x300": "8c14d4446e1feddd17dd8416566ed057a48a71e122d06fa374dd0002562eda51"
+  },
+  "aws/migration/transfer-for-sftp": {
+   "300x300": "487d991620d4c2db0e7ddabdd32be4cf338ae1c4824386348941f78631ee8c54"
+  },
+  "aws/ml/apache-mxnet-on-aws": {
+   "300x300": "c032aeb9b38db3c46c07ae3766946acd3980a53c546341c2395ae99162ce3076"
+  },
+  "aws/ml/augmented-ai": {
+   "256x256": "9f602bf54047faf97f38ddffcdeff81f0224b1d7ea335b9f98d294c4e91dd757"
+  },
+  "aws/ml/bedrock": {
+   "256x256": "9704f0196eeb13bdf87bf4dd6237ade85f22cb622ae93a7439cce6bc08c09dd9"
+  },
+  "aws/ml/comprehend": {
+   "300x300": "4b1d269bcafd9e819b1df3474e2bc4cc72291dca6f484cb8e867b6761fb3c16b"
+  },
+  "aws/ml/deep-learning-amis": {
+   "300x300": "c9a5829e736b1701817394d3fa5401774410a73b26ae48951bb74e9d687bd676"
+  },
+  "aws/ml/deep-learning-containers": {
+   "300x300": "6405a4ab6a538ab2d9dad7ff2432b9263b54a840abb98cbac8d5f2338308b6d5"
+  },
+  "aws/ml/deepcomposer": {
+   "256x256": "b952cc9254f0b1a4ab53423f31d5acb776a7b3a666e31a3ebb3ba0b4aa60dc93"
+  },
+  "aws/ml/deeplens": {
+   "300x300": "7134d126b80325369b3be53662f97c1bb01114fe375d445cb3c7c8f152c11f68"
+  },
+  "aws/ml/deepracer": {
+   "300x300": "5834800e84e62a3d85d1de5a4db6975dcae1fd8fbddde88eb9a0a81734d08cc7"
+  },
+  "aws/ml/elastic-inference": {
+   "300x300": "075066447db81430863ae61c4495c9368218cc55516e2c7985d8de26a17e3b92"
+  },
+  "aws/ml/forecast": {
+   "300x300": "fc721f4add7fb070b37e48b8e327b8d6ee5c615630a5e3dd7020297a0d250901"
+  },
+  "aws/ml/fraud-detector": {
+   "256x256": "9035121118df9d2ce3a994168c3908f7bbbe910e3f0b33a0faf2f6d1d4b00d58"
+  },
+  "aws/ml/kendra": {
+   "256x256": "515e6700e1bb2b9e9020b0de9a02233adf0d824ce8ec854498e546a407574f5f"
+  },
+  "aws/ml/lex": {
+   "300x300": "bb366419c6082b4c7fcd40d713075f4eefe305f1e8d775e50928e5f064f0ba91"
+  },
+  "aws/ml/machine-learning": {
+   "400x400": "bf86a2f3a90c555a8b7585c33ed1e2bb190adb2a337e47e65be3a99cbf49f883"
+  },
+  "aws/ml/personalize": {
+   "300x300": "a9b751aba84419fceeebcbc34f0952e1bf1601bcdac3fa7b6d17b9247b62df61"
+  },
+  "aws/ml/polly": {
+   "300x300": "1fb32ed5d20963259b92a446c1d2b3d435bb093adb4208927c819011e9f1f4e5"
+  },
+  "aws/ml/q": {
+   "256x256": "38fc89a3f1e1886b2ceb1a4bbea1030cff92a5adbaa98dc9f1a9fe0411e8868b"
+  },
+  "aws/ml/rekognition": {
+   "300x300": "52224c7bbe302902fd3b0f64546c748243230c8d359c4a9985555b0129732322"
+  },
+  "aws/ml/rekognition-image": {
+   "256x256": "72ecaa61500b15cb324327c40dbc125565358403da494eb5c75e7c7006a7868e"
+  },
+  "aws/ml/rekognition-video": {
+   "256x256": "6c780e09a41d59d0d74f7957054cd110c5d95f3adf7bcca83f280a3fd52fee02"
+  },
+  "aws/ml/sagemaker": {
+   "300x300": "8e115aa0a84de2270d1fdf801883c00fa4ce70546d36692d9c66859538cdbaa2"
+  },
+  "aws/ml/sagemaker-ground-truth": {
+   "300x300": "3d13acbd861f211382a8f3c09be9f745a46b7c2c711fbf40ed1ad992f3492f09"
+  },
+  "aws/ml/sagemaker-model": {
+   "200x200": "3a37dc3e16b575a871ef2b8600a9fb996a371cdc85c0750269b62f87c7f5b7fa"
+  },
+  "aws/ml/sagemaker-notebook": {
+   "200x200": "6581b47973e5de33c11954e8dd69747af5ff83296b77336fe6b05ff51fece66c"
+  },
+  "aws/ml/sagemaker-training-job": {
+   "200x200": "a9aadfc651ce91e3cb570a05a8ed2b7b618ac672053e602b56d6463d39e6c4a1"
+  },
+  "aws/ml/tensorflow-on-aws": {
+   "300x300": "c032aeb9b38db3c46c07ae3766946acd3980a53c546341c2395ae99162ce3076"
+  },
+  "aws/ml/textract": {
+   "300x300": "a9591d8f3bc6a74e7efc7eba1cc4542e9516e2eafb8f3bba7efe151cb5f9c120"
+  },
+  "aws/ml/transcribe": {
+   "300x300": "5c253faf8d69ad0e7ea25e77ffde7c568ecda1e67426fbef9311b00dd67cb931"
+  },
+  "aws/ml/transform": {
+   "256x256": "8fd3e01d696ed042631a236f9eef8689cd35f387d5eaed54c675bb72d752fee4"
+  },
+  "aws/ml/translate": {
+   "300x300": "728d4b3263cbb18547dd16101899239f76a7e9b6ac985bcfcad20e880f56925c"
+  },
+  "aws/mobile/amplify": {
+   "300x300": "b1a781611c0ea8f2f1a807512e3d25d99b1c54d910fb32411d7eed478dcc12d7"
+  },
+  "aws/mobile/api-gateway": {
+   "300x300": "2d179eee7acf4aae94b03472cceec5bc4884de30756d6d5267deb6af004e678c"
+  },
+  "aws/mobile/api-gateway-endpoint": {
+   "200x200": "1a75e8194c5c49f0787980f40ba094a235f0c0b6188ce3e75e27ff3b56fb6a31"
+  },
+  "aws/mobile/appsync": {
+   "300x300": "3e10e2f3a0c7fabc9994eb3ab361455eb8d6ffc2f645e68bf1fe5b75771fb797"
+  },
+  "aws/mobile/device-farm": {
+   "300x300": "41a070bba1a8aa13124d16c1f76a174951e7dc94ad9901199b4c30640203ad41"
+  },
+  "aws/mobile/mobile": {
+   "256x256": "91fcf435f2459b025ef447c3fc8d6bfd607726ae530143bfbe90c36310ca2374"
+  },
+  "aws/mobile/pinpoint": {
+   "300x300": "cb71cf9c0c9552233e121ee410b6932403e114c07aa13f27408a403057f7b81d"
+  },
+  "aws/network/api-gateway": {
+   "300x300": "ff37b043596bf750c9ee28893733a363e218da5dbcfc63a698912c5112368916"
+  },
+  "aws/network/api-gateway-endpoint": {
+   "256x256": "0bda60b1a29cfce831a460a82cfba0f5759f1bd12d8e07688243f9b7bb3d8d43"
+  },
+  "aws/network/app-mesh": {
+   "300x300": "409487bf0e791392fde79f9f1a740ece7def8ec5422948fe265f104c6ddce067"
+  },
+  "aws/network/client-vpn": {
+   "300x300": "8852d54ab6da96001f713a6a445e5159d84c1ae5507167b4d56499b6cbae989c"
+  },
+  "aws/network/cloud-map": {
+   "300x300": "7d5cb2b304a7c021422767f6ca2c656ecfe9b71a54876986ff5b9ff84dab5070"
+  },
+  "aws/network/cloudfront": {
+   "300x300": "1bcf596515ece4be0adc52ea370ddd611e7d88f11f83e85bde192ce495a46a9a"
+  },
+  "aws/network/cloudfront-download-distribution": {
+   "256x256": "dcd86073183ddc1fe46e2af693e375b12ffc0a5b3d873fb2ac1fa258cc47df5f"
+  },
+  "aws/network/cloudfront-edge-location": {
+   "256x256": "3473b0a27ead11eea345faf2c64caaffbd417aa301d91a49ed6f87418c29befe"
+  },
+  "aws/network/cloudfront-streaming-distribution": {
+   "256x256": "7cdc4d088f73d13c0a7e6b170b7add5809fed2ce2bea76e639f467541b96e5c3"
+  },
+  "aws/network/direct-connect": {
+   "300x300": "17989b2e1c65353c2436d8f42eb7e864a29986ee72db1843f7d5a37dbe228a99"
+  },
+  "aws/network/elastic-load-balancing": {
+   "300x300": "2f6ff8eb8a1d38d8e1db2aa16015d476b8d8cb2bb0c696823ebc5f5c5c01ec96"
+  },
+  "aws/network/elb-application-load-balancer": {
+   "256x256": "f3d8087cd510f3eccabbc3b954ffe4cdfbe5aabc539c177bb2a30ec522840aa1"
+  },
+  "aws/network/elb-classic-load-balancer": {
+   "256x256": "843b89d999cb57aed6a0229af45ceb8b672533a4f3afd8d004b9c39d29cfbca2"
+  },
+  "aws/network/elb-network-load-balancer": {
+   "256x256": "6aaee63fed863eebe8487d026a82fe59678d3fabaecfb2673f885c14b4a3b133"
+  },
+  "aws/network/endpoint": {
+   "200x200": "c5105a587c21adb283fa2fdf802571d1c8e02ee8a5d76bb1144732dffa659310"
+  },
+  "aws/network/global-accelerator": {
+   "300x300": "708c786f0e74ea1e5a203eeb4db7acd885caf74574a790097f1789a9bb0a7a6f"
+  },
+  "aws/network/internet-gateway": {
+   "200x200": "b2ff98e5979155a3a527dbb5bf0bb682fec8a0153c55f0fc2705590003244ba8"
+  },
+  "aws/network/nacl": {
+   "200x200": "8b5252b1571d12ac38374b56ffdfd898fb0fdeaf40e38cea828d9237058112fd"
+  },
+  "aws/network/nat-gateway": {
+   "200x200": "bb2ce8082e007e931b923bb8973aa4169128a57a7f848f46a85c8c1713f26866"
+  },
+  "aws/network/network-firewall": {
+   "256x256": "d2ae10b001e8eaa8ca7660611ae59b5754c3ba37cc8ab05d06a048d02077df76"
+  },
+  "aws/network/networking-and-content-delivery": {
+   "400x400": "d4e39a806e3c778cdb079b724a8aab9be5d508b42ad242779f7a9f3b205bf46a"
+  },
+  "aws/network/private-subnet": {
+   "140x140": "bd4b8372956766b70823f1b9b93f3984c8449e38f939bcd023bb473765dc2bb7"
+  },
+  "aws/network/privatelink": {
+   "300x300": "9d8d13e8165394226eacece6b00e96e25f4d4bbd99b18fa6dc4941d129ab5d07"
+  },
+  "aws/network/public-subnet": {
+   "140x140": "69e5e2dba0a9bb7ce2f79f5491b1afc2d57c03602bbd609255aac030e92bff96"
+  },
+  "aws/network/route-53": {
+   "300x300": "d069c578cb7893a02b37023b2fea953d316f31fd6eeedca61f89cf5556947c8d"
+  },
+  "aws/network/route-53-hosted-zone": {
+   "256x256": "485b4c02bb18e5c84d031d3682487a005cdcc1baf88a478cd41bba25941dc403"
+  },
+  "aws/network/route-table": {
+   "200x200": "54d02b4a51d2e6d6c501a01121ba74667ff5828055fe2d434c28f4d615cd1bcf"
+  },
+  "aws/network/site-to-site-vpn": {
+   "300x300": "eb865cc644d60d71a6189adbb4f09f4420c510a9de2ec82f13cf53f2933873b0"
+  },
+  "aws/network/transit-gateway": {
+   "300x300": "633c83469132231868d264fbf03b543816c3d3763ccbbd4ad861fb97b7f4c4e4"
+  },
+  "aws/network/transit-gateway-attachment": {
+   "256x256": "935ba45dffd376bf9a1220ca66a807b30c498e98c272e97e502d914e92b615c7"
+  },
+  "aws/network/vpc": {
+   "300x300": "d5d2e2b22024a46555bda27f642a22794aa370dd8e9a17b829e484bdee2401d4"
+  },
+  "aws/network/vpc-customer-gateway": {
+   "256x256": "538ebdbc70582a1ee3d9294c33818f27fbc9a36be87ddbd24c981cb0e5c01311"
+  },
+  "aws/network/vpc-elastic-network-adapter": {
+   "256x256": "2aad563a037de450966276858741cab6ffc0727b84449d6b16a688c51b206853"
+  },
+  "aws/network/vpc-elastic-network-interface": {
+   "256x256": "040f69856692bda59f8dcd854e6b7faea298a64bd4d97d4fa1e3191ddcb9fe28"
+  },
+  "aws/network/vpc-flow-logs": {
+   "256x256": "b5bb630a565bdfbd5ba3fc0ed4f76e05a86f1b81d7a4f498cf9fad3297b4d860"
+  },
+  "aws/network/vpc-peering": {
+   "200x200": "15f08b73a7225c441278fc8f4efa167e3f98a6c522d04d450a733add37310103"
+  },
+  "aws/network/vpc-router": {
+   "200x200": "00be7ed4758b6228e95fe9e03004f38c910c420ec6c51035cde3e80fc6d97b19"
+  },
+  "aws/network/vpc-traffic-mirroring": {
+   "256x256": "9c452c527377efd37dbf94de45d104e353b430d6a66ebe1ecba3232aecb76d5e"
+  },
+  "aws/network/vpn-connection": {
+   "256x256": "776adbf85c3c051ca43d46683b54ab812a8621203175a566fc5aff6af451151d"
+  },
+  "aws/network/vpn-gateway": {
+   "256x256": "b14acdd817d76f857408ce1906f45f40782003e9bed1e1b6ec30396daa507512"
+  },
+  "aws/quantum/braket": {
+   "375x375": "bd7f3ccf2a6c35983485a84dd18bc85bb4afc6f6f8e5759ab71d911cb36f341b"
+  },
+  "aws/quantum/quantum-technologies": {
+   "256x256": "fffd4bd8ba40f40488a0e8bc7b6520ed4424d4ec703687e40d940c86e07cd289"
+  },
+  "aws/robotics/robomaker": {
+   "300x300": "a89344851a6e66d0064a5d1203a356f68653d41ecdc11a66b521463dbd77926b"
+  },
+  "aws/robotics/robomaker-cloud-extension-ros": {
+   "256x256": "fee498507741d35d2db24f2a3d44ab066e88fe7e46bf6f13f72f2453298a23eb"
+  },
+  "aws/robotics/robomaker-development-environment": {
+   "256x256": "5551ae54f584d047cb2dbb5ccc9e558cea11ad361643d8303bc4499dbae43f9d"
+  },
+  "aws/robotics/robomaker-fleet-management": {
+   "256x256": "2a1baa0edb9f4a6435741558e8e42aaaaedf503bbe4389497723479ec47e5942"
+  },
+  "aws/robotics/robomaker-simulator": {
+   "200x200": "96ebc55997b063b6370a6130b083e2ef0791949db25a7b936ce2e6948f3d1913"
+  },
+  "aws/robotics/robotics": {
+   "400x400": "b50588148d53468ac053d811bb60381a747c9360f7b6bd1dc89f78e5b15744d5"
+  },
+  "aws/satellite/ground-station": {
+   "300x300": "79a0ab6d6c73c38ae973ffa506ce987e382e889755d7a07a09cea186bdd3db97"
+  },
+  "aws/satellite/satellite": {
+   "256x256": "3078b8e5a528e18385720fb78898dfb3727a9f1a838b933aaab9e7e6273fcf5a"
+  },
+  "aws/security/ad-connector": {
+   "256x256": "b1e1a22f4d86266ff07d524c660cca2c1cad3204eca2a22562bdfc15d52bf0b8"
+  },
+  "aws/security/artifact": {
+   "300x300": "ac8ce2f69de337f05ba7924576c04fd2075a6c953aa618816133141c2e0ac704"
+  },
+  "aws/security/certificate-authority": {
+   "256x256": "9a9528400ea5503702a8128c51ade2ebca169f0c99d23ea6fd2a1927b6700c13"
+  },
+  "aws/security/certificate-manager": {
+   "300x300": "4b45398a6a6b719edd2e9d08e5b17ac424ae99f5b38fe47df7cbbaae2e0ecdc8"
+  },
+  "aws/security/cloud-directory": {
+   "300x300": "67fd3e66319368a5fbe8e3a2ae48ce266dbcb7812bf0b76dad0a892f28187c5c"
+  },
+  "aws/security/cloudhsm": {
+   "300x300": "61cc33f23c2b9cd82008d369c429363d0a66965672fae12d9fe95a0a290ee7fe"
+  },
+  "aws/security/cognito": {
+   "300x300": "93d787fbeb5a6c3eff3f0307ebd0811edecd2db3d6e43c7a001f98cf02cd375f"
+  },
+  "aws/security/detective": {
+   "256x256": "1eece87ab4d99e8fe79f58e80720068d073175e6366c6fc7bfa32b64b1e1e39e"
+  },
+  "aws/security/directory-service": {
+   "300x300": "0fb8b7c805e06fb6690cc40a4544ac3a731418b3f9fda5535454b012fe1db813"
+  },
+  "aws/security/firewall-manager": {
+   "300x300": "bc656626bdafcb83e727b4b84bc24eba20180604d56b0ee87acba6f6347bad19"
+  },
+  "aws/security/guardduty": {
+   "300x300": "069d65f46ba5a38548aa668c5268c12b4114057a04d9eb114526e64de63a166b"
+  },
+  "aws/security/identity-and-access-management-iam": {
+   "300x300": "f9b9f5fbe062a82a3a0eff49bba209561b11815c91d9806576ccc7a25e7a8bb7"
+  },
+  "aws/security/identity-and-access-management-iam-access-analyzer": {
+   "48x48": "8a7675a69a41a4a47f8399d9fb1e1760be32bf873986eb39a4594d1de97395e5"
+  },
+  "aws/security/identity-and-access-management-iam-add-on": {
+   "256x256": "5bd4c0a19cb24a9d7fbb08c440f45a3cbbdd3c6d2ca8b3e37375a2801a98c104"
+  },
+  "aws/security/identity-and-access-management-iam-aws-sts": {
+   "200x200": "8c6c8da09eac74b373c4277c79e75b3d4a8143fe2057408418ada2ac9881efba"
+  },
+  "aws/security/identity-and-access-management-iam-aws-sts-alternate": {
+   "256x256": "eac5658d3bb1350918565b3558512051c64a9b11f5cc8a5220fdc899bb841670"
+  },
+  "aws/security/identity-and-access-management-iam-data-encryption-key": {
+   "256x256": "64f724c2dd2781467e6527aa815ab79ea3a9156e54a508a76f78a209cbf3c59d"
+  },
+  "aws/security/identity-and-access-management-iam-encrypted-data": {
+   "256x256": "b26e40674f2373f26ef71bbc26dd7a1c595dc329f8e0b9e3fb522e4a423724a0"
+  },
+  "aws/security/identity-and-access-management-iam-long-term-security-credential": {
+   "256x256": "0517db317f2dd93698556a9b865ce9256726644e1fdb1bfcd47e3bb755258e51"
+  },
+  "aws/security/identity-and-access-management-iam-mfa-token": {
+   "256x256": "cf472208473b46ed48be3fed9bfa5886929629d4dbad143a83ff0581e33cd5aa"
+  },
+  "aws/security/identity-and-access-management-iam-permissions": {
+   "200x200": "7ef380bab58154146dde5dfcd6e69e192d0958f30cfa6186b0a412685d9b72d2"
+  },
+  "aws/security/identity-and-access-management-iam-role": {
+   "200x200": "b38aaf0083b8884cdaa0cff0614f0a067d40f1bc4a830f2dd2275e126999e000"
+  },
+  "aws/security/identity-and-access-management-iam-temporary-security-credential": {
+   "256x256": "cfadbf8438d7b27bd47ace24fbddd77357ab01b36aea26172477798165f8cccd"
+  },
+  "aws/security/inspector": {
+   "300x300": "423daed64a59cfa88866959a21430e9ef4978c1e963bb384cb2c0b6583f0d65e"
+  },
+  "aws/security/inspector-agent": {
+   "256x256": "583a458d76c25249ecf55d01ea3811a86eb8a0de9012c517c5d976dd6e10d2d4"
+  },
+  "aws/security/key-management-service": {
+   "300x300": "96d578a6fb2bd6e814b5028f5c7c0d6c3a0f8821736667562b19a266e77bec01"
+  },
+  "aws/security/macie": {
+   "300x300": "36b0260562feac2dfa7b9b11cbb9d2a9814ef84e5a4ae9b2432a0b552d8e91a5"
+  },
+  "aws/security/managed-microsoft-ad": {
+   "256x256": "af9d47a5fdc8c31ee7c66e7c0eead61d533b9c14d7e5af73e287e634d9288eff"
+  },
+  "aws/security/resource-access-manager": {
+   "300x300": "fc9a8df17e16485f8ba7d8b3fb98a86ccacc6c82dd2567765441ec267c2de4b6"
+  },
+  "aws/security/secrets-manager": {
+   "300x300": "e2d91696e0fc7619bfc114a3e6d102b247a1f345eb004627e9fd03ec48de211c"
+  },
+  "aws/security/security-hub": {
+   "300x300": "eea050c774ed0b7959ede7199798d8dad3cafafb9363b379b8bed9689d6e83fb"
+  },
+  "aws/security/security-hub-finding": {
+   "256x256": "a16a97b1f9fa3bba85e579fd96e888b0969216e0dd0bd3122bed3e691bed493c"
+  },
+  "aws/security/security-identity-and-compliance": {
+   "400x400": "9b3eda61edaca870187fc33f1c76a8a555b1b8b4ed1ff87aa6cb0dac2dab5dc1"
+  },
+  "aws/security/security-lake": {
+   "256x256": "e72508ce3512ed64ab0128e579c7c34a469c3c9bc633b5a24169113862370755"
+  },
+  "aws/security/shield": {
+   "300x300": "8ddfc39c805ec13c8b2c6a2d7dba43905885253b1766ed0d70fade0b0ec3aa3a"
+  },
+  "aws/security/shield-advanced": {
+   "256x256": "da31f206853a9eb32d8a3ca9af0cf72196b67cb5dd05b89b72450a520ef00286"
+  },
+  "aws/security/simple-ad": {
+   "256x256": "8ee479a7b1503f5fd9288f5248b2b9d89f98c022fea32b592539b0902a36b51e"
+  },
+  "aws/security/single-sign-on": {
+   "300x300": "a39e4927fc06a0150ce5e7928d5340cf0cbadf2741c3e0f088c31809ad7f627b"
+  },
+  "aws/security/waf": {
+   "300x300": "ed37f638db7aa5bb496b5945e6067a03a6a908484ed735e18e495069b7cd5e3e"
+  },
+  "aws/security/waf-filtering-rule": {
+   "256x256": "5443426d5b60a00cd24634c16caef8813fa8e378e964cd22ec37dde06b093ca0"
+  },
+  "aws/storage/backup": {
+   "300x300": "4d9866aeb74ed8984f0f06a487df22bde6f080a950937317dbe582cd92174193"
+  },
+  "aws/storage/cloudendure-disaster-recovery": {
+   "500x500": "79741573c89aa8481503f7780c1d7312641130a5799d9c680d6f1fbd4ae55932"
+  },
+  "aws/storage/efs-infrequentaccess-primary-bg": {
+   "300x300": "0951e56994a59436f2cbd042917f58a31554de11902ea6e96b61e6673021128b"
+  },
+  "aws/storage/efs-standard-primary-bg": {
+   "300x300": "b9054e9c33c84e40db2061ccf011f9a6fd3194aedb3950081233db57f1f2adc0"
+  },
+  "aws/storage/elastic-block-store-ebs": {
+   "300x300": "0684226eb6f53ebebc6b1dab63ca837d963e79f3e3486710e152847a9816a7fb"
+  },
+  "aws/storage/elastic-block-store-ebs-snapshot": {
+   "256x256": "d444023f01c49784eeeb8b52c8d2843a6ce4d8d53267f887cdf2dd8cfc16b816"
+  },
+  "aws/storage/elastic-block-store-ebs-volume": {
+   "256x256": "9998450e6a65185d5a00af31d00d8264f415aa858b630c880f6da2dc3d6c1b0d"
+  },
+  "aws/storage/elastic-file-system-efs": {
+   "300x300": "2caa3a8932dd5c880d1ad79474a1bc6619b507a315df7f1745f58bddfed6e5ca"
+  },
+  "aws/storage/elastic-file-system-efs-file-system": {
+   "256x256": "abc9014533ed50a31350326f00f862c89d0fc9242c9fb4bf38b44e560587688e"
+  },
+  "aws/storage/fsx": {
+   "300x300": "de61931eb96afbedf3217ea957524f27e09db0dadf71799a1598d014cede3897"
+  },
+  "aws/storage/fsx-for-lustre": {
+   "300x300": "88301e485048311e9f0e720a9644f40c4c7a16b74f341a758b7a54443638a212"
+  },
+  "aws/storage/fsx-for-windows-file-server": {
+   "300x300": "a0071556a542c98299e0211efec077d7a55807a1a426a405060249b1cb88cf54"
+  },
+  "aws/storage/multiple-volumes-resource": {
+   "256x256": "9ad9f4d51c4ba02445a809b7183ad9e11a0755c6454498a7ae83d1ab98149b35"
+  },
+  "aws/storage/s3-access-points": {
+   "256x256": "a1a967301891a721155413663e1b7059b6de614567053091e742585eddaf3906"
+  },
+  "aws/storage/s3-glacier": {
+   "300x300": "f0db5af5b6d62b53aa12f56bd18eea8178d7c2ff264753307b3cd2c61cf0a9b6"
+  },
+  "aws/storage/s3-glacier-archive": {
+   "256x256": "7ff0ec057e67106959b86599967228268fccf98a06fbca8b48bff6a011bc87ac"
+  },
+  "aws/storage/s3-glacier-vault": {
+   "256x256": "550e3502e2e1e4a17e9b861b0f554885c80d0fc91477cd4b8ea69858aa640fd2"
+  },
+  "aws/storage/s3-object-lambda-access-points": {
+   "256x256": "591ca918b00972b2ec35f484912f8d1af07c773cb521958fcb713c0a3f677c6a"
+  },
+  "aws/storage/simple-storage-service-s3": {
+   "300x300": "656fdea609bf68df6dd032d56e0beedbf47b26051fb5238aa4d85c9c52d33f62"
+  },
+  "aws/storage/simple-storage-service-s3-bucket": {
+   "256x256": "704355984cd8c8ca58b5abcc121aa58b0419e07db2bb7bb0b6806d02c7b06d8a"
+  },
+  "aws/storage/simple-storage-service-s3-bucket-with-objects": {
+   "256x256": "c7907e1128ffd15e5438d45cc777b2fefc4c8ac633bd6ed5d660b96586020c5c"
+  },
+  "aws/storage/simple-storage-service-s3-object": {
+   "256x256": "1d1060261b19d8e017d212734fe1988607d4fe5ab271fdd079b7ad8b781b53db"
+  },
+  "aws/storage/snow-family-snowball-import-export": {
+   "256x256": "ff5114aab6192d8effe01bbdac690260dfdcd47950fe8e8e8541c418b52d6e20"
+  },
+  "aws/storage/snowball": {
+   "300x300": "170c43134ab836b76452644ebd730a1dd8812b959ce503dc10c0f1d9ea1d8e9e"
+  },
+  "aws/storage/snowball-edge": {
+   "300x300": "3a6aa11b9249ebad01aecbf825aa21acac4ebca2b1a372a89bca23e82b7b7428"
+  },
+  "aws/storage/snowmobile": {
+   "300x300": "1e12a29b31acf4480e41876773d98059184d94de580cf1d475670f46b38bd774"
+  },
+  "aws/storage/storage": {
+   "400x400": "98db38e15773cd4bdab5f3fc37a4d1b052d3ed8960db107c30fb53aa9bed31cf"
+  },
+  "aws/storage/storage-gateway": {
+   "300x300": "bd3f7919032c4a5278a4539a3b922e25db6240a34ebe767d8e976d1c7c64770e"
+  },
+  "aws/storage/storage-gateway-cached-volume": {
+   "256x256": "2c8448137cd4c001faa07f82a0fa6309e78d051b8f9efcf34dda2fcf889cc161"
+  },
+  "aws/storage/storage-gateway-non-cached-volume": {
+   "256x256": "4a509910d47a0e9578204effcd710f8a9155abb8189ab87c7f3ff302c790d100"
+  },
+  "aws/storage/storage-gateway-virtual-tape-library": {
+   "256x256": "223526317199a2d6413db4c95638f55edac89c8af08ae52962624291fa4de0ba"
+  },
+  "azure/aimachinelearning/ai-studio": {
+   "256x256": "b24e392ae9e63677f888b6eaee45d14e5a435fd2c5d429af0f06af377622c7c1"
+  },
+  "azure/aimachinelearning/anomaly-detector": {
+   "256x256": "965c282eee0caca695164dc1d1b4b02ee03f86299f083c601698681fe377879a"
+  },
+  "azure/aimachinelearning/azure-applied-ai-services": {
+   "329x256": "62b9c57b2fee154367b713fd9d551ec37a499159db0a590fae3e8276ae3f5e4b"
+  },
+  "azure/aimachinelearning/azure-experimentation-studio": {
+   "256x256": "0b561636a97a9b9f8da9995e0a8c9a2f51b3069e0c7df8923a01a8e692b55142"
+  },
+  "azure/aimachinelearning/azure-object-understanding": {
+   "256x256": "9bed02e765954df06b1d82a67650ba2ecee5d39d6bbbb4ff8395c9d2943693ab"
+  },
+  "azure/aimachinelearning/azure-openai": {
+   "256x256": "89ed97c97af5288702f62f185afe85ac55db0d925924cb36787ecc169aabfb5f"
+  },
+  "azure/aimachinelearning/batch-ai": {
+   "256x256": "0833da683a321cfd20ca95acb653fe135eff93c50f903ccf19b4c5634f57f445"
+  },
+  "azure/aimachinelearning/bonsai": {
+   "256x256": "119cdde8837f951fcb63bb56a96591e684af8efa7447adce4dbb25eb798ee052"
+  },
+  "azure/aimachinelearning/bot-services": {
+   "256x256": "b4e7631175cc29e99a799febdc9394465cff45d21169eb7588bc89245d6b4efb"
+  },
+  "azure/aimachinelearning/cognitive-search": {
+   "256x256": "e9be687186801439679578222317c8acb72893b00aeb7667dfe324ad85a46ea7"
+  },
+  "azure/aimachinelearning/cognitive-services": {
+   "256x256": "4c021d0590c7b519aa2c9035034204e4f9a07592f50acfc0ff372881320c4928"
+  },
+  "azure/aimachinelearning/cognitive-services-decisions": {
+   "256x256": "38246d6e75f58bb395c788202389f31e650516ce737cd812de772398e58d5b70"
+  },
+  "azure/aimachinelearning/computer-vision": {
+   "256x256": "ee515ba892075ba15cb635471f0f78bdfd7d3db8da1ae537cbefa4101bd9d7f4"
+  },
+  "azure/aimachinelearning/content-moderators": {
+   "256x256": "9e3deda02d068715a059ab92847ab168235296c00a4e7e6ba000e400cb391253"
+  },
+  "azure/aimachinelearning/custom-vision": {
+   "256x256": "cf15067ab0a732a77815cad466abd2bb4defe001ca663ff8a6dfccdd1ce7991f"
+  },
+  "azure/aimachinelearning/face-apis": {
+   "256x256": "ed11ef10589c6988544db37ce41eb9b17774b497113813f3ae6e88fccf47b473"
+  },
+  "azure/aimachinelearning/form-recognizers": {
+   "256x256": "016c5fcbe477895f2f2dc0234ea4dd6893a0bb8fe86538d90b67d56c11fd897b"
+  },
+  "azure/aimachinelearning/genomics": {
+   "256x256": "35fa8ba506e3c52133acabe03b8e9c541268967a060a04b8608c8bc1dfd2ce8f"
+  },
+  "azure/aimachinelearning/genomics-accounts": {
+   "256x256": "35fa8ba506e3c52133acabe03b8e9c541268967a060a04b8608c8bc1dfd2ce8f"
+  },
+  "azure/aimachinelearning/immersive-readers": {
+   "256x256": "bcd230dbdf13e6679475aa70c9e8b219e5585c4c774f3dbcfcf90957c0f75b14"
+  },
+  "azure/aimachinelearning/language": {
+   "256x256": "269abf68f615d57343071e14bfd60ad34c6933c315f2e22ea6c08f5099e0f82d"
+  },
+  "azure/aimachinelearning/language-understanding": {
+   "256x256": "0c04c5aa90d103741a52f20716de7d492232685206eaca05a4808782cf5071ee"
+  },
+  "azure/aimachinelearning/machine-learning": {
+   "256x256": "dda202a98941ac0a198397514962bf27f2d246410c71c76ebeb83af0c0515580"
+  },
+  "azure/aimachinelearning/machine-learning-studio-classic-web-services": {
+   "256x256": "2434c6ddde82344d3201b3bc102662fd6ebd4fc61be6d01ca70abdab01c77fc0"
+  },
+  "azure/aimachinelearning/machine-learning-studio-web-service-plans": {
+   "256x256": "053babcdb1aa3880e049ff76685c691ceff45ac5035754d202b34329de92fee6"
+  },
+  "azure/aimachinelearning/machine-learning-studio-workspaces": {
+   "256x256": "8c7983fa83cadd25102466e8fb8f1576b884f0732c4124d4330f6470ea44af8b"
+  },
+  "azure/aimachinelearning/metrics-advisor": {
+   "256x256": "9937dfb1db5b2c311915886130d5494810cd8efe75047d86431637595d07db71"
+  },
+  "azure/aimachinelearning/personalizers": {
+   "256x256": "c19831164503c73ad99f34433e7fe582b02c91bdc163246f052fdae9bb96e1ed"
+  },
+  "azure/aimachinelearning/qna-makers": {
+   "256x256": "eb1021b293048281c401b89a7d4efe83b49779484c3d9939f43bc2558a6c62d0"
+  },
+  "azure/aimachinelearning/serverless-search": {
+   "256x256": "4ec3a2dedea04e96ecc2500814944dfc8ab0fa01ed7bb96a4c20ddd66db13a79"
+  },
+  "azure/aimachinelearning/speech-services": {
+   "256x256": "35f1f07fa4f50aa69507492710837f86bc11295fb381971c48b12b6bb6b9e24c"
+  },
+  "azure/aimachinelearning/translator-text": {
+   "256x256": "7804979fb61d9a18d86613748defb34ed410bfb78eb2ed514e46e2b129ee12a8"
+  },
+  "azure/analytics/analysis-services": {
+   "256x256": "f8b0016468aab64db62f7fb85dead7e0b47b42a1e516971bcd6fc05c77505d50"
+  },
+  "azure/analytics/azure-data-explorer-clusters": {
+   "256x256": "28806157d4f096c11e992fe817111fe20ba44666c16ffb8b9b20fea10721df0c"
+  },
+  "azure/analytics/azure-databricks": {
+   "256x256": "a49b5a48e2a8f11a7c71a07c5836a894c92fd31f940b08b9357a0f5457551b0f"
+  },
+  "azure/analytics/azure-synapse-analytics": {
+   "256x256": "718cbab61472dcd89081e958caa8d00ba5b26aae02b2c3b155397cdcb6235108"
+  },
+  "azure/analytics/azure-workbooks": {
+   "256x256": "5a2f71c32ef6e2d6a64f0be4ab7712ca248efc21de35287dbc41bef041429e76"
+  },
+  "azure/analytics/data-explorer-clusters": {
+   "256x256": "b50561e0b4fc76e968c5d21c97cc916722951b5d14fce649d7a03c4cfc3830dd"
+  },
+  "azure/analytics/data-factories": {
+   "256x256": "26bcaddc748cf39e43347192bbd18d500a2a58b80ee0633a7177447edc385455"
+  },
+  "azure/analytics/data-lake-analytics": {
+   "256x256": "2d1995ccb93751803bb6caf3bd46f9ac8a4ced8a7d1549b37cc7dc33c23184c4"
+  },
+  "azure/analytics/data-lake-store-gen1": {
+   "256x256": "0c54a4d40159b740c8a94598f0ad37cbd6cc55fabd74f4f930cfb42b1ea3c67e"
+  },
+  "azure/analytics/databricks": {
+   "256x256": "3e9b43d583ee87cdb0dd4aca42dd633e8c96392193298859781a6f1e3bd9fdfb"
+  },
+  "azure/analytics/endpoint-analytics": {
+   "256x256": "d251553f239c7176a9b29c2efea35cf2ae8f77295a212f8f16226054ae5b45db"
+  },
+  "azure/analytics/event-hub-clusters": {
+   "256x256": "7399b68c795f72e4005c2b375eeab791766ecd86972973217721f252464200f0"
+  },
+  "azure/analytics/event-hubs": {
+   "256x256": "77c9c82fc9749efb05009b9eb31d20e3882946bae7c06afed783f2576d36dad8"
+  },
+  "azure/analytics/hd-insight-clusters": {
+   "256x256": "554449b358272ece4147cdbff6805e6ea8badfb5007a2ebac233f8b74ef99da1"
+  },
+  "azure/analytics/log-analytics-workspaces": {
+   "256x256": "9c08f473f21f9aafd63385841c921c639832b1bda35c575b72bc3f34c6ea2205"
+  },
+  "azure/analytics/power-bi-embedded": {
+   "256x256": "2a0fe41d25431a08ba87c318a03088fb1a26f8d9bf46e83ad6b35f5103338eaf"
+  },
+  "azure/analytics/power-platform": {
+   "256x256": "fc4ea03559f6c2f6e8027969e48086c0afb0c30fcc8e5028555decfca318fe3a"
+  },
+  "azure/analytics/private-link-services": {
+   "256x256": "861d1a653d66ac7f9ba613d091c5eb8b44514488dc8914f1b55d2e3d3ea12702"
+  },
+  "azure/analytics/stream-analytics-jobs": {
+   "256x256": "86b4303a541a9fdbda2a1d02095503679f357e5230669eccf7bf0cc9c4ddfee4"
+  },
+  "azure/analytics/synapse-analytics": {
+   "256x256": "da6fa42da269bc9c290c570935a8f6b7c3c1bf81c0ecc3fdefb618fd475f7375"
+  },
+  "azure/appservices/app-service-certificates": {
+   "256x256": "2131b4f0cef54193253164a8f1bd8e30c33df01d4609c83ef7cb59f6825af973"
+  },
+  "azure/appservices/app-service-domains": {
+   "256x256": "356603f528eac4e6b818c1d082cbf194aa9c6310baa27e9d68e1f93b2287995a"
+  },
+  "azure/appservices/app-service-environments": {
+   "256x256": "4f27f4a17363bfaa368f0174bd2789e877e8c29ed41b7a7b6b0347cd765be504"
+  },
+  "azure/appservices/app-service-plans": {
+   "256x256": "ce159f49a039e15281051cab494dabace84821352cf39b91be073084ef827962"
+  },
+  "azure/appservices/app-services": {
+   "256x256": "4699e5b3e8150ee16189f8afcafbaa33eb1ebf4050156cb5dcee9614f041d105"
+  },
+  "azure/appservices/cdn-profiles": {
+   "256x256": "13fe75ef820c0726f1b3bfcd1ff235a78f06fc8021f5768365c6ce057a641232"
+  },
+  "azure/appservices/cognitive-search": {
+   "256x256": "e9be687186801439679578222317c8acb72893b00aeb7667dfe324ad85a46ea7"
+  },
+  "azure/appservices/notification-hubs": {
+   "256x256": "06e37d68de7948da488ece92eee9d64e81443645fdb2732ca01f7487ba48b235"
+  },
+  "azure/azure": {
+   "256x256": "f74a2f835f6deb760dde06cadfa07c7004035128cb465b83cda2db72ccc0369b"
+  },
+  "azure/azureecosystem/applens": {
+   "256x256": "6d4c16f5a248b78ad3195657666c047cba540425da4c382e652ba275cbb69bcb"
+  },
+  "azure/azureecosystem/azure-hybrid-center": {
+   "256x256": "b6d70056963bed06eb63a8bcbdca89ff3087f8ca6dc2925181b06f84eeff9c37"
+  },
+  "azure/azureecosystem/collaborative-service": {
+   "256x256": "20ba0463597f08488fe927713df6bb4196aef803537da3b67bb1bcab9f68da24"
+  },
+  "azure/azurestack/capacity": {
+   "256x256": "56ed062bc375873a183a31b1ee74cb5dfe80d0c687ba514cbfa9c571ebbf4aa3"
+  },
+  "azure/azurestack/infrastructure-backup": {
+   "256x256": "338eb9fed97c5eac19cbeff71b583a919fdb85b30a641fe788dda6ad788489fa"
+  },
+  "azure/azurestack/multi-tenancy": {
+   "256x256": "d3cec09e2dc456ede5ddd007283cc172c02a2bb04420520ea329a92cd739ec6b"
+  },
+  "azure/azurestack/offers": {
+   "256x256": "5c11decfb99a1d5cda039cdaadfd899575aefea8f9b604f1caebeb32c1e7e25f"
+  },
+  "azure/azurestack/plans": {
+   "256x256": "c00a3c9a235ba66b3a8ebd3387c6dcf7281ba754b307c7e091df87d812f6abf2"
+  },
+  "azure/azurestack/updates": {
+   "256x256": "b4d1b65df59389379eb6d1fbc6c6be601eceaadd5eb49b2189eaec962b3b2d8a"
+  },
+  "azure/azurestack/user-subscriptions": {
+   "256x256": "4a3f5058e0d05475e3a913b9805dffa66871d6239e22ef968fb3908da9e82c7f"
+  },
+  "azure/blockchain/abs-member": {
+   "256x256": "8245ea20071062bac089ef5bf52aae29bf67deed3e06bad4d30de617ec839eec"
+  },
+  "azure/blockchain/azure-blockchain-service": {
+   "256x256": "46bb137b314fd5837a42fe9a27fc59f7b9d9457e53f739823c0b52b454b00bcb"
+  },
+  "azure/blockchain/azure-token-service": {
+   "256x256": "ddf8457eab34637349260e2e0c318e1a8f34d306e6a87f402df08585bcec6301"
+  },
+  "azure/blockchain/blockchain-applications": {
+   "256x256": "599883881525299d8d9b62ccbdff7ee42a21be7fefe7d3bd3ba49bdf745d8f2d"
+  },
+  "azure/blockchain/consortium": {
+   "256x256": "674c57206af36e58685c385d47e2c046c7d7e1815c3679268d4fbd2fe0950d7d"
+  },
+  "azure/blockchain/outbound-connection": {
+   "256x256": "f3aa8129746de8bd0e1e59608cb10ac99ee644c872ffa52f58ff081f0b0f0f4d"
+  },
+  "azure/compute/app-services": {
+   "256x256": "4699e5b3e8150ee16189f8afcafbaa33eb1ebf4050156cb5dcee9614f041d105"
+  },
+  "azure/compute/application-group": {
+   "256x256": "3d6683b2c06c88f040fc25090bdaa55a1bab4ca1c694ce32dcff915a1870e2a0"
+  },
+  "azure/compute/automanaged-vm": {
+   "256x256": "b41fbbe44a5aff6056564ef48a2cf0506cf9bfb006267644f18e1ff647e10387"
+  },
+  "azure/compute/availability-sets": {
+   "256x256": "d83326f34936445911531dcb2986657dbf3a7e1c5fd2886f63129754c0254779"
+  },
+  "azure/compute/azure-compute-galleries": {
+   "256x256": "a563f1adcf135bf5dc4eee1a8471e8056ff693ed9124cbb7a8d2d4a73eb79bc7"
+  },
+  "azure/compute/azure-spring-apps": {
+   "256x256": "d0547a83aeea67441ed6639884d3d08cf92b4fecabfdc00a77faf8ebac8e8af2"
+  },
+  "azure/compute/batch-accounts": {
+   "256x256": "7a5ba30ac6f015ca202c7e8c5e5c5182da7e644f9395dfb114d74670b79e99a9"
+  },
+  "azure/compute/citrix-virtual-desktops-essentials": {
+   "256x256": "8c0bb37698dde305a0e4308521c2921e24b64f125c10e3b07791a0df0c04a12e"
+  },
+  "azure/compute/cloud-services": {
+   "256x256": "f9c13a1370f75933ffeb19f5f71a0f8b919cbb95acc07d5eea7ae0394647f114"
+  },
+  "azure/compute/cloud-services-classic": {
+   "256x256": "8607584c9d5682298cb70b2397681873a328836ee0f6983612943a481fe0a753"
+  },
+  "azure/compute/cloudsimple-virtual-machines": {
+   "256x256": "e36c04b98f2eb2c7a6e1381ae181730e8e0ed412b43a76f2d55727074ff79a13"
+  },
+  "azure/compute/container-apps": {
+   "256x256": "3b21d64442e6b42332f184ed9408cad1adcca0d074f77425ae368dd7836b426f"
+  },
+  "azure/compute/container-instances": {
+   "256x256": "a055538ceec218d08cb42c2a5f6b70cab8dfec0fe20d88f8074c19ad440f7c5f"
+  },
+  "azure/compute/container-registries": {
+   "256x256": "407f0bbda0d27e033c5e35f1493c78dbaa0e6f8dd239912347910d832de2ff9d"
+  },
+  "azure/compute/container-services-deprecated": {
+   "256x256": "6ffa41da74ea0555af6abca839aefd33f1105748f0fb4e2d54df95c1f471b62f"
+  },
+  "azure/compute/disk-encryption-sets": {
+   "256x256": "5404fb446d6a49c45b8ab551849fa5a0ed4eba0011dcb6762ff507ea2af3ad05"
+  },
+  "azure/compute/disk-snapshots": {
+   "256x256": "a821795c12edc7eb62f8e951d0ba7e9141e4af527e2d0ad1d9ad04ac0de2a17c"
+  },
+  "azure/compute/disks": {
+   "256x256": "f450c7cd2b1782eec5348b34ccf1fb56a279719bc3b86be1cc01fd9ddcdc1ad6"
+  },
+  "azure/compute/disks-classic": {
+   "256x256": "f450c7cd2b1782eec5348b34ccf1fb56a279719bc3b86be1cc01fd9ddcdc1ad6"
+  },
+  "azure/compute/disks-snapshots": {
+   "256x256": "22b6f6457ecde22104e3030435b28576f5ed77edf29a6ba8e680ab5cb5f17911"
+  },
+  "azure/compute/function-apps": {
+   "256x256": "2bb03af56a57e85b3562bb855bcbd5c88f261e46c5b33168cafed4d862395130"
+  },
+  "azure/compute/host-groups": {
+   "256x256": "ebc750427de022bcadc9155e3a0b44875932df8af967ff00f0810669f84d3099"
+  },
+  "azure/compute/host-pools": {
+   "256x256": "526c3f98a3b801b700ff8f24e7c389d8653ae9f0cf2c8c071f207ec78375f4e6"
+  },
+  "azure/compute/hosts": {
+   "256x256": "53f3ab36d68c0d4c3600799b5d0ef0daa82ff90b6b78c5b517ba94ec09b5c2fc"
+  },
+  "azure/compute/image-definitions": {
+   "256x256": "96627c5a4c6bf2cbacdf7edeb102bbddc2cf93e2111e830c867dcf35b779e42e"
+  },
+  "azure/compute/image-templates": {
+   "256x256": "eb1b110007123760490ca015a989501f54b57d00a90bf9b49df97ad28395b434"
+  },
+  "azure/compute/image-versions": {
+   "256x256": "f72d94d90b6faeb6761798f25bcd63467ddd2989cfb1ca2eaeba432fb4c97efd"
+  },
+  "azure/compute/images": {
+   "256x256": "f4645b62f734158ca55e1d74bd212d332ff3a35d1214e47829552c3e0aef621d"
+  },
+  "azure/compute/kubernetes-services": {
+   "256x256": "6ffa41da74ea0555af6abca839aefd33f1105748f0fb4e2d54df95c1f471b62f"
+  },
+  "azure/compute/maintenance-configuration": {
+   "256x256": "6157661e15f27ba54ea7422b63e036f3ca408551eb570f6842cab6f01ef7fc69"
+  },
+  "azure/compute/managed-service-fabric": {
+   "256x256": "53d2f71c028b28d2703534318bd0e0ce30c142c8c2d2e2f2b0fc15048dddb82e"
+  },
+  "azure/compute/mesh-applications": {
+   "256x256": "a16884f06ddb11bf9c9c2e4c33444f65e1d94582330f090c9c8be52a632a23db"
+  },
+  "azure/compute/metrics-advisor": {
+   "256x256": "9937dfb1db5b2c311915886130d5494810cd8efe75047d86431637595d07db71"
+  },
+  "azure/compute/os-images": {
+   "256x256": "985530b9a70a2a564fdd068c8912c6b4aa85f81320c8a6c5c09ff68a834bf78e"
+  },
+  "azure/compute/os-images-classic": {
+   "256x256": "91cadb74b69394c9f7398c8c8d65a26b26118898107e2ec5ec0dcf498e3be69f"
+  },
+  "azure/compute/restore-points": {
+   "256x256": "4c651175a572302ea92af111fb656eaaf7601e5e23193e4c610eebd868858732"
+  },
+  "azure/compute/restore-points-collections": {
+   "256x256": "df9d8951a45f3fa6d4b71c94ffdeb9d88181f105edc50b5b8d95f07bb6b78f83"
+  },
+  "azure/compute/sap-hana-on-azure": {
+   "256x256": "3213497e18158a6788ab599f94dd3c251a7c090869b6f7f61cf6e0bdd747561d"
+  },
+  "azure/compute/service-fabric-clusters": {
+   "256x256": "0b273633594b79f7ea66a407518c40cdabccd302af23da9ba2611567afecb6f3"
+  },
+  "azure/compute/shared-image-galleries": {
+   "256x256": "0d1e4c6651d2f1dae9160cbc23516e247b06bc47cfef53e430c4417dbaea33b3"
+  },
+  "azure/compute/spring-cloud": {
+   "256x256": "73ef2b714f9b546b37eca04bd65e7cf7339ee8ef755089ddaae48d29cc6d7142"
+  },
+  "azure/compute/virtual-machine": {
+   "256x256": "aa47b24d66a78103b885f72dc202fa27fefd91cd3e58e0dfd77e6444bcdbef9c"
+  },
+  "azure/compute/virtual-machines-classic": {
+   "256x256": "4cd5aa4e19dc94fa36ce839324d8b6aa2d49b36edfb58ca19b6795d8dc0ae95d"
+  },
+  "azure/compute/vm": {
+   "256x256": "e43f6872fd7e4f1ea28b6a86f5152e491b6c881080d8a2579f136e390a994547"
+  },
+  "azure/compute/vm-classic": {
+   "256x256": "1bf14e46de94775f6c661f04ebb0df365eef941a3075a0aa2753adae99dead65"
+  },
+  "azure/compute/vm-images": {
+   "256x256": "985530b9a70a2a564fdd068c8912c6b4aa85f81320c8a6c5c09ff68a834bf78e"
+  },
+  "azure/compute/vm-images-classic": {
+   "256x256": "91cadb74b69394c9f7398c8c8d65a26b26118898107e2ec5ec0dcf498e3be69f"
+  },
+  "azure/compute/vm-linux": {
+   "256x256": "f34ca30c829a661e0b3615a9ce368b1a3134a6aab0e476d2832207ef4de2f2a8"
+  },
+  "azure/compute/vm-scale-set": {
+   "256x256": "aa836a6bbb740a22005394d1548933f35a302ed39213f3f6b9cd1c3bcc91912b"
+  },
+  "azure/compute/vm-scale-sets": {
+   "256x256": "0bb83da91075ac60ec7e92f87977bd8c9cf73bc16fec1abf14a32d20d982d2ee"
+  },
+  "azure/compute/vm-windows": {
+   "256x256": "9205cdfc0c0053f6d79a16386500d92b996a015adf363b57796ae9f351f6f68d"
+  },
+  "azure/compute/workspaces": {
+   "256x256": "0b8d34e538cc1f3925bd5042140fd9c0e8da48e3d92550e626d88a8a12fb9ccc"
+  },
+  "azure/compute/workspaces-2": {
+   "256x256": "a853db42509cdf194befe7f94df1dde4c0c111dd4d5572253389165d063b26e1"
+  },
+  "azure/containers/app-services": {
+   "256x256": "4699e5b3e8150ee16189f8afcafbaa33eb1ebf4050156cb5dcee9614f041d105"
+  },
+  "azure/containers/azure-red-hat-openshift": {
+   "256x256": "7d80faf096bc2081f503a71f3acfe4f6677ba48062a39ea341a78d9676ddc9d9"
+  },
+  "azure/containers/batch-accounts": {
+   "256x256": "7a5ba30ac6f015ca202c7e8c5e5c5182da7e644f9395dfb114d74670b79e99a9"
+  },
+  "azure/containers/container-instances": {
+   "256x256": "a055538ceec218d08cb42c2a5f6b70cab8dfec0fe20d88f8074c19ad440f7c5f"
+  },
+  "azure/containers/container-registries": {
+   "256x256": "659dcd2804f0ab3ab50c65ab59305c3c9950c93df3d9aa23c0abd6710bc47699"
+  },
+  "azure/containers/kubernetes-services": {
+   "256x256": "6ffa41da74ea0555af6abca839aefd33f1105748f0fb4e2d54df95c1f471b62f"
+  },
+  "azure/containers/service-fabric-clusters": {
+   "256x256": "0b273633594b79f7ea66a407518c40cdabccd302af23da9ba2611567afecb6f3"
+  },
+  "azure/database/blob-storage": {
+   "256x256": "81df1a3a81bfcb3cea49baaf3d6262dd2e8968cdffb923ef671bedabc483a279"
+  },
+  "azure/database/cache-for-redis": {
+   "256x256": "49d680ded4b540fcca85893cc7ce89e93d814a167236a6aaedac17132c191d37"
+  },
+  "azure/database/cosmos-db": {
+   "256x256": "29ba9ce680c1d9a5f707c9dfd8a7daf304ee1896fba3fde5ea3cfaca299e0dd1"
+  },
+  "azure/database/data-explorer-clusters": {
+   "256x256": "7975687af4323d9da48a7a5c5b57ba24493812bbe45a59f8b942be23ac794db0"
+  },
+  "azure/database/data-factory": {
+   "256x256": "5969773f5795f9f1e7fe43cca08350bb4e02db03847f9d8a72191bb2f81e5ff6"
+  },
+  "azure/database/data-lake": {
+   "256x256": "c4fb0f6d1f67c819e3bb73739a4523da727f05826f4d3dd37afc44ca33d0e63b"
+  },
+  "azure/database/database-for-mariadb-servers": {
+   "256x256": "40459aa099d3db9176b5b77d4f3945783d39f821fc2bff5a561623b6920792d3"
+  },
+  "azure/database/database-for-mysql-servers": {
+   "256x256": "1f26c699d2f6685d591f1b47575804e1433c44a85d8292797c8297a8e39419be"
+  },
+  "azure/database/database-for-postgresql-servers": {
+   "256x256": "ab532e54d18eb6bd952ea18eefa80bd0c12888c94bfde0cb2c550ba9d5f9da2e"
+  },
+  "azure/database/elastic-database-pools": {
+   "256x256": "d5e9c7924a36218a13bf39bb3fd465566e946835d4d034f1061b707b9a5bbbad"
+  },
+  "azure/database/elastic-job-agents": {
+   "256x256": "75d4aad0d3b591a8aed29bd855450c584865bfa111aa5d3dd348c407034238e0"
+  },
+  "azure/database/instance-pools": {
+   "256x256": "0bdde61c35d8a56e688454b9f0b633e97bc7503bd18de4c643f800803c8cf93a"
+  },
+  "azure/database/managed-databases": {
+   "256x256": "85d197b7f893e4daf89dd4ea56aed8f95d880b9319a127f2f79d42c51a18e08e"
+  },
+  "azure/database/sql": {
+   "256x256": "5f7a85aa80049f61b00c8c76a69b1ff54d7130b3d6f0a3997ad9658d72f21c03"
+  },
+  "azure/database/sql-databases": {
+   "256x256": "b059f09b6c970719f841695ac64d2eeb196a4543aa27ee68465e66e27ba55ed3"
+  },
+  "azure/database/sql-datawarehouse": {
+   "256x256": "52b9c294e1c51a71b4ebb8970a3a5619e0981871727dd5cae3be3fb29b6d7f21"
+  },
+  "azure/database/sql-managed-instances": {
+   "256x256": "aca1f460355bb9b737903452fc3053eb9e2c2150ca965843289ab7ba32c312a8"
+  },
+  "azure/database/sql-server-stretch-databases": {
+   "256x256": "52b9c294e1c51a71b4ebb8970a3a5619e0981871727dd5cae3be3fb29b6d7f21"
+  },
+  "azure/database/sql-servers": {
+   "256x256": "bee656f51380c7e6feb50d81ecbf7b908d8b9674f7017c28eaa8b4ee95755581"
+  },
+  "azure/database/sql-vm": {
+   "256x256": "b656efdfafaa0961c70e415765e29c745a37167833e92c0d1acde278a9ace4a0"
+  },
+  "azure/database/ssis-lift-and-shift-ir": {
+   "256x256": "0a6049dcf0647d97d47146045c13fb5e25fdbc8e6beacecf87ef925717602048"
+  },
+  "azure/database/synapse-analytics": {
+   "256x256": "da6fa42da269bc9c290c570935a8f6b7c3c1bf81c0ecc3fdefb618fd475f7375"
+  },
+  "azure/database/virtual-clusters": {
+   "256x256": "d50fad2eb69253f83dc336fd34098d0f3ad00bfb3dd6ce54c7fba556c3758780"
+  },
+  "azure/database/virtual-datacenter": {
+   "256x256": "6f1933b96a60a4fc05150c2427497bd25dd1b9e44df24b310010aa864338dae3"
+  },
+  "azure/databases/azure-cosmos-db": {
+   "256x256": "e30e81e8f323d387aad1e9b3da2c053b31746717fa597d9a5875e498a62bd4ef"
+  },
+  "azure/databases/azure-data-explorer-clusters": {
+   "256x256": "28806157d4f096c11e992fe817111fe20ba44666c16ffb8b9b20fea10721df0c"
+  },
+  "azure/databases/azure-database-mariadb-server": {
+   "256x256": "91164c049c8dda33e9b518124293745cf883690f581ae2af7515c486b45046a6"
+  },
+  "azure/databases/azure-database-migration-services": {
+   "256x256": "317ab7b402bb23622f04d9e26f87df7e123db01de9ad650cac9ef635ea6925cc"
+  },
+  "azure/databases/azure-database-mysql-server": {
+   "256x256": "ee5498981a39e5d84254d8da0fcbd4986d79cbd690192274f5642893c89f2df6"
+  },
+  "azure/databases/azure-database-postgresql-server": {
+   "256x256": "581ca3eb198aa7b28ec919668d22f970d4db4e3d3bcd027d77984ef4677f764f"
+  },
+  "azure/databases/azure-database-postgresql-server-group": {
+   "256x256": "32ab1a59aac28ee005418ef9790500b6f3824ce1b4dbb085dc2ef0c0eeeba26b"
+  },
+  "azure/databases/azure-purview-accounts": {
+   "256x256": "0570286ca401c85ecc754c96cd0e3de4f2a139d60b98978a16583e702faf2a25"
+  },
+  "azure/databases/azure-sql": {
+   "256x256": "bec1eba987116811666640d0607982637ebd88f9e3bded98955623b549257992"
+  },
+  "azure/databases/azure-sql-edge": {
+   "256x256": "03f6e763ef59e8553c1e1ed134fc3e795dcc96c174e14a91c796ee9eb69f70a2"
+  },
+  "azure/databases/azure-sql-server-stretch-databases": {
+   "256x256": "a381e6640f045866d7e351788d82ea4464b530b88d1b3c1bf89097689b43b8bf"
+  },
+  "azure/databases/azure-sql-vm": {
+   "256x256": "38c47cbc92a3f0daa6805859b3ae841f216172f6f4bd7d9962cd27c7141db917"
+  },
+  "azure/databases/azure-synapse-analytics": {
+   "256x256": "718cbab61472dcd89081e958caa8d00ba5b26aae02b2c3b155397cdcb6235108"
+  },
+  "azure/databases/cache-redis": {
+   "256x256": "ab82caf85b1f75478db4896b537ef595fbd9a03f57543ac1526efbe093c767d6"
+  },
+  "azure/databases/data-factories": {
+   "256x256": "26bcaddc748cf39e43347192bbd18d500a2a58b80ee0633a7177447edc385455"
+  },
+  "azure/databases/elastic-job-agents": {
+   "256x256": "8c2c71d0ff0391e02189d8be903af139a6a29db8ea0cc81a07227ade92a35501"
+  },
+  "azure/databases/instance-pools": {
+   "256x256": "5a668848aacadbf7d40196e6d2efe7d2ad3a78bd312d70120906475bee5ae20a"
+  },
+  "azure/databases/managed-database": {
+   "256x256": "1e75aec2536efc1cab77b407fdb20deab795034dc6957afa9e39293f1e9f4120"
+  },
+  "azure/databases/oracle-database": {
+   "256x256": "642e52aadeb63ed5978b6543a9899586f4914e00b1f7726958bbc9760e090d0c"
+  },
+  "azure/databases/sql-data-warehouses": {
+   "256x256": "a381e6640f045866d7e351788d82ea4464b530b88d1b3c1bf89097689b43b8bf"
+  },
+  "azure/databases/sql-database": {
+   "256x256": "a68207af2fc47bc5348a8f512007a1eddc2fa59d291b58469296c687edf8f207"
+  },
+  "azure/databases/sql-elastic-pools": {
+   "256x256": "3eebd7fd6bffd609b04b225b83f4d203c015f795e2798e639d1cb05eea5c1ca2"
+  },
+  "azure/databases/sql-managed-instance": {
+   "256x256": "9222d1c9ee8ae0b8f26676e912cee75024bf006503c620960bb38a855e5b55e8"
+  },
+  "azure/databases/sql-server": {
+   "256x256": "4e118827e56d97a68949205a13a0877e9eddbee8056db47892a43fba373ecc8a"
+  },
+  "azure/databases/sql-server-registries": {
+   "256x256": "9d46962e9016f91c2ed018c91d30d749a137de4bc5b8d0d28af803f171dbd79a"
+  },
+  "azure/databases/ssis-lift-and-shift-ir": {
+   "256x256": "62d13c35ba950269344100cab4a2990adbf537a7e6dee173fa8ec82a082d67d3"
+  },
+  "azure/databases/virtual-clusters": {
+   "256x256": "299c32628d8ebdcf49be523fad34b38e61b597971c932d20ccaace1deb157f63"
+  },
+  "azure/devops/api-connections": {
+   "256x256": "a922cd6b1ef7fff2b3c48d6489778e2f857d8b91a540b56f13516183ba47a433"
+  },
+  "azure/devops/api-management-services": {
+   "256x256": "4ccd103a8c2922bc35b01b1b9487af0bea83083e3757ebca841e8f725dc254c8"
+  },
+  "azure/devops/application-insights": {
+   "256x256": "8ebc5a182ee388b418a4f5b75540b0fc469d8c11bf1cb800b5e735a65c5fb075"
+  },
+  "azure/devops/artifacts": {
+   "256x256": "52131ea1e11852f8871604710c1bf5c05fe051e7fc34cab5b6a557a6b340926f"
+  },
+  "azure/devops/azure-devops": {
+   "256x256": "a315108af9ede32c1b5f95212d00202dcc9c750eca4946945245c369546daa29"
+  },
+  "azure/devops/boards": {
+   "256x256": "3b59e5307c07e2fa00bcb3186a5df070eb977222a2cccbbc7db83688110d1d11"
+  },
+  "azure/devops/change-analysis": {
+   "256x256": "c82f30cce2bad6d44c66af14ce2e6570ce03d69b2d94dd9e0708ef39b86eead8"
+  },
+  "azure/devops/cloudtest": {
+   "256x256": "9c5c14d930c894de1ca2b9527ac192edb1ea6a9c9c792d50bc0d5209e3a683c7"
+  },
+  "azure/devops/code-optimization": {
+   "256x256": "a9ed05c6fdf77882485f2c26e8e626484e9f6db685a5456cdb78570513ab3c80"
+  },
+  "azure/devops/devops": {
+   "256x256": "28c34d3fec532ecb4e8399c512cabab8f04180d39c13809b89ea6ecbd1eb85bf"
+  },
+  "azure/devops/devops-starter": {
+   "256x256": "0bc95d8640f5dfa0a0423997003bbcae0849a2558abfc42d652fcf7b38d9ade3"
+  },
+  "azure/devops/devtest-labs": {
+   "256x256": "9b511b5861aa1ae8fb3405047632f53c437409798baa0640fdb065f46eb46c3f"
+  },
+  "azure/devops/lab-accounts": {
+   "256x256": "a48e57f5b6df70796d9015db4cce29df5b1da99fa7a98955793cf77fa9c3446a"
+  },
+  "azure/devops/lab-services": {
+   "256x256": "e90c1318654a2c317a4da177d9be468973b12b52a685c49afc4b2168a10d28cc"
+  },
+  "azure/devops/load-testing": {
+   "256x256": "9e7ac8ba66e3df5b4975485e9cceba68a3ab2532727a218f5497d5dc0e04bae3"
+  },
+  "azure/devops/pipelines": {
+   "256x256": "2e5923bae6815ed3409d6103f183dea9529713fc9b9d091bf3cb0ac3e59fbf43"
+  },
+  "azure/devops/repos": {
+   "256x256": "e8596cc6ed867a710d47384ae6703eb87bbba2c7e02a30f7817f32fdc4bb9080"
+  },
+  "azure/devops/test-plans": {
+   "256x256": "aa8e2540ef7336eb6f4277da2f58a7ddc09769403a8cdad82ed7d51c6c161e74"
+  },
+  "azure/general/all-resources": {
+   "256x256": "754425ed863cb6cca18c37f366c8e13a15215b0c85566044c20b1b3cd3695d30"
+  },
+  "azure/general/allresources": {
+   "256x256": "b844ec182b8ea15a9cd11fce08ec6af62f35619d67f831ffed1ee43db0c8f9f6"
+  },
+  "azure/general/azurehome": {
+   "256x256": "2c65138de427cdc256f097abb79bc82b71c1a0bf958b712716d837d5176fc073"
+  },
+  "azure/general/backlog": {
+   "256x256": "f2026dbcb2b816837f885ad3bb67798c6143dc5aad1e4e90c026cea1a7cd58df"
+  },
+  "azure/general/biz-talk": {
+   "256x256": "38c0371c2f1123d11c9cb19c8edab70a95ced8415d993749b6a5f4550e15d183"
+  },
+  "azure/general/blob-block": {
+   "256x256": "ef63bc33348f0cd402ff8f6ce44c6fcde602bb2a6e9d5972e133612cca8aab3b"
+  },
+  "azure/general/blob-page": {
+   "256x256": "4ae23ad99906946aa8f329a75a2b5bacf850db1204200cdb3f1084bf6d01ea52"
+  },
+  "azure/general/branch": {
+   "256x256": "44ad0dba90aee0a94f0ac3db2c6f8685895dac83cdd5868c1c037667b693ec2a"
+  },
+  "azure/general/browser": {
+   "256x256": "61fdc7576159d36d9f7e5f8377fb141c5e13a611ad004b6e134917ec013b3f97"
+  },
+  "azure/general/bug": {
+   "256x256": "28ab7e656d44ee0343c8715372b38b6f855c6e5a7f2a129a1c6a284c8ac92e4b"
+  },
+  "azure/general/builds": {
+   "256x256": "08b78e50583ed5a9cc4ccf487c482213657eb76087d330fb92332f40fc5bd0e5"
+  },
+  "azure/general/cache": {
+   "256x256": "92d9adc9a4b6e4fee83a93a7f386917a19556551b828493908def53b9c7221e3"
+  },
+  "azure/general/code": {
+   "256x256": "5155f9a91d31bf43bcbf6824b7e41526343b55311b839a2d3986fb71ce608bc3"
+  },
+  "azure/general/commit": {
+   "256x256": "e8813c3b95409abed8ddf9f22a6f9083be2ffacc4c4f912ec96ac6ba67b08f03"
+  },
+  "azure/general/controls": {
+   "256x256": "28997fcc7b27faccab2ea0aeb505699ba5074a00c23c25b5c2046ac5e3a6d10d"
+  },
+  "azure/general/controls-horizontal": {
+   "256x256": "f68279f074da45c20ada9dc27aa530183bb18fd135c8d143bbfeeb2e4ef435a2"
+  },
+  "azure/general/cost-alerts": {
+   "256x256": "ee8fd85563eaac89860b1aed8b70604e4e02b72f05e5ec88c063706949956102"
+  },
+  "azure/general/cost-analysis": {
+   "256x256": "e10c06de296b66a9d916c8eb0a6af53ea456ea7d68f118e41be7d684f51873e7"
+  },
+  "azure/general/cost-budgets": {
+   "256x256": "17090945a8e16cf75cc0877cbb4fe5d015a8925402e618dcdbe896ad6ae11aa3"
+  },
+  "azure/general/cost-management": {
+   "256x256": "799901e88a373f4b0e5ebf8d63ce52c4429ff1649b2d11dbc412329b2d071736"
+  },
+  "azure/general/cost-management-and-billing": {
+   "256x256": "3577e0b13630189d14b133eb8b408121ac9f11ca41d2b1fe48464685664ae2df"
+  },
+  "azure/general/counter": {
+   "256x256": "930a9dd0bf8f85547f5bf16d677d725f580653c0a6a7d7e4db79f5b4c639b901"
+  },
+  "azure/general/cubes": {
+   "256x256": "39870aa2c4aa5a8f5363485b45bbf8e162d625644af24ec9d6f1b66f603755ae"
+  },
+  "azure/general/dashboard": {
+   "256x256": "bc2607dea011bc45eef7e3b2d654e903215c4ac8f334fba25940e3fb7db2c8e9"
+  },
+  "azure/general/dev-console": {
+   "256x256": "41b355a4a51f22bec3c7894e18e9ff4b5400c24b3b579d7150ead164609d67ea"
+  },
+  "azure/general/developertools": {
+   "256x275": "586860472ff332fb8cb428db327d20f8124913b4a8e90d94557b3e7a9e3e8f99"
+  },
+  "azure/general/download": {
+   "256x256": "39730d2504a09472d2bf38d0af5ffd3d8c9955a3e8202149f141730d4c08daa2"
+  },
+  "azure/general/error": {
+   "256x256": "1c7d3a9c5f7e2ce72636645c43cf5ab585e2ebb637c057635abfd6112540c4ef"
+  },
+  "azure/general/extensions": {
+   "256x256": "1262a1043a00ace4713317ae900dc15145360689315b8698588b90794aae0a63"
+  },
+  "azure/general/feature-previews": {
+   "256x256": "b3c21159b92856a75e087080123d550b61c22135d6790b4b21663f4ff56c41e4"
+  },
+  "azure/general/file": {
+   "256x256": "b9a930f11a1de673fd57da5a17c789249bece884d388954e03c1565137ac9f78"
+  },
+  "azure/general/files": {
+   "256x256": "59104d7266ad0877a0f632b65be9092a3c7073fb3d9d67c229113ec2335eb813"
+  },
+  "azure/general/folder-blank": {
+   "256x256": "1e6887debcb7321500426ce8dfa37ef23b5b7d6c6c09efab0b3ef75c86017289"
+  },
+  "azure/general/folder-website": {
+   "256x256": "03d12922246eb99f811086d15c7c206ba9c87e1a8431ee89bf014a26e66f5d62"
+  },
+  "azure/general/free-services": {
+   "256x256": "89849ffd0c5f5e35a3acd09075e74d620e6dd344656707361ccf9f57fcd819a3"
+  },
+  "azure/general/ftp": {
+   "256x256": "fa32aaf0db974838d3cb6a6de0b3555aab82fb1553d816b4c6db9c9516ba711b"
+  },
+  "azure/general/gear": {
+   "256x256": "40a799140871c815a73f48a41b4dd001c07129ab19d515ab69f3fbf367821e23"
+  },
+  "azure/general/globe-error": {
+   "256x256": "58eb0d8f5286825023d04eb827f8dba1564fde5a952cd90344df2211f5493b06"
+  },
+  "azure/general/globe-success": {
+   "256x256": "6c86e32ab66f38874382fec3b777760bb2160c0a83a36bcc5024a16d6b3d528c"
+  },
+  "azure/general/globe-warning": {
+   "256x256": "33cae1c3151edccd38ca0a4cbac218aca418c17dfd82924332b5f3adf060079b"
+  },
+  "azure/general/guide": {
+   "256x256": "1c4a0ce638d1754702db24fa2af542f67fcbb4dab01de43a8ab258717d69a72c"
+  },
+  "azure/general/heart": {
+   "256x256": "fd6fc1b1e131ced37291c719015348d20080a11dcc28ad154b6979addd17bce3"
+  },
+  "azure/general/help-and-support": {
+   "256x256": "498ea2ab7696fa5e45a6c57dbb8129e081e10ec4134f001732e8854a7fa66516"
+  },
+  "azure/general/helpsupport": {
+   "256x256": "7dce064eeb53543b85963996e2d0a661e67d539156999d8d897b513b9ce2ecc8"
+  },
+  "azure/general/image": {
+   "256x256": "a5205ca509e53eff5291b500d211d721f74d912cc98f2a282cd99ea34ef10cda"
+  },
+  "azure/general/information": {
+   "256x256": "5ec17d4d166384e6e07d714c3b5155bfbe70eb91edf357fec888c0bf9681e4c6"
+  },
+  "azure/general/input-output": {
+   "256x256": "2d7db9c8913b074084c98b57c46992b9acc7290639cc8e01d58ef64ebc96ea45"
+  },
+  "azure/general/journey-hub": {
+   "256x256": "bee669c5a041fd9fb6981f642face4d92885958b173797afd85107332d996d81"
+  },
+  "azure/general/launch-portal": {
+   "256x256": "d0430fe6969a8feb181bb17cab2ed89f9b8f541797d777bb04bed79a7db6b50b"
+  },
+  "azure/general/learn": {
+   "256x256": "510a44c73af4b1886ac0c8a861144c88136dbbf1880839605360eb6c2e9ed8c6"
+  },
+  "azure/general/load-test": {
+   "256x256": "d33115f82a8c7a3703111f20d409826fb493b17cb18737a3e1adb5da02333694"
+  },
+  "azure/general/location": {
+   "256x256": "5485dbfd1c86f70087b9b1753761d99e52ad9056b11e2b6accc7d0d41506e9a7"
+  },
+  "azure/general/log-streaming": {
+   "256x256": "e63e678d15df48cccf37eb8512583dc4166904583b17f45e776bc601be8efbc9"
+  },
+  "azure/general/management-groups": {
+   "256x256": "702e602d8a9e836828db30577f5d3bd4616364ea580c80246e1057f0175070ca"
+  },
+  "azure/general/management-portal": {
+   "256x256": "a2485287a3c30c5f774b84e39393535abeb87520a4bc089fd8e8bbf91a101a40"
+  },
+  "azure/general/managementgroups": {
+   "256x256": "47e25b5009209e8f9c510db97aa1025f4824173e1fce917bad5c4c8f707e31d2"
+  },
+  "azure/general/marketplace": {
+   "256x256": "bbf64c10697befa3059ccd122f582c6b01adbf3b9d68af84b5da6708affe445e"
+  },
+  "azure/general/marketplace-management": {
+   "256x256": "27857cbafec142251fdaa2dccc4be63e3a713f8d0de28352ec8f57c71aaa1018"
+  },
+  "azure/general/media": {
+   "256x256": "ece658dc8381e590a7a2d08c5e34c656a095b206c4aa2e8f625356fc7f418149"
+  },
+  "azure/general/media-file": {
+   "256x256": "291684839a008166f65546cf0823269016097607e079c467c915092dec4e63cd"
+  },
+  "azure/general/mobile": {
+   "256x256": "4af7be2d42de6021bf7456323ec1725211d8c2cac71a20cd08dbca94ef78d5cb"
+  },
+  "azure/general/mobile-engagement": {
+   "256x256": "a5b88f07c44b7bcf92b1b1b5b8eac94bf5d336c1539719160f6b7d37d644e8b6"
+  },
+  "azure/general/module": {
+   "256x256": "2be09df1781153754ad6ad353eebd7e3f2b072849fc8df14dcbd3c67c8959cd9"
+  },
+  "azure/general/power": {
+   "256x256": "46474009aae34a8bc1ab48aa650bbcc7c4bc50efb4810906944ef28a18580e1e"
+  },
+  "azure/general/power-up": {
+   "256x256": "2f083a8728e78c46edcd6dd5e1771616cbd13c32b744cf05004fcd6e41f3f3cd"
+  },
+  "azure/general/powershell": {
+   "256x256": "11dd67d5cf8b0fdb28fa998b976ecfc01e2be71d36dc6584bdfd515f4099a7be"
+  },
+  "azure/general/preview-features": {
+   "256x256": "edb76265a0072e4a8611412391353d668ba3abf1cdc564ac9cc6c89a1bdef6c7"
+  },
+  "azure/general/process-explorer": {
+   "256x256": "ea058e38b4b5a9b3a4df43a05fe00044a0f75407c178360a65ddf11b847f0f00"
+  },
+  "azure/general/production-ready-database": {
+   "256x256": "b613018d65336848813bfc03fd6a9e7ef8e7f4f7774f4f6c3fc40446b315c9d9"
+  },
+  "azure/general/quickstart-center": {
+   "256x256": "6894760b0d3dd0e75988991d57811d1aafda19108387fbbef52eee3690fbc321"
+  },
+  "azure/general/quickstartcenter": {
+   "256x256": "d2d169f3c483d148ee081cdb35e7a799dd8f899c485b5d333ddf37dbea10ac11"
+  },
+  "azure/general/recent": {
+   "256x256": "1fdb3396709c9589ff3b7eb218f2f15e9ba9b135333670f88a972131faba937f"
+  },
+  "azure/general/region-management": {
+   "256x256": "cfa66f3383e24dcd7fc200287e3a155ababeb14b678b4fc5c16fc7e33ffda4f2"
+  },
+  "azure/general/reservations": {
+   "256x256": "7353299e1eac3eeef156a2a2ac30aa82c91d906a2175ef6b080af1f32a9e801d"
+  },
+  "azure/general/resource": {
+   "256x256": "cfbfc7545549c44872b52503200a20fefd637a0061e017033de68379bade4aa2"
+  },
+  "azure/general/resource-explorer": {
+   "256x256": "939e856502f0da282497ab4c9b7574aad4e53a4788f4037cf5a54a6d2c28c410"
+  },
+  "azure/general/resource-group-list": {
+   "256x256": "8180a163706b8032b6d719c4c0099c341a7a2c24fbc2de6550f37af0ffc43d2c"
+  },
+  "azure/general/resource-groups": {
+   "256x256": "10fd0beaf0fdc3ec87e0d1e38cba1b387e64f9151bbc0a78dad652c347322bd2"
+  },
+  "azure/general/resource-linked": {
+   "256x256": "b890d4a149acd97c3c77cf63b317ba25ed43dc006e543b36e3f401be946e6231"
+  },
+  "azure/general/resourcegroups": {
+   "256x256": "905662b0a8e61a2a2bfb670b5acf29851ca8a6014356e0a0887a5b68cdeb1997"
+  },
+  "azure/general/scheduler": {
+   "256x256": "8f60b3f4e7358d7eca2493043c6297a2b64c8235b910c812ddfc443612793433"
+  },
+  "azure/general/search": {
+   "256x256": "4da7646f6c310137ef0fcb537de620e0c5f46a2ac75a28edca4c121fff46da8e"
+  },
+  "azure/general/search-grid": {
+   "256x256": "8180a163706b8032b6d719c4c0099c341a7a2c24fbc2de6550f37af0ffc43d2c"
+  },
+  "azure/general/server-farm": {
+   "256x256": "2f80ca2842d48ad08ef34a9ded1181c257a75c016e3904a2206bedad8650c61c"
+  },
+  "azure/general/service-health": {
+   "256x256": "bd0d1aa6f3565117d14de7e8e2445cb566dc4f7ae648850927c8e64e3ae2294c"
+  },
+  "azure/general/servicehealth": {
+   "256x256": "075dec27d8d0174e6f6884c4cdedbbf6e130de438d0a306f11411cea5aa6782b"
+  },
+  "azure/general/shareddashboard": {
+   "256x209": "e01af614eb3cdc7f07a4f455651b507e095bceb673f1badff6394bfd69ca760a"
+  },
+  "azure/general/ssd": {
+   "256x256": "bc04704c83a49e70f3179c558a08af0e2380ab5a45b2522b2ad1b1fea35b934c"
+  },
+  "azure/general/storage-azure-files": {
+   "256x256": "caeffa81cbda85c6afb6cbecb1d107279410f2add2eacbdd54fd039c78aa279c"
+  },
+  "azure/general/storage-container": {
+   "256x256": "f43de6b61c9483342cbfa255b8b83ad49cd25863c783ecafb441d9e8b3ec7819"
+  },
+  "azure/general/storage-queue": {
+   "256x256": "5be5d753ff680ee6df2a5913693358d552a6f60c969f5d1179cd1855598213f3"
+  },
+  "azure/general/subscriptions": {
+   "256x256": "64af3e6d8496cdedf4287a206eb69b01b422bcde708340f1301a09bc4bf75633"
+  },
+  "azure/general/support": {
+   "256x256": "de58dfec3e5597abbc8a172069f0b6237626c74fab092e33a61112e79e96e223"
+  },
+  "azure/general/supportrequests": {
+   "256x256": "261c1308b1972e08fba8310ad7321a710d635abbab2b2d5ea4ca39ce36c6c3c5"
+  },
+  "azure/general/table": {
+   "256x256": "a100144125cab733533c8e36944d1ce420f09bd748cc3eff23f4491530c67c25"
+  },
+  "azure/general/tag": {
+   "256x256": "34003aa704a243b04cf64203e0f014c944fdf576e95c8e8f9fd1c8f4fd0f7ad8"
+  },
+  "azure/general/tags": {
+   "256x256": "245e8c5eedc07c38e084afd93ade225a6f1233fb8f31a01d577c29c12bfb60c6"
+  },
+  "azure/general/templates": {
+   "256x256": "70d448dc19ca58779d7ee2c5bea063dd749372928b2546c1d9784a1ffa2dbe76"
+  },
+  "azure/general/tfs-vc-repository": {
+   "256x256": "044946af5c894a3534485eab136b8692d465936b12d99c9db0b1c891d177eb8f"
+  },
+  "azure/general/toolbox": {
+   "256x256": "67bd3c32bda5a14c9ad4aec3df4baa4fbec0451a3a3fc4a0f7a276feaa2cb996"
+  },
+  "azure/general/troubleshoot": {
+   "256x256": "795843f542813c2b18ab6c232a54ec5b25d7518867f97ccc94f88cd0edebb988"
+  },
+  "azure/general/twousericon": {
+   "256x258": "679be5d7f1f85f1f8d7730d8f4450e030f0f29930d1ba9a1f925cf797165fb74"
+  },
+  "azure/general/userhealthicon": {
+   "256x256": "e004b42f5f6dafa2e922d3abd977612af31a79d4475b07c6ad1e6f11e0c36c39"
+  },
+  "azure/general/usericon": {
+   "256x256": "70e64c9489bae5236f5d19d0b4ef0ea79a964f256eaa693802e04029c7fa0d6e"
+  },
+  "azure/general/userprivacy": {
+   "256x256": "e9f1e4f2d222c362f12e6cf1461f1c4349c0e7a6ed144d60bf39bd1bedb8b2e3"
+  },
+  "azure/general/userresource": {
+   "256x256": "9434729b4c2486223aaec28cf7e2903c830c5eed735b01d8c75258b53e2ccd34"
+  },
+  "azure/general/versions": {
+   "256x256": "e1bf2b01fc39cef7fb66319ec5d5c564a4f5667bb3089fe27dac44e9d7e7ab35"
+  },
+  "azure/general/web-slots": {
+   "256x256": "6fda1f735bfbef89786308c48ee72dba0ccad4e487227ef3f42ec3cdded72501"
+  },
+  "azure/general/web-test": {
+   "256x256": "6ba085359354e81c904060374cf90f37f375c414a6a558a6dd5efb7f5bace222"
+  },
+  "azure/general/website-power": {
+   "256x256": "a01687992511a88d6dc6bc71dac438ecdf952cb074be20ca9dde34f43031f57b"
+  },
+  "azure/general/website-staging": {
+   "256x256": "ff932f056ca0c28465d7f6f7f44b59af3adf6e1e9feecc4c4b4e9c34aab01122"
+  },
+  "azure/general/whatsnew": {
+   "256x256": "c9e4b7e32eef3e50f8672f2aded29254c1a6d4baea98380e9c6c3d89461fb1fc"
+  },
+  "azure/general/workbooks": {
+   "256x256": "fb4d3f60c95fb4ae046fc92e46a04344ce05ea497e8cf32e4e19b8e9f89488f9"
+  },
+  "azure/general/workflow": {
+   "256x256": "deb90b8149679a11b411f39d52520303ca55961e449606b139dc6176ed8286dc"
+  },
+  "azure/hybridmulticloud/azure-operator-5g-core": {
+   "256x256": "0b643a68099d09b8f7e64073dd83a53677a2b178a23485eeb16e965995e565f3"
+  },
+  "azure/hybridmulticloud/azure-operator-insights": {
+   "256x256": "64ab7a1d7e59e8ec3f5b403a94b4d6f923aaed2fd60f4e668288414173c2fa4d"
+  },
+  "azure/hybridmulticloud/azure-operator-nexus": {
+   "256x256": "282e9911b4939bd2391fbe77e8ae0b67d4348b3f8dd195418e0a22636ab9a100"
+  },
+  "azure/hybridmulticloud/azure-operator-service-manager": {
+   "256x256": "85c83f580ea5c0792992504a47f662eba8a13ea929423cffc9def14fd673545a"
+  },
+  "azure/hybridmulticloud/azure-programmable-connectivity": {
+   "256x256": "e8eb9252a6b37ca07dea8bd0ada6509f35ec51f869035a094043180b683c8c14"
+  },
+  "azure/identity/aad-licenses": {
+   "256x256": "ac057cde42a9e7794925fd2182cd7abdae304eebf7540eb6031288d363aed28e"
+  },
+  "azure/identity/access-review": {
+   "256x256": "eba7760c371207f618f74b596290c9f4bc497cbbb8cdf2d2081e348c6675c714"
+  },
+  "azure/identity/active-directory": {
+   "256x256": "a8b60589d384de595cfa2ec7797991e0a4ed8003039c8fc1d1f83ac3a536fc57"
+  },
+  "azure/identity/active-directory-connect-health": {
+   "256x256": "d14f241de6467060de4c4dc7c2eff81000076db926e8952a2c4798cbf422325d"
+  },
+  "azure/identity/ad-b2c": {
+   "256x256": "55462e7a2b1c0f71b8c1d1e5d24b2b2a7b20b1435b386e58630c4c685b510e45"
+  },
+  "azure/identity/ad-domain-services": {
+   "256x256": "67eb691b0a0ef4bf69f34309fe7cb4589be943fc7e5f31d07ba80f2fb894184d"
+  },
+  "azure/identity/ad-identity-protection": {
+   "256x256": "648e07533c540393950f3317815dd43fa85b3b1a5c1b516de598a9d0a01cba00"
+  },
+  "azure/identity/ad-privileged-identity-management": {
+   "256x256": "b5a560e04b7227a1eb578085ed1063ed625f16c2bffa30db9840af88fb11e136"
+  },
+  "azure/identity/administrative-units": {
+   "256x256": "5964b2df0158b08278526a58b4f187cd596554f53f7ab1e51f9dc8cbe4cf9fe3"
+  },
+  "azure/identity/api-proxy": {
+   "256x256": "ec35f1dbb57e34147819e5dc1d7b03a52870f2b3bec90937480eca7dd0d82721"
+  },
+  "azure/identity/app-registrations": {
+   "256x256": "4250bf9bf4ab58e694799b8a6eaf6660d748749fe7667231fb81e10145563c64"
+  },
+  "azure/identity/azure-active-directory": {
+   "256x256": "03c7829eb750e3249811fd7de3bf325f9f7f2c3bae3eb39b14e7f87e4be246a5"
+  },
+  "azure/identity/azure-ad-b2c": {
+   "256x256": "58cb95a63e143baa61287d7f38386a65b67edd15f7167ee8a15c937f014791ad"
+  },
+  "azure/identity/azure-ad-domain-services": {
+   "256x256": "749c7aaf1c24392517bcdd3ad3a1c78b2ea840e0a2d2ed97f99f9c6b717e11b3"
+  },
+  "azure/identity/azure-ad-identity-protection": {
+   "256x256": "9f8fa4004850a5465a59e821bc9fa52aff7a614a2a5ca275ab0c8930614cf278"
+  },
+  "azure/identity/azure-ad-privilege-identity-management": {
+   "256x256": "bed5b73e36de3d9534a3d3b5355f7cc2495320c85bad11edb4ec1f09622afdbd"
+  },
+  "azure/identity/azure-ad-privleged-identity-management": {
+   "256x256": "b2fb189626cddda46dd9e05e0f8182775063565cb8f4bf9b1e6672794438d2e0"
+  },
+  "azure/identity/azure-ad-roles-and-administrators": {
+   "256x256": "3e45e9c4e0514bf2431d1c6622ee10ef3ac4651b75ec22eb6dd3f3bb36ef22b9"
+  },
+  "azure/identity/azure-information-protection": {
+   "256x256": "996500ba73984e32fe9c5e919e7f249d543c65192f278a620c983a0487ea98d8"
+  },
+  "azure/identity/conditional-access": {
+   "256x256": "7e603697a7323550f034656f79329a7db6fbd3571bbb7e49c05dd23b06e4fb8c"
+  },
+  "azure/identity/custom-azure-ad-roles": {
+   "256x256": "f738383dbf1404b3eb5367f6de3487587b0b51e299a143d2a5a9acb823251be9"
+  },
+  "azure/identity/enterprise-applications": {
+   "256x256": "daa36357071967d3443af0b3235ac141eb02582a2e409547eaae02ceea42f9eb"
+  },
+  "azure/identity/entra-connect": {
+   "256x256": "3687022e760941a3261f8b0b19a505d8b921cceb68c9c1692aa1f48b4587a7c6"
+  },
+  "azure/identity/entra-domain-services": {
+   "256x256": "ff024ad65d2c2547e6e846fc1a8c62b5186335c47a9908aff95acff9170944b8"
+  },
+  "azure/identity/entra-id-protection": {
+   "256x256": "2c8fa793b4541bb17f543ff4e94bfe9748b6b0fa2ea52671e8e7e0b8aeeafaee"
+  },
+  "azure/identity/entra-managed-identities": {
+   "256x256": "62c78170bf765284c0cfa4ee8cfaf22ee5ad53d473778b39b71493f428aa7ae6"
+  },
+  "azure/identity/entra-privleged-identity-management": {
+   "256x256": "e418a6131e0bd95cde59c508e45d5b5b1292825ce24390f10dbd040f862c6834"
+  },
+  "azure/identity/entra-verified-id": {
+   "256x256": "2d434fa13db393a04a2bbc2e2e5765ff0b9b12ecbb8e35b27450f513a507a5cd"
+  },
+  "azure/identity/external-identities": {
+   "256x256": "aeb4ef97687a4300a140a3b7fb3b12e183b1bf50aea601b0c8a75d661a62d661"
+  },
+  "azure/identity/global-secure-access": {
+   "256x256": "806e3017410f781db383900c195d9e36c1e7e14fec8a8066e230669e5d95420d"
+  },
+  "azure/identity/groups": {
+   "256x256": "b29e4871443c7fb179fa8b8a14d0e6e1fbd4133927ddaf3a83e31ab7b3db5526"
+  },
+  "azure/identity/identity-governance": {
+   "256x256": "29551dffd62c209f45e081dfd7497a7c049ee12474c81ae6a9ac9d0b8e46deec"
+  },
+  "azure/identity/information-protection": {
+   "256x256": "24efc36df3a6cb29d168ef802451018bafd6dbd4b8e8fb6e43ff6a86d844630e"
+  },
+  "azure/identity/internet-access": {
+   "256x256": "1fe6a1fc6493898caa09e1d87c1b46e6fd3a7d7ce94b85ff931f36927acb8e2b"
+  },
+  "azure/identity/managed-identities": {
+   "256x256": "835a718c492fafd1ba28dbe1490b767f3aac4dbbc388d35b03cdb76a6781372d"
+  },
+  "azure/identity/private-access": {
+   "256x256": "c31b90ce0b3295ca820a28fed1fa5da5f828d5d25ddbe9f94547cbed08f2ee5e"
+  },
+  "azure/identity/security": {
+   "256x256": "e21d9b81267541e1ee6af43f9443afb80b526c5f17d24b2c188af560569c9660"
+  },
+  "azure/identity/tenant-properties": {
+   "256x256": "bc9718bdbb2bcf56136734314cbb81dead46b3b0a3ba30f000a3bf8cabc2b92c"
+  },
+  "azure/identity/user-settings": {
+   "256x256": "d7725151a950902ea7b539f6167479e7e9eaf844173ca635108a02bfbdb6c110"
+  },
+  "azure/identity/users": {
+   "256x256": "8a48720fdbf0c43256c722308e684583f8e49be15480365022d93f529d4bda43"
+  },
+  "azure/identity/verifiable-credentials": {
+   "256x256": "a4225d9cee931f163194da4008d3b3f06d274c0c19420e618e93fdaa2c766af5"
+  },
+  "azure/integration/api-connections": {
+   "256x256": "a922cd6b1ef7fff2b3c48d6489778e2f857d8b91a540b56f13516183ba47a433"
+  },
+  "azure/integration/api-for-fhir": {
+   "256x256": "c3e53b0385b57a247aa3cd0c8c444dbc344085e79117835b64d0038fbd253aef"
+  },
+  "azure/integration/api-management": {
+   "256x256": "3f3ceb9c9e736f350a0e3470e181fedab7662ae31fc14d51f6e348da49c1b702"
+  },
+  "azure/integration/api-management-services": {
+   "256x256": "4ccd103a8c2922bc35b01b1b9487af0bea83083e3757ebca841e8f725dc254c8"
+  },
+  "azure/integration/app-configuration": {
+   "256x256": "0604dddc7513c498f5a96d3d78cb74c31d89f11fcf0e443dc8f737af0ea7951c"
+  },
+  "azure/integration/azure-api-for-fhir": {
+   "256x256": "426c49c9038d33a678ad0421775604a5a3fdb540850b51fc6337a721a4a2e440"
+  },
+  "azure/integration/azure-data-catalog": {
+   "256x256": "58a9be78ac92b82d90b4f8784fc53c43d01052aaa5daae303d3c43a380420ced"
+  },
+  "azure/integration/azure-databox-gateway": {
+   "256x256": "a9223e6221571750258a71f030534a3ce67b8c5cf2b481997d6f285017217e4b"
+  },
+  "azure/integration/azure-service-bus": {
+   "256x256": "1334bbe844be0b5a0022267b8959038cb7521762ea49203caee2307aaac9ad68"
+  },
+  "azure/integration/azure-sql-server-stretch-databases": {
+   "256x256": "a381e6640f045866d7e351788d82ea4464b530b88d1b3c1bf89097689b43b8bf"
+  },
+  "azure/integration/azure-stack-edge": {
+   "256x256": "9a2e8a2c0db332636d4518d387db7c90f08fccf935184cfacbcc39eb980d090a"
+  },
+  "azure/integration/data-catalog": {
+   "256x256": "fe7a690ab22061796c719d19f73bad7d38b9e6f7ba6248e50d2f1d34a3db5d65"
+  },
+  "azure/integration/data-factories": {
+   "256x256": "26bcaddc748cf39e43347192bbd18d500a2a58b80ee0633a7177447edc385455"
+  },
+  "azure/integration/event-grid-domains": {
+   "256x256": "3d21b200b732274ac0b6ec89a2d408c8888d82cfe81b7e0a1045274fbb8994ef"
+  },
+  "azure/integration/event-grid-subscriptions": {
+   "256x256": "3d21b200b732274ac0b6ec89a2d408c8888d82cfe81b7e0a1045274fbb8994ef"
+  },
+  "azure/integration/event-grid-topics": {
+   "256x256": "d2ba151bc1081cc2bb362a5837624a3a740e33b9de4236cecf566be76f989466"
+  },
+  "azure/integration/integration-accounts": {
+   "256x256": "9032a9eee54cf06fec2067db98c0d64c417cb0acc6ccde8e1e4bcc46d7655396"
+  },
+  "azure/integration/integration-environments": {
+   "256x256": "70c14f7cf9085568f6c0296947b8192d57b1aaed8e65272b5af497349337ddb3"
+  },
+  "azure/integration/integration-service-environments": {
+   "256x256": "386cde9d85225bb3c60a2f892ab978520edc216b2540344fb066c821b409d255"
+  },
+  "azure/integration/logic-apps": {
+   "256x256": "0c01a994eda07d9b2d9af519b1a53cdb52c356474758fb43bcc9a43de7183057"
+  },
+  "azure/integration/logic-apps-custom-connector": {
+   "256x256": "1c01e12f7d29d7b141be93c2dbf12c53b0ecd30dc101144e6c9dbc598ed2f654"
+  },
+  "azure/integration/partner-namespace": {
+   "256x256": "526d2198b0b82757b15adc50287dd3baddae9b76eb2d689f1c4d54483c15527c"
+  },
+  "azure/integration/partner-registration": {
+   "256x256": "ba5aa0052ad93b49d142434f117341696a49b465be30f601717d6f608ea699a7"
+  },
+  "azure/integration/partner-topic": {
+   "256x256": "4eeb316344852ecbf29506a66262a8665786d11111a6eb0dea9c245147dd0693"
+  },
+  "azure/integration/power-platform": {
+   "256x256": "fc4ea03559f6c2f6e8027969e48086c0afb0c30fcc8e5028555decfca318fe3a"
+  },
+  "azure/integration/relays": {
+   "256x256": "75c03ee0449943939014dbc4f32666c0906b64a648cf435733d6af5a26d30dec"
+  },
+  "azure/integration/sendgrid-accounts": {
+   "256x256": "0edebd6abc597f7fd0b87b0ce9cbf2fd34491f21bb18063c4307007234dd886a"
+  },
+  "azure/integration/service-bus": {
+   "256x256": "91c2d9e295aa0b4d95cb572a030611568b5ff37164993e2f55a6d14d275ee0f2"
+  },
+  "azure/integration/service-bus-relays": {
+   "256x256": "dbd0d46c5bacc959cc544f09bab053c7585380de7cc4e183c7bd2cddebf72327"
+  },
+  "azure/integration/service-catalog-managed-application-definitions": {
+   "256x256": "2756c17214365a1a78baf653b13dcb8d87db7a369ee1c5d2c0eb547bfe942203"
+  },
+  "azure/integration/software-as-a-service": {
+   "256x256": "e46d8841cfd9dc3d7ef2458518ff665acc69d0dad90fae112be5ac634622603c"
+  },
+  "azure/integration/sql-data-warehouses": {
+   "256x256": "a381e6640f045866d7e351788d82ea4464b530b88d1b3c1bf89097689b43b8bf"
+  },
+  "azure/integration/storsimple-device-managers": {
+   "256x256": "e313a2c3b225ddf2245f6838b4caced2ac5712d78ea3f2340a19386d11b089fa"
+  },
+  "azure/integration/system-topic": {
+   "256x256": "fe3fd6930fdb4b657d6264aafdc4f17e9617295214fd658b1b27ebfa92923ed9"
+  },
+  "azure/intune/azure-ad-roles-and-administrators": {
+   "256x256": "3e45e9c4e0514bf2431d1c6622ee10ef3ac4651b75ec22eb6dd3f3bb36ef22b9"
+  },
+  "azure/intune/client-apps": {
+   "256x256": "5781b4060e9a3d403ac487deecbbf30cba459e0f73bb45b520d35f7de4125bb4"
+  },
+  "azure/intune/device-compliance": {
+   "256x256": "543513533d432d4366d48a188011d2e89f5caad8c0827b9c36802ad1b0853848"
+  },
+  "azure/intune/device-configuration": {
+   "256x256": "e0738a9880476eb3a0e1d4514825163bd6db8fcd15ae270717729f025273c6ff"
+  },
+  "azure/intune/device-enrollment": {
+   "256x256": "77b5ddfff0207a249a35e2d5e404a71fa88515f944a833b32b689b67c0ebf286"
+  },
+  "azure/intune/device-security-apple": {
+   "256x256": "caa3a4cf591e9f5d78f079ed7629bddcafb3f9a56826f781c51a6e98f6421ebe"
+  },
+  "azure/intune/device-security-google": {
+   "256x256": "b7508fee4f43d2ee748635b086a74b060f63fac0b9198d5e45caae6aa8d63f7d"
+  },
+  "azure/intune/device-security-windows": {
+   "256x256": "999f5bc32a320086615234a78506092237822fea12dbd957438c9d14adb2e4ad"
+  },
+  "azure/intune/devices": {
+   "256x256": "5abf2fef75faadabb66ff4a2457d91353c11c0c7b485cc325b5d3949fa6728bd"
+  },
+  "azure/intune/ebooks": {
+   "256x256": "a6c2f9ded45895c8986e23008ffe6dfcaad68ab128b2f1301e88266320e38e6d"
+  },
+  "azure/intune/exchange-access": {
+   "256x256": "521f1ad32b77dee3ac358c558fc9340bf94c553ae5c70ad010477f3deaeffe72"
+  },
+  "azure/intune/intune": {
+   "256x256": "95b33ab965d2feb437dc80962af8c21a173855a9bf805ca44c70afbf7aefb728"
+  },
+  "azure/intune/intune-app-protection": {
+   "256x256": "95b33ab965d2feb437dc80962af8c21a173855a9bf805ca44c70afbf7aefb728"
+  },
+  "azure/intune/intune-for-education": {
+   "256x256": "95b33ab965d2feb437dc80962af8c21a173855a9bf805ca44c70afbf7aefb728"
+  },
+  "azure/intune/mindaro": {
+   "256x256": "9fff900e36309e48562ad8c4b94aee98059ebfd35622d737420993e1e7205f70"
+  },
+  "azure/intune/security-baselines": {
+   "256x256": "08d8ca6c996b3dccad1af28f88e1c3e964f514dea4f4f5a344607148b00b59ac"
+  },
+  "azure/intune/software-updates": {
+   "256x256": "4979e54c76daa0001a88bfa0548b6ede1135ffdbd0fb03718cf82a530e67cad2"
+  },
+  "azure/intune/tenant-status": {
+   "256x256": "c26353292f48bfcf9bb34de9c22cbef61ead45a7c6e65354379002330aea59c3"
+  },
+  "azure/iot/azure-cosmos-db": {
+   "256x256": "e30e81e8f323d387aad1e9b3da2c053b31746717fa597d9a5875e498a62bd4ef"
+  },
+  "azure/iot/azure-databox-gateway": {
+   "256x256": "a9223e6221571750258a71f030534a3ce67b8c5cf2b481997d6f285017217e4b"
+  },
+  "azure/iot/azure-iot-operations": {
+   "256x256": "50a097dd088af95d25cabbe063c1fc06e0103110d1a625c9e853c3a4059c3c8e"
+  },
+  "azure/iot/azure-maps-accounts": {
+   "256x256": "cb9e6debf21f8201724ecb48ae0d851adf00e422eaf97a145c568d69ee297d1f"
+  },
+  "azure/iot/azure-stack": {
+   "256x256": "aa7e4da684212727d41c6b5ac159ac411d98d9fd67e1ca2d417b8d808d096204"
+  },
+  "azure/iot/device-provisioning-services": {
+   "256x256": "21fc9a56d739c94a07845f84dc870c2cac37c63151013629b42f313c8df8ca30"
+  },
+  "azure/iot/digital-twins": {
+   "256x256": "a57a935bbbbdaf151d74157255aefb6a7f309ca808e8f2cdfe5c610527ab57bd"
+  },
+  "azure/iot/event-grid-subscriptions": {
+   "256x256": "3d21b200b732274ac0b6ec89a2d408c8888d82cfe81b7e0a1045274fbb8994ef"
+  },
+  "azure/iot/event-hub-clusters": {
+   "256x256": "7399b68c795f72e4005c2b375eeab791766ecd86972973217721f252464200f0"
+  },
+  "azure/iot/event-hubs": {
+   "256x256": "77c9c82fc9749efb05009b9eb31d20e3882946bae7c06afed783f2576d36dad8"
+  },
+  "azure/iot/function-apps": {
+   "256x256": "2bb03af56a57e85b3562bb855bcbd5c88f261e46c5b33168cafed4d862395130"
+  },
+  "azure/iot/industrial-iot": {
+   "256x256": "364924a2d9a36b3f4ba0d87703ef5fd24582a752a47fe151ff2789b8f6ec9d6f"
+  },
+  "azure/iot/iot-central-applications": {
+   "256x256": "e2ad849ff9c48e6b92212f99784028b7a2e22eaabe7465adde2b4d033d30ecb1"
+  },
+  "azure/iot/iot-edge": {
+   "256x256": "657514da0ebbcbbca63cfe50d98f29aa3323d0ef3a51ca16dd12db24cffb5c45"
+  },
+  "azure/iot/iot-hub": {
+   "256x256": "b02ba0d60421f3d481f24b3a96f315a88fddeba57ac381b089d5351d348ed29f"
+  },
+  "azure/iot/iot-hub-security": {
+   "256x256": "765102a77f2191fc8494d76599557b59d5884b2a63a438c15a9bfa8a1df077a5"
+  },
+  "azure/iot/logic-apps": {
+   "256x256": "0c01a994eda07d9b2d9af519b1a53cdb52c356474758fb43bcc9a43de7183057"
+  },
+  "azure/iot/machine-learning-studio-classic-web-services": {
+   "256x256": "2434c6ddde82344d3201b3bc102662fd6ebd4fc61be6d01ca70abdab01c77fc0"
+  },
+  "azure/iot/machine-learning-studio-web-service-plans": {
+   "256x256": "053babcdb1aa3880e049ff76685c691ceff45ac5035754d202b34329de92fee6"
+  },
+  "azure/iot/machine-learning-studio-workspaces": {
+   "256x256": "8c7983fa83cadd25102466e8fb8f1576b884f0732c4124d4330f6470ea44af8b"
+  },
+  "azure/iot/maps": {
+   "256x256": "8a0b911eb2c27f1c6ebbec45874bd202c5df94b8ceb5fa58f3477ba1cecff4fc"
+  },
+  "azure/iot/notification-hub-namespaces": {
+   "256x256": "06e37d68de7948da488ece92eee9d64e81443645fdb2732ca01f7487ba48b235"
+  },
+  "azure/iot/notification-hubs": {
+   "256x256": "06e37d68de7948da488ece92eee9d64e81443645fdb2732ca01f7487ba48b235"
+  },
+  "azure/iot/sphere": {
+   "256x256": "f49eb53b93fb5a10b4db80537a2423afbbaa2e18122ff1b4f4b5e2386ee9dc6f"
+  },
+  "azure/iot/stack-hci-premium": {
+   "256x256": "07338dd94c4a8d2c4f99e70de4142cf19f40a692b454815984b3a01877e416e5"
+  },
+  "azure/iot/stream-analytics-jobs": {
+   "256x256": "86b4303a541a9fdbda2a1d02095503679f357e5230669eccf7bf0cc9c4ddfee4"
+  },
+  "azure/iot/time-series-data-sets": {
+   "256x256": "0d377540747dde2fe9b9462647bb34206de88223daab8ef6b2a23c693b8df9e0"
+  },
+  "azure/iot/time-series-insights-access-policies": {
+   "256x256": "2d0f9adeeac2f2dadfe78f2576db40fac2eb1637e514fb62df259983f935d308"
+  },
+  "azure/iot/time-series-insights-environments": {
+   "256x256": "c19c4110fca876293696001822ee46317bd518ccb36d43feadd28ce83f2783b1"
+  },
+  "azure/iot/time-series-insights-event-sources": {
+   "256x256": "124be27d8ff2831e7aa7ffb39391d7ec739b78bc935dac97447758487a6a6dec"
+  },
+  "azure/iot/time-series-insights-events-sources": {
+   "256x256": "2208c39ec40fe0de9a225e4439301771015dda06ce456f24bbbd5f136206d336"
+  },
+  "azure/iot/windows-10-iot-core-services": {
+   "256x256": "950dea9b354c09f3db4ad40f9ff8650926ba2af7e6a802a37b47c01c7006b24a"
+  },
+  "azure/iot/windows10-core-services": {
+   "256x256": "65518079d4b4f0fa6be5d2b4066bb232c5b0ec606e024438eca1283547336d4b"
+  },
+  "azure/managementgovernance/activity-log": {
+   "256x256": "f540a439d4fa9955880ef14bdeee98522262038db1714fcd67a30ada0e33fb8a"
+  },
+  "azure/managementgovernance/advisor": {
+   "256x256": "db6265fe238d60110e949340f041a6802343d263e23e30fa643a7c106f5dac01"
+  },
+  "azure/managementgovernance/alerts": {
+   "256x256": "76ef05df5f2fe7ef3b4c5537117bd0e62a025e50221305cd1b25ffbd46a3e5f4"
+  },
+  "azure/managementgovernance/application-insights": {
+   "256x256": "8ebc5a182ee388b418a4f5b75540b0fc469d8c11bf1cb800b5e735a65c5fb075"
+  },
+  "azure/managementgovernance/arc-machines": {
+   "256x256": "14f6188b443706d00e1e87b104250352ac3019cf561ffa77afcfe4390bc496a9"
+  },
+  "azure/managementgovernance/automation-accounts": {
+   "256x256": "f1545500f9ca1c0eb305372603b1ff291c334f77aff649ecd1217e58018c7de9"
+  },
+  "azure/managementgovernance/azure-arc": {
+   "256x256": "f979ea736d0ccfaf369ec4fa379cd196d622f8b5d544c58f1f90eda70d9435f5"
+  },
+  "azure/managementgovernance/azure-lighthouse": {
+   "256x256": "511b80e5eb3b8a98bddda11fd7a862911b564ee9d7cfabc29538b1b359539434"
+  },
+  "azure/managementgovernance/blueprints": {
+   "256x256": "d277f05cc1e16a59504494bdf6109934a54342e4edd85532c7de2b54b21233b6"
+  },
+  "azure/managementgovernance/compliance": {
+   "256x256": "5bd070dbe7aa766ce58b8e1efe5d60805a58e5d8c96e17d7c57fa3444983ca5f"
+  },
+  "azure/managementgovernance/cost-management-and-billing": {
+   "256x256": "3577e0b13630189d14b133eb8b408121ac9f11ca41d2b1fe48464685664ae2df"
+  },
+  "azure/managementgovernance/customer-lockbox-for-microsoft-azure": {
+   "256x256": "70c48e1648d11932c910f4d12f934486606c57682a07e43fddb1ba691f62ed90"
+  },
+  "azure/managementgovernance/diagnostics-settings": {
+   "256x256": "3b4a228546a82bb75c3e72fc72df43784030bd79aeb3538c932139d4e3ac54e5"
+  },
+  "azure/managementgovernance/education": {
+   "256x256": "aebf4807fb2ad16b090b6624763235145eba6b6ca31e2cb7e5ba2f639de80aec"
+  },
+  "azure/managementgovernance/intune-trends": {
+   "256x256": "7cd557c17e3bf31ebfd5d23189f6aaa77a9f1a2ca1845ddcd2d46be940ea6280"
+  },
+  "azure/managementgovernance/log-analytics-workspaces": {
+   "256x256": "9c08f473f21f9aafd63385841c921c639832b1bda35c575b72bc3f34c6ea2205"
+  },
+  "azure/managementgovernance/machinesazurearc": {
+   "256x256": "e08c303a166c3a28bb15bb13db9b01627b708a025e6cf79947674290c6a3dcff"
+  },
+  "azure/managementgovernance/managed-applications-center": {
+   "256x256": "fa57d00340ea18b95871f12454714abbe593269c7384f8b58fc671e14e8cea3f"
+  },
+  "azure/managementgovernance/managed-desktop": {
+   "256x256": "2a46c1b10bc401fddb6ca8bbcf1f57a3d6ede7cb47fc29fa1d5c1d25215e2835"
+  },
+  "azure/managementgovernance/metrics": {
+   "256x256": "33292f32e49b1490a6ce15f7aaddcf1606a93c7abbb7c29531e0b6e89f8b90d9"
+  },
+  "azure/managementgovernance/monitor": {
+   "256x256": "23a2ac851b9a78c290e6df390c3afb32e00a5bb2adc57ed8232b3c96b1ded6ad"
+  },
+  "azure/managementgovernance/my-customers": {
+   "256x256": "b29e4871443c7fb179fa8b8a14d0e6e1fbd4133927ddaf3a83e31ab7b3db5526"
+  },
+  "azure/managementgovernance/operation-log-classic": {
+   "256x256": "f540a439d4fa9955880ef14bdeee98522262038db1714fcd67a30ada0e33fb8a"
+  },
+  "azure/managementgovernance/policy": {
+   "256x256": "02c61173b34f633dae2e063e4e2de3bbbb92c2284137e1c1121bc1b627a4d593"
+  },
+  "azure/managementgovernance/recovery-services-vaults": {
+   "256x256": "097450cf7d5836b2adc336982686b240d059ecac5a5a02ecd644f26991be9e99"
+  },
+  "azure/managementgovernance/resource-graph-explorer": {
+   "256x256": "588c09db69813b41564630d39532906dc813a6dcd4dd65298b1f7f6f42be2810"
+  },
+  "azure/managementgovernance/resources-provider": {
+   "256x256": "613e9e99c00ba5ac3901101eb4bd3491431281c4a3531a853be4e93e90a2f857"
+  },
+  "azure/managementgovernance/scheduler-job-collections": {
+   "256x256": "451e92698b7321a0d5b3674c3e19fe9bebcd0a3a948c8ade829c68d279303f50"
+  },
+  "azure/managementgovernance/service-catalog-mad": {
+   "256x256": "25a70276a02fe3a75cab602b679cbe9312d3858938cce49a0fd1da5b19ae00b9"
+  },
+  "azure/managementgovernance/service-providers": {
+   "256x256": "278a9c67f4a14233b78866155247e6edf934c0f60d893e4e5ea2feef1c5be1d0"
+  },
+  "azure/managementgovernance/solutions": {
+   "256x256": "caf8e924644a98494d713f050c4fdfb269a90aec9cd0529c0de32a0cb39e1149"
+  },
+  "azure/managementgovernance/universal-print": {
+   "256x256": "5fb13e4613195fb301e4791944b4ee3cad2532b48ffa5507970c3424e443b7a3"
+  },
+  "azure/managementgovernance/user-privacy": {
+   "256x256": "8023ee15a6d381038479a0849bb57ac88b29d7cd481a19590b7945fb97e650f6"
+  },
+  "azure/menu/keys": {
+   "256x256": "c788d4a2f890a82127335404dd12e1c27983b248c56bc1b9eec0e794cf9ab1a7"
+  },
+  "azure/migrate/azure-databox-gateway": {
+   "256x256": "a9223e6221571750258a71f030534a3ce67b8c5cf2b481997d6f285017217e4b"
+  },
+  "azure/migrate/azure-migrate": {
+   "256x256": "5ba5f9b5c67cf5cf6311fea57a06eed7a0a9e962272e596376c928374d5607b1"
+  },
+  "azure/migrate/azure-stack-edge": {
+   "256x256": "9a2e8a2c0db332636d4518d387db7c90f08fccf935184cfacbcc39eb980d090a"
+  },
+  "azure/migrate/cost-management-and-billing": {
+   "256x256": "3577e0b13630189d14b133eb8b408121ac9f11ca41d2b1fe48464685664ae2df"
+  },
+  "azure/migrate/data-box": {
+   "256x256": "bca0eeed84bcb2b936bc4ebfcfff92ac5bfcae6c0fdb814c01632bb192c4ad54"
+  },
+  "azure/migrate/recovery-services-vaults": {
+   "256x256": "097450cf7d5836b2adc336982686b240d059ecac5a5a02ecd644f26991be9e99"
+  },
+  "azure/migration/azure-database-migration-services": {
+   "256x256": "317ab7b402bb23622f04d9e26f87df7e123db01de9ad650cac9ef635ea6925cc"
+  },
+  "azure/migration/data-box": {
+   "256x256": "d982cb44beaab4c86de598708b75d5ba92e40eeb53fd5805342f0328ca03c685"
+  },
+  "azure/migration/data-box-edge": {
+   "256x256": "30d018d11a06f5ffad23a020cc2aa9727b3ab9e858e54b0a657898ae48324c56"
+  },
+  "azure/migration/database-migration-services": {
+   "256x256": "f43717c71b0231d9e2d1efdd66dd53d5c3fa45cf453200b45fa8ce287e81a397"
+  },
+  "azure/migration/migration-projects": {
+   "256x256": "1b54e8fa06398f346d804c21ca3b01a79a8e5228b614146a00f91f8c4d40f5f5"
+  },
+  "azure/migration/recovery-services-vaults": {
+   "256x256": "f75a8790380a39772056511cb984533b7930ded85a7c91e4a42926be07608de8"
+  },
+  "azure/mixedreality/remote-rendering": {
+   "256x256": "49ebcaaa3b6199da6807ce354235c4a5fb8011be0094b88152eff5b26419d980"
+  },
+  "azure/mixedreality/spatial-anchor-accounts": {
+   "256x256": "b173729b9d30790167ace667e542444f6cb537f9f51e6c18ccfa6b0c07c2a19c"
+  },
+  "azure/ml/azure-open-ai": {
+   "256x256": "4ffe4a7d7d8dc30e0db2e20914e55744ae0add06cbf1ce317bbe9a7d0a47f8c6"
+  },
+  "azure/ml/azure-speech-service": {
+   "196x192": "c95354294af3ce3ca628f34228744b332e176c7100c6153f7c7c1e985333553d"
+  },
+  "azure/ml/batch-ai": {
+   "256x256": "ec5202c35bac8c46d100af54d1156746ee26b5b77ff385bf052310e6ed25f9e6"
+  },
+  "azure/ml/bot-services": {
+   "256x256": "f53da2ea4d1e4089322eb5aeb9f49daefa34b8455e3a20c54819dcabc029c94d"
+  },
+  "azure/ml/cognitive-services": {
+   "256x256": "3ec430807eb168c24542f9d0f34a0de9eb20d79045c2482962846af4d45c6d53"
+  },
+  "azure/ml/genomics-accounts": {
+   "256x256": "afd93eef3109f83ed42ef109c946a468a7ef1f112643c6aef13a855a408c2f21"
+  },
+  "azure/ml/machine-learning-service-workspaces": {
+   "256x256": "4b203694f864435ad893449fc274d52abe0c2976af137bef73e3ef98660e0c8a"
+  },
+  "azure/ml/machine-learning-studio-web-service-plans": {
+   "256x256": "bb165431eed3bd4e331f51796f83edb8eb035c7c4b1438982e44a525dcb54a23"
+  },
+  "azure/ml/machine-learning-studio-web-services": {
+   "256x256": "47d3d497c835469a48cd50f757a2cc8be76b3a571847d9e7775107663204473b"
+  },
+  "azure/ml/machine-learning-studio-workspaces": {
+   "256x256": "3cf1beacaf18e2f4d08eed307a16765c1ab22546680004b82dcc94f68738a5df"
+  },
+  "azure/mobile/app-service-mobile": {
+   "256x256": "04d656c5f9cf1b30f65bd2c41653479f24965bd896b8e064bbb0d47105495d98"
+  },
+  "azure/mobile/app-services": {
+   "256x256": "4699e5b3e8150ee16189f8afcafbaa33eb1ebf4050156cb5dcee9614f041d105"
+  },
+  "azure/mobile/mobile-engagement": {
+   "256x256": "f9eee19aaa22f32f7463e69bf159753fb081d4086e9615476f40b2a7ea29b971"
+  },
+  "azure/mobile/notification-hubs": {
+   "256x256": "06e37d68de7948da488ece92eee9d64e81443645fdb2732ca01f7487ba48b235"
+  },
+  "azure/mobile/power-platform": {
+   "256x256": "fc4ea03559f6c2f6e8027969e48086c0afb0c30fcc8e5028555decfca318fe3a"
+  },
+  "azure/monitor/activity-log": {
+   "256x256": "f540a439d4fa9955880ef14bdeee98522262038db1714fcd67a30ada0e33fb8a"
+  },
+  "azure/monitor/application-insights": {
+   "256x256": "8ebc5a182ee388b418a4f5b75540b0fc469d8c11bf1cb800b5e735a65c5fb075"
+  },
+  "azure/monitor/auto-scale": {
+   "256x256": "fd2fa34b4d915ba567861dc89d60d5b11d2cd35b6fb9db366c80ebf3cbe79939"
+  },
+  "azure/monitor/azure-monitors-for-sap-solutions": {
+   "256x256": "4d0e7e04e95948af17a591c68364223ba06e4f98e66a76eed77f3a68e308b82d"
+  },
+  "azure/monitor/azure-workbooks": {
+   "256x256": "5a2f71c32ef6e2d6a64f0be4ab7712ca248efc21de35287dbc41bef041429e76"
+  },
+  "azure/monitor/change-analysis": {
+   "256x256": "c82f30cce2bad6d44c66af14ce2e6570ce03d69b2d94dd9e0708ef39b86eead8"
+  },
+  "azure/monitor/diagnostics-settings": {
+   "256x256": "3b4a228546a82bb75c3e72fc72df43784030bd79aeb3538c932139d4e3ac54e5"
+  },
+  "azure/monitor/log-analytics-workspaces": {
+   "256x256": "9c08f473f21f9aafd63385841c921c639832b1bda35c575b72bc3f34c6ea2205"
+  },
+  "azure/monitor/logs": {
+   "256x256": "d8033a48daf3429eabe6b7a9cc4a548e5ac42c704508946c3b8e29ec86657a16"
+  },
+  "azure/monitor/metrics": {
+   "256x256": "33292f32e49b1490a6ce15f7aaddcf1606a93c7abbb7c29531e0b6e89f8b90d9"
+  },
+  "azure/monitor/monitor": {
+   "256x256": "23a2ac851b9a78c290e6df390c3afb32e00a5bb2adc57ed8232b3c96b1ded6ad"
+  },
+  "azure/monitor/network-watcher": {
+   "256x256": "9be19c3d6d1ea8d9f3605efecd398762d61687231199ae4086faef27b7eae8d8"
+  },
+  "azure/network/application-gateway": {
+   "256x256": "d9413d3fed4f2702586b57177ef8075915a053f9c0a90d37f0d4f0d03a461838"
+  },
+  "azure/network/application-security-groups": {
+   "256x256": "d89358bc180a6466c9f9138f12fae43cc74075f5fc12cf1421b27267491857f0"
+  },
+  "azure/network/cdn-profiles": {
+   "256x256": "376e09c0b2dc02cb1d38cb0b62825da92eb58b1645e941f18d374f4c0036186c"
+  },
+  "azure/network/connections": {
+   "256x256": "8c78613ba1a0d0466c96500d5fe78c886905547c4ca4cb2e83334e085b907ad9"
+  },
+  "azure/network/ddos-protection-plans": {
+   "256x256": "a0c17956773f29efa7290229c8061b04aa0dfc208aaa240fc11f5c28f41fda9e"
+  },
+  "azure/network/dns-private-zones": {
+   "256x256": "e34e50224faa61b4aae4ff034b6ca13d0dff7800278f943b54f21ffdab4dff76"
+  },
+  "azure/network/dns-zones": {
+   "256x256": "5a0554b391c8f9bb4ed4b4d3eeaa7e5b5db07843a22788730ac3474bbfa988ef"
+  },
+  "azure/network/expressroute-circuits": {
+   "256x256": "3459253b8780687aec519b29e0d5be0a9dbb1498a684ef6ad14a1703f9b5bac6"
+  },
+  "azure/network/firewall": {
+   "256x256": "f69b214ed10d61bd931a866dd563e8102424521d07745bb99b7b4e495d9dc909"
+  },
+  "azure/network/front-doors": {
+   "256x256": "b019eb82c57207e9feb4e54b49085462d2051c74387ecc861b2fe4e29c6aadcd"
+  },
+  "azure/network/load-balancers": {
+   "256x256": "422f4b1064330cfd0301b080a4d796030258f3743de84f5dbf034cb09279fefc"
+  },
+  "azure/network/local-network-gateways": {
+   "256x256": "0f08bb9945f270ade3f899ae242b4a69b932e5b7aa19424347f601ba7c71922c"
+  },
+  "azure/network/network-interfaces": {
+   "256x256": "e355ee5668b7875dcce4ed5f8f0c7d29290972ca2fda35801d682a19dc7fcaba"
+  },
+  "azure/network/network-security-groups-classic": {
+   "256x256": "329411243eb953beb5195486882f79520680f364db64091ee00481e83628be3c"
+  },
+  "azure/network/network-watcher": {
+   "256x256": "cea7f7b04763d47ac31d7fd84cadb38cc37fcb6bb5e5e09341667216386c7787"
+  },
+  "azure/network/on-premises-data-gateways": {
+   "256x256": "bb14fb086762608b729c22f80b0c5ca6b7ea0e7762df1c2ae5c8b5a2dbeb5005"
+  },
+  "azure/network/private-endpoint": {
+   "256x256": "a6936e8f6b5f263ebfb047c32930ad393319b5eb48b5fd0f4412fdbb23216863"
+  },
+  "azure/network/public-ip-addresses": {
+   "256x256": "b95ebc5f3882e74969a60524825a0849f9b5c299adc05a93dcf7374a552a68fa"
+  },
+  "azure/network/reserved-ip-addresses-classic": {
+   "256x256": "47e5b741b0a9841b5661b767e1e0dd6084733f76dbc09b5ef86da09e3599a40e"
+  },
+  "azure/network/route-filters": {
+   "256x256": "2395de81ecfce51edfb481a210cff9e0379c6cc0b16b8ace6d8f0861d967b92b"
+  },
+  "azure/network/route-tables": {
+   "256x256": "0db669e06774b1998d6d0e534aca9ae5a9ac3a75132b9bb807b35330c2ce6895"
+  },
+  "azure/network/service-endpoint-policies": {
+   "256x256": "4b9bec0d4ea9d2b86bced932b1a623f0b411198a67179cc05be6a926438e7914"
+  },
+  "azure/network/subnets": {
+   "256x256": "a83c902ac1bdd385f0a95e417cce124b4e0cbbf54be0487cff804f1e2511dea9"
+  },
+  "azure/network/traffic-manager-profiles": {
+   "256x256": "2a808b188ead1a0caa24c469c82fb2ee440f0907b007e8a57ab05abb3c7a3c8a"
+  },
+  "azure/network/virtual-network-classic": {
+   "256x256": "f17623ea62b098d47a9165f0a1f21e4dab8a034af17eb122c48edf3aa4ec57c0"
+  },
+  "azure/network/virtual-network-gateways": {
+   "256x256": "9411ee1dac42c3c577f9bdea3fa501fcbdcbdd5cf2420aeb521da325e7340fa9"
+  },
+  "azure/network/virtual-networks": {
+   "256x256": "238bfbf760f16262d26b17cfaac82f34f0aa2321e72fde8559c0d4ebd65d52e9"
+  },
+  "azure/network/virtual-wans": {
+   "256x256": "7789bde2bb702d14a11a33121d0d49b1e075dd1efb06b3b24b26d3f487e398c6"
+  },
+  "azure/networking/application-gateways": {
+   "256x256": "8eb684218ad635400f3fd7802802a1880f929b0659357d4d37a119799ef03271"
+  },
+  "azure/networking/atm-multistack": {
+   "256x256": "95495a76673ef2c5087fd7362fa3a51086e3661dade843d7e231dde84a8325a4"
+  },
+  "azure/networking/azure-communications-gateway": {
+   "256x256": "f2e389f5262cc39f8aa5e239e4dac94043662e33b66ccce71b8922dad35e1b1e"
+  },
+  "azure/networking/azure-firewall-manager": {
+   "256x256": "9af55481149825ad97e1792bd71725de77f51ade7ef0dee80408f3013ecef028"
+  },
+  "azure/networking/azure-firewall-policy": {
+   "256x256": "075e2606172dde79d7da24711771e5f4a9397b4782e45efba954b61beb8bbfa6"
+  },
+  "azure/networking/bastions": {
+   "256x256": "12ef45cc10a08d8b89dae7b76eaa1960d07deb0204fd809a5f34db2e219bb574"
+  },
+  "azure/networking/cdn-profiles": {
+   "256x256": "13fe75ef820c0726f1b3bfcd1ff235a78f06fc8021f5768365c6ce057a641232"
+  },
+  "azure/networking/connected-cache": {
+   "256x256": "795de16b53b765065dde589f854b528e74fee8b4f8a42a362dbc2d3ab5fd2971"
+  },
+  "azure/networking/connections": {
+   "256x256": "5a37812f89be43b5ffa2d40cb55886be0be276402e71620332bcd0abf19b7e62"
+  },
+  "azure/networking/ddos-protection-plans": {
+   "256x256": "5a61a33b24c27a16db4169c3241a335f2030b8be2e8f3bc2a4228c51df21ad73"
+  },
+  "azure/networking/dns-multistack": {
+   "256x256": "b45d0febbeae21493e4f1ed5f8329b584b82aba5eb9c94998dd4b3bad5c97019"
+  },
+  "azure/networking/dns-private-resolver": {
+   "256x256": "4f40338c3c47d970965b0f162c7cce1cf201489469375cafc5770a2be52a3a3d"
+  },
+  "azure/networking/dns-security-policy": {
+   "256x256": "082a284adee74a5b69295c8b33abb93754ad83bcee6de3feac6cd3296022fdb2"
+  },
+  "azure/networking/dns-zones": {
+   "256x256": "f97fc696e94a345023470d0bc67d1498ce0b7de23afb73f5044e5ec268285dcd"
+  },
+  "azure/networking/expressroute-circuits": {
+   "256x256": "f337a4b255e0a28e96a87f3b35807b0c8822fdfb9f61bd661777059cfc278f4b"
+  },
+  "azure/networking/firewalls": {
+   "256x256": "6e32ea67635e8fc21053c99106cb4ee42647c7daf230deaf7a7e125845db66d0"
+  },
+  "azure/networking/front-door-and-cdn-profiles": {
+   "256x256": "e56a477802571247d4e1236f0947627c8f96a50a539da4f7ef808710de5ed4ea"
+  },
+  "azure/networking/ip-address-manager": {
+   "256x256": "ae12e02208abce7123d603b029e964391a1e33acd36ce3346c6804451b4da90d"
+  },
+  "azure/networking/ip-groups": {
+   "256x256": "656f00fb2a89fccafa1574fe465d3e9d875401f6f8c3558afb28bf579ee84a58"
+  },
+  "azure/networking/load-balancer-hub": {
+   "256x256": "d4b0e090e831d8f6911f7b5904fd22ac2b4bc12750910dc87ce28d034044030d"
+  },
+  "azure/networking/load-balancers": {
+   "256x256": "e5c8e6aa7a610b952593cc5ad45b3b1b57947ee702c00f94656ae07c9975eb52"
+  },
+  "azure/networking/local-network-gateways": {
+   "256x256": "ad60cb86c6bc18b5d7abc5629ae0c09ea41eb39ca31dad130537c80db078d683"
+  },
+  "azure/networking/nat": {
+   "256x256": "aec6802d7e41383740ba533d2969557cf4b0c952c497ab41095631fd90ede6bc"
+  },
+  "azure/networking/network-interfaces": {
+   "256x256": "34e839f5aabe681baf1903ff09a0ccc092e97855845b625b70d46507a403d7ee"
+  },
+  "azure/networking/network-security-groups": {
+   "256x256": "4134a33e0aca5fc80502bd4f45d068aadbaa5c6c571536bec5e9daf56985da5a"
+  },
+  "azure/networking/network-watcher": {
+   "256x256": "9be19c3d6d1ea8d9f3605efecd398762d61687231199ae4086faef27b7eae8d8"
+  },
+  "azure/networking/on-premises-data-gateways": {
+   "256x256": "b6cdd944020c7d1779cdb67b308858e334f00b3f8d7594c5931f6383f666caeb"
+  },
+  "azure/networking/private-link": {
+   "256x256": "66992adb19936edf9b493995ca6f2c83a69c21bb60dd7ee83b7bd402f0f20e49"
+  },
+  "azure/networking/private-link-service": {
+   "256x256": "e196bf626fe6d27848c6852c3229ec145c7c8e9ad2a7cacd124d96011457722f"
+  },
+  "azure/networking/private-link-services": {
+   "256x256": "861d1a653d66ac7f9ba613d091c5eb8b44514488dc8914f1b55d2e3d3ea12702"
+  },
+  "azure/networking/proximity-placement-groups": {
+   "256x256": "b2d1de4ebabff2de46b681164865c967bab321a91506433e59f258efc1b0eb76"
+  },
+  "azure/networking/public-ip-addresses": {
+   "256x256": "12265b31b75c1dcc464075a42d7067aba4529f37a2f7d7907a9343b7af8d2752"
+  },
+  "azure/networking/public-ip-addresses-classic": {
+   "256x256": "b27064cc977117cc9edd53c06691ed502c79f975f95fe9eec589495edb1e5adf"
+  },
+  "azure/networking/public-ip-prefixes": {
+   "256x256": "14a9a7b7a5084f1449ce7498c36cac12e099e413a105ced9cb28d1149d8cb117"
+  },
+  "azure/networking/reserved-ip-addresses-classic": {
+   "256x256": "ba92df03d519629b50483d675441b0dd92ef9feea1beb7f1706bb0b423b94fc0"
+  },
+  "azure/networking/resource-management-private-link": {
+   "256x256": "1c00c2326bbd1f6c6dd46a4fb25ce9e4db4c71e421dc8f7e29f2e9a0af45e6f5"
+  },
+  "azure/networking/route-filters": {
+   "256x256": "b7a5c715462b1ba07a955b17c27b9dc88de4ce732feb8d84672fee3020f16924"
+  },
+  "azure/networking/route-tables": {
+   "256x256": "e59283c0ce9595fd49ff9bf5d56125643889ffb54f61fb98e2bc22a5f7380440"
+  },
+  "azure/networking/service-endpoint-policies": {
+   "256x256": "d490f363875489699beb46e762812b9e6b5258e40f14edf03957790e8f9fd234"
+  },
+  "azure/networking/spot-vm": {
+   "256x256": "4f08069343f3eb6dd2a1cea6a614ea872a111430b7729a0ca0e9ae7050a1f597"
+  },
+  "azure/networking/spot-vmss": {
+   "256x256": "3bafb31150474f9419fe516bce67959feb2a447fcf4747c1f9818a3edec6125d"
+  },
+  "azure/networking/subnet": {
+   "256x256": "677e6e39bd69677e1b43ca5322694ce97fab53703172acbf8a3f27193731767f"
+  },
+  "azure/networking/traffic-controller": {
+   "256x256": "6e88e533a35b653805411c12d1b502c3272d5e68648bba9e798a61b2d0e37cac"
+  },
+  "azure/networking/traffic-manager-profiles": {
+   "256x256": "237336466a9f7343cd379cefdf76a8bc737f521b050d527432d757903b9c0490"
+  },
+  "azure/networking/virtual-network-gateways": {
+   "256x256": "8bd8353aaefdf7aef97d9a9805fee525c633f544f2b8e9f610e89e1afab76791"
+  },
+  "azure/networking/virtual-networks": {
+   "256x256": "0be5f8d16546ca82e26d659401b72e287e8074d1bc07d383159c92727007e0f9"
+  },
+  "azure/networking/virtual-networks-classic": {
+   "256x256": "47c054d37f4180bf2989d8ee4b984c18a7d9b0c75574f7fc82c902d4dc90effd"
+  },
+  "azure/networking/virtual-router": {
+   "256x256": "848094d122f7b45e33000ef59a9beda5248e1093d75f14d32101a0df792f795b"
+  },
+  "azure/networking/virtual-wan-hub": {
+   "256x256": "f758d17f4f5654785846629abd066dc9f5fd3d254604962f969edbc0250b2b63"
+  },
+  "azure/networking/virtual-wans": {
+   "256x256": "d6b9f9e76626f9a593ae2c4e28da2a414454659fe11297a964410af04857a63d"
+  },
+  "azure/networking/web-application-firewall-policieswaf": {
+   "256x256": "63cf96e2d4494e883cc9127bd76cae5f960e250c38f52ddaa0d751aa34f7ce9e"
+  },
+  "azure/newicons/azure-sustainability": {
+   "256x256": "c5ed296358df7690780a6aa06e7399e156c805f1137b408b383178d99d159537"
+  },
+  "azure/newicons/connected-vehicle-platform": {
+   "256x256": "c20c0a760649705a36ea9dcd97eb5a1505302627cc7a5fac913b28152dfbee59"
+  },
+  "azure/newicons/entra-connect-health": {
+   "256x256": "d14f241de6467060de4c4dc7c2eff81000076db926e8952a2c4798cbf422325d"
+  },
+  "azure/newicons/entra-connect-sync": {
+   "256x256": "336af29faf4c55b5e35531fc881111dbfd06ee1881fcab846185834915304a4a"
+  },
+  "azure/newicons/icm-troubleshooting": {
+   "256x256": "4b97700421f08c692b800e3beaf7d8d64c1e101ed0f6e148c3a85c76e23f88dd"
+  },
+  "azure/newicons/osconfig": {
+   "256x256": "b5e6a1d6a62ceb9532e38c0bf07ebd2663204f7582473e35089309f29316dbbd"
+  },
+  "azure/newicons/storage-actions": {
+   "256x256": "b549b14b4f71b1ff67b45b32327eb929f2dd41942ebe137807799091333bd517"
+  },
+  "azure/other/aad-licenses": {
+   "256x256": "ac057cde42a9e7794925fd2182cd7abdae304eebf7540eb6031288d363aed28e"
+  },
+  "azure/other/aks-istio": {
+   "256x256": "cce53c384f9cead5107332e1e7cb1ddf94ba553a3c65dd13d9b77a6cb26ad243"
+  },
+  "azure/other/app-compliance-automation": {
+   "256x256": "8191bc5480233fb659b6d689dc5eef39021c59381b4e0f7956e3d4e3cc3cda72"
+  },
+  "azure/other/app-registrations": {
+   "256x256": "4250bf9bf4ab58e694799b8a6eaf6660d748749fe7667231fb81e10145563c64"
+  },
+  "azure/other/aquila": {
+   "256x256": "d3d717ec4b7b77ac5f5e4406376f480302ee49f2e1b7d0df7a02a6591604fb25"
+  },
+  "azure/other/arc-data-services": {
+   "256x256": "de3860fb8124046f0516e3727744c321a5029e5f2c461ec5019861638092ff4c"
+  },
+  "azure/other/arc-kubernetes": {
+   "256x256": "b69b4ce0ebff31c61e49788a805597b43f8786d61961e1596f743b79805d7724"
+  },
+  "azure/other/arc-postgresql-": {
+   "256x256": "fcc472fe719c5e36e4295e3e6f589105c8803f50c951bc368ed009e16bb12482"
+  },
+  "azure/other/arc-sql-managed-instance": {
+   "256x256": "b9618d78353bc06bac428c2a0caa9b16d87a395343c1fc6eaf594cb48378566d"
+  },
+  "azure/other/arc-sql-server": {
+   "256x256": "9cd6cebc307ae660bd0ef282fdfb3d4bf862cc0e8d99f5235fb4f8d482a96311"
+  },
+  "azure/other/avs-vm": {
+   "256x256": "255403da48d8a22959c0c4ffde9008f72da67470fe819c51d336e0c3c7555762"
+  },
+  "azure/other/azure-a": {
+   "256x256": "20365797d6a9939b932e18329b462e465ce14e7a4e4a0a5914225c5411b8372f"
+  },
+  "azure/other/azure-backup-center": {
+   "256x256": "64a7c4117c9c6dbc10a6b5c7b640e8079f475cf6d55b9a256523c89d60fa3deb"
+  },
+  "azure/other/azure-center-for-sap": {
+   "256x256": "8bbce3632ee47010e283f7e3e8e68b34fbc669914af64d183d1bfb0f771b2151"
+  },
+  "azure/other/azure-chaos-studio": {
+   "256x256": "ad7dbed48088cf8c3e4687d336b33ad5e1c813d30bae3c97492a5da65246688b"
+  },
+  "azure/other/azure-cloud-shell": {
+   "256x256": "5ae2ed0cd15db33697c2c9204588a8af985278a08d41c557421ebbeffb1ad655"
+  },
+  "azure/other/azure-communication-services": {
+   "256x256": "4a5b7c7d3e102a3c9725661e4ac7dcb44bd758bf27b710dea8825d046315f6b6"
+  },
+  "azure/other/azure-compute-galleries": {
+   "256x256": "a563f1adcf135bf5dc4eee1a8471e8056ff693ed9124cbb7a8d2d4a73eb79bc7"
+  },
+  "azure/other/azure-deployment-environments": {
+   "256x256": "2bc31d2d9dc41955bd1cb45f98b0cf470503259687d67a5153ed0e9f5d5299c6"
+  },
+  "azure/other/azure-dev-tunnels": {
+   "256x256": "9ec0f15696f33b98ccfb55186975a44c5a865e4ddb0961a6c923b9514f8a7890"
+  },
+  "azure/other/azure-edge-hardware-center": {
+   "256x256": "3f530d8bb20ac76455f6a6b3601a8c7e5eb353017ac601a7cd7ed23307a74a23"
+  },
+  "azure/other/azure-hpc-workbenches": {
+   "256x256": "7833b4157eb7d17982caa29287491f21b38677767c41d6512bf42f4d8f56b838"
+  },
+  "azure/other/azure-load-testing": {
+   "256x256": "7d7649ec6cf936ee56755fa0c2d3dfb08783b49f895b6f364729ad189ba88d89"
+  },
+  "azure/other/azure-managed-grafana": {
+   "256x256": "c22d515b84229ddcfa8360fe171bd9425727bcea8d87c31de501bdd3fc94dd8e"
+  },
+  "azure/other/azure-monitor-dashboard": {
+   "256x256": "f6d74cd8c3c4f7c890de8e0acf315b713de06a1fbebefd261b7170b0650f0a28"
+  },
+  "azure/other/azure-network-function-manager": {
+   "256x256": "15ffcd0d8894e27367214faadb69d89496dce44eb2a1226f60a8b786f5feb123"
+  },
+  "azure/other/azure-network-function-manager-functions": {
+   "256x256": "6aed54f3af555dc34dc8ea40cb15d11bab293c41e49da3c31723edb69da943fd"
+  },
+  "azure/other/azure-orbital": {
+   "256x256": "c1a6f0afc049ab829a0aed4deb6486e22e1c20096ec5459e3ba96d7a469d78e5"
+  },
+  "azure/other/azure-quotas": {
+   "256x256": "8905cddf1b528c58d797f8027355ca6ba6c4f9e6a72fe1b9d59d876af248f30b"
+  },
+  "azure/other/azure-sphere": {
+   "256x256": "89e565635fe85cae16c1c1fd198ecfd184a46a682c0c8b8e3a244a3eaa1d2a0f"
+  },
+  "azure/other/azure-storage-mover": {
+   "256x256": "31397b112e428001008542347f685d06fd78e6421f67e25d1cf4f275be494627"
+  },
+  "azure/other/azure-support-center-blue": {
+   "256x256": "515ddf2752da5d8738dae9c762d4a389a7a7963c2879b4a0079fd74320dfaee7"
+  },
+  "azure/other/azure-video-indexer": {
+   "256x256": "f93299ba3fd541ccf90684e8d93b02ffd05ea5cebbaaca540476b2b39926ad6c"
+  },
+  "azure/other/azure-virtual-desktop": {
+   "256x256": "20a4b8a79632f4c6874631de17637ca9d0cdc57bd7c8f8be26ad8e64d000ed38"
+  },
+  "azure/other/azure-vmware-solution": {
+   "256x256": "c25b868a80f47e90c67ecf2b19fb64e26c8275eec744c3ff511ece27f43ef940"
+  },
+  "azure/other/azureattestation": {
+   "256x256": "ecb85009ede852b63a941f661c111089d5aae3251a46a6a23aff099b04de5c2a"
+  },
+  "azure/other/azurite": {
+   "256x256": "1a5bac42dd73e5fce5197dd8e848d764c7c751c662d3648a3b06996343a2f12a"
+  },
+  "azure/other/backup-vault": {
+   "256x256": "896112c0bc4fa00f6912a972fdb85a294a2fb84548f7f5d7eb51d1590f475fd5"
+  },
+  "azure/other/bare-metal-infrastructure": {
+   "256x256": "1914525023f3d776f698702408a7742a3c34e73bbef4e4a7e0c6ab2208e20369"
+  },
+  "azure/other/capacity-reservation-groups": {
+   "256x256": "fe1b59416b4180678c44bcc3c0ffed491b4dd304c819bb558e6d808c7a9405e0"
+  },
+  "azure/other/central-service-instance-for-sap": {
+   "256x256": "a0cebfe8a76e08ee80df630209ccfcf247e12987b91814ae4c3324ce9d4efd28"
+  },
+  "azure/other/ceres": {
+   "256x256": "a35e41fbbfcd64d75837485d1657c2cd3f0d240d51a79cf7d538085c27d0f81f"
+  },
+  "azure/other/cloud-services-extended-support": {
+   "256x256": "1bea8d574e398a9385802068e1385c9bbc9e7cf56a4a65f8eb90333a13210217"
+  },
+  "azure/other/community-images": {
+   "256x256": "e284443d7a5df765cd64719b4424b4762173da99f479ce3793f73f879e2a7e9c"
+  },
+  "azure/other/compliance-center": {
+   "256x256": "a9f8ff08bf8f42fb38cb3f372f5993474520dff9e4b7904c159547a88388b6c0"
+  },
+  "azure/other/confidential-ledgers": {
+   "256x256": "6f966ee4a76a3edd6a0a6cd879577852a383103eabb213edbc03fd5ef8467474"
+  },
+  "azure/other/container-apps-environments": {
+   "256x256": "6be008b38bad58a1335f2f2a43e88abdba9017d9b658d94eb7dcf812428552da"
+  },
+  "azure/other/cost-export": {
+   "256x256": "d1f8a2d778279cb8ca97938c1ec04a182165d3f8a46ec36453e036b91344a679"
+  },
+  "azure/other/custom-ip-prefix": {
+   "256x256": "9f3b5836b502a6a51c553125bfb0c43012cf8b80a185502758c08546c8bfa265"
+  },
+  "azure/other/dashboard-hub": {
+   "256x256": "1cd19758f1f8fb054f197c5909bc6c237e42686e17ea95670e03f3a28cec3a3e"
+  },
+  "azure/other/data-collection-rules": {
+   "256x256": "e375013f76fc7c1612f8a3550bb659e44c8db08dc5aaa3025598c1ec518f5d80"
+  },
+  "azure/other/database-instance-for-sap": {
+   "256x256": "c3c878c18f52dfbc03ffe56a06850797cef9b45c0755a2afbe207eb9ba59cac3"
+  },
+  "azure/other/dedicated-hsm": {
+   "256x256": "aa49ce3ea82065e45e2c45a188e99f91376aa86f82d5a382aea83721538ea744"
+  },
+  "azure/other/defender-cm-local-manager": {
+   "256x256": "3da9cc0163502a9ef26ae870761c81f64800d1371493fdb7901414e8d8218ebe"
+  },
+  "azure/other/defender-dcs-controller": {
+   "270x256": "61fcf2993c2d650649a918d66f41ac6497d2c6c415fe049e2cf2f128b1e908ba"
+  },
+  "azure/other/defender-distributer-control-system": {
+   "256x256": "89ae19caf5d4fffe33d56caff4b35b3783dbd21af8edee45ece377207cfcaeaa"
+  },
+  "azure/other/defender-engineering-station": {
+   "256x256": "4c5aa953983417526bb9c5df148e45aa04784de1292b2936ca22a0444868ee7f"
+  },
+  "azure/other/defender-external-management": {
+   "256x256": "4cff407182b304bd2ef5d78e2bc730a64d162c9cf6cb4eadec53f33ea5a57b19"
+  },
+  "azure/other/defender-freezer-monitor": {
+   "256x256": "5a9564599d045a2da30b265900149c30530f7c8ee5d3d20e4a3fdc422f4c9c8f"
+  },
+  "azure/other/defender-historian": {
+   "256x256": "bd1a84b34bad5cf9413753a4b027e5b5d255f7d2627ac841fd655de83c5eb4c6"
+  },
+  "azure/other/defender-hmi": {
+   "256x256": "cf477df6f54bac7a8fd8e4b52e87d8904b84660695390191841409161b82efdf"
+  },
+  "azure/other/defender-industrial-packaging-system": {
+   "256x256": "042b4af35f50531e74d32aa71bd19813e17db56a07106992f586c4cdff2e4794"
+  },
+  "azure/other/defender-industrial-printer": {
+   "256x256": "4a684a9ed4c676d3b7db5946fd524b0d632562a5da5e56e9333e3185c61b53ed"
+  },
+  "azure/other/defender-industrial-robot": {
+   "230x256": "51f34780a5b0fc8a36674d6b158be0b3a744fc67fe7a94eb6977a4ff7049760b"
+  },
+  "azure/other/defender-industrial-scale-system": {
+   "256x256": "3fbbd2ebbc4062d998bf3208200749a228f4dfdbcb056769050713c306a811bb"
+  },
+  "azure/other/defender-marquee": {
+   "256x256": "923eed353b6cabeff9966b16fa846d916df85e1f47b27d66f29d7029f39bb44c"
+  },
+  "azure/other/defender-meter": {
+   "256x256": "65c1fb46e2c87dd5e916da4ffd8b85998e512cf00f991677ff7278f0b2908970"
+  },
+  "azure/other/defender-plc": {
+   "256x256": "a3fcdae81bebb3b17a4a2f9e07cabf4d0d2f45328c1783c66db45a5c03c65f69"
+  },
+  "azure/other/defender-pneumatic-device": {
+   "256x256": "35c74bb2004150908326d31aaa3133e4e88c68c8a601d3d60f7d0cc02f737ce6"
+  },
+  "azure/other/defender-programable-board": {
+   "256x256": "260684d776074dbfc9f6afe469ed1d228d036e40d879b6aa6e7f967404d95fa5"
+  },
+  "azure/other/defender-relay": {
+   "256x256": "9aa85b285da5f9d17a8df6f7fca176b55f5b4a3dfc2944523393e6471e196c5e"
+  },
+  "azure/other/defender-robot-controller": {
+   "243x256": "f5b1ab8e04f3e85aab6e3efbc20d0ca208dcfd16ff86bbf1a5df8e9257e92534"
+  },
+  "azure/other/defender-rtu": {
+   "256x256": "273119be5f2a299fd123f30e96b76aac889f373c69b87439e208093aa31bb152"
+  },
+  "azure/other/defender-sensor": {
+   "256x256": "456e4ef49a20b9264920e119942b2a56c1a80737b3e5d90ac36bf9b567869796"
+  },
+  "azure/other/defender-slot": {
+   "256x256": "531fd580fd92e133ddb5ed828acd48d9b1c9e05ea56959b9b150ed1b3e166e97"
+  },
+  "azure/other/defender-web-guiding-system": {
+   "256x256": "15f8b1ee664c032ae7072707d9c391139596fa73cb70b49a07e36862a72408f4"
+  },
+  "azure/other/device-update-iot-hub": {
+   "256x256": "70cfb29ccac85e3bb1cf316b64555fc61ca90b409ee1c7a0736bf64bcf384bbe"
+  },
+  "azure/other/disk-pool": {
+   "256x256": "7382880d5bd47191fe46231fef1ae572c5c01411b0fbed7569fc7bef2ceebf32"
+  },
+  "azure/other/edge-management": {
+   "256x256": "6e0576f413d1a68d787e59446df725f773bdb3f0544cbb4f2c52537c2c409064"
+  },
+  "azure/other/elastic-san": {
+   "256x256": "dc56711aec0b352ec12ec2253f348fab2af55659cc8077f66d1ae63e0055dfaa"
+  },
+  "azure/other/exchange-on-premises-access": {
+   "256x256": "b33aa7265f671123947f21264f9cef85ee94c0c81593038b86e26902017b51df"
+  },
+  "azure/other/express-route-traffic-collector": {
+   "256x256": "8306a232786fd0e6f1cd4e9ce81c7f72eef22fe0649d7f4f3cecf3b7090c820f"
+  },
+  "azure/other/expressroute-direct": {
+   "256x256": "542de90ee9b23c69c5070069be7bc9275fce7e6c9432064ddd3b68274152ee0d"
+  },
+  "azure/other/fhir-service": {
+   "256x256": "626f65cdd8fa8abb8cdd67412020af530a7b8118d4b78ac30c56da54566c8f59"
+  },
+  "azure/other/fiji": {
+   "256x256": "646e6ac8648a4d8d573d38bd99d17e6211928595173ca1dd9d7f827158ef683a"
+  },
+  "azure/other/hdi-aks-cluster": {
+   "256x256": "210e8f46c0534f6c726d3d804bca07369ee2d5af197cf49b6291c6575827719a"
+  },
+  "azure/other/instance-pools": {
+   "256x256": "5a668848aacadbf7d40196e6d2efe7d2ad3a78bd312d70120906475bee5ae20a"
+  },
+  "azure/other/internet-analyzer-profiles": {
+   "256x256": "b2f68b46964d92fea84a2b6a9bb68ce61cb0c77f51f9f9329d1f344836f2b1d7"
+  },
+  "azure/other/kubernetes-fleet-manager": {
+   "256x256": "8cb75b837e96c572d17b3dc4e685f2f1bb03f8073b4dd00a12b297c6d57546ff"
+  },
+  "azure/other/local-network-gateways": {
+   "256x256": "ad60cb86c6bc18b5d7abc5629ae0c09ea41eb39ca31dad130537c80db078d683"
+  },
+  "azure/other/log-analytics-query-pack": {
+   "256x256": "07e1bef44e60778b35245b6d5c8f517f859257404808c608843510cf5431bf3e"
+  },
+  "azure/other/managed-instance-apache-cassandra": {
+   "256x256": "ff06b7e7daa03c60f89199faa6ae7fc9badf1d210acf393fe9a14b4e471bb9bc"
+  },
+  "azure/other/medtech-service": {
+   "256x256": "848c36103a7776d5a7e0859e8964215cf517091293da9ea1216ac964a1a23fba"
+  },
+  "azure/other/microsoft-dev-box": {
+   "256x256": "05cd59f3f1e8c0903056d7b5f66af43e5d55bac173b1e8b0feca289482cc1dc0"
+  },
+  "azure/other/mission-landing-zone": {
+   "256x256": "a442f75b4bff1643a7ce89d1490031265605e9a6f87ae1dfc4b68243b9c0eb8d"
+  },
+  "azure/other/mobile-networks": {
+   "256x256": "a7848b13d6456585a866303354ffe40c471c20df3c115020668efc48c2715dc0"
+  },
+  "azure/other/modular-data-center": {
+   "256x256": "446e072a26be65f8e7e0b8b482c0d7519cdae7e7d82a6635365f061b0300d188"
+  },
+  "azure/other/network-managers": {
+   "256x256": "0aa8c23bc1dd8920f9f35e0e5cef620a884cafe20acac7b3303ab21f7a441c25"
+  },
+  "azure/other/network-security-perimeters": {
+   "256x256": "7ef2b062aa0f28244830876d9d700ca2ddb295c7b81beef3d4c95575a26c05e6"
+  },
+  "azure/other/open-supply-chain-platform": {
+   "256x256": "c73590c76157861100b8a9bbf69afe1532c59c43ff9ba1fc87bf06ae8b983109"
+  },
+  "azure/other/peering-service": {
+   "256x256": "e9080760da1b0938e13cc04db403a4bea8e5dd1d49a2ddfc7d1e8952b83f734f"
+  },
+  "azure/other/peerings": {
+   "256x256": "c42364f73ee878c68d290c5124f870d8f654b110c4b220c2a69bbccaa931da58"
+  },
+  "azure/other/private-endpoints": {
+   "256x256": "f497823b12ee7a5637d9202e972f8cd6681f30ffd98847fc12fab7d84d6d7361"
+  },
+  "azure/other/reserved-capacity": {
+   "256x256": "e553c028df4e5604d651af2282f43a19ee1e4b9c1b861044708772d11a096f24"
+  },
+  "azure/other/resource-guard": {
+   "256x256": "2b94eb47eff0c0a063460a22ec2fce9cde783d2fbcd02be3aa252cbd72c8c09c"
+  },
+  "azure/other/resource-mover": {
+   "256x256": "590c286a423f81e7f0bf3e5705f48da3fd5c5ffcdf790f06e0891252c9981e40"
+  },
+  "azure/other/rtos": {
+   "256x256": "4be89b48c6b4721d08f59f42538bf07acec4ddf821c895272f2e716daba74974"
+  },
+  "azure/other/savings-plans": {
+   "256x256": "5d7d965594149a96cc951891242c75180d260999c7c5a69b43ecc424ece7b4c6"
+  },
+  "azure/other/scvmm-management-servers": {
+   "256x256": "f0601be701c58c52b55f67e4fe15c89fee072122138058271031d2d3e63a3ea9"
+  },
+  "azure/other/sonic-dash": {
+   "256x256": "2d7d651e3efb2d3f24147b3a3b944f2af609f1627c85775bd03eec137aca9516"
+  },
+  "azure/other/ssh-keys": {
+   "256x256": "7bc4a2965022d67deeccddea940939ddd36697502fefb1c1f00badcb8a3dd26f"
+  },
+  "azure/other/storage-functions": {
+   "256x256": "a3f552cbb59d3c4cd2ed132a4ccb4be0c37f5078ce98d7775d0314cb8bca5e02"
+  },
+  "azure/other/targets-management": {
+   "256x256": "f21da94555ee0bfdc84978142009a2f0687791fac9a88531919331848b3795e7"
+  },
+  "azure/other/template-specs": {
+   "256x256": "9a8ea1ff3c8e90eac025a0b044492067d2423abe2dfcd5c839ca529b67a2bef9"
+  },
+  "azure/other/test-base": {
+   "256x256": "1284f38e07f62cf65a229634bab0232fcaeefef3c172417a811c0d2783e768c3"
+  },
+  "azure/other/update-management-center": {
+   "256x256": "9604d2e8b3ac690db181a76dbb6cbbf2d1108ccdbd7274289f8bd44ffdf8652a"
+  },
+  "azure/other/video-analyzers": {
+   "256x256": "56d35905a1e27a4a208c903a1d971f5436294b444f63635a202f3dd15134f804"
+  },
+  "azure/other/virtual-enclaves": {
+   "256x256": "67860ad3f15839514ba087c19ed0c0096807778764a33e915db31f20ebc8e691"
+  },
+  "azure/other/virtual-instance-for-sap": {
+   "256x256": "2c4696713e50c7498730ee1eb1dae8de698fa269d521a5230f309fcd783740ff"
+  },
+  "azure/other/virtual-visits-builder": {
+   "256x256": "4e4a6beec34e27834b2d46eb1be5330d2e367d5ca15267461268cb28c62e06c4"
+  },
+  "azure/other/vm-app-definitions": {
+   "256x256": "8da30ae993780a502da804e9061faae42bda07f7cb56dad2e9f9365958388a02"
+  },
+  "azure/other/vm-app-versions": {
+   "256x256": "6664341d5a7dd3fd99ac877aa8908cad41307bc0692e62b2d9a17242e35659ca"
+  },
+  "azure/other/vm-image-version": {
+   "256x256": "c1db611a2c26c37fae898713de4d2dabbad68d3281204257cc4bf9ec766a7e3a"
+  },
+  "azure/other/wac": {
+   "256x256": "35fba563789cc219d441b24864203c1e1d94c9836c8ba4d27341956021a92695"
+  },
+  "azure/other/web-app-database": {
+   "256x256": "d2c0c7d59b4d74e26b869d1262e55437e141d79ae118a4118833d70685f097d6"
+  },
+  "azure/other/web-jobs": {
+   "256x256": "4afceed1343592331dfb24c2812faad11accf4bc5991efda75d5404fabe91567"
+  },
+  "azure/other/windows-notification-services": {
+   "256x256": "5cedc054ae4c24d5b39fd111ac3cdbd8bc431152c5942474ce94c8b52001b23d"
+  },
+  "azure/other/worker-container-app": {
+   "256x256": "4d66ab606b17b4d0ab5cacd6ec183444a3789229f44e18491f50dbee22713c08"
+  },
+  "azure/security/application-security-groups": {
+   "256x256": "664b41ce8948027e77be4a2ce633420f57fb5ba15a9e81b3aaf69f7af362953f"
+  },
+  "azure/security/azure-ad-authentication-methods": {
+   "256x256": "e6b6bab16436de0f6e38594d614dc42b94355e72e0b7fd86ebf2f47db8724ce1"
+  },
+  "azure/security/azure-ad-identity-protection": {
+   "256x256": "9f8fa4004850a5465a59e821bc9fa52aff7a614a2a5ca275ab0c8930614cf278"
+  },
+  "azure/security/azure-ad-privleged-identity-management": {
+   "256x256": "b2fb189626cddda46dd9e05e0f8182775063565cb8f4bf9b1e6672794438d2e0"
+  },
+  "azure/security/azure-ad-risky-signins": {
+   "256x256": "218a9398d4326b26ced782c654d4871be019888e650ce3d2e4109153682ad49e"
+  },
+  "azure/security/azure-ad-risky-users": {
+   "256x256": "7519849963b25cbd86c5f7fcd9168e98bef7db42bc8c8e35f4ec223843f3d37d"
+  },
+  "azure/security/azure-information-protection": {
+   "256x256": "996500ba73984e32fe9c5e919e7f249d543c65192f278a620c983a0487ea98d8"
+  },
+  "azure/security/azure-sentinel": {
+   "256x256": "4a53e5c02cda8587beaf078716bb38d93f333fd3c0ab34f7132a44d88c18a261"
+  },
+  "azure/security/conditional-access": {
+   "256x256": "521f1ad32b77dee3ac358c558fc9340bf94c553ae5c70ad010477f3deaeffe72"
+  },
+  "azure/security/defender": {
+   "256x256": "4bc682a8fca37082f8b45e04a1c44ffc23c9c079fca613c0aa84556dec5985ae"
+  },
+  "azure/security/detonation": {
+   "256x256": "ee65dddf093afdbbe5ef35f4f3037d96d0a09635ed8f352b320a83a464702d95"
+  },
+  "azure/security/extended-security-updates": {
+   "256x256": "96d18040f44260becc0e4d8b6e97f3c09c35dbac56a316aafc0f5567514b9fca"
+  },
+  "azure/security/extendedsecurityupdates": {
+   "256x256": "d70bbf6f77f4d06d486ee67938529d8d333b3d42a79a121f4eef093abf97c5cb"
+  },
+  "azure/security/identity-secure-score": {
+   "256x256": "47dbadae285a2e77558383eccea67b579169191abf9ad8ce999cd0201d0542d0"
+  },
+  "azure/security/key-vaults": {
+   "256x256": "55d3a5884810ba1c33c66f68ce282f32ee794a329b13d4b9c832c54bdac13269"
+  },
+  "azure/security/microsoft-defender-easm": {
+   "256x256": "7afa864d53d5542790dfcd454d162a512411c6789676f2f0abbb0ba4d6d7c80a"
+  },
+  "azure/security/microsoft-defender-for-cloud": {
+   "256x256": "cc55f1c8c3f8ffaab6905a6a5e3b353c9da223e1d2961b9db4eee35aa3929fe5"
+  },
+  "azure/security/microsoft-defender-for-iot": {
+   "256x256": "ef95965f90f5a097496d7996a6b66406403b16aec5fc4f77b509f9ec309cbbee"
+  },
+  "azure/security/multifactor-authentication": {
+   "256x256": "6f9eb37e933c22fab9fc9d13b0757a191811bfde6967b9596342c3345a16f3d1"
+  },
+  "azure/security/security-center": {
+   "256x256": "abe774451720e4ce46ce17da5ce24f4a8c414fae7239f4906b0bacde90bf9fb5"
+  },
+  "azure/security/sentinel": {
+   "256x256": "638fd2b679b484903ee3195bb660e0b6aa24741310ee058c2f50419843aff1e2"
+  },
+  "azure/security/user-settings": {
+   "256x256": "d7725151a950902ea7b539f6167479e7e9eaf844173ca635108a02bfbdb6c110"
+  },
+  "azure/storage/archive-storage": {
+   "256x256": "95dc5005e3a58edbec74a8186884690d17627df216b596f586f97c6d6faafc23"
+  },
+  "azure/storage/azure-databox-gateway": {
+   "256x256": "a9223e6221571750258a71f030534a3ce67b8c5cf2b481997d6f285017217e4b"
+  },
+  "azure/storage/azure-fileshares": {
+   "256x256": "57826df32242df60c9f5e654e923fbdc7d5c3ee385a9afffdf78b349d838b0b5"
+  },
+  "azure/storage/azure-hcp-cache": {
+   "256x256": "9fa06d1bafd46de59d86da27e7455ef814887db8f5394e960086731e7b6a2ed1"
+  },
+  "azure/storage/azure-netapp-files": {
+   "256x256": "d895d793d9898d7de47ca88d07862f6d6243a43f0036698fb6a76d23a6502b78"
+  },
+  "azure/storage/azure-stack-edge": {
+   "256x256": "9a2e8a2c0db332636d4518d387db7c90f08fccf935184cfacbcc39eb980d090a"
+  },
+  "azure/storage/azurefxtedgefiler": {
+   "256x256": "6ddca7d5eabbf86684b56d0729c837df4ef9fd532ab9d3ba5693fec189334be5"
+  },
+  "azure/storage/blob-storage": {
+   "256x256": "375264b1418547dc9e454a41c9ea98adea419d63a61a3090b016980d9b310f28"
+  },
+  "azure/storage/data-box": {
+   "256x256": "bca0eeed84bcb2b936bc4ebfcfff92ac5bfcae6c0fdb814c01632bb192c4ad54"
+  },
+  "azure/storage/data-box-edge-data-box-gateway": {
+   "256x256": "30d018d11a06f5ffad23a020cc2aa9727b3ab9e858e54b0a657898ae48324c56"
+  },
+  "azure/storage/data-lake-storage": {
+   "256x256": "00c5154d224cca380974eaf85d8035c93b751f31b346f2891f5eeaf214533713"
+  },
+  "azure/storage/data-lake-storage-gen1": {
+   "256x256": "0c54a4d40159b740c8a94598f0ad37cbd6cc55fabd74f4f930cfb42b1ea3c67e"
+  },
+  "azure/storage/data-share-invitations": {
+   "256x256": "c44de312898261802cca5857c9834bb5e09e57410d52d77f84873b9453099206"
+  },
+  "azure/storage/data-shares": {
+   "256x256": "8b1c0e88100a73de42139d283ee3620c9062e1cb1d38578bb27c30987f121802"
+  },
+  "azure/storage/general-storage": {
+   "256x256": "ce5cb34a407f0f2b803cb769399ac136122fe04a5e7abb5938534c475cbb8b8c"
+  },
+  "azure/storage/import-export-jobs": {
+   "256x256": "d8a2f36abd76586aa095c0a423bd1691f54ecb86c7552401e85819c990e59853"
+  },
+  "azure/storage/netapp-files": {
+   "256x256": "7e219c5c9a85fc70628f4faf402ac76e3cbe01a1882544a91a09e5d206257155"
+  },
+  "azure/storage/queues-storage": {
+   "256x256": "1a2774c41d187c9b6d0ee2416b608533a8af85239e5730e0251c061767816d75"
+  },
+  "azure/storage/recovery-services-vaults": {
+   "256x256": "097450cf7d5836b2adc336982686b240d059ecac5a5a02ecd644f26991be9e99"
+  },
+  "azure/storage/storage-accounts": {
+   "256x256": "1ccf5974d8870404c929da99d9a5ad5a980b3849b6628875df62c3030ee9869e"
+  },
+  "azure/storage/storage-accounts-classic": {
+   "256x256": "a0efc71f3bfb17ab5776b9cf79a39d8f5801227674b3148a866958057a88eb8b"
+  },
+  "azure/storage/storage-explorer": {
+   "256x256": "9ff16ec31ebfccd294bbf2e73b2b36e00d5a6097f8b80e53dc83c4d75ffc1d4b"
+  },
+  "azure/storage/storage-sync-services": {
+   "256x256": "382183a17a8ec23bcdbcb22a87b43479db9662bd71eec3defb814cefc1a86b93"
+  },
+  "azure/storage/storsimple-data-managers": {
+   "256x256": "04a2a89498e66007f89ebe243af0f663609685b827c3872ab0957cc2fb63709d"
+  },
+  "azure/storage/storsimple-device-managers": {
+   "256x256": "e313a2c3b225ddf2245f6838b4caced2ac5712d78ea3f2340a19386d11b089fa"
+  },
+  "azure/storage/table-storage": {
+   "256x256": "26794407508efe2d5913537c0a7afe1c2048db0eb0e0d6cc6caefb0ad25e23c6"
+  },
+  "azure/web/api-center": {
+   "256x256": "8405f0361b4f406d0468e59ffa2ccc0d4cc54ef8134aace3ef6d9af046899e35"
+  },
+  "azure/web/api-connections": {
+   "256x256": "a922cd6b1ef7fff2b3c48d6489778e2f857d8b91a540b56f13516183ba47a433"
+  },
+  "azure/web/api-management-services": {
+   "256x256": "4ccd103a8c2922bc35b01b1b9487af0bea83083e3757ebca841e8f725dc254c8"
+  },
+  "azure/web/app-service-certificates": {
+   "256x256": "2131b4f0cef54193253164a8f1bd8e30c33df01d4609c83ef7cb59f6825af973"
+  },
+  "azure/web/app-service-domains": {
+   "256x256": "356603f528eac4e6b818c1d082cbf194aa9c6310baa27e9d68e1f93b2287995a"
+  },
+  "azure/web/app-service-environments": {
+   "256x256": "4f27f4a17363bfaa368f0174bd2789e877e8c29ed41b7a7b6b0347cd765be504"
+  },
+  "azure/web/app-service-plans": {
+   "256x256": "ce159f49a039e15281051cab494dabace84821352cf39b91be073084ef827962"
+  },
+  "azure/web/app-services": {
+   "256x256": "4699e5b3e8150ee16189f8afcafbaa33eb1ebf4050156cb5dcee9614f041d105"
+  },
+  "azure/web/app-space": {
+   "256x256": "f7adc3da6161c94d682d4038a59f697fe1c2e458c23dfa9790b35f464bb0aa03"
+  },
+  "azure/web/azure-media-service": {
+   "256x256": "94d58da55d91e9aa1b82b8ff47849d7901e5e5016016f3c175f07404b55cf332"
+  },
+  "azure/web/azure-spring-apps": {
+   "256x256": "d0547a83aeea67441ed6639884d3d08cf92b4fecabfdc00a77faf8ebac8e8af2"
+  },
+  "azure/web/cognitive-search": {
+   "256x256": "e9be687186801439679578222317c8acb72893b00aeb7667dfe324ad85a46ea7"
+  },
+  "azure/web/cognitive-services": {
+   "256x256": "4c021d0590c7b519aa2c9035034204e4f9a07592f50acfc0ff372881320c4928"
+  },
+  "azure/web/front-door-and-cdn-profiles": {
+   "256x256": "e56a477802571247d4e1236f0947627c8f96a50a539da4f7ef808710de5ed4ea"
+  },
+  "azure/web/media-services": {
+   "256x256": "d154a0f961bda842ac3e7b4f1d3f9c54bdbc6360b93ce3b18384caf39d6bf302"
+  },
+  "azure/web/notification-hub-namespaces": {
+   "256x256": "06e37d68de7948da488ece92eee9d64e81443645fdb2732ca01f7487ba48b235"
+  },
+  "azure/web/power-platform": {
+   "256x256": "fc4ea03559f6c2f6e8027969e48086c0afb0c30fcc8e5028555decfca318fe3a"
+  },
+  "azure/web/search": {
+   "256x256": "f52b31fbf3509ceafbe0045078a84c48eb4d07b74097c0eb522c630d1e857691"
+  },
+  "azure/web/signalr": {
+   "256x256": "b6d519fc4e7249fc20b36c87caa7d7da660601b18fb87850f03d51511b4f9981"
+  },
+  "azure/web/static-apps": {
+   "256x256": "3ce32d7792eda40e1c9a99d3ba31c525adc41ca753930a5967e13305265eb467"
+  },
+  "gcp/analytics/bigquery": {
+   "256x256": "5b632bc4c8ce2c95700994243aeeb075072a1383e2337950affb900d014c7cb8"
+  },
+  "gcp/analytics/composer": {
+   "256x256": "2edefb413072a397a5589188e1e68ccf2264145c790256062233d00a84ca8986"
+  },
+  "gcp/analytics/data-catalog": {
+   "256x256": "c309ff018e6e8bb45d5a9085d1d5d2350a43c7f4b1be81371ed46e1990c75807"
+  },
+  "gcp/analytics/data-fusion": {
+   "256x256": "aa08bf8ba009d6577b3ffd7c61d7902bc2c7806cc34c224928f425035821bedb"
+  },
+  "gcp/analytics/dataflow": {
+   "256x256": "d944d12f441d0a33424aa14d7a6ceca004e9757c823ad739d03be883122216a3"
+  },
+  "gcp/analytics/datalab": {
+   "256x256": "1628529b7a3d3e1bcc26fd61056ac83c24ef83142aed2ab2d311734c75b9a311"
+  },
+  "gcp/analytics/dataprep": {
+   "256x256": "f65c75acccc8c19c871c180b9c20cb7a396c30e7c04b1c28aa50730280bda086"
+  },
+  "gcp/analytics/dataproc": {
+   "256x256": "1c07c6bf8c85b9164b8bf35cc8585923e9b614391cd960ed2241181b2fd21819"
+  },
+  "gcp/analytics/genomics": {
+   "256x256": "4bf5ee17ecd35c92471835a365ce7b08adba5d1b666182db58be8be6e6a59805"
+  },
+  "gcp/analytics/looker": {
+   "256x256": "17ebadcc3a4c5b0f4bf26157e50a2c14097ff4a40d89be2b567528dedd6b0acd"
+  },
+  "gcp/analytics/pubsub": {
+   "256x256": "f6e7cf0f31068e30428d2c626e38ccf241914c3d4f2e9101b37aebb9e62e93dc"
+  },
+  "gcp/api/api-gateway": {
+   "256x256": "233764f8eabd301507ad135f44aeb565e1d8aac4de9c16c894d070fc4a7b3382"
+  },
+  "gcp/api/apigee": {
+   "256x256": "653a0e14b9aafcd1d2ae1c2f00639a8e4fa821879d1e59b3ee4a5cd2730e84f8"
+  },
+  "gcp/api/endpoints": {
+   "256x256": "06f3d5f5297050d4e2d6658b6509e871282d5204bb647d91c4b579e5a1540658"
+  },
+  "gcp/compute/app-engine": {
+   "256x256": "879d29c0900079a8cf75689c4018b8f9314f7465734e3f4a592127ab3646bc71"
+  },
+  "gcp/compute/binary-authorization": {
+   "256x256": "d91f713b4aec50070896724475199e4c870a59d68ca4c4b11f64c5710163aae8"
+  },
+  "gcp/compute/compute-engine": {
+   "256x256": "5c56281fbb387259a8dd15a9eb574fba78e879b18630d9df4917e1222fafcf2a"
+  },
+  "gcp/compute/container-optimized-os": {
+   "256x256": "e028cbbe22abb784e4c826b4b87c3a6c1f9361ecf2beda961f9ef7d3a12110a4"
+  },
+  "gcp/compute/functions": {
+   "256x256": "71c672cb8d517a9579b4343d90810e4d6fc7d5ded56a0a07af9532a460da24e7"
+  },
+  "gcp/compute/gke-on-prem": {
+   "256x256": "a68237748de73adc2b81bc854d80bf93a89afa392ba0d4cbc6d7451e00d6057b"
+  },
+  "gcp/compute/gpu": {
+   "256x256": "873c2058c66daca88459977a204481d06d2327d000404d93749691db18b2bd57"
+  },
+  "gcp/compute/kubernetes-engine": {
+   "256x256": "8a52bfa4739aa91d66d1a5b10cd674c2893788cabafb827ceaae9e4246ed1b56"
+  },
+  "gcp/compute/os-configuration-management": {
+   "256x256": "0c2df766ff3f673ba46a2ce97245128a95d4627fbef93879d6c112402a725588"
+  },
+  "gcp/compute/os-inventory-management": {
+   "256x256": "4989c22ab9238dbb99dd151fee465d10c9696455c863f5394b711f6196e576f9"
+  },
+  "gcp/compute/os-patch-management": {
+   "256x256": "7e4c3dfe16d3787148711d0d0601c289b60e351fd78ec4bbcc788d2a7739c0b8"
+  },
+  "gcp/compute/run": {
+   "256x256": "36ea139811254fe0066be1a28c9a7f946f6166ad1d2e9a62b84c7f2c8e5b20ea"
+  },
+  "gcp/database/bigtable": {
+   "256x256": "c7a014575e9e35f6879fc1091bbb0ad40c5919544fdfdc5ec963187515ba1ae7"
+  },
+  "gcp/database/datastore": {
+   "256x256": "b0da46451d6a6bd7290c508a3877807a196175377d0417ca8eb4c94dd4fc48e9"
+  },
+  "gcp/database/firestore": {
+   "256x256": "4834b9827b82e6297cf910df3b90eaa7080454a474ffb50417d9f4645fada1b4"
+  },
+  "gcp/database/memorystore": {
+   "256x256": "8372e6a3e943d84417933ab57d9defcce98fefd89553f11df22f17caf934718e"
+  },
+  "gcp/database/spanner": {
+   "256x256": "233ab65bfc53d0d29aa56a9b0bf2b66b2b248fea51836b967be74decb24f15a8"
+  },
+  "gcp/database/sql": {
+   "256x256": "6fa8ba3a56612156f73265182f4c84094cdb1eaaaa79171ecf64af1e821b3dba"
+  },
+  "gcp/devtools/build": {
+   "256x256": "b571caee16a1ff557f428b166beaf3a57b911f8442559a9095f93db8c9cef84d"
+  },
+  "gcp/devtools/cloud-shell": {
+   "256x256": "e8d2ab476ffea413b09ae98db93a22518a3fd21b542e2e123c00403637709481"
+  },
+  "gcp/devtools/code": {
+   "256x256": "c19f691dccf34623bb4e7d8de60d0854d2c1936f3edd5a337b18f3b23f48797b"
+  },
+  "gcp/devtools/code-for-intellij": {
+   "256x256": "5ff58dba5e5cce557591b5b2b8b45952a6d36506a59f3efef4ece953c5769382"
+  },
+  "gcp/devtools/container-registry": {
+   "256x256": "f9831711865aea0db58477b9cc1fa0df4abd8ae383214429f002151f81f82944"
+  },
+  "gcp/devtools/gradle-app-engine-plugin": {
+   "256x256": "5ff58dba5e5cce557591b5b2b8b45952a6d36506a59f3efef4ece953c5769382"
+  },
+  "gcp/devtools/ide-plugins": {
+   "256x256": "77fa982e47aa28cf515a0fe7352ad0f4d4820a4fc1db05546505b4b1170816e5"
+  },
+  "gcp/devtools/maven-app-engine-plugin": {
+   "256x256": "5ff58dba5e5cce557591b5b2b8b45952a6d36506a59f3efef4ece953c5769382"
+  },
+  "gcp/devtools/scheduler": {
+   "256x256": "a5b27ac83840d5626688b13612cd2bdf2c7be715cff35a1eb4a63d154c2cd728"
+  },
+  "gcp/devtools/sdk": {
+   "256x256": "5ff58dba5e5cce557591b5b2b8b45952a6d36506a59f3efef4ece953c5769382"
+  },
+  "gcp/devtools/service-catalog": {
+   "256x256": "63a07ab00bebd8ef2db9ae36a9b18abacca0fe15c80178d0255ffd705417452e"
+  },
+  "gcp/devtools/source-repositories": {
+   "256x256": "5ff58dba5e5cce557591b5b2b8b45952a6d36506a59f3efef4ece953c5769382"
+  },
+  "gcp/devtools/tasks": {
+   "256x256": "6e20da5ded4ffaf1f9250b4d6821fc26a38df1de18771b356dba170a1c96c19b"
+  },
+  "gcp/devtools/test-lab": {
+   "256x256": "5dba94f9016de81fed4f105baa75811234cd1929296c213719dad76292444b67"
+  },
+  "gcp/devtools/tools-for-eclipse": {
+   "256x256": "5ff58dba5e5cce557591b5b2b8b45952a6d36506a59f3efef4ece953c5769382"
+  },
+  "gcp/devtools/tools-for-powershell": {
+   "256x256": "77fa982e47aa28cf515a0fe7352ad0f4d4820a4fc1db05546505b4b1170816e5"
+  },
+  "gcp/devtools/tools-for-visual-studio": {
+   "256x256": "77fa982e47aa28cf515a0fe7352ad0f4d4820a4fc1db05546505b4b1170816e5"
+  },
+  "gcp/gcp": {
+   "256x256": "bd49e03183dacf0e0c5dbe279e87ae3aeed1661d0a6d5cfe79577cb3618028e3"
+  },
+  "gcp/iot/iot-core": {
+   "256x256": "4f34a7208733c4b17595ee7202dd68ec3751f47855b6a086d42b05274a003db2"
+  },
+  "gcp/management/billing": {
+   "256x256": "1a85fbb17035301b06a7f60bf1b10e3a7f9369bc8ca22864746eb38f1c7863a3"
+  },
+  "gcp/management/project": {
+   "256x256": "ef7b54e8ba851353d0b84518cbf224f38dfd2c0cfafaaf791955d437501d1caa"
+  },
+  "gcp/management/quotas": {
+   "256x256": "0c7d809c9efaad626c133b1262e22afffa88373d8d29c849b0ac8f16c9184697"
+  },
+  "gcp/management/support": {
+   "256x256": "c1e3fd90c89c189a5826452d9b828bc5c3a7602113501fa9e11ea8c42c9b4c77"
+  },
+  "gcp/migration/migrate-compute-engine": {
+   "256x256": "5ceb5686609c196986bd14f1aee7326b0b1c2dedea77d149c7fff4c109aeec4f"
+  },
+  "gcp/migration/transfer-appliance": {
+   "256x256": "3cad3bb0d99ba7eda630cac555fc31833e6fb133cb43170e2867d2c4bb51789f"
+  },
+  "gcp/ml/advanced-solutions-lab": {
+   "256x256": "d24fbe35d7154ebd650fc0ba640ae8a6357f571f8a61fcc1007477969124f7c2"
+  },
+  "gcp/ml/ai-hub": {
+   "256x256": "accb649299517645194c3d32cff77d705d530e4f92777b90676dbee9e6af9abe"
+  },
+  "gcp/ml/ai-platform": {
+   "256x256": "86115f52fc5975a72e74f6f250311204939371a49244de8db745dcd9ce807e28"
+  },
+  "gcp/ml/ai-platform-data-labeling-service": {
+   "256x256": "33c96b1afaa07e8303f470616090498003aef29c27c6a40c804a4cab282b6c74"
+  },
+  "gcp/ml/automl": {
+   "256x256": "5a860eb0d4364c213d8da89724c58d982cd61c1773d7cf18ec1da6cba81fdae3"
+  },
+  "gcp/ml/automl-natural-language": {
+   "256x256": "dcd0e9cd8b9509bc8c020919b766f5ac2afa606406772099715eeb6ce830e592"
+  },
+  "gcp/ml/automl-tables": {
+   "256x256": "8bc60902844114f5ff9df2fc30625949099e6b5b271237000ac4202e6bed6618"
+  },
+  "gcp/ml/automl-translation": {
+   "256x256": "c0c6c9b94f0a1268868d0c4e21853ae62dfe83412c3a1f3fd4872f02da1de9e4"
+  },
+  "gcp/ml/automl-video-intelligence": {
+   "256x256": "08ce2e588a3a4c2b435a98d34cf3d34e1ad9271d9264d352f58ea5f3be61806b"
+  },
+  "gcp/ml/automl-vision": {
+   "256x256": "46edce9d23b9111bc1efc89e3d628bdc8cce43566fb2ba28dad9a05ea4362a6d"
+  },
+  "gcp/ml/dialog-flow-enterprise-edition": {
+   "256x256": "8b45830b6d34ed01758360c16d0db9f91c7f4b05b6c42897b7347be7bd64d831"
+  },
+  "gcp/ml/inference-api": {
+   "256x256": "58698713aeb80e08436c0ebcefa3ddfe0c63e36e8d28c26fdb8595ac84a5c693"
+  },
+  "gcp/ml/jobs-api": {
+   "256x256": "7e1c7513124dfdcbc67910666d9bd2bdcdae209f02306f9b81630496d4739703"
+  },
+  "gcp/ml/natural-language-api": {
+   "256x256": "db061cd630e1ffe44e24d765e1b22743c4cdb549fcf1b21be92b27e960759b4b"
+  },
+  "gcp/ml/recommendations-ai": {
+   "256x256": "504be72c2b8db8eb94a20dec16cc756dc0ca6e7b890f5e8c33d603c7ab946ec2"
+  },
+  "gcp/ml/speech-to-text": {
+   "256x256": "ff0c12ba575f01c161b2691674baf707066199c47d92028700fab47925605cee"
+  },
+  "gcp/ml/text-to-speech": {
+   "256x256": "f315136a6fc443a5a535ad1efc9a0b2075d1cb4f4cf18f67027c4b6d8fcb6602"
+  },
+  "gcp/ml/tpu": {
+   "256x256": "4bdfdb7c25fd0bb13c9947ece364ad6af5985478912f3a6d6b55854a1d8aff02"
+  },
+  "gcp/ml/translation-api": {
+   "256x256": "4515c646a6aae8b54aa9ee0950027d287e23f9e050d36870b1cf34b479c1f452"
+  },
+  "gcp/ml/vertex-ai": {
+   "256x256": "fef61a953cef3cd3e9ea59bedcc668e7088ce3def00516a64c25d4b7926a0d2d"
+  },
+  "gcp/ml/video-intelligence-api": {
+   "256x256": "d7ea63a8c8f66bff421d3e53d163ffed701eb39faa8c8ef28dba97f1d81f63e2"
+  },
+  "gcp/ml/vision-api": {
+   "256x256": "c24753615d98d4c737742f41cde324ca560bc7b14bf6c12a175dbf1a9daaa04d"
+  },
+  "gcp/network/armor": {
+   "256x256": "123437b4089c1c6ed728516d0676aa509cd8c917cfff361fc8d844681abda497"
+  },
+  "gcp/network/cdn": {
+   "256x256": "7d62549d717e01e6349abed0e867846330537390d4c08515faaae18e4b9bff01"
+  },
+  "gcp/network/cloud-ids": {
+   "256x256": "60cff3c5923efb24eee5216c3a4c0e2f4c384adb7922e551c1fcb340d0b2e786"
+  },
+  "gcp/network/dedicated-interconnect": {
+   "256x256": "ebb730c6e6dfb6932a318e5ffd92db687fabc68fe66450960640ccfa06601bc7"
+  },
+  "gcp/network/dns": {
+   "256x256": "e61867823dba65147417ede21cc70ccabd0488d94f436f1f35329a798d8f678e"
+  },
+  "gcp/network/external-ip-addresses": {
+   "256x256": "c4eaf660ef04a1ef8cd8277bae22e287ebb4c26053104208acdce0a194a24c2d"
+  },
+  "gcp/network/firewall-rules": {
+   "256x256": "eeb59f26072b71a5c934f62d61a3c51d7616be03ef3c9a43eba1cde53802347f"
+  },
+  "gcp/network/load-balancing": {
+   "256x256": "b4ef99738d008eca358b24ee5eac678a7e32dc86699efaca76d2e97340e1b324"
+  },
+  "gcp/network/nat": {
+   "256x256": "b8cdbff76d502fc90a0ac70e7049e2e652b759242b6b0f7d8de9b0d67c83c68d"
+  },
+  "gcp/network/network": {
+   "256x256": "726199e54fbb365afd20b262efada47935b28556dfa86e4f5933a5867d33258d"
+  },
+  "gcp/network/network-connectivity-center": {
+   "256x256": "cea17e004cc97ad47b8b6a633ead58ca2c28c34f099c9238396ae5f7701668e3"
+  },
+  "gcp/network/network-intelligence-center": {
+   "256x256": "94147f7ce8df5966e0f840a026eca0f49c5458c6a94a2180c050efc9240179d6"
+  },
+  "gcp/network/network-security": {
+   "256x256": "54f027b4751aff9f5ed367e65424087ffdaea1becdaa49ff4b8fdbea21bd7d48"
+  },
+  "gcp/network/network-tiers": {
+   "256x256": "308bf8056a4e19e8ca9ec56004c846907dd37138e74ff82b8cdf2fd7a32b5057"
+  },
+  "gcp/network/network-topology": {
+   "256x256": "4b4a0f6f302278a2428ed31c15acdba0c92cea56661ce899339f6f0d0eb24948"
+  },
+  "gcp/network/partner-interconnect": {
+   "256x256": "bbda19c06f067b271efe18c4bd2df385f0992027f2ffdee68939535ccb9ac55d"
+  },
+  "gcp/network/premium-network-tier": {
+   "256x256": "441694051bea1aebe46f607bfdf6667859e145d2e3615a79b157ed84dd5851e2"
+  },
+  "gcp/network/private-service-connect": {
+   "256x256": "992df7a5e32bc70fdbb50f707eae7c0248b20ccebcc045103efda57597eea86f"
+  },
+  "gcp/network/router": {
+   "256x256": "54dee5306c8fd6a117e679e3005dbeb88c44f43a803fe8b77c3c0c08862596ca"
+  },
+  "gcp/network/routes": {
+   "256x256": "77a52b766fdc709d13415945600ff2729366c90d17bb7e51814babf3614ec58a"
+  },
+  "gcp/network/service-mesh": {
+   "256x256": "d87dc57303146a1307d0352423718f954fca67eed397bd02d661d72bc019f0ea"
+  },
+  "gcp/network/standard-network-tier": {
+   "256x256": "21a9adfb5097c963253303b2044a910ce18c985325b5d783fd2bdfa0e786f933"
+  },
+  "gcp/network/traffic-director": {
+   "256x256": "d06d1edb432c2dd88ce505ceff6d785859711695016619fd6b27a92df410c97e"
+  },
+  "gcp/network/virtual-private-cloud": {
+   "256x256": "45ba464730f8faff1f936499769980c5b6db1753567af45e378b6391abb2edb2"
+  },
+  "gcp/network/vpn": {
+   "256x256": "34ee17f756f9bb45fbaee34177395bc2fe0306d0324987898dc147f3ae86c64f"
+  },
+  "gcp/operations/logging": {
+   "512x512": "2829f60744bfe7061832a67e2d2b5b13d1d99b4a2f0375113837a073057319df"
+  },
+  "gcp/operations/monitoring": {
+   "256x256": "33755b2b4756acd4cbd18a177fc534b812172c018cb539ad8785244cc019b264"
+  },
+  "gcp/security/access-context-manager": {
+   "256x256": "4b9cada3200de5957818bd6bd3a594ecaaea81d0a7e6edacd94c5d5492e354ec"
+  },
+  "gcp/security/assured-workloads": {
+   "256x256": "7d1faa83e6144e185b97908a7837b117f0f1b9912a4f2ff5a90f753aeedcb049"
+  },
+  "gcp/security/certificate-authority-service": {
+   "256x256": "3c3976d273391f644bb855a93adcb116b045e1f6f53561ccf96d944ac14a319b"
+  },
+  "gcp/security/certificate-manager": {
+   "256x256": "58ce8b0304545a6ba4b57e6e310890b6a5e4286171ee79787d61091a13738b14"
+  },
+  "gcp/security/cloud-asset-inventory": {
+   "256x256": "196aa01c9e6cdb7618547f75905aab3d83077cbfce90eb17bfe1af133b779504"
+  },
+  "gcp/security/iam": {
+   "256x256": "79817719ff17a2f767c575e7d6c792f6b3f69406dfc54d51f2733ced2dcbed0a"
+  },
+  "gcp/security/iap": {
+   "256x256": "a99f0a5c48f72a779953573f074a55a531a4e74edf867506b15a8d05782794e1"
+  },
+  "gcp/security/key-management-service": {
+   "256x256": "7a31ac20cdc611b5ca751deb48ec6bfaaa573f5c3d880e668b800b9475696c96"
+  },
+  "gcp/security/resource-manager": {
+   "256x256": "79817719ff17a2f767c575e7d6c792f6b3f69406dfc54d51f2733ced2dcbed0a"
+  },
+  "gcp/security/secret-manager": {
+   "256x256": "bb64c64b157c0ba583a49368933e0f60fcd65e80ae3bb6bb6e5a8fbb3600f1d9"
+  },
+  "gcp/security/security-command-center": {
+   "256x256": "ddd9f259b7e45b09291c0eb4090c3d06ecccb1a3b88636d803588d8d5d482640"
+  },
+  "gcp/security/security-health-advisor": {
+   "256x256": "915c8c07eac55fcbf46e241e7d5cf397ce251b68d44e52486930bd4c2c030f97"
+  },
+  "gcp/security/security-scanner": {
+   "256x256": "8c4df72b1dca229b2f4071f1ed92ce8ad57bb4933f4dbfe26c7ccc0ccd59deec"
+  },
+  "gcp/storage/filestore": {
+   "256x256": "83a327892f6d45ca4f4a9d021effeeba18d5cb16e4d37722699093677c0ef5ed"
+  },
+  "gcp/storage/local-ssd": {
+   "256x256": "3d66cac3cbdf702f24c4fa63586d1754f5b9e3319549a49adba9aa0fbb001bec"
+  },
+  "gcp/storage/persistent-disk": {
+   "256x256": "65b4f564e4c986577012dbb044753a9b9711e288dc4892499e4677dd23f1c3a7"
+  },
+  "gcp/storage/storage": {
+   "256x256": "d5f357b6b81155393a0d049bd4cde4809cbbc600ca36f72349c4e2438a05d7ff"
+  }
+ },
+ "note": "sha256 of the resource PNG deckkit.icons.vendor embeds, per key and pixel size; rebuilt by scripts/build_vendor_hashes.py",
+ "source": "diagrams",
+ "version": "0.25.1"
+}

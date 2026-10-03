@@ -13,14 +13,22 @@ Vendor marks keep their hue on purpose: they are identity, not theme. Their sour
 package's resource tree (aws, azure, gcp), addressed by key 'aws/compute/ec2', and a theme declares which
 sources it accepts in its vendor registry (theme JSON "vendors"). vendor() names its picture
 vendor.<key> and records the key in the alt text ('Ec2 (vendor mark aws/compute/ec2)'), so gate P22 knows
-the mark is a registered vendor's own artwork and checks that its key resolves instead of its hue.
+the mark is a registered vendor's own artwork and checks that its key resolves instead of its hue. A name and
+an alt text can be typed onto any picture, so P22 also checks the picture's bytes: the blob's sha256 must be
+the one kit/assets/vendor_hashes.json records for that key at that pixel size (the diagrams resource file,
+embedded byte for byte; scripts/build_vendor_hashes.py rebuilds the table). vendor() checks the same table
+before it draws, so a stale table refuses at build time rather than failing every mark at the gate.
+A key is a relative path of plain segments: '..' anywhere, a leading '/' and a backslash are refused with or
+without a theme bound.
 A product with no mark gets a monogram tile drawn in a theme role, one consistent family so it reads as
 intentional.
 """
 from __future__ import annotations
 
 import difflib
+import hashlib
 import io
+import json
 import re
 import zipfile
 from functools import lru_cache
@@ -48,6 +56,7 @@ VENDOR_PREFIX = "vendor."
 VENDOR_ALT = re.compile(r"\(vendor mark ([A-Za-z0-9_./-]+)\)\s*$")
 SVG_FALLBACK_SCALE = 4.0     # an SVG's PNG fallback is 4x its displayed size at 96 dpi
 RASTER_MIN_SCALE = 2.0       # a raster placed bigger than half its pixels at 96 dpi is refused (gate P22)
+VENDOR_HASHES = Path(__file__).resolve().parent.parent / "assets" / "vendor_hashes.json"
 
 
 # ------------------------------------------------------------------ helpers
@@ -77,13 +86,34 @@ def vendor_keys() -> tuple[str, ...]:
     return tuple(out)
 
 
+def vendor_key_refusal(key) -> str | None:
+    """Why a string is not a vendor key, or None when it is one: a relative path of plain segments under a
+    known vendor. '..' anywhere, a leading '/', a backslash, an empty segment or a NUL are refused."""
+    k = str(key if key is not None else "").strip()
+    if not k:
+        return "an empty key"
+    if "\\" in k:
+        return "a backslash"
+    if k.startswith("/"):
+        return "a leading '/'"
+    if ".." in k:
+        return "'..'"
+    if "\x00" in k:
+        return "a NUL"
+    if any(seg == "" or seg == "." for seg in k.split("/")):
+        return "an empty or '.' segment"
+    if k.split("/")[0] not in VENDORS:
+        return "a vendor outside %s" % ", ".join(VENDORS)
+    return None
+
+
 def vendor_resolves(key: str, theme=None) -> bool:
-    """True when key names a mark file in the diagrams resources and, with a theme, its vendor (the key's
-    first segment) is in the theme's vendor registry. Never raises."""
-    k = str(key or "").strip().strip("/")
-    v = k.split("/")[0]
-    if v not in VENDORS or ".." in k.split("/"):
+    """True when key is a vendor key (vendor_key_refusal), names a mark file in the diagrams resources and,
+    with a theme, its vendor (the key's first segment) is in the theme's vendor registry. Never raises."""
+    if vendor_key_refusal(key) is not None:
         return False
+    k = str(key).strip()
+    v = k.split("/")[0]
     if theme is not None and v not in (getattr(theme, "vendors", None) or {}):
         return False
     try:
@@ -106,15 +136,47 @@ def vendor_key_of(name: str, alt: str) -> str | None:
 
 
 def vendor_path(key: str) -> Path:
-    k = key.strip().strip("/")
-    if k.split("/")[0] not in VENDORS:
-        raise UnsupportedPart("vendor icon %r" % key, need="a key under " + ", ".join(VENDORS), have=k.split("/")[0])
-    p = _resources() / (k + ".png")
+    """The mark file for a key. Refused (UnsupportedPart) for a key with '..', a leading '/' or a backslash,
+    whether or not a theme is bound, and for a key that names no file."""
+    why = vendor_key_refusal(key)
+    if why is not None:
+        raise UnsupportedPart("vendor icon %r" % key, need="a key 'vendor/category/name' under " + ", ".join(VENDORS),
+                              have=why, hint="a key is a relative path of plain segments; list vendor_keys()")
+    k = key.strip()
+    root = _resources()
+    p = root / (k + ".png")
+    try:
+        p.resolve().relative_to(root.resolve())
+    except ValueError:
+        raise UnsupportedPart("vendor icon %r" % key, need="a file under diagrams/resources",
+                              have="a path outside it") from None
     if not p.is_file():
         close = difflib.get_close_matches(k, vendor_keys(), n=4, cutoff=0.5)
         raise UnsupportedPart("vendor icon %r" % key, need="a file under diagrams/resources", have="missing",
                               hint=("closest: " + ", ".join(close)) if close else "list vendor_keys()")
     return p
+
+
+@lru_cache(maxsize=1)
+def _vendor_table() -> dict:
+    try:
+        return json.loads(VENDOR_HASHES.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def vendor_hash(key: str, px_w: int, px_h: int) -> str | None:
+    """The sha256 kit/assets/vendor_hashes.json records for the key's mark at px_w x px_h, or None."""
+    return ((_vendor_table().get("keys") or {}).get(str(key)) or {}).get("%dx%d" % (px_w, px_h))
+
+
+def vendor_sizes(key: str) -> tuple[str, ...]:
+    """The pixel sizes ('256x256') kit/assets/vendor_hashes.json records for the key."""
+    return tuple(sorted((_vendor_table().get("keys") or {}).get(str(key)) or {}))
+
+
+def blob_sha256(blob: bytes) -> str:
+    return hashlib.sha256(blob).hexdigest()
 
 
 def _fit(box: Box, px_w: int, px_h: int) -> Box:
@@ -202,7 +264,7 @@ def vendor(slide, key: str, box: Box, *, name: str | None = None, alt: str | Non
     the key; label is alt, else the key's last segment title-cased."""
     from . import prims
     p = vendor_path(key)
-    k = key.strip().strip("/")
+    k = key.strip()
     th = theme if theme is not None else (prims._ACTIVE[-1] if prims._ACTIVE else None)
     if th is not None and not vendor_resolves(k, th):
         reg = ", ".join(sorted(getattr(th, "vendors", None) or {})) or "empty"
@@ -218,6 +280,11 @@ def vendor(slide, key: str, box: Box, *, name: str | None = None, alt: str | Non
     label = _alt("%s (vendor mark %s)" % (label, k))                         # refused before anything is added
     blob = p.read_bytes()
     pw, ph = _png_size(blob)
+    want = vendor_hash(k, pw, ph)
+    if want != blob_sha256(blob):
+        raise UnsupportedPart("vendor icon %r" % key, need="the sha256 kit/assets/vendor_hashes.json records at %dx%d"
+                              % (pw, ph), have="none recorded" if want is None else "a different file",
+                              hint="the diagrams resources changed; rebuild with scripts/build_vendor_hashes.py")
     b = _fit(box, pw, ph)
     _check_raster("vendor icon %s" % key, pw, b)
     x, y, w, h = b.emu
@@ -319,5 +386,6 @@ def fix_svg_ct(path) -> bool:
     return True
 
 
-__all__ = ["vendor", "vendor_keys", "vendor_path", "vendor_resolves", "vendor_key_of", "VENDOR_PREFIX", "svg_picture", "monogram", "rasterise", "svg_size", "fix_svg_ct",
-           "SVG_FALLBACK_SCALE", "RASTER_MIN_SCALE"]
+__all__ = ["vendor", "vendor_keys", "vendor_path", "vendor_resolves", "vendor_key_of", "vendor_key_refusal",
+           "vendor_hash", "vendor_sizes", "blob_sha256", "VENDOR_PREFIX", "VENDOR_HASHES", "svg_picture", "monogram", "rasterise",
+           "svg_size", "fix_svg_ct", "SVG_FALLBACK_SCALE", "RASTER_MIN_SCALE"]

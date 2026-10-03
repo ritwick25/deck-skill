@@ -142,10 +142,10 @@ class TestSheet(Fixture):
         self.assertFalse(faces & {"Consolas", "Courier New", "JetBrains Mono", "Menlo"})
 
     def test_only_state_shapes_are_bars(self):
-        """No strip <= prims.BAR_MAX_IN (0.10in) thin and 6x long filled or outlined in a non-neutral role
+        """No strip <= prims.BAR_MAX_IN (0.10in) thin and 6x long filled or outlined outside the rule roles
         unless named state.* (the quote bar)."""
         neutral = {SIGMOID.spec(r).get("val") + repr([(c.tag, c.get("val")) for c in SIGMOID.spec(r)])
-                   for r in prims.NEUTRAL_STRIP}
+                   for r in prims.STRIP_ROLES}
         bars = []
         for s in self.root.iter(P + "sp"):
             ext = s.find(P + "spPr/" + A + "xfrm/" + A + "ext")

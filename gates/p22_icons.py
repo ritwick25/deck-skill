@@ -1,11 +1,14 @@
-"""P22 icons: every SVG picture has a raster fallback, every raster is at least 2x its displayed size, vendor marks resolve or keep a registered hue, no emoji.
+"""P22 icons: every SVG picture has a raster fallback, every raster is at least 2x its displayed size, vendor marks resolve and are the vendor's own bytes or keep a registered hue, no emoji.
 
   * an svgBlip with no r:embed raster beside it renders blank in older readers;
   * a raster's effective resolution (pixels over displayed inches, crop applied) is at least 192 dpi;
   * a kit vendor mark (a picture named vendor.<key>, deckkit.icons.vendor) must record the same key in its alt
     text ('(vendor mark <key>)') and the key must resolve: its vendor in the theme's vendor registry and the mark
-    file present in that source (deckkit.icons.vendor_resolves). Its hue is the vendor's own artwork, so no hue
-    check; a mark whose key does not resolve fails;
+    file present in that source (deckkit.icons.vendor_resolves). A name and an alt text can be typed onto any
+    picture, so the picture's blob is verified too: its sha256 must equal the one kit/assets/vendor_hashes.json
+    records for that key at the blob's pixel size (the diagrams resource deckkit.icons.vendor embeds byte for
+    byte). A renamed picture, an off-palette image or another key's mark under this key's name fails. Its hue is
+    the vendor's own artwork, so no hue check; a mark whose key does not resolve fails;
   * a hand-placed vendor mark (a picture named icon.aws.*, icon.azure.* or icon.gcp.*) keeps its own hue, and that
     hue must be one the theme's identity registry declares (CIEDE2000 under 12), so it is a decision, not drift;
   * emoji are never icons.
@@ -17,7 +20,8 @@ import sys
 
 from _shared import FAIL, Finding, cli, text_of
 from deckkit.read.ns import local
-from deckkit.icons import VENDOR_ALT, VENDOR_PREFIX, vendor_key_of, vendor_resolves
+from deckkit.icons import (VENDOR_ALT, VENDOR_HASHES, VENDOR_PREFIX, blob_sha256, vendor_hash, vendor_key_of,
+                           vendor_resolves, vendor_sizes)
 from deckkit.read.walk import EMOJI
 from deckkit.theme import delta_e00
 
@@ -44,6 +48,32 @@ def _dominant(blob):
         return None
     r, g, b = max(counts, key=counts.get)
     return "%02X%02X%02X" % (r * 16 + 8, g * 16 + 8, b * 16 + 8)
+
+
+def _blob_finding(dr, target, key):
+    """Why the blob behind a resolving vendor mark is not that key's resource, or None when it is."""
+    from PIL import Image
+    if not target or not dr.has(target.lstrip("/")):
+        return "vendor mark %r has no picture blob (r:embed missing)" % key
+    blob = dr.blob(target.lstrip("/"))
+    try:
+        with Image.open(io.BytesIO(blob)) as im:
+            w, h = im.size
+    except Exception:
+        return "vendor mark %r blob is not a readable image" % key
+    want = vendor_hash(key, w, h)
+    got = blob_sha256(blob)
+    if want is None:
+        sizes = vendor_sizes(key)
+        if sizes:
+            return ("vendor mark %r blob sha256 %s at %dx%d is not the diagrams resource for that key (recorded "
+                    "only at %s); a picture renamed as a vendor mark" % (key, got[:12], w, h, ", ".join(sizes)))
+        return ("vendor mark %r: %s records no hash for that key; rebuild it with scripts/build_vendor_hashes.py"
+                % (key, VENDOR_HASHES.name))
+    if got != want:
+        return ("vendor mark %r blob sha256 %s is not the diagrams resource for that key (%s at %dx%d); a picture "
+                "renamed as a vendor mark" % (key, got[:12], want[:12], w, h))
+    return None
 
 
 def run(deck, ctx):
@@ -75,6 +105,10 @@ def run(deck, ctx):
                 elif not vendor_resolves(key, ctx.theme):
                     out.append(Finding(GATE, FAIL, i, name, "vendor mark key %r does not resolve (theme vendor "
                                        "registry: %s)" % (key, ", ".join(sorted(ctx.theme.vendors)) or "empty")))
+                else:
+                    why = _blob_finding(dr, target, key)
+                    if why:
+                        out.append(Finding(GATE, FAIL, i, name, why))
         for L in ctx.slide(i)["shapes"]:
             pic = L.get("picture")
             if pic and pic.get("dpi_effective") is not None and (pic.get("format") not in ("WMF", "EMF")) \
