@@ -1,0 +1,463 @@
+{
+ "id": "DL04",
+ "name": "Forum calendars with escalation ladder",
+ "archetypes": [
+  "governance-model"
+ ],
+ "family": "Stacked layers",
+ "variant": "forum-calendars-escalation",
+ "mechanism": "Four forum columns ordered from strategic to operational each show a month calendar of meeting days whose fill density reads as cadence, with chair, members and decision rights in matching rows, while a numbered escalation ladder beside them times each handoff by working day.",
+ "canvas": "wide",
+ "source": "d01-s093",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.cadence.label",
+   "kind": "text",
+   "role": "section",
+   "max_words": 4
+  },
+  {
+   "name": "slot.escalation.label",
+   "kind": "text",
+   "role": "section",
+   "max_words": 3
+  },
+  {
+   "name": "slot.forum.1.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.forum.1.name",
+   "kind": "text",
+   "role": "forum",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.forum.1.day.R.C",
+   "kind": "text",
+   "role": "meeting-day fill (accent when the forum meets, hairline otherwise), 4 weeks x 7 days",
+   "max_words": 0
+  },
+  {
+   "name": "slot.forum.1.cadence",
+   "kind": "text",
+   "role": "frequency",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.forum.1.row.1.label",
+   "kind": "text",
+   "role": "chair-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.forum.1.row.1.value",
+   "kind": "text",
+   "role": "chair",
+   "max_words": 2
+  },
+  {
+   "name": "slot.forum.1.row.2.label",
+   "kind": "text",
+   "role": "members-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.forum.1.row.2.value",
+   "kind": "text",
+   "role": "members",
+   "max_words": 6
+  },
+  {
+   "name": "slot.forum.1.row.3.label",
+   "kind": "text",
+   "role": "decides-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.forum.1.row.3.value",
+   "kind": "text",
+   "role": "decides",
+   "max_words": 2
+  },
+  {
+   "name": "slot.forum.2.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.forum.2.name",
+   "kind": "text",
+   "role": "forum",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.forum.2.day.R.C",
+   "kind": "text",
+   "role": "meeting-day fill (accent when the forum meets, hairline otherwise), 4 weeks x 7 days",
+   "max_words": 0
+  },
+  {
+   "name": "slot.forum.2.cadence",
+   "kind": "text",
+   "role": "frequency",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.forum.2.row.1.label",
+   "kind": "text",
+   "role": "chair-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.forum.2.row.1.value",
+   "kind": "text",
+   "role": "chair",
+   "max_words": 2
+  },
+  {
+   "name": "slot.forum.2.row.2.label",
+   "kind": "text",
+   "role": "members-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.forum.2.row.2.value",
+   "kind": "text",
+   "role": "members",
+   "max_words": 6
+  },
+  {
+   "name": "slot.forum.2.row.3.label",
+   "kind": "text",
+   "role": "decides-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.forum.2.row.3.value",
+   "kind": "text",
+   "role": "decides",
+   "max_words": 2
+  },
+  {
+   "name": "slot.forum.3.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.forum.3.name",
+   "kind": "text",
+   "role": "forum",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.forum.3.day.R.C",
+   "kind": "text",
+   "role": "meeting-day fill (accent when the forum meets, hairline otherwise), 4 weeks x 7 days",
+   "max_words": 0
+  },
+  {
+   "name": "slot.forum.3.cadence",
+   "kind": "text",
+   "role": "frequency",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.forum.3.row.1.label",
+   "kind": "text",
+   "role": "chair-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.forum.3.row.1.value",
+   "kind": "text",
+   "role": "chair",
+   "max_words": 2
+  },
+  {
+   "name": "slot.forum.3.row.2.label",
+   "kind": "text",
+   "role": "members-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.forum.3.row.2.value",
+   "kind": "text",
+   "role": "members",
+   "max_words": 6
+  },
+  {
+   "name": "slot.forum.3.row.3.label",
+   "kind": "text",
+   "role": "decides-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.forum.3.row.3.value",
+   "kind": "text",
+   "role": "decides",
+   "max_words": 2
+  },
+  {
+   "name": "slot.forum.4.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.forum.4.name",
+   "kind": "text",
+   "role": "forum",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.forum.4.day.R.C",
+   "kind": "text",
+   "role": "meeting-day fill (accent when the forum meets, hairline otherwise), 4 weeks x 7 days",
+   "max_words": 0
+  },
+  {
+   "name": "slot.forum.4.cadence",
+   "kind": "text",
+   "role": "frequency",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.forum.4.row.1.label",
+   "kind": "text",
+   "role": "chair-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.forum.4.row.1.value",
+   "kind": "text",
+   "role": "chair",
+   "max_words": 2
+  },
+  {
+   "name": "slot.forum.4.row.2.label",
+   "kind": "text",
+   "role": "members-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.forum.4.row.2.value",
+   "kind": "text",
+   "role": "members",
+   "max_words": 6
+  },
+  {
+   "name": "slot.forum.4.row.3.label",
+   "kind": "text",
+   "role": "decides-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.forum.4.row.3.value",
+   "kind": "text",
+   "role": "decides",
+   "max_words": 2
+  },
+  {
+   "name": "slot.rules.label",
+   "kind": "text",
+   "role": "section",
+   "max_words": 5
+  },
+  {
+   "name": "slot.rules.1.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1
+  },
+  {
+   "name": "slot.rules.1.body",
+   "kind": "text",
+   "role": "rule",
+   "max_words": 7
+  },
+  {
+   "name": "slot.rules.2.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1
+  },
+  {
+   "name": "slot.rules.2.body",
+   "kind": "text",
+   "role": "rule",
+   "max_words": 7
+  },
+  {
+   "name": "slot.rules.3.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1
+  },
+  {
+   "name": "slot.rules.3.body",
+   "kind": "text",
+   "role": "rule",
+   "max_words": 7
+  },
+  {
+   "name": "slot.rules.4.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1
+  },
+  {
+   "name": "slot.rules.4.body",
+   "kind": "text",
+   "role": "rule",
+   "max_words": 7
+  },
+  {
+   "name": "slot.step.1.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.step.1.who",
+   "kind": "text",
+   "role": "escalation-owner",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.step.1.when",
+   "kind": "text",
+   "role": "trigger",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.2.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.step.2.who",
+   "kind": "text",
+   "role": "escalation-owner",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.step.2.when",
+   "kind": "text",
+   "role": "trigger",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.3.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.step.3.who",
+   "kind": "text",
+   "role": "escalation-owner",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.step.3.when",
+   "kind": "text",
+   "role": "trigger",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.4.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.step.4.who",
+   "kind": "text",
+   "role": "escalation-owner",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.step.4.when",
+   "kind": "text",
+   "role": "trigger",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.5.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.step.5.who",
+   "kind": "text",
+   "role": "escalation-owner",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.step.5.when",
+   "kind": "text",
+   "role": "trigger",
+   "max_words": 2,
+   "background": "accent"
+  }
+ ],
+ "samples": [
+  "Four standing forums take any escalation to a decision within ten days",
+  "Forum cadence",
+  "Escalation path",
+  "Steering group",
+  "Program board",
+  "Design authority",
+  "Delivery stand-up",
+  "Every two weeks",
+  "Daily on weekdays",
+  "Executive sponsor",
+  "Both sponsors, program leads and finance",
+  "Budget and phase gates",
+  "Program director",
+  "Workstream leads from both parties",
+  "Plan changes and staffing",
+  "Lead architect",
+  "Architects, security and data owners",
+  "Standards and design waivers",
+  "Delivery manager",
+  "Squad leads and product owners",
+  "Blockers and daily priorities",
+  "Standing rules for every forum",
+  "Decisions logged within one day",
+  "Papers sent two days ahead of each session",
+  "Quorum needs both parties present",
+  "One shared risk and action log",
+  "Workstream lead"
+ ]
+}

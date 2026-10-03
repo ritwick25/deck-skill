@@ -1,0 +1,708 @@
+{
+ "id": "DL31",
+ "name": "Bounded platform core with side columns",
+ "archetypes": [
+  "solution-architecture",
+  "layered-architecture"
+ ],
+ "family": "Bounded architecture",
+ "variant": "bounded-core-side-columns",
+ "mechanism": "Sources stand in a column outside the left edge and consumers outside the right, while one bounded core holds an access band, pipeline lanes and an agent runtime above a shared platform band, so every crossing of the boundary reads as a decision.",
+ "canvas": "wide",
+ "source": "d19-s002",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.sources.tab",
+   "kind": "text",
+   "role": "zone-tab",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.sources.group.1",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.source.1.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.2.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.3.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.sources.more.1",
+   "kind": "text",
+   "role": "more-chip",
+   "max_words": 2
+  },
+  {
+   "name": "slot.sources.group.2",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.source.4.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.5.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.sources.more.2",
+   "kind": "text",
+   "role": "more-chip",
+   "max_words": 2
+  },
+  {
+   "name": "slot.sources.group.3",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.source.6.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.7.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.sources.more.3",
+   "kind": "text",
+   "role": "more-chip",
+   "max_words": 2
+  },
+  {
+   "name": "slot.consumers.tab",
+   "kind": "text",
+   "role": "zone-tab",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.consumers.group.1",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.consumer.1.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.consumer.2.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.consumer.3.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.consumers.group.2",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.consumer.4.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.consumer.5.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.consumer.6.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.access.tab",
+   "kind": "text",
+   "role": "zone-tab",
+   "max_words": 6,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.access.1.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 6
+  },
+  {
+   "name": "slot.access.2.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 5
+  },
+  {
+   "name": "slot.access.3.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 5
+  },
+  {
+   "name": "slot.access.4.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 5
+  },
+  {
+   "name": "slot.pipelines.tab",
+   "kind": "text",
+   "role": "zone-tab",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.runtime.tab",
+   "kind": "text",
+   "role": "zone-tab",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.lane.1.label",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.lane.1.step.1.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.lane.1.step.2.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 5
+  },
+  {
+   "name": "slot.lane.1.step.3.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.lane.1.step.4.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.lane.2.label",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.lane.2.step.1.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.lane.2.step.2.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.lane.2.step.3.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.lane.2.step.4.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.models.label",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.models.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 6
+  },
+  {
+   "name": "slot.services.label",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.service.1.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.service.2.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.service.3.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 5
+  },
+  {
+   "name": "slot.tools.label",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.tool.1.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.tool.2.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.tool.3.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.tool.4.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 7,
+   "background": "card"
+  },
+  {
+   "name": "slot.tool.5.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.platform.tab",
+   "kind": "text",
+   "role": "zone-tab",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.platform.1.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.platform.2.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.platform.3.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.platform.4.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.platform.5.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.platform.6.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.platform.7.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.platform.8.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.access.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.access.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.access.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.access.4.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.source.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.source.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.source.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.source.4.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.source.5.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.source.6.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.source.7.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.consumers.group.3",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.consumer.7.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 3
+  },
+  {
+   "name": "slot.consumer.8.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.consumer.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.consumer.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.consumer.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.consumer.4.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.consumer.5.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.consumer.6.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.consumer.7.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.consumer.8.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.lane.3.label",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.lane.3.step.1.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 5
+  },
+  {
+   "name": "slot.lane.3.step.2.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.lane.3.step.3.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 5
+  },
+  {
+   "name": "slot.lane.3.step.4.text",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 4
+  },
+  {
+   "name": "slot.lane.1.step.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.lane.1.step.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.lane.1.step.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.lane.1.step.4.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.lane.2.step.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.lane.2.step.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.lane.2.step.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.lane.2.step.4.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.lane.3.step.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.lane.3.step.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.lane.3.step.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.lane.3.step.4.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.models.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.service.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.service.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.service.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.tool.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.tool.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.tool.3.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.tool.4.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.tool.5.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.platform.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.platform.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.platform.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.platform.4.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.platform.5.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.platform.6.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.platform.7.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.platform.8.icon",
+   "kind": "glyph"
+  }
+ ],
+ "samples": [
+  "One governed platform serves every agent from shared, certified data",
+  "Operational",
+  "ERP ledger",
+  "Documents",
+  "Contracts",
+  "External feeds",
+  "Market prices",
+  "Partner files",
+  "Consumers",
+  "Channels",
+  "CRM copilot",
+  "Case replies",
+  "Close checks",
+  "Integrations",
+  "Partner apps",
+  "BI views",
+  "Team chat",
+  "Access layer",
+  "Agent gateway",
+  "Routes every request",
+  "Identity",
+  "Single sign-on, roles",
+  "Orchestrator",
+  "Plans multi-step tasks",
+  "Guardrails",
+  "Checks every output",
+  "Data pipelines",
+  "Agent runtime",
+  "Batch ingest",
+  "Nightly loads",
+  "Validate",
+  "Rules and tests",
+  "Shared tables",
+  "Certified sets",
+  "Streaming",
+  "Change events",
+  "Join reference",
+  "Live features",
+  "Hot store",
+  "Model access",
+  "Model router",
+  "Every call logged",
+  "Shared services",
+  "Session context",
+  "Retrieval",
+  "Indexed documents",
+  "Evaluation",
+  "Scores each answer",
+  "Agent tools",
+  "Catalog and files",
+  "Governed metrics",
+  "Replies for review",
+  "Escalate",
+  "Hand off to a person",
+  "Gated writes",
+  "Shared platform and governance",
+  "Analysts",
+  "Self-serve",
+  "Final sign-off",
+  "Document intake",
+  "Text and tables",
+  "By section",
+  "Vector per chunk",
+  "Search ready"
+ ]
+}

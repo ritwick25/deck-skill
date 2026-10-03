@@ -46,8 +46,9 @@ K=~/.claude/skills/deck
 6. **Look at the exemplars**: `$PY $K/scripts/find.py <slug>`, then Read the greeked sheet it prints. Borrow
    structure, never words (`references/library.md`).
 7. **Build** in `build.py` (scaffold with `$PY $K/scripts/new_deck.py FOLDER --name "Name"`). In order of preference:
-   clone the deck's own accepted slide and retext it (EXTEND); otherwise compose from the card's anatomy with the kit
-   (below). Never clone a reference slide.
+   clone the deck's own accepted slide and retext it (EXTEND); else place a library device that serves the archetype
+   (`find.py <slug>` lists them with renders; `references/device-library.md` has all 31) and fill every slot; else
+   compose from the card's anatomy with `deckkit.compose` and the kit (below). Never clone a raw reference slide.
 8. **Gate**: `$PY $K/gates/run_all.py --deck OUT.pptx` must exit 0. Fix the slide, never the gate. A gate that
    is wrong is reported to the user with the evidence, not edited to pass.
 9. **Render and read every slide**: `$PY $K/scripts/render.py OUT.pptx`, then Read every PNG. Not a sample. Look for
@@ -171,6 +172,12 @@ title(s, "Every brief passes four steps before it reaches the field", keywords=(
   active=i)`, `stat(s, box, value, label, kind="measured|delivered|illustrative|target|benchmark")` (it raises
   `Overflows` with the height it needs), `quote(s, box, text, attribution)` (its left bar is the one the rules
   allow), `person(s, box)`.
+- **Devices** (`from deckkit import devices`; rulings 3 and 14): 31 native slides lifted from the references,
+  sanitised and theme-mapped. `devices.place(prs, "DL07", {slot: value}, theme=th)` adds the slide, tags it, and
+  fills each named slot in its own box, size, weight, colour and alignment; a value that does not fit raises
+  `Overflows` (cut words, never shrink). Text slots take a string or a list of paragraph strings; a title slot takes
+  `(text, keywords)`; a glyph slot takes a glyph name; `None` removes an optional slot. Every slot must be filled: a
+  device's sample copy left on its slide fails P19. Slot names and word capacities are in `devices/devices.json`.
 - **Composed components** (`from deckkit import compose`; ruling 10, the flagship's devices under the house rules):
   `icon_cards` (solid brand cards, glyph over head and line), `numbered_rows` (a panel under a solid header band,
   numbered discs), `stat_band` (near-black band, brand numerals, returns stat names for the manifest),
@@ -210,6 +217,7 @@ finding). `references/rules.md` maps each rule to its gate and to the fix. A dec
 | `references/storylines.md` | choosing the deck's order (proposal, POV, RFP and RFI response, capability, workshop) |
 | `references/design-system.md` | setting grid, type scale, colour roles, cards, radius, lines, connectors, icons |
 | `references/devices.md` | a card cites `dvNN` |
+| `references/device-library.md` | choosing a library device (DL01 to DL31) to place |
 | `references/rules.md` | a gate fails, or before a review |
 | `references/copy.md` | writing titles, card bodies, numbers and notes |
 | `references/library.md` | looking at exemplars, cloning the user's own decks, refreshing from the library |
@@ -219,6 +227,4 @@ finding). `references/rules.md` maps each rule to its gate and to the fix. A dec
 
 - **The HTML twin** (generated from the pptx) and its gates H01 to H10, plus the render gates R01 to R03, all
   report PENDING. A twin, when one is needed, is built by hand under CLAUDE.md §7.
-- **The sanitised device library** (native device slides that recolour per theme). Build devices from the card's
-  device notes with prims.
 - **Per-archetype composers.** Every slide is composed from its card with the kit.

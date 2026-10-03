@@ -1,0 +1,1020 @@
+{
+ "id": "DL15",
+ "name": "Step network handed to agents",
+ "archetypes": [
+  "value-horizons"
+ ],
+ "family": "Axis of time or maturity",
+ "variant": "step-network-handover",
+ "mechanism": "A tonal chevron ramp sets four horizons, a team band shrinks beneath it, and the same process-step network repeats under each horizon with person-run nodes turning into agent-run nodes, so the handover reads by colour count while a tools tray and an outcome strip state what each horizon adds.",
+ "canvas": "wide",
+ "source": "d01-s069",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.horizon.1.label",
+   "kind": "text",
+   "role": "horizon",
+   "max_words": 2,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.today.member.2",
+   "kind": "text",
+   "role": "team member",
+   "max_words": 2
+  },
+  {
+   "name": "slot.today.member.1",
+   "kind": "text",
+   "role": "team member",
+   "max_words": 2
+  },
+  {
+   "name": "slot.today.head",
+   "kind": "text",
+   "role": "section label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.today.hub.label",
+   "kind": "text",
+   "role": "hub",
+   "max_words": 1
+  },
+  {
+   "name": "slot.today.task.2",
+   "kind": "text",
+   "role": "manual task",
+   "max_words": 3
+  },
+  {
+   "name": "slot.today.task.1",
+   "kind": "text",
+   "role": "manual task",
+   "max_words": 3
+  },
+  {
+   "name": "slot.today.task.7",
+   "kind": "text",
+   "role": "manual task",
+   "max_words": 3
+  },
+  {
+   "name": "slot.today.task.6",
+   "kind": "text",
+   "role": "manual task",
+   "max_words": 3
+  },
+  {
+   "name": "slot.today.task.4",
+   "kind": "text",
+   "role": "manual task",
+   "max_words": 3
+  },
+  {
+   "name": "slot.today.task.3",
+   "kind": "text",
+   "role": "manual task",
+   "max_words": 3
+  },
+  {
+   "name": "slot.today.task.5",
+   "kind": "text",
+   "role": "manual task",
+   "max_words": 3
+  },
+  {
+   "name": "slot.today.tools.head",
+   "kind": "text",
+   "role": "tools heading",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.today.tools.note",
+   "kind": "text",
+   "role": "tools note",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.today.hub.sub",
+   "kind": "text",
+   "role": "hub detail",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.label",
+   "kind": "text",
+   "role": "horizon",
+   "max_words": 2,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.horizon.3.team",
+   "kind": "text",
+   "role": "team size",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.3.tool.4",
+   "kind": "text",
+   "role": "tool",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.tool.3",
+   "kind": "text",
+   "role": "tool",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.tool.2",
+   "kind": "text",
+   "role": "tool",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.tool.1",
+   "kind": "text",
+   "role": "tool",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.tool.note",
+   "kind": "text",
+   "role": "platform note",
+   "max_words": 3
+  },
+  {
+   "name": "slot.horizon.3.outcome",
+   "kind": "text",
+   "role": "value added",
+   "max_words": 4
+  },
+  {
+   "name": "slot.horizon.3.step.10",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.step.11",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.step.8",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.step.1",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.step.2",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.step.3",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.step.9",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.step.4",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.step.5",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.step.6",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.step.7",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.party.1",
+   "kind": "text",
+   "role": "outside party",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.party.2",
+   "kind": "text",
+   "role": "outside party",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.net.head",
+   "kind": "text",
+   "role": "operating mode",
+   "max_words": 2
+  },
+  {
+   "name": "slot.horizon.4.label",
+   "kind": "text",
+   "role": "horizon",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.horizon.4.team",
+   "kind": "text",
+   "role": "team size",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.4.tool.4",
+   "kind": "text",
+   "role": "tool",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.tool.3",
+   "kind": "text",
+   "role": "tool",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.tool.2",
+   "kind": "text",
+   "role": "tool",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.tool.1",
+   "kind": "text",
+   "role": "tool",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.tool.note",
+   "kind": "text",
+   "role": "platform note",
+   "max_words": 3
+  },
+  {
+   "name": "slot.horizon.4.outcome",
+   "kind": "text",
+   "role": "value added",
+   "max_words": 4
+  },
+  {
+   "name": "slot.horizon.4.step.10",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.step.11",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.step.8",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.step.1",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.step.2",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.step.3",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.step.9",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.step.4",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.step.5",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.step.6",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.step.7",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.party.1",
+   "kind": "text",
+   "role": "outside party",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.party.2",
+   "kind": "text",
+   "role": "outside party",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.net.head",
+   "kind": "text",
+   "role": "operating mode",
+   "max_words": 2
+  },
+  {
+   "name": "slot.horizon.4.callout",
+   "kind": "text",
+   "role": "destination",
+   "max_words": 5,
+   "background": "accent"
+  },
+  {
+   "name": "slot.horizon.2.party.2",
+   "kind": "text",
+   "role": "outside party",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.label",
+   "kind": "text",
+   "role": "horizon",
+   "max_words": 2,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.horizon.2.team",
+   "kind": "text",
+   "role": "team size",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.2.tool.4",
+   "kind": "text",
+   "role": "tool",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.tool.3",
+   "kind": "text",
+   "role": "tool",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.tool.2",
+   "kind": "text",
+   "role": "tool",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.tool.1",
+   "kind": "text",
+   "role": "tool",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.tool.note",
+   "kind": "text",
+   "role": "platform note",
+   "max_words": 3
+  },
+  {
+   "name": "slot.horizon.2.outcome",
+   "kind": "text",
+   "role": "value added",
+   "max_words": 4
+  },
+  {
+   "name": "slot.horizon.2.step.10",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.step.11",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.step.8",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.step.1",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.step.2",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.step.3",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.step.4",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.step.5",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.step.6",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.step.7",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.party.1",
+   "kind": "text",
+   "role": "outside party",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.net.head",
+   "kind": "text",
+   "role": "operating mode",
+   "max_words": 2
+  },
+  {
+   "name": "slot.horizon.2.step.9",
+   "kind": "text",
+   "role": "process step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.legend.head",
+   "kind": "text",
+   "role": "legend title",
+   "max_words": 2
+  },
+  {
+   "name": "slot.legend.1",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.legend.2",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.1.team.icon.1",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.1.team.icon.2",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.1.team.icon.3",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.1.team.icon.4",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.1.team.icon.5",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.1.team.icon.6",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.2.team.icon.1",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.2.team.icon.2",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.2.team.icon.3",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.2.team.icon.4",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.3.team.icon.1",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.3.team.icon.2",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.3.team.icon.3",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.4.team.icon.1",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.4.team.icon.2",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.today.member.1.icon",
+   "kind": "glyph",
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.today.member.2.icon",
+   "kind": "glyph",
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.today.hub.icon.1",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.today.hub.icon.2",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.today.channel.1.icon",
+   "kind": "glyph",
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.today.channel.2.icon",
+   "kind": "glyph",
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.today.channel.3.icon",
+   "kind": "glyph",
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.today.channel.4.icon",
+   "kind": "glyph",
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.today.channel.5.icon",
+   "kind": "glyph",
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.today.tools.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.today.tools.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.today.tools.3.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.today.tools.4.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.2.tool.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.2.tool.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.2.tool.3.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.2.tool.4.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.2.outcome.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.horizon.3.tool.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.3.tool.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.3.tool.3.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.3.tool.4.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.3.outcome.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.horizon.4.tool.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.4.tool.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.4.tool.3.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.4.tool.4.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.horizon.4.outcome.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.horizon.3.node.1.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.2.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.3.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.4.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.5.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.6.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.7.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.8.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.9.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.10.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.11.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.12.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.13.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.14.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.15.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.3.node.16.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.1.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.2.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.3.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.4.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.5.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.6.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.7.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.8.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.9.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.10.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.11.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.12.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.13.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.14.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.15.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.4.node.16.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.1.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.2.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.3.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.4.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.5.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.6.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.7.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.8.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.9.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.10.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.11.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.12.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.13.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.14.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.15.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.horizon.2.node.16.icon",
+   "kind": "glyph",
+   "role": "step owner mark"
+  },
+  {
+   "name": "slot.legend.1.icon",
+   "kind": "glyph",
+   "background": "hairline"
+  },
+  {
+   "name": "slot.legend.2.icon",
+   "kind": "glyph",
+   "background": "accent"
+  }
+ ],
+ "samples": [
+  "Agents run routine claims work by year three, people own the exceptions",
+  "Claims desk",
+  "Policy lookups",
+  "Calls and email",
+  "sign-off",
+  "Four tools, rekeyed by hand",
+  "Case history split four ways",
+  "Live case",
+  "Agents clear routine claims",
+  "Agent led",
+  "audit log",
+  "People resolve exceptions",
+  "Agent run",
+  "People own the",
+  "exceptions only",
+  "case file",
+  "Assist cuts handling time",
+  "Agent assist",
+  "Step owner"
+ ]
+}

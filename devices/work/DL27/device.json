@@ -1,0 +1,312 @@
+{
+ "id": "DL27",
+ "name": "Value-effort field with wave key",
+ "archetypes": [
+  "prioritization-matrix",
+  "use-case-map"
+ ],
+ "family": "Two-dimensional field",
+ "variant": "value-effort-waves",
+ "mechanism": "Numbered candidates sit on a value by effort field split into four named quadrants, their marks encode delivery wave, and a key rail decodes every number so the room reads which go first and why.",
+ "canvas": "wide",
+ "source": "d12-s040",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.quadrant.1.icon",
+   "kind": "glyph",
+   "role": "accent",
+   "background": "card"
+  },
+  {
+   "name": "slot.quadrant.1.label",
+   "kind": "text",
+   "role": "accent-ink",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.quadrant.2.icon",
+   "kind": "glyph",
+   "role": "accent",
+   "background": "card"
+  },
+  {
+   "name": "slot.quadrant.2.label",
+   "kind": "text",
+   "role": "accent-ink",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.quadrant.3.icon",
+   "kind": "glyph",
+   "role": "accent",
+   "background": "card"
+  },
+  {
+   "name": "slot.quadrant.3.label",
+   "kind": "text",
+   "role": "accent-ink",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.quadrant.4.icon",
+   "kind": "glyph",
+   "role": "accent",
+   "background": "card"
+  },
+  {
+   "name": "slot.quadrant.4.label",
+   "kind": "text",
+   "role": "accent-ink",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.axis.y",
+   "kind": "text",
+   "role": "ink-strong",
+   "max_words": 3
+  },
+  {
+   "name": "slot.axis.x",
+   "kind": "text",
+   "role": "ink-strong",
+   "max_words": 6
+  },
+  {
+   "name": "slot.axis.x.low",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.axis.x.high",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.disc.1.num",
+   "kind": "text",
+   "role": "on-accent",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.disc.2.num",
+   "kind": "text",
+   "role": "on-accent",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.disc.3.num",
+   "kind": "text",
+   "role": "on-accent",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.disc.4.num",
+   "kind": "text",
+   "role": "paper",
+   "max_words": 1,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.disc.5.num",
+   "kind": "text",
+   "role": "paper",
+   "max_words": 1,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.disc.6.num",
+   "kind": "text",
+   "role": "paper",
+   "max_words": 1,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.disc.7.num",
+   "kind": "text",
+   "role": "paper",
+   "max_words": 1,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.disc.8.num",
+   "kind": "text",
+   "role": "ink-deep",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.disc.9.num",
+   "kind": "text",
+   "role": "ink-deep",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.disc.10.num",
+   "kind": "text",
+   "role": "ink-deep",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.disc.11.num",
+   "kind": "text",
+   "role": "ink-deep",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.disc.12.num",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.key.head",
+   "kind": "text",
+   "role": "ink-deep",
+   "max_words": 6
+  },
+  {
+   "name": "slot.key.1.head",
+   "kind": "text",
+   "role": "ink-deep",
+   "max_words": 6
+  },
+  {
+   "name": "slot.key.1.item.1",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 4
+  },
+  {
+   "name": "slot.key.1.item.2",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 4
+  },
+  {
+   "name": "slot.key.1.item.3",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 4
+  },
+  {
+   "name": "slot.key.2.head",
+   "kind": "text",
+   "role": "ink-deep",
+   "max_words": 6
+  },
+  {
+   "name": "slot.key.2.item.1",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 4
+  },
+  {
+   "name": "slot.key.2.item.2",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 4
+  },
+  {
+   "name": "slot.key.2.item.3",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 4
+  },
+  {
+   "name": "slot.key.2.item.4",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 4
+  },
+  {
+   "name": "slot.key.3.head",
+   "kind": "text",
+   "role": "ink-deep",
+   "max_words": 6
+  },
+  {
+   "name": "slot.key.3.item.1",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 4
+  },
+  {
+   "name": "slot.key.3.item.2",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 4
+  },
+  {
+   "name": "slot.key.3.item.3",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 4
+  },
+  {
+   "name": "slot.key.3.item.4",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 4
+  },
+  {
+   "name": "slot.key.4.head",
+   "kind": "text",
+   "role": "ink-deep",
+   "max_words": 6
+  },
+  {
+   "name": "slot.key.4.item.1",
+   "kind": "text",
+   "role": "ink",
+   "max_words": 4
+  }
+ ],
+ "samples": [
+  "Three quick wins start next quarter while four bets wait for the platform",
+  "Quick wins",
+  "Strategic bets",
+  "Fill-ins",
+  "Deprioritize",
+  "Business value",
+  "Effort to deliver",
+  "Low effort",
+  "High effort",
+  "Candidates by delivery wave",
+  "Wave 1, next quarter",
+  "Wave 2, within two quarters",
+  "Wave 3, after the platform build",
+  "Parked for review",
+  "Invoice matching",
+  "Contract clause search",
+  "Service ticket triage",
+  "Supplier risk alerts",
+  "Demand forecast refresh",
+  "Sales call summaries",
+  "Field visit planning",
+  "Dynamic pricing engine",
+  "Inventory rebalancing",
+  "Warranty claim screening",
+  "Customer churn model",
+  "Autonomous purchasing"
+ ]
+}

@@ -52,6 +52,12 @@ def show_one(slug: str, a: dict, real: bool) -> None:
                                                                    "  derived" if x.get("derived") else ""))
     print("  card        %s" % ((SKILL / a["card"]) if a.get("card") else "none yet: build from the family and the "
                                                                            "design system"))
+    dj = SKILL / "devices" / "devices.json"
+    if dj.is_file():
+        for d in json.loads(dj.read_text())["devices"].values():
+            if slug in d["archetypes"]:
+                print("  device      %s  %s (%s)  %s" % (d["id"], d["name"], d["variant"],
+                                                         SKILL / "devices" / "renders" / ("%s-sigmoid.png" % d["id"])))
     if not library_ready():
         print("  sheet       SKIPPED (no library at %s)" % LIB)
         return

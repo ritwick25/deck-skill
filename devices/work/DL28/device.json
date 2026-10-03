@@ -1,0 +1,665 @@
+{
+ "id": "DL28",
+ "name": "Winding road with growing horizon cards",
+ "archetypes": [
+  "value-horizons",
+  "phased-roadmap"
+ ],
+ "family": "Axis of time or maturity",
+ "variant": "winding-road-growing-cards",
+ "mechanism": "A road winds through one pin per year, and each year's card grows in team size, business areas served and live use cases, so the climb reads from the cards swelling along the route to a destination callout.",
+ "canvas": "wide",
+ "source": "d04-s012",
+ "slots": [
+  {
+   "name": "slot.horizon.1.year",
+   "kind": "text",
+   "role": "horizon year",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.2.year",
+   "kind": "text",
+   "role": "horizon year",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.3.year",
+   "kind": "text",
+   "role": "horizon year",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.5.year",
+   "kind": "text",
+   "role": "horizon year",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.4.year",
+   "kind": "text",
+   "role": "horizon year",
+   "max_words": 1
+  },
+  {
+   "name": "slot.horizon.6.year",
+   "kind": "text",
+   "role": "horizon year",
+   "max_words": 1
+  },
+  {
+   "name": "slot.card.1.count",
+   "kind": "text",
+   "role": "team size",
+   "max_words": 1
+  },
+  {
+   "name": "slot.card.1.item.1",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.2.count",
+   "kind": "text",
+   "role": "team size",
+   "max_words": 1
+  },
+  {
+   "name": "slot.card.2.item.1",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.5.item.1",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.5.item.2",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.5.item.3",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.5.item.4",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.5.item.5",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.5.item.6",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.5.item.7",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.5.item.8",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.5.item.9",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.5.count",
+   "kind": "text",
+   "role": "team size",
+   "max_words": 1
+  },
+  {
+   "name": "slot.key.label",
+   "kind": "text",
+   "role": "key",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.6.item.1",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.6.item.2",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.6.item.3",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.6.item.4",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.6.item.5",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.6.item.6",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.6.item.7",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.6.item.8",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.6.item.9",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.6.count",
+   "kind": "text",
+   "role": "team size",
+   "max_words": 1
+  },
+  {
+   "name": "slot.card.3.item.1",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.3.item.2",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.3.item.3",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.3.item.4",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.3.item.5",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.3.item.6",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.3.count",
+   "kind": "text",
+   "role": "team size",
+   "max_words": 1
+  },
+  {
+   "name": "slot.card.4.item.1",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.4.item.2",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.4.item.3",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.4.item.4",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.4.item.5",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.4.item.6",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.4.item.7",
+   "kind": "text",
+   "role": "use case",
+   "max_words": 4
+  },
+  {
+   "name": "slot.card.4.count",
+   "kind": "text",
+   "role": "team size",
+   "max_words": 1
+  },
+  {
+   "name": "slot.legend.1.label",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.legend.2.label",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.legend.head",
+   "kind": "text",
+   "role": "legend heading",
+   "max_words": 1
+  },
+  {
+   "name": "slot.legend.3.label",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.legend.4.label",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.legend.5.label",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.legend.6.label",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.legend.7.label",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.legend.8.label",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.callout",
+   "kind": "text",
+   "role": "destination value",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 12
+  },
+  {
+   "name": "slot.card.1.icon",
+   "kind": "glyph",
+   "role": "team"
+  },
+  {
+   "name": "slot.card.1.area.1",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.2.icon",
+   "kind": "glyph",
+   "role": "team"
+  },
+  {
+   "name": "slot.card.2.area.1",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.3.icon",
+   "kind": "glyph",
+   "role": "team"
+  },
+  {
+   "name": "slot.card.3.area.1",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.3.area.2",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.3.area.3",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.3.star.1",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.3.star.2",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.3.star.3",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.3.star.4",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.3.star.5",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.4.icon",
+   "kind": "glyph",
+   "role": "team"
+  },
+  {
+   "name": "slot.card.4.area.1",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.4.area.2",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.4.area.3",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.4.area.4",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.5.icon",
+   "kind": "glyph",
+   "role": "team"
+  },
+  {
+   "name": "slot.card.5.area.1",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.5.area.2",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.5.area.3",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.5.area.4",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.5.area.5",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.5.area.6",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.5.area.7",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.5.star.1",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.5.star.2",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.5.star.4",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.5.star.5",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.5.star.9",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.6.icon",
+   "kind": "glyph",
+   "role": "team"
+  },
+  {
+   "name": "slot.card.6.area.1",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.6.area.2",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.6.area.3",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.6.area.4",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.6.area.5",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.6.area.6",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.6.area.7",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.6.area.8",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.card.6.star.1",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.6.star.2",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.6.star.3",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.6.star.4",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.6.star.5",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.card.6.star.9",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.key.icon",
+   "kind": "glyph",
+   "role": "new item"
+  },
+  {
+   "name": "slot.legend.1.icon",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.legend.2.icon",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.legend.3.icon",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.legend.4.icon",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.legend.5.icon",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.legend.6.icon",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.legend.7.icon",
+   "kind": "glyph",
+   "role": "business area"
+  },
+  {
+   "name": "slot.legend.8.icon",
+   "kind": "glyph",
+   "role": "business area"
+  }
+ ],
+ "samples": [
+  "30 people serve eight areas",
+  "Analyst training plan",
+  "Brief summaries",
+  "Campaign drafts",
+  "Campaign variants",
+  "Competitor news digest",
+  "Contract clause review",
+  "Data quality alerts",
+  "Demand sensing",
+  "Field call summaries",
+  "Forecast accuracy checks",
+  "Fraud pattern alerts",
+  "Inventory rebalancing",
+  "Marketing",
+  "Model review board",
+  "New in this horizon",
+  "Next best offer",
+  "One AI team scales from a pilot to every area",
+  "One data request queue",
+  "Order status assistant",
+  "Output policy checks",
+  "Price scenario testing",
+  "Self-serve models",
+  "Service chat assistant",
+  "Shared prompt library",
+  "Supplier risk alerts",
+  "Survey verbatim coding",
+  "Usage and cost tracking",
+  "Weekly sales forecast"
+ ]
+}

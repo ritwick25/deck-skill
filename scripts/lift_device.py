@@ -36,6 +36,7 @@ from lxml import etree  # noqa: E402
 from pptx import Presentation  # noqa: E402
 
 from deckkit import ooxml, package  # noqa: E402
+from deckkit.measure import FLOOR  # noqa: E402
 from deckkit.clone import DEVICE_STRIP, copy_shapes  # noqa: E402
 from deckkit.geom import bake_groups  # noqa: E402
 from deckkit.read.colour import parse_clrmap, resolve  # noqa: E402
@@ -47,7 +48,6 @@ A = "{http://schemas.openxmlformats.org/drawingml/2006/main}"
 P = "{http://schemas.openxmlformats.org/presentationml/2006/main}"
 EMU = 914400
 WIDE_W = 13.333
-FLOOR_PT = 8.0
 FILLER = ("lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et "
           "dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi").split()
 COLOUR_TAGS = ("srgbClr", "schemeClr", "prstClr", "sysClr", "scrgbClr", "hslClr")
@@ -221,9 +221,9 @@ def retext(tree, leaves: dict, k: float, n: Counter) -> None:
             if pt is None and rpr.get("sz"):
                 pt = int(rpr.get("sz")) / 100.0
             pt = (pt or 11.0) * k
-            if pt < FLOOR_PT:
+            if pt < FLOOR:
                 n["raised_to_floor"] += 1
-                pt = FLOOR_PT
+                pt = FLOOR
             rpr.set("sz", str(int(round(pt * 2)) * 50))
             for tag in ("latin", "ea", "cs", "sym"):
                 for e in rpr.findall(A + tag):

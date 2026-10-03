@@ -1,0 +1,276 @@
+{
+ "id": "DL16",
+ "name": "Principle columns with proof diagrams",
+ "archetypes": [
+  "principles"
+ ],
+ "family": "Parallel columns",
+ "variant": "principle-columns-proof-diagrams",
+ "mechanism": "Each of three peer columns states a principle as a heading, proves it with its own mini diagram, and closes on two short reason cards, so every claim sits above its evidence.",
+ "canvas": "wide",
+ "source": "d01-s024",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.principle.1.head",
+   "kind": "text",
+   "role": "principle-head",
+   "max_words": 5
+  },
+  {
+   "name": "slot.principle.2.head",
+   "kind": "text",
+   "role": "principle-head",
+   "max_words": 5
+  },
+  {
+   "name": "slot.principle.3.head",
+   "kind": "text",
+   "role": "principle-head",
+   "max_words": 5
+  },
+  {
+   "name": "slot.card.1",
+   "kind": "text",
+   "role": "reason-card",
+   "max_words": 20,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.2",
+   "kind": "text",
+   "role": "reason-card",
+   "max_words": 20,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.3",
+   "kind": "text",
+   "role": "reason-card",
+   "max_words": 20,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.4",
+   "kind": "text",
+   "role": "reason-card",
+   "max_words": 20,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.5",
+   "kind": "text",
+   "role": "reason-card",
+   "max_words": 20,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.card.6",
+   "kind": "text",
+   "role": "reason-card",
+   "max_words": 20,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.proof.1.top",
+   "kind": "text",
+   "role": "proof-box",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.proof.1.base",
+   "kind": "text",
+   "role": "proof-box",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.proof.1.engine.1",
+   "kind": "text",
+   "role": "proof-box",
+   "max_words": 2,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.proof.1.engine.2",
+   "kind": "text",
+   "role": "proof-box",
+   "max_words": 2,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.proof.1.policy",
+   "kind": "text",
+   "role": "proof-label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.proof.2.actor.1",
+   "kind": "text",
+   "role": "proof-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.proof.2.actor.2",
+   "kind": "text",
+   "role": "proof-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.proof.2.link",
+   "kind": "text",
+   "role": "proof-label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.proof.2.actor.3",
+   "kind": "text",
+   "role": "proof-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.proof.2.step.1",
+   "kind": "text",
+   "role": "step",
+   "max_words": 2
+  },
+  {
+   "name": "slot.proof.2.step.2",
+   "kind": "text",
+   "role": "step",
+   "max_words": 2
+  },
+  {
+   "name": "slot.proof.2.step.3",
+   "kind": "text",
+   "role": "step",
+   "max_words": 2,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.proof.2.caption",
+   "kind": "text",
+   "role": "proof-caption",
+   "max_words": 6
+  },
+  {
+   "name": "slot.proof.3.stage.1",
+   "kind": "text",
+   "role": "stage-label",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.proof.3.stage.2",
+   "kind": "text",
+   "role": "stage-label",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.proof.3.stage.3",
+   "kind": "text",
+   "role": "stage-label",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.proof.3.stage.4",
+   "kind": "text",
+   "role": "stage-label",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.proof.3.loop",
+   "kind": "text",
+   "role": "stage-label",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.proof.3.reach",
+   "kind": "text",
+   "role": "proof-label",
+   "max_words": 6
+  },
+  {
+   "name": "slot.proof.1.base.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.proof.1.engine.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.proof.1.engine.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.proof.1.policy.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.proof.2.actor.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.proof.2.actor.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.proof.2.actor.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.proof.3.stage.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.proof.3.stage.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.proof.3.stage.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.proof.3.stage.4.icon",
+   "kind": "glyph"
+  }
+ ],
+ "samples": [
+  "Access policy",
+  "Adoption grows with each release",
+  "All engines read the same files, so every report shows the same number.",
+  "All regions",
+  "Automate the path to production",
+  "Each release puts a usable view in front of the team that asked for it.",
+  "Every change passes the same test suite before it reaches any user.",
+  "Feedback sets the next step",
+  "No manual release steps",
+  "One copy of every table",
+  "One run reaches every environment",
+  "Open table storage",
+  "Pipeline",
+  "Platform",
+  "Query load grows with no table copied, and storage cost stays flat.",
+  "Rollback",
+  "Rollback in minutes",
+  "Scale each layer on its own",
+  "Second team",
+  "Separate storage from compute",
+  "Shared semantic layer",
+  "Ship in small, usable releases",
+  "Three principles keep the platform fast to change and cheap to run",
+  "Use case brief",
+  "Users rank the backlog after each release, and the top item ships next.",
+  "Weekly feedback",
+  "Working views before scale"
+ ]
+}

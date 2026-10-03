@@ -1,0 +1,348 @@
+{
+ "id": "DL22",
+ "name": "Rising maturity curve with foundations rail",
+ "archetypes": [
+  "maturity-model"
+ ],
+ "family": "Axis of time or maturity",
+ "variant": "rising-curve-foundations-rail",
+ "mechanism": "Five numbered levels sit on one rising value curve, each with its definition above the disc and its outcome below, a fence marks where most teams sit today, and a foundations rail beside the plot names what every level depends on.",
+ "canvas": "wide",
+ "source": "d07-s006",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.marker",
+   "kind": "text",
+   "role": "current position",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.axis.y.label",
+   "kind": "text",
+   "role": "axis title",
+   "max_words": 4
+  },
+  {
+   "name": "slot.axis.y.tick.4",
+   "kind": "text",
+   "role": "axis tick",
+   "max_words": 1
+  },
+  {
+   "name": "slot.axis.y.tick.3",
+   "kind": "text",
+   "role": "axis tick",
+   "max_words": 1
+  },
+  {
+   "name": "slot.axis.y.tick.2",
+   "kind": "text",
+   "role": "axis tick",
+   "max_words": 1
+  },
+  {
+   "name": "slot.axis.y.tick.1",
+   "kind": "text",
+   "role": "axis tick",
+   "max_words": 1
+  },
+  {
+   "name": "slot.level.1.num",
+   "kind": "text",
+   "role": "level number",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.level.1.label",
+   "kind": "text",
+   "role": "outcome",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.1.body",
+   "kind": "text",
+   "role": "outcome detail",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.2.num",
+   "kind": "text",
+   "role": "level number",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.level.2.label",
+   "kind": "text",
+   "role": "outcome",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.2.body",
+   "kind": "text",
+   "role": "outcome detail",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.3.num",
+   "kind": "text",
+   "role": "level number",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.level.3.label",
+   "kind": "text",
+   "role": "outcome",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.3.body",
+   "kind": "text",
+   "role": "outcome detail",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.4.num",
+   "kind": "text",
+   "role": "level number",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.level.4.label",
+   "kind": "text",
+   "role": "outcome",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.4.body",
+   "kind": "text",
+   "role": "outcome detail",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.5.num",
+   "kind": "text",
+   "role": "level number",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.level.5.label",
+   "kind": "text",
+   "role": "outcome",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.5.body",
+   "kind": "text",
+   "role": "outcome detail",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.1.head",
+   "kind": "text",
+   "role": "level",
+   "max_words": 1
+  },
+  {
+   "name": "slot.level.1.desc",
+   "kind": "text",
+   "role": "level definition",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.2.head",
+   "kind": "text",
+   "role": "level",
+   "max_words": 1
+  },
+  {
+   "name": "slot.level.2.desc",
+   "kind": "text",
+   "role": "level definition",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.3.head",
+   "kind": "text",
+   "role": "level",
+   "max_words": 1
+  },
+  {
+   "name": "slot.level.3.desc",
+   "kind": "text",
+   "role": "level definition",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.4.head",
+   "kind": "text",
+   "role": "level",
+   "max_words": 1
+  },
+  {
+   "name": "slot.level.4.desc",
+   "kind": "text",
+   "role": "level definition",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.5.head",
+   "kind": "text",
+   "role": "level",
+   "max_words": 1
+  },
+  {
+   "name": "slot.level.5.desc",
+   "kind": "text",
+   "role": "level definition",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.rail.item.1",
+   "kind": "text",
+   "role": "foundation",
+   "max_words": 7
+  },
+  {
+   "name": "slot.rail.item.2",
+   "kind": "text",
+   "role": "foundation",
+   "max_words": 7
+  },
+  {
+   "name": "slot.rail.item.3",
+   "kind": "text",
+   "role": "foundation",
+   "max_words": 7
+  },
+  {
+   "name": "slot.rail.item.4",
+   "kind": "text",
+   "role": "foundation",
+   "max_words": 7
+  },
+  {
+   "name": "slot.rail.item.5",
+   "kind": "text",
+   "role": "foundation",
+   "max_words": 7
+  },
+  {
+   "name": "slot.level.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.level.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.level.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.level.4.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.level.5.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.rail.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.rail.head",
+   "kind": "text",
+   "role": "rail heading",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.rail.item.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.rail.item.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.rail.item.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.rail.item.4.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.rail.item.5.icon",
+   "kind": "glyph",
+   "background": "paper"
+  }
+ ],
+ "samples": [
+  "Finance value climbs fastest once teams move past automated posting",
+  "Most teams today",
+  "Value to the business",
+  "Slow close",
+  "Errors only surface late in the review",
+  "Fewer errors",
+  "Staff still clear every exception by hand",
+  "Faster close",
+  "Exceptions queue for an analyst to clear",
+  "Earlier insight",
+  "Analysts act on model advice each day",
+  "Continuous close",
+  "People govern the policy and every limit",
+  "Staff key and check every entry by hand",
+  "Assisted",
+  "Rules flag gaps for staff to review and fix",
+  "Automated",
+  "Bots post routine entries end to end",
+  "Augmented",
+  "Models forecast and suggest next steps",
+  "Autonomous",
+  "Agents run the close within set limits",
+  "Controls",
+  "Every entry has an audit trail",
+  "Oversight",
+  "People approve agent limits",
+  "Integration",
+  "One ledger and data model",
+  "Data quality",
+  "Master data cleaned monthly",
+  "Analysts trained for each level",
+  "Foundations",
+  "for every level"
+ ]
+}

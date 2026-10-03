@@ -1,0 +1,321 @@
+{
+ "id": "DL11",
+ "name": "Phase lane gantt with gated milestones",
+ "archetypes": [
+  "gantt",
+  "phased-roadmap"
+ ],
+ "family": "Axis of time or maturity",
+ "variant": "phase-lane-milestone-axis-stat-row",
+ "mechanism": "A quarter and month grid carries two phase bars, a milestone axis drops each named gate or checkpoint to its date, and a per-quarter target row closes on the final count, so duration, gates and outcome read down the same columns.",
+ "canvas": "wide",
+ "source": "d01-s091",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.quarter.1",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.quarter.2",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.quarter.3",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.quarter.4",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.quarter.5",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.month.1",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.2",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.3",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.4",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.5",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.6",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.7",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.8",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.9",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.10",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.11",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.12",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.13",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.14",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.month.15",
+   "kind": "text",
+   "role": "subperiod",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.lane.1.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.lane.1.label",
+   "kind": "text",
+   "role": "lane",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.phase.1.label",
+   "kind": "text",
+   "role": "phase",
+   "max_words": 8,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.phase.2.label",
+   "kind": "text",
+   "role": "phase",
+   "max_words": 5,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.lane.2.label",
+   "kind": "text",
+   "role": "lane",
+   "max_words": 4
+  },
+  {
+   "name": "slot.milestone.1.label",
+   "kind": "text",
+   "role": "milestone",
+   "max_words": 8
+  },
+  {
+   "name": "slot.milestone.2.label",
+   "kind": "text",
+   "role": "milestone",
+   "max_words": 8
+  },
+  {
+   "name": "slot.milestone.3.label",
+   "kind": "text",
+   "role": "milestone",
+   "max_words": 8
+  },
+  {
+   "name": "slot.milestone.4.label",
+   "kind": "text",
+   "role": "milestone",
+   "max_words": 8
+  },
+  {
+   "name": "slot.milestone.5.label",
+   "kind": "text",
+   "role": "milestone",
+   "max_words": 8
+  },
+  {
+   "name": "slot.lane.3.label",
+   "kind": "text",
+   "role": "lane",
+   "max_words": 4
+  },
+  {
+   "name": "slot.stat.1.value",
+   "kind": "text",
+   "role": "figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.stat.1.label",
+   "kind": "text",
+   "role": "stat-label",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.stat.2.value",
+   "kind": "text",
+   "role": "figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.stat.2.label",
+   "kind": "text",
+   "role": "stat-label",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.stat.3.value",
+   "kind": "text",
+   "role": "figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.stat.3.label",
+   "kind": "text",
+   "role": "stat-label",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.stat.4.value",
+   "kind": "text",
+   "role": "figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.stat.4.label",
+   "kind": "text",
+   "role": "stat-label",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.stat.5.value",
+   "kind": "text",
+   "role": "figure",
+   "max_words": 1,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.stat.5.label",
+   "kind": "text",
+   "role": "stat-label",
+   "max_words": 4,
+   "background": "ink-strong"
+  }
+ ],
+ "samples": [
+  "Every region runs the new planning process within five quarters",
+  "Program phases",
+  "Build and pilot in two regions",
+  "Scale to every region",
+  "Milestones and gates",
+  "Baseline checkpoint",
+  "Cycle times measured",
+  "Pilot go gate",
+  "Two regions go live",
+  "Scale gate",
+  "Pilot savings signed off",
+  "Year-end checkpoint",
+  "Eight regions live",
+  "Rollout gate",
+  "All twelve regions live",
+  "Target regions live",
+  "Design region",
+  "Pilot pair live",
+  "Pilot extended",
+  "Scale wave one",
+  "Full rollout"
+ ]
+}

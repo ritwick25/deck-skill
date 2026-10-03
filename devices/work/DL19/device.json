@@ -1,0 +1,437 @@
+{
+ "id": "DL19",
+ "name": "Funnel and route stage columns",
+ "archetypes": [
+  "process-flow",
+  "input-process-output"
+ ],
+ "family": "Directed sequence",
+ "variant": "funnel-route-columns",
+ "mechanism": "Five numbered stage columns carry one population left to right, a funnel showing how far it narrows and a three-way route showing where each case goes, so the dark closing panel's result reads as the sum of visible steps.",
+ "canvas": "wide",
+ "source": "d03-s018",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.col.1.head",
+   "kind": "text",
+   "role": "stage",
+   "max_words": 2
+  },
+  {
+   "name": "slot.col.1.body",
+   "kind": "text",
+   "role": "stage-line",
+   "max_words": 7
+  },
+  {
+   "name": "slot.col.2.head",
+   "kind": "text",
+   "role": "stage",
+   "max_words": 2
+  },
+  {
+   "name": "slot.col.2.body",
+   "kind": "text",
+   "role": "stage-line",
+   "max_words": 7
+  },
+  {
+   "name": "slot.col.3.head",
+   "kind": "text",
+   "role": "stage",
+   "max_words": 2
+  },
+  {
+   "name": "slot.col.3.body",
+   "kind": "text",
+   "role": "stage-line",
+   "max_words": 7
+  },
+  {
+   "name": "slot.col.4.head",
+   "kind": "text",
+   "role": "stage",
+   "max_words": 2
+  },
+  {
+   "name": "slot.col.4.body",
+   "kind": "text",
+   "role": "stage-line",
+   "max_words": 7
+  },
+  {
+   "name": "slot.col.5.head",
+   "kind": "text",
+   "role": "stage",
+   "max_words": 2,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.source.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.source.1.text",
+   "kind": "text",
+   "role": "source-and-fact",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.source.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.source.2.text",
+   "kind": "text",
+   "role": "source-and-fact",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.source.3.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.source.3.text",
+   "kind": "text",
+   "role": "source-and-fact",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.source.4.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.source.4.text",
+   "kind": "text",
+   "role": "source-and-fact",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.col.1.stat.1.value",
+   "kind": "text",
+   "role": "figure",
+   "max_words": 1
+  },
+  {
+   "name": "slot.col.1.stat.1.label",
+   "kind": "text",
+   "role": "figure-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.col.1.stat.2.value",
+   "kind": "text",
+   "role": "figure",
+   "max_words": 1
+  },
+  {
+   "name": "slot.col.1.stat.2.label",
+   "kind": "text",
+   "role": "figure-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.col.1.stat.3.value",
+   "kind": "text",
+   "role": "figure",
+   "max_words": 1
+  },
+  {
+   "name": "slot.col.1.stat.3.label",
+   "kind": "text",
+   "role": "figure-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.funnel.1",
+   "kind": "text",
+   "role": "funnel-tier",
+   "max_words": 3,
+   "background": "hairline-soft"
+  },
+  {
+   "name": "slot.funnel.2",
+   "kind": "text",
+   "role": "funnel-tier",
+   "max_words": 3,
+   "background": "hairline"
+  },
+  {
+   "name": "slot.funnel.3",
+   "kind": "text",
+   "role": "funnel-tier",
+   "max_words": 3,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.funnel.4",
+   "kind": "text",
+   "role": "funnel-tier",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.funnel.5",
+   "kind": "text",
+   "role": "funnel-tier",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.route.1",
+   "kind": "text",
+   "role": "route-and-rule",
+   "max_words": 7,
+   "background": "card"
+  },
+  {
+   "name": "slot.route.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.route.2",
+   "kind": "text",
+   "role": "route-and-rule",
+   "max_words": 7,
+   "background": "card"
+  },
+  {
+   "name": "slot.route.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.route.3",
+   "kind": "text",
+   "role": "route-and-rule",
+   "max_words": 7,
+   "background": "card"
+  },
+  {
+   "name": "slot.route.3.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.route.hold",
+   "kind": "text",
+   "role": "held-path",
+   "max_words": 4
+  },
+  {
+   "name": "slot.check.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.check.1.text",
+   "kind": "text",
+   "role": "check-and-proof",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.check.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.check.2.text",
+   "kind": "text",
+   "role": "check-and-proof",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.check.3.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.check.3.text",
+   "kind": "text",
+   "role": "check-and-proof",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.check.4.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.check.4.text",
+   "kind": "text",
+   "role": "check-and-proof",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.check.5.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.check.5.text",
+   "kind": "text",
+   "role": "check-and-proof",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.result",
+   "kind": "text",
+   "role": "illustrative-figure",
+   "max_words": 4,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.result.row.1.label",
+   "kind": "text",
+   "role": "measure",
+   "max_words": 3,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.result.row.1.value",
+   "kind": "text",
+   "role": "figure",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.result.row.2.label",
+   "kind": "text",
+   "role": "measure",
+   "max_words": 3,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.result.row.2.value",
+   "kind": "text",
+   "role": "figure",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.result.row.3.label",
+   "kind": "text",
+   "role": "measure",
+   "max_words": 3,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.result.row.3.value",
+   "kind": "text",
+   "role": "figure",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.control.1.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.control.1",
+   "kind": "text",
+   "role": "control",
+   "max_words": 3,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.control.2.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.control.2",
+   "kind": "text",
+   "role": "control",
+   "max_words": 3,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.control.3.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.control.3",
+   "kind": "text",
+   "role": "control",
+   "max_words": 3,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.control.4.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.control.4",
+   "kind": "text",
+   "role": "control",
+   "max_words": 3,
+   "background": "ink-deep"
+  }
+ ],
+ "samples": [
+  "Four ledgers land nightly in one store",
+  "Rules cut the pool to likely duplicates",
+  "120K invoices",
+  "38K same vendor",
+  "6.2K same amount",
+  "1.4K flagged",
+  "900 likely",
+  "Each flagged pair takes one path",
+  "Analysts confirm each case and book the credit",
+  "Each quarter",
+  "Cases per analyst",
+  "Days to credit",
+  "Rules signed off",
+  "Evidence per case",
+  "Vendor notified first",
+  "Audit trail kept",
+  "Four steps narrow 120K invoices to 900 recoverable payments",
+  "Recurring fee, not a duplicate",
+  "Analyst checks both invoices",
+  "Pull missing vendor detail",
+  "Hold for next cycle",
+  "Match precision",
+  "Invoice ledger",
+  "120K rows a quarter",
+  "Vendor master",
+  "8.4K active vendors",
+  "Contract terms",
+  "Rates and credit terms",
+  "Payment runs",
+  "Weekly, three banks",
+  "Evidence filed",
+  "Invoices and payment",
+  "Vendor confirmed",
+  "Same tax id and bank",
+  "Credit agreed",
+  "Vendor signs the claim",
+  "Recovery booked",
+  "Offset on the next run",
+  "Rule tuned",
+  "Misses refine the rules",
+  "recovered per quarter",
+  "Illustrative"
+ ]
+}

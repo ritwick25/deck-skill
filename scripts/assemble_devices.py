@@ -51,6 +51,10 @@ def main() -> int:
         if miss or e.get("id") != d.name:
             errs.append("%s: %s" % (d.name, ("missing " + ", ".join(miss)) if miss else "id does not match its folder"))
             continue
+        from deckkit.theme import ROLES
+        for sl in e.get("slots", []):                 # a slot's role is a theme colour role; anything else is its purpose
+            if sl.get("role") and sl["role"] not in set(ROLES) | {"paper"}:
+                sl["purpose"] = sl.pop("role")
         entries.append((e, pp))
     if errs:
         for x in errs:
@@ -70,6 +74,14 @@ def main() -> int:
                  "word replaced, colours mapped to theme roles, type floored at 8pt) and fitted to the house rules. "
                  "Place one with deckkit.devices.place and fill every slot; a sample left behind fails P19.",
         "devices": out}, indent=1) + "\n")
+    lines = ["# Device library", "", "Native slides lifted from the references, sanitised and theme-mapped (rulings 3 and 14). "
+             "Place one with `deckkit.devices.place(prs, id, {slot: value}, theme=th)` and fill every slot. Renders: "
+             "`devices/renders/<id>-sigmoid.png` and `-neutral.png`.", "",
+             "| Id | Device | Archetypes | Variant | Slots | How it argues |", "|---|---|---|---|---|---|"]
+    for eid, e in out.items():
+        lines.append("| %s | %s | %s | %s | %d | %s |" % (eid, e["name"], ", ".join(e["archetypes"]), e["variant"],
+                                                         len(e["slots"]), e["mechanism"].replace("|", "/")))
+    (SKILL / "references" / "device-library.md").write_text("\n".join(lines) + "\n")
     print("OK %d devices -> %s" % (len(out), DEV / "devices.pptx"))
     r = subprocess.run([PY, str(SKILL / "gates" / "run_all.py"), "--deck", str(DEV / "devices.pptx"), "--only", GATES],
                        capture_output=True, text=True)

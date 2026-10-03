@@ -1,0 +1,625 @@
+{
+ "id": "DL06",
+ "name": "Foundation, waves and site fan-out",
+ "archetypes": [
+  "phased-roadmap"
+ ],
+ "family": "Axis of time or maturity",
+ "variant": "wave-fanout-sites",
+ "mechanism": "A shared foundation built once feeds four dated wave headers that each fan out to the sites they take live, a numbered readiness checklist sets the bar every site must clear, and a four-step band with an exit gate shows the anatomy every wave repeats.",
+ "canvas": "wide",
+ "source": "d01-s058",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 12
+  },
+  {
+   "name": "slot.panel.head",
+   "kind": "text",
+   "role": "panel-heading",
+   "max_words": 5,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.check.1.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.check.1.body",
+   "kind": "text",
+   "role": "check-and-criterion",
+   "max_words": 6,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.check.2.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.check.2.body",
+   "kind": "text",
+   "role": "check-and-criterion",
+   "max_words": 6,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.check.3.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.check.3.body",
+   "kind": "text",
+   "role": "check-and-criterion",
+   "max_words": 6,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.check.4.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.check.4.body",
+   "kind": "text",
+   "role": "check-and-criterion",
+   "max_words": 6,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.check.5.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.check.5.body",
+   "kind": "text",
+   "role": "check-and-criterion",
+   "max_words": 6,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.check.6.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.check.6.body",
+   "kind": "text",
+   "role": "check-and-criterion",
+   "max_words": 6,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.foundation.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.foundation.label",
+   "kind": "text",
+   "role": "shared-layer",
+   "max_words": 5,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.foundation.part.1",
+   "kind": "text",
+   "role": "component",
+   "max_words": 2
+  },
+  {
+   "name": "slot.foundation.part.2",
+   "kind": "text",
+   "role": "component",
+   "max_words": 2
+  },
+  {
+   "name": "slot.foundation.part.3",
+   "kind": "text",
+   "role": "component",
+   "max_words": 2
+  },
+  {
+   "name": "slot.foundation.part.4",
+   "kind": "text",
+   "role": "component",
+   "max_words": 2
+  },
+  {
+   "name": "slot.foundation.part.5",
+   "kind": "text",
+   "role": "component",
+   "max_words": 2
+  },
+  {
+   "name": "slot.foundation.part.6",
+   "kind": "text",
+   "role": "component",
+   "max_words": 2
+  },
+  {
+   "name": "slot.foundation.note",
+   "kind": "text",
+   "role": "reuse-note",
+   "max_words": 9
+  },
+  {
+   "name": "slot.wave.1.head",
+   "kind": "text",
+   "role": "phase-and-duration",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.wave.2.head",
+   "kind": "text",
+   "role": "phase-and-duration",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.wave.3.head",
+   "kind": "text",
+   "role": "phase-and-duration",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.wave.4.head",
+   "kind": "text",
+   "role": "phase-and-duration",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.wave.note",
+   "kind": "text",
+   "role": "fan-out-note",
+   "max_words": 9
+  },
+  {
+   "name": "slot.site.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.site.1.value",
+   "kind": "text",
+   "role": "site-figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.1.label",
+   "kind": "text",
+   "role": "unit",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.1.chip",
+   "kind": "text",
+   "role": "go-live-date",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.site.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.site.2.value",
+   "kind": "text",
+   "role": "site-figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.2.label",
+   "kind": "text",
+   "role": "unit",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.2.chip",
+   "kind": "text",
+   "role": "go-live-date",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.site.3.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.site.3.value",
+   "kind": "text",
+   "role": "site-figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.3.label",
+   "kind": "text",
+   "role": "unit",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.3.chip",
+   "kind": "text",
+   "role": "go-live-date",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.site.4.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.site.4.value",
+   "kind": "text",
+   "role": "site-figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.4.label",
+   "kind": "text",
+   "role": "unit",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.4.chip",
+   "kind": "text",
+   "role": "go-live-date",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.site.5.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.site.5.value",
+   "kind": "text",
+   "role": "site-figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.5.label",
+   "kind": "text",
+   "role": "unit",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.5.chip",
+   "kind": "text",
+   "role": "go-live-date",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.site.6.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.site.6.value",
+   "kind": "text",
+   "role": "site-figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.6.label",
+   "kind": "text",
+   "role": "unit",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.6.chip",
+   "kind": "text",
+   "role": "go-live-date",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.site.7.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.site.7.value",
+   "kind": "text",
+   "role": "site-figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.7.label",
+   "kind": "text",
+   "role": "unit",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.7.chip",
+   "kind": "text",
+   "role": "go-live-date",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.site.8.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.site.8.value",
+   "kind": "text",
+   "role": "site-figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.8.label",
+   "kind": "text",
+   "role": "unit",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.8.chip",
+   "kind": "text",
+   "role": "go-live-date",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.site.9.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.site.9.value",
+   "kind": "text",
+   "role": "site-figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.9.label",
+   "kind": "text",
+   "role": "unit",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.9.chip",
+   "kind": "text",
+   "role": "go-live-date",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.site.10.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.site.10.value",
+   "kind": "text",
+   "role": "site-figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.10.label",
+   "kind": "text",
+   "role": "unit",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.10.chip",
+   "kind": "text",
+   "role": "go-live-date",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.site.11.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.site.11.value",
+   "kind": "text",
+   "role": "site-figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.11.label",
+   "kind": "text",
+   "role": "unit",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.11.chip",
+   "kind": "text",
+   "role": "go-live-date",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.site.12.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.site.12.value",
+   "kind": "text",
+   "role": "site-figure",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.12.label",
+   "kind": "text",
+   "role": "unit",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.site.12.chip",
+   "kind": "text",
+   "role": "go-live-date",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.steps.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 8
+  },
+  {
+   "name": "slot.step.1.head",
+   "kind": "text",
+   "role": "step",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.1.body",
+   "kind": "text",
+   "role": "step-detail",
+   "max_words": 6
+  },
+  {
+   "name": "slot.step.2.head",
+   "kind": "text",
+   "role": "step",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.2.body",
+   "kind": "text",
+   "role": "step-detail",
+   "max_words": 6
+  },
+  {
+   "name": "slot.step.3.head",
+   "kind": "text",
+   "role": "step",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.3.body",
+   "kind": "text",
+   "role": "step-detail",
+   "max_words": 6
+  },
+  {
+   "name": "slot.step.4.head",
+   "kind": "text",
+   "role": "step",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.4.body",
+   "kind": "text",
+   "role": "step-detail",
+   "max_words": 6
+  },
+  {
+   "name": "slot.gate.head",
+   "kind": "text",
+   "role": "gate",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.gate.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.gate.body",
+   "kind": "text",
+   "role": "gate-criterion",
+   "max_words": 9,
+   "background": "accent-wash"
+  }
+ ],
+ "samples": [
+  "Four waves take twelve sites live in nine months on one foundation",
+  "Go-live checks per site",
+  "Data quality",
+  "Master data passes audit",
+  "Process fit",
+  "Steps mapped to standard",
+  "Super users",
+  "Two trained leads per shift",
+  "Cutover plan",
+  "Rollback proven in rehearsal",
+  "Interfaces",
+  "End-to-end tests signed off",
+  "Hypercare",
+  "Desk staffed for four weeks",
+  "Shared foundation",
+  "Built once, reused",
+  "Data model",
+  "Security roles",
+  "Training kit",
+  "Support desk",
+  "Built in wave 1,",
+  " configured by every later wave",
+  "Wave 1 · Months 1-3",
+  "Wave 2 · Months 3-5",
+  "Wave 3 · Months 5-7",
+  "Wave 4 · Months 7-9",
+  "Three sites per wave:",
+  " office, plant, warehouse",
+  "Every wave runs the same four steps",
+  "Configure",
+  "Map steps, audit master data",
+  "Set up roles, reports, interfaces",
+  "Run tests and a cutover rehearsal",
+  "Switch over, then hypercare",
+  "Exit gate",
+  "Next wave starts after four stable weeks"
+ ]
+}

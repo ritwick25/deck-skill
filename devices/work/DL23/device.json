@@ -1,0 +1,502 @@
+{
+ "id": "DL23",
+ "name": "Gated phase rail with loop",
+ "archetypes": [
+  "phased-roadmap",
+  "lifecycle-loop"
+ ],
+ "family": "Axis of time or maturity",
+ "variant": "gated-rail-phase-columns-loop",
+ "mechanism": "A dated rail of gated phase milestones runs into a target, each phase column proves its outcome with its own mini-device, a duration and a checked deliverables list, and a brace hands the last two phases to a continuous improvement loop.",
+ "canvas": "wide",
+ "source": "d07-s009",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.start.when",
+   "kind": "text",
+   "role": "date",
+   "max_words": 2
+  },
+  {
+   "name": "slot.start.label",
+   "kind": "text",
+   "role": "start-milestone",
+   "max_words": 4
+  },
+  {
+   "name": "slot.phase.1.when",
+   "kind": "text",
+   "role": "date",
+   "max_words": 2
+  },
+  {
+   "name": "slot.phase.1.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.phase.1.name",
+   "kind": "text",
+   "role": "phase-name",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.phase.1.head",
+   "kind": "text",
+   "role": "phase-outcome",
+   "max_words": 5
+  },
+  {
+   "name": "slot.phase.1.body",
+   "kind": "text",
+   "role": "phase-basis",
+   "max_words": 6
+  },
+  {
+   "name": "slot.phase.1.metric",
+   "kind": "text",
+   "role": "duration",
+   "max_words": 3
+  },
+  {
+   "name": "slot.phase.2.when",
+   "kind": "text",
+   "role": "date",
+   "max_words": 2
+  },
+  {
+   "name": "slot.phase.2.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.phase.2.name",
+   "kind": "text",
+   "role": "phase-name",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.phase.2.head",
+   "kind": "text",
+   "role": "phase-outcome",
+   "max_words": 5
+  },
+  {
+   "name": "slot.phase.2.body",
+   "kind": "text",
+   "role": "phase-basis",
+   "max_words": 6
+  },
+  {
+   "name": "slot.phase.2.metric",
+   "kind": "text",
+   "role": "duration",
+   "max_words": 3
+  },
+  {
+   "name": "slot.phase.3.when",
+   "kind": "text",
+   "role": "date",
+   "max_words": 2
+  },
+  {
+   "name": "slot.phase.3.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.phase.3.name",
+   "kind": "text",
+   "role": "phase-name",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.phase.3.head",
+   "kind": "text",
+   "role": "phase-outcome",
+   "max_words": 5
+  },
+  {
+   "name": "slot.phase.3.body",
+   "kind": "text",
+   "role": "phase-basis",
+   "max_words": 6
+  },
+  {
+   "name": "slot.phase.3.metric",
+   "kind": "text",
+   "role": "duration",
+   "max_words": 3
+  },
+  {
+   "name": "slot.phase.4.when",
+   "kind": "text",
+   "role": "date",
+   "max_words": 2
+  },
+  {
+   "name": "slot.phase.4.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.phase.4.name",
+   "kind": "text",
+   "role": "phase-name",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.phase.4.head",
+   "kind": "text",
+   "role": "phase-outcome",
+   "max_words": 5
+  },
+  {
+   "name": "slot.phase.4.body",
+   "kind": "text",
+   "role": "phase-basis",
+   "max_words": 6
+  },
+  {
+   "name": "slot.phase.4.metric",
+   "kind": "text",
+   "role": "duration",
+   "max_words": 3
+  },
+  {
+   "name": "slot.lens.1",
+   "kind": "text",
+   "role": "lens",
+   "max_words": 1
+  },
+  {
+   "name": "slot.lens.2",
+   "kind": "text",
+   "role": "lens",
+   "max_words": 1
+  },
+  {
+   "name": "slot.lens.3",
+   "kind": "text",
+   "role": "lens",
+   "max_words": 1
+  },
+  {
+   "name": "slot.track.1",
+   "kind": "text",
+   "role": "step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.track.2",
+   "kind": "text",
+   "role": "step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.track.3",
+   "kind": "text",
+   "role": "step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.step.1.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.step.1",
+   "kind": "text",
+   "role": "step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.step.2.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.step.2",
+   "kind": "text",
+   "role": "step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.step.3.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.step.3",
+   "kind": "text",
+   "role": "step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.wave.1",
+   "kind": "text",
+   "role": "wave",
+   "max_words": 2,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.wave.2",
+   "kind": "text",
+   "role": "wave",
+   "max_words": 2,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.wave.3",
+   "kind": "text",
+   "role": "wave",
+   "max_words": 2,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.wave.label",
+   "kind": "text",
+   "role": "wave-caption",
+   "max_words": 7
+  },
+  {
+   "name": "slot.list.1.item.1",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.1.item.2",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.1.item.3",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.1.item.4",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.1.item.5",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.2.item.1",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.2.item.2",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.2.item.3",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.2.item.4",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.2.item.5",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.3.item.1",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.3.item.2",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.3.item.3",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.3.item.4",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.3.item.5",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.4.item.1",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.4.item.2",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.4.item.3",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.list.4.item.4",
+   "kind": "text",
+   "role": "deliverable",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.loop.label",
+   "kind": "text",
+   "role": "loop-name",
+   "max_words": 5
+  },
+  {
+   "name": "slot.loop.step.1.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.loop.step.1",
+   "kind": "text",
+   "role": "loop-step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.loop.step.2.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.loop.step.2",
+   "kind": "text",
+   "role": "loop-step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.loop.step.3.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.loop.step.3",
+   "kind": "text",
+   "role": "loop-step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.loop.step.4.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.loop.step.4",
+   "kind": "text",
+   "role": "loop-step",
+   "max_words": 1
+  },
+  {
+   "name": "slot.loop.step.5.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.loop.step.5",
+   "kind": "text",
+   "role": "loop-step",
+   "max_words": 1
+  }
+ ],
+ "samples": [
+  "Four phases take the first AI use case to scale in 40 weeks",
+  "Scope and sponsor agreed",
+  "Readiness scored three ways",
+  "From interviews and system access",
+  "Two use cases proven live",
+  "Scored on five value measures",
+  "One platform for every team",
+  "Built once, reused by each team",
+  "Adoption tied to the value case",
+  "Owned by the business after handover",
+  "Rollout by region over three waves",
+  "Data source inventory",
+  "Process maps for top flows",
+  "Skills and role survey",
+  "Value case per use case",
+  "Shortlist of three pilots",
+  "Working model on live data",
+  "Control group comparison",
+  "Five-measure scorecard",
+  "Two user feedback rounds",
+  "Go or stop decision",
+  "Shared feature store",
+  "Automated release pipeline",
+  "Model risk controls",
+  "Access and audit logs",
+  "Team onboarding kit",
+  "Regional rollout plan",
+  "Adoption dashboard",
+  "Quarterly value review",
+  "Handover to operations",
+  "Continuous improvement once live",
+  "Integrate",
+  "Automate",
+  "Diagnose"
+ ]
+}

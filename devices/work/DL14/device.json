@@ -1,0 +1,368 @@
+{
+ "id": "DL14",
+ "name": "Channel mesh to agent hub",
+ "archetypes": [
+  "from-to-shift",
+  "hub-and-spoke"
+ ],
+ "family": "Split",
+ "variant": "channel-mesh-to-agent-hub",
+ "mechanism": "The same four roles are drawn twice, first wired to every channel in a crossed many-to-many mesh and then wired through named agents around one hub, with a solid wedge between them carrying the shift.",
+ "canvas": "wide",
+ "source": "d01-s126",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.from.header",
+   "kind": "text",
+   "role": "state-label",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.to.header",
+   "kind": "text",
+   "role": "state-label",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.from.label",
+   "kind": "text",
+   "role": "state-claim",
+   "max_words": 6
+  },
+  {
+   "name": "slot.to.label",
+   "kind": "text",
+   "role": "state-claim",
+   "max_words": 8
+  },
+  {
+   "name": "slot.from.role.1.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.from.role.1",
+   "kind": "text",
+   "role": "role",
+   "max_words": 2
+  },
+  {
+   "name": "slot.from.role.2.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.from.role.2",
+   "kind": "text",
+   "role": "role",
+   "max_words": 2
+  },
+  {
+   "name": "slot.from.role.3.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.from.role.3",
+   "kind": "text",
+   "role": "role",
+   "max_words": 2
+  },
+  {
+   "name": "slot.from.role.4.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.from.role.4",
+   "kind": "text",
+   "role": "role",
+   "max_words": 2
+  },
+  {
+   "name": "slot.from.channel.1",
+   "kind": "text",
+   "role": "channel",
+   "max_words": 2,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.from.channel.1.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.from.channel.2",
+   "kind": "text",
+   "role": "channel",
+   "max_words": 2,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.from.channel.2.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.from.channel.3",
+   "kind": "text",
+   "role": "channel",
+   "max_words": 2,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.from.channel.3.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.from.channel.4",
+   "kind": "text",
+   "role": "channel",
+   "max_words": 2,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.from.channel.4.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.from.customer.1.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.from.customer.1",
+   "kind": "text",
+   "role": "customer",
+   "max_words": 1
+  },
+  {
+   "name": "slot.from.customer.2.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.from.customer.2",
+   "kind": "text",
+   "role": "customer",
+   "max_words": 1
+  },
+  {
+   "name": "slot.to.role.1.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.to.role.1",
+   "kind": "text",
+   "role": "role",
+   "max_words": 2
+  },
+  {
+   "name": "slot.to.role.2.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.to.role.2",
+   "kind": "text",
+   "role": "role",
+   "max_words": 2
+  },
+  {
+   "name": "slot.to.role.3.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.to.role.3",
+   "kind": "text",
+   "role": "role",
+   "max_words": 2
+  },
+  {
+   "name": "slot.to.role.4.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.to.role.4",
+   "kind": "text",
+   "role": "role",
+   "max_words": 2
+  },
+  {
+   "name": "slot.to.agent.1.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.to.agent.1",
+   "kind": "text",
+   "role": "agent",
+   "max_words": 1
+  },
+  {
+   "name": "slot.to.agent.2.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.to.agent.2",
+   "kind": "text",
+   "role": "agent",
+   "max_words": 1
+  },
+  {
+   "name": "slot.to.agent.3.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.to.agent.3",
+   "kind": "text",
+   "role": "agent",
+   "max_words": 1
+  },
+  {
+   "name": "slot.to.agent.4.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.to.agent.4",
+   "kind": "text",
+   "role": "agent",
+   "max_words": 1
+  },
+  {
+   "name": "slot.to.hub.head",
+   "kind": "text",
+   "role": "hub",
+   "max_words": 2,
+   "background": "accent-deep"
+  },
+  {
+   "name": "slot.to.hub.body",
+   "kind": "text",
+   "role": "hub-detail",
+   "max_words": 3,
+   "background": "accent-deep"
+  },
+  {
+   "name": "slot.to.partner.1.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.to.partner.1",
+   "kind": "text",
+   "role": "partner-agent",
+   "max_words": 2,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.to.partner.2.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.to.partner.2",
+   "kind": "text",
+   "role": "partner-agent",
+   "max_words": 2,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.to.customer.1.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.to.customer.1",
+   "kind": "text",
+   "role": "customer",
+   "max_words": 1
+  },
+  {
+   "name": "slot.to.customer.2.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.to.customer.2",
+   "kind": "text",
+   "role": "customer",
+   "max_words": 1
+  },
+  {
+   "name": "slot.to.flow.1",
+   "kind": "text",
+   "role": "flow-label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.to.flow.2",
+   "kind": "text",
+   "role": "flow-label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.to.exception",
+   "kind": "text",
+   "role": "exception-tag",
+   "max_words": 1,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.key.1",
+   "kind": "text",
+   "role": "legend",
+   "max_words": 2
+  },
+  {
+   "name": "slot.key.2",
+   "kind": "text",
+   "role": "legend",
+   "max_words": 2
+  },
+  {
+   "name": "slot.key.3",
+   "kind": "text",
+   "role": "legend",
+   "max_words": 2
+  }
+ ],
+ "samples": [
+  "Customer requests move from crossed handoffs to one shared agent hub",
+  "Today, manual handoffs",
+  "Target, agent routing",
+  "Every role works every channel",
+  "Agents route each request through one hub",
+  "Sales rep",
+  "Service desk",
+  "Field tech",
+  "Account lead",
+  "Ticket form",
+  "Distributors",
+  "Retailers",
+  "Scheduling",
+  "Agent hub",
+  "Shared case",
+  "Order status",
+  "Stock view",
+  "Exceptions",
+  "Request flow",
+  "Data sync",
+  "Staff escalation"
+ ]
+}

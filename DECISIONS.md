@@ -192,3 +192,15 @@ about 5M tokens after step 2 ran 2.8M against a 1M estimate.
   `high-foot-band`.
 - **Device agents hold card bodies to one or two lines.** Density comes from the device, never from paragraphs;
   cards shrink to their content and the freed height goes to the device.
+
+## 2026-10-03 · Device library built (step 3 of ruling 10, ruling 14)
+- 31 devices, DL01 to DL31, lifted from 31 reference slides by `scripts/lift_device.py` (identity stripped, every
+  word replaced, colours mapped to roles, type floored) and finished by one agent each through a versioned
+  `devices/work/DLnn/build.py`. Each passes all 25 implemented gates; the assembled `devices/devices.pptx` passes
+  the library gates (floor, bounds, style, package, colour, fingerprints, leak, icons, contrast).
+- **P19 scopes device samples.** A slide tagged with a device's variant is checked against all of that device's
+  sample copy; every other slide only against samples of four words or more, so ordinary short copy ("Not
+  started") never reads as filler.
+- **Slot roles.** Agents used a slot's `role` for its purpose; the assembler moves any value that is not a theme
+  role to `purpose`, and `devices.place` keeps each paragraph's own size, weight, colour role and alignment.
+- Token cost: device agents about 4.5M (31 at about 145K each), the pilot 0.12M.

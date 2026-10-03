@@ -1,0 +1,348 @@
+{
+ "id": "DL24",
+ "name": "Nested platform hub with feeders",
+ "archetypes": [
+  "convergence-hub",
+  "hub-and-spoke"
+ ],
+ "family": "Radial hub",
+ "variant": "nested-core-feeders-outcomes",
+ "mechanism": "Six source cards each send an arrow into a nested hub whose rings name the shared foundation and rules and whose core numbers the platform's services, and an arrow from the hub lands on each of five outcome cards, so every result traces back through one shared platform to its sources.",
+ "canvas": "wide",
+ "source": "d02-s008",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.hub.outer.label",
+   "kind": "text",
+   "role": "layer-label",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.hub.inner.label",
+   "kind": "text",
+   "role": "layer-label",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.hub.core.label",
+   "kind": "text",
+   "role": "core-label",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.1.num",
+   "kind": "text",
+   "role": "step-number",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.1.head",
+   "kind": "text",
+   "role": "step-head",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.1.body",
+   "kind": "text",
+   "role": "step-body",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.1.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.2.num",
+   "kind": "text",
+   "role": "step-number",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.2.head",
+   "kind": "text",
+   "role": "step-head",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.2.body",
+   "kind": "text",
+   "role": "step-body",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.2.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.3.num",
+   "kind": "text",
+   "role": "step-number",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.3.head",
+   "kind": "text",
+   "role": "step-head",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.3.body",
+   "kind": "text",
+   "role": "step-body",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.3.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.4.num",
+   "kind": "text",
+   "role": "step-number",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.4.head",
+   "kind": "text",
+   "role": "step-head",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.4.body",
+   "kind": "text",
+   "role": "step-body",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.4.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.feeder.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.feeder.1.text",
+   "kind": "text",
+   "role": "feeder-head-and-body",
+   "max_words": 11,
+   "background": "card"
+  },
+  {
+   "name": "slot.feeder.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.feeder.2.text",
+   "kind": "text",
+   "role": "feeder-head-and-body",
+   "max_words": 11,
+   "background": "card"
+  },
+  {
+   "name": "slot.feeder.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.feeder.3.text",
+   "kind": "text",
+   "role": "feeder-head-and-body",
+   "max_words": 11,
+   "background": "card"
+  },
+  {
+   "name": "slot.feeder.4.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.feeder.4.text",
+   "kind": "text",
+   "role": "feeder-head-and-body",
+   "max_words": 11,
+   "background": "card"
+  },
+  {
+   "name": "slot.feeder.5.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.feeder.5.text",
+   "kind": "text",
+   "role": "feeder-head-and-body",
+   "max_words": 11,
+   "background": "card"
+  },
+  {
+   "name": "slot.feeder.6.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.feeder.6.text",
+   "kind": "text",
+   "role": "feeder-head-and-body",
+   "max_words": 11,
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.1.head",
+   "kind": "text",
+   "role": "outcome-head",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.1.body",
+   "kind": "text",
+   "role": "outcome-body",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.2.head",
+   "kind": "text",
+   "role": "outcome-head",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.2.body",
+   "kind": "text",
+   "role": "outcome-body",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.3.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.3.head",
+   "kind": "text",
+   "role": "outcome-head",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.3.body",
+   "kind": "text",
+   "role": "outcome-body",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.4.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.4.head",
+   "kind": "text",
+   "role": "outcome-head",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.4.body",
+   "kind": "text",
+   "role": "outcome-body",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.5.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.5.head",
+   "kind": "text",
+   "role": "outcome-head",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.outcome.5.body",
+   "kind": "text",
+   "role": "outcome-body",
+   "max_words": 8,
+   "background": "card"
+  }
+ ],
+ "samples": [
+  "Six sources converge on one governed platform that serves five teams",
+  "Shared data foundation",
+  "Common definitions and access",
+  "Platform services",
+  "Ingest once",
+  "One schedule for every source",
+  "Standardize",
+  "Shared terms on every record",
+  "Govern access",
+  "Role rules at query time",
+  "Serve by API",
+  "One endpoint per question",
+  "Sales and order history",
+  "Daily orders from three regions",
+  "Quality and audit records",
+  "Inspections and corrective actions",
+  "Product reference data",
+  "Specifications, packs and pricing",
+  "Customer master records",
+  "Accounts, contacts and service tiers",
+  "Partner and supplier feeds",
+  "Weekly files from outside partners",
+  "Field service logs",
+  "Visit notes and parts used per job",
+  "Faster market reports",
+  "New reports ship in days instead of quarters",
+  "Fewer audit findings",
+  "One lineage trail answers each reviewer",
+  "Steadier forecasts",
+  "Demand models train on one reconciled history",
+  "One leadership view",
+  "Every review reads the same numbers",
+  "Self-serve analysts",
+  "Teams query governed data without tickets"
+ ]
+}

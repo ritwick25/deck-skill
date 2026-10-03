@@ -63,7 +63,7 @@ def process(prs, th):
     compose.pressure_band(s, Box(C.x, C.y, C.w, 1.0), "Field pressures", [
         ("Volume", "40+ signals a week, most of them noise"),
         ("Speed", "Reps need the move before the Monday calls"),
-        ("Trust", "Every claim must trace to a public source"),
+        ("Trust", "Each claim links to its public source"),
         ("Control", "Medical signs before anything ships")], name="press", theme=th)
     compose.stage_chain(s, Box(C.x, C.y + 1.2, C.w, 3.7), [
         ("Scan", "scan-search", "Read the source list", "Approved public feeds only, every weekday"),

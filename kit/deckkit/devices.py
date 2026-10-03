@@ -27,6 +27,9 @@ from .geom import find
 from .glyphs import glyph
 from .read.ns import qn
 
+from .theme import ROLES as ROLES_OK, TEXT_ROLES as _TR
+
+TEXT_ROLES_OK = tuple(_TR) + ("paper",)
 ROOT = Path(__file__).resolve().parent.parent.parent / "devices"
 PPTX = ROOT / "devices.pptx"
 JSON = ROOT / "devices.json"
@@ -48,27 +51,26 @@ def _entry(device_id: str) -> dict:
                         have=", ".join(e["id"] for e in catalogue()) or "no library")
 
 
-def _run_style(shape):
-    """The size, bold and colour role-element of the shape's first run, so a refill keeps the device's type."""
-    r = shape._element.find(".//" + qn("a:r"))
-    rpr = r.find(qn("a:rPr")) if r is not None else None
-    size = int(rpr.get("sz")) / 100.0 if rpr is not None and rpr.get("sz") else None
-    bold = rpr is not None and rpr.get("b") in ("1", "true")
-    return size, bold
-
-
-def _role_of(shape, theme) -> str:
-    """The text role the device wrote on this slot (its first run's schemeClr matched against the theme)."""
-    r = shape._element.find(".//" + qn("a:r") + "/" + qn("a:rPr") + "/" + qn("a:solidFill") + "/" + qn("a:schemeClr"))
-    if r is None:
-        return "ink"
+def _para_styles(shape, theme) -> list[tuple]:
+    """(size, bold, role) of each existing paragraph's first run, so a refill keeps the device's type per line."""
     from lxml import etree
-    want = etree.tostring(r)
-    for role in txt.TEXT_ROLES if hasattr(txt, "TEXT_ROLES") else ("ink-deep", "ink", "ink-strong", "ink-muted",
-                                                                   "accent-ink", "on-accent", "navy"):
-        if etree.tostring(theme.spec(role)) == want:
-            return role
-    return "ink"
+    specs = {etree.tostring(theme.spec(r)): r for r in ("ink-deep", "ink", "ink-strong", "ink-muted", "accent-ink",
+                                                        "on-accent", "navy")}
+    out = []
+    for p in shape._element.iter(qn("a:p")):
+        r = p.find(qn("a:r"))
+        rpr = r.find(qn("a:rPr")) if r is not None else None
+        if rpr is None:
+            continue
+        size = int(rpr.get("sz")) / 100.0 if rpr.get("sz") else None
+        bold = rpr.get("b") in ("1", "true")
+        clr = rpr.find(qn("a:solidFill") + "/" + qn("a:schemeClr"))
+        role = specs.get(etree.tostring(clr), "ink") if clr is not None else "ink"
+        ppr = p.find(qn("a:pPr"))
+        align = {"ctr": "center", "r": "right", "just": "justify"}.get(ppr.get("algn") if ppr is not None else None,
+                                                                      "left")
+        out.append((size, bold, role, align))
+    return out or [(None, False, "ink", "left")]
 
 
 def insets_of(shape):
@@ -80,13 +82,16 @@ def insets_of(shape):
     return _m.Insets(v["lIns"] / 914400, v["tIns"] / 914400, v["rIns"] / 914400, v["bIns"] / 914400)
 
 
-def place(prs, device_id: str, fill: dict, *, theme, keywords=()):
+def place(prs, device_id: str, fill: dict, *, theme, keywords=(), archetype: str | None = None,
+          variant: str | None = None):
     """A new slide carrying device `device_id` with its slots filled from `fill` {slot name: value}."""
     e = _entry(device_id)
     lib = Presentation(str(PPTX))
     src = lib.slides[e["index"] - 1]
     s = prs.slides.add_slide(prs.slide_layouts[0])
     copy_shapes(src, s, strip=DEVICE_STRIP)
+    from . import tag as _tag
+    _tag.tag(s, archetype or e["archetypes"][0], variant or e["variant"])
     slots = {x["name"]: x for x in e.get("slots", [])}
     unknown = [k for k in fill if k not in slots]
     if unknown:
@@ -99,21 +104,26 @@ def place(prs, device_id: str, fill: dict, *, theme, keywords=()):
             continue
         if spec.get("kind") == "glyph":
             box = Box(shape.left / EMU, shape.top / EMU, shape.width / EMU, shape.height / EMU)
-            role = spec.get("role", "accent")
+            role = spec.get("role") if spec.get("role") in ROLES_OK else "accent"
             shape._element.getparent().remove(shape._element)
             glyph(s, value, box, role=role, shape_name=name, theme=theme)
             continue
-        size, bold = _run_style(shape)
-        role = spec.get("role") or _role_of(shape, theme)
+        styles = _para_styles(shape, theme)
+        size = styles[0][0]
+        if spec.get("kind") == "title":
+            styles = [(st[0], st[1], st[2], "left") for st in styles]
         bg = spec.get("background", "paper")
         if spec.get("kind") == "title":
             text_, kws = value if isinstance(value, tuple) else (value, keywords)
             paras = [txt.Para(txt.title_runs(text_, kws))]
-        elif isinstance(value, str):
-            paras = [txt.Para((txt.Run(value, role, bold=bold, size=size),))]
-        elif value and isinstance(value[0], str):
-            paras = [txt.Para((txt.Run(v, role, bold=bold, size=size),), space_before=0 if i == 0 else 3)
-                     for i, v in enumerate(value)]
+        elif isinstance(value, str) or (value and isinstance(value[0], str)):
+            vals = [value] if isinstance(value, str) else list(value)
+            paras = []
+            for i, v in enumerate(vals):
+                sz, bd, rl, al = styles[min(i, len(styles) - 1)]
+                want = spec.get("role") if spec.get("role") in TEXT_ROLES_OK else None
+                paras.append(txt.Para((txt.Run(v, want or rl, bold=bd, size=sz or size),), align=al,
+                                      space_before=0 if i == 0 else 3))
         else:
             paras = list(value)
         box = Box(shape.left / EMU, shape.top / EMU, shape.width / EMU, shape.height / EMU)

@@ -1,0 +1,314 @@
+{
+ "id": "DL20",
+ "name": "Indented maturity ladder with status rail",
+ "archetypes": [
+  "maturity-model"
+ ],
+ "family": "Axis of time or maturity",
+ "variant": "indented-ladder-status-rail",
+ "mechanism": "Seven levels step down an indented ladder whose fills mark the status of each rung, a keyed rail names what each fill means and places the audience on the ladder, and three cards state what moving to the next rung takes.",
+ "canvas": "wide",
+ "source": "d03-s031",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.ladder.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 5
+  },
+  {
+   "name": "slot.rail.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 4
+  },
+  {
+   "name": "slot.level.1.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.level.1.head",
+   "kind": "text",
+   "role": "level-name",
+   "max_words": 3,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.level.1.body",
+   "kind": "text",
+   "role": "level-description",
+   "max_words": 8,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.level.2.icon",
+   "kind": "glyph",
+   "background": "navy"
+  },
+  {
+   "name": "slot.level.2.head",
+   "kind": "text",
+   "role": "level-name",
+   "max_words": 3,
+   "background": "navy"
+  },
+  {
+   "name": "slot.level.2.body",
+   "kind": "text",
+   "role": "level-description",
+   "max_words": 8,
+   "background": "navy"
+  },
+  {
+   "name": "slot.level.3.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.level.3.head",
+   "kind": "text",
+   "role": "level-name",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.level.3.body",
+   "kind": "text",
+   "role": "level-description",
+   "max_words": 8,
+   "background": "accent"
+  },
+  {
+   "name": "slot.level.4.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.level.4.head",
+   "kind": "text",
+   "role": "level-name",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.4.body",
+   "kind": "text",
+   "role": "level-description",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.5.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.level.5.head",
+   "kind": "text",
+   "role": "level-name",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.5.body",
+   "kind": "text",
+   "role": "level-description",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.6.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.level.6.head",
+   "kind": "text",
+   "role": "level-name",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.6.body",
+   "kind": "text",
+   "role": "level-description",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.7.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.level.7.head",
+   "kind": "text",
+   "role": "level-name",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.level.7.body",
+   "kind": "text",
+   "role": "level-description",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.key.1.head",
+   "kind": "text",
+   "role": "status-key",
+   "max_words": 2,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.key.1.body",
+   "kind": "text",
+   "role": "status-description",
+   "max_words": 10
+  },
+  {
+   "name": "slot.key.2.head",
+   "kind": "text",
+   "role": "status-key",
+   "max_words": 2,
+   "background": "navy"
+  },
+  {
+   "name": "slot.key.2.body",
+   "kind": "text",
+   "role": "status-description",
+   "max_words": 10
+  },
+  {
+   "name": "slot.key.3.head",
+   "kind": "text",
+   "role": "status-key",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.key.3.body",
+   "kind": "text",
+   "role": "status-description",
+   "max_words": 10
+  },
+  {
+   "name": "slot.key.4.head",
+   "kind": "text",
+   "role": "status-key",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.key.4.body",
+   "kind": "text",
+   "role": "status-description",
+   "max_words": 10
+  },
+  {
+   "name": "slot.cards.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 8
+  },
+  {
+   "name": "slot.card.1.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 5,
+   "background": "navy"
+  },
+  {
+   "name": "slot.card.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.card.1.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 12
+  },
+  {
+   "name": "slot.card.2.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 5,
+   "background": "accent"
+  },
+  {
+   "name": "slot.card.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.card.2.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 12
+  },
+  {
+   "name": "slot.card.3.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.card.3.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 12
+  }
+ ],
+ "samples": [
+  "Automation maturity levels",
+  "Status today",
+  "Manual entry",
+  "Clerks key every invoice line by hand",
+  "Standard forms",
+  "Supplier templates remove most keying errors",
+  "Rule-based matching",
+  "Fixed rules clear routine order matches",
+  "Assisted review",
+  "Models suggest matches and reviewers approve",
+  "Exception agents",
+  "Agents resolve known exceptions unaided",
+  "Self-tuning rules",
+  "Reviewer decisions retune the rules weekly",
+  "Touchless close",
+  "Month-end close runs with spot checks only",
+  "At scale",
+  "Live in every business unit",
+  "and measured monthly",
+  "In pilot",
+  "Two business units, with",
+  "results due next quarter",
+  "Not started",
+  "Funded once the next",
+  "rung proves out",
+  "Next rung",
+  "Twelve-week build on",
+  "one ledger first",
+  "What reaching level 3 takes",
+  "01  Clean supplier master",
+  "Duplicate and stale supplier records",
+  "merged before any rule goes live",
+  "02  Shared rule library",
+  "One owner keeps every matching rule",
+  "versioned, tested and documented",
+  "03  Named reviewer roles",
+  "Held lines cleared by a named",
+  "reviewer within one working day",
+  "Payables run at level 2 and rule-based matching is the next rung"
+ ]
+}

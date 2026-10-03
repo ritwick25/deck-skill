@@ -1,0 +1,309 @@
+{
+ "id": "DL02",
+ "name": "Staged mechanism with brief rail",
+ "archetypes": [
+  "deep-dive",
+  "input-process-output"
+ ],
+ "family": "Split",
+ "variant": "stage-band-brief-rail",
+ "mechanism": "An iconned challenge strip states the pain, a numbered three-stage band traces the mechanism with its rule passes and a dashed failure loop back to the exceptions queue, a value strip names what it buys, and a brief rail closes on the decision it supports.",
+ "canvas": "wide",
+ "source": "d01-s015",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.challenge.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.pain.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.pain.1.body",
+   "kind": "text",
+   "role": "pain-figure",
+   "max_words": 7
+  },
+  {
+   "name": "slot.pain.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.pain.2.body",
+   "kind": "text",
+   "role": "pain",
+   "max_words": 7
+  },
+  {
+   "name": "slot.pain.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.pain.3.body",
+   "kind": "text",
+   "role": "pain",
+   "max_words": 7
+  },
+  {
+   "name": "slot.work.head",
+   "kind": "text",
+   "role": "exhibit-header",
+   "max_words": 5,
+   "background": "accent"
+  },
+  {
+   "name": "slot.work.tag",
+   "kind": "text",
+   "role": "basis-tag",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.stage.1.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "hairline-soft"
+  },
+  {
+   "name": "slot.stage.1.head",
+   "kind": "text",
+   "role": "stage",
+   "max_words": 2,
+   "background": "hairline-soft"
+  },
+  {
+   "name": "slot.stage.2.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "hairline-soft"
+  },
+  {
+   "name": "slot.stage.2.head",
+   "kind": "text",
+   "role": "stage",
+   "max_words": 2,
+   "background": "hairline-soft"
+  },
+  {
+   "name": "slot.stage.3.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "hairline-soft"
+  },
+  {
+   "name": "slot.stage.3.head",
+   "kind": "text",
+   "role": "stage",
+   "max_words": 2,
+   "background": "hairline-soft"
+  },
+  {
+   "name": "slot.capture.icon.1",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.capture.icon.2",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.capture.icon.3",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.capture.label.1",
+   "kind": "text",
+   "role": "node-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.capture.label.2",
+   "kind": "text",
+   "role": "node-label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.exceptions.body",
+   "kind": "text",
+   "role": "failure-target",
+   "max_words": 7
+  },
+  {
+   "name": "slot.rule.1",
+   "kind": "text",
+   "role": "step",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.rule.2",
+   "kind": "text",
+   "role": "step",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.rule.3",
+   "kind": "text",
+   "role": "step",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.rule.caption",
+   "kind": "text",
+   "role": "caption",
+   "max_words": 6
+  },
+  {
+   "name": "slot.review.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.review.body",
+   "kind": "text",
+   "role": "caption",
+   "max_words": 5
+  },
+  {
+   "name": "slot.outcome.1",
+   "kind": "text",
+   "role": "outcome",
+   "max_words": 3
+  },
+  {
+   "name": "slot.outcome.2",
+   "kind": "text",
+   "role": "outcome",
+   "max_words": 3
+  },
+  {
+   "name": "slot.loop.label",
+   "kind": "text",
+   "role": "failure-loop",
+   "max_words": 4
+  },
+  {
+   "name": "slot.value.label",
+   "kind": "text",
+   "role": "band-label",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.value.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.value.1.body",
+   "kind": "text",
+   "role": "value",
+   "max_words": 3
+  },
+  {
+   "name": "slot.value.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.value.2.body",
+   "kind": "text",
+   "role": "value",
+   "max_words": 3
+  },
+  {
+   "name": "slot.value.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.value.3.body",
+   "kind": "text",
+   "role": "value",
+   "max_words": 3
+  },
+  {
+   "name": "slot.brief.head",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.brief.problem",
+   "kind": "text",
+   "role": "problem",
+   "max_words": 7,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.brief.why",
+   "kind": "text",
+   "role": "why-it-matters",
+   "max_words": 12,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.brief.approach",
+   "kind": "text",
+   "role": "approach",
+   "max_words": 12,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.brief.scope",
+   "kind": "text",
+   "role": "scope",
+   "max_words": 12,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.brief.decision",
+   "kind": "text",
+   "role": "decision-supported",
+   "max_words": 10
+  }
+ ],
+ "samples": [
+  "Rule passes clear routine invoices and reviewers settle the rest",
+  "Challenge",
+  "to clear one held invoice",
+  "Matching rules live in",
+  "personal spreadsheets",
+  "Late payments forfeit",
+  "early-pay discounts",
+  "How invoice matching works",
+  "Illustrative",
+  "Invoices",
+  "Held lines return with",
+  "a reason code",
+  "Exact order and amount",
+  "Price within tolerance",
+  "Fuzzy supplier and line text",
+  "The first pass to match wins",
+  "Unmatched lines go to review",
+  "and post",
+  "with a reason",
+  "Reviewer decisions retune tolerances",
+  "Discounts kept",
+  "One rule set",
+  "Same-day clearing",
+  "Use case brief",
+  "Supplier invoices stall in manual matching",
+  "Why it matters",
+  "Held invoices delay payment runs and miss discount windows",
+  "Approach",
+  "Rule passes match routine lines and reviewers clear the rest",
+  "One ledger, three entities and twelve weeks",
+  "Decision supported",
+  "Fund a twelve-week pilot on one ledger"
+ ]
+}

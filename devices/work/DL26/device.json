@@ -1,0 +1,547 @@
+{
+ "id": "DL26",
+ "name": "Staged rule lanes to a decision",
+ "archetypes": [
+  "decision-logic",
+  "process-flow"
+ ],
+ "family": "Stage lanes",
+ "variant": "staged-rule-lanes",
+ "mechanism": "Inputs feed yes-or-no checks, ordered rules route each case to one of two outcomes, and a logged record with one routed sample proves the path.",
+ "canvas": "wide",
+ "source": "d12-s016",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "role": "claim",
+   "max_words": 14
+  },
+  {
+   "name": "slot.stage.1.label",
+   "kind": "text",
+   "role": "stage name",
+   "max_words": 3,
+   "background": "accent-deep"
+  },
+  {
+   "name": "slot.stage.1.caption",
+   "kind": "text",
+   "role": "stage note",
+   "max_words": 3
+  },
+  {
+   "name": "slot.stage.2.label",
+   "kind": "text",
+   "role": "stage name",
+   "max_words": 2,
+   "background": "accent-deep"
+  },
+  {
+   "name": "slot.stage.2.caption",
+   "kind": "text",
+   "role": "stage note",
+   "max_words": 4
+  },
+  {
+   "name": "slot.stage.3.label",
+   "kind": "text",
+   "role": "stage name",
+   "max_words": 3,
+   "background": "accent-deep"
+  },
+  {
+   "name": "slot.stage.3.caption",
+   "kind": "text",
+   "role": "stage note",
+   "max_words": 5
+  },
+  {
+   "name": "slot.stage.4.label",
+   "kind": "text",
+   "role": "stage name",
+   "max_words": 2,
+   "background": "accent-deep"
+  },
+  {
+   "name": "slot.stage.4.caption",
+   "kind": "text",
+   "role": "stage note",
+   "max_words": 3
+  },
+  {
+   "name": "slot.stage.5.label",
+   "kind": "text",
+   "role": "stage name",
+   "max_words": 2,
+   "background": "accent-deep"
+  },
+  {
+   "name": "slot.stage.5.caption",
+   "kind": "text",
+   "role": "stage note",
+   "max_words": 3
+  },
+  {
+   "name": "slot.input.1.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 3
+  },
+  {
+   "name": "slot.input.1.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 4
+  },
+  {
+   "name": "slot.input.2.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 3
+  },
+  {
+   "name": "slot.input.2.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 5
+  },
+  {
+   "name": "slot.input.3.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 3
+  },
+  {
+   "name": "slot.input.3.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 5
+  },
+  {
+   "name": "slot.input.4.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 3
+  },
+  {
+   "name": "slot.input.4.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 5
+  },
+  {
+   "name": "slot.input.5.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 3
+  },
+  {
+   "name": "slot.input.5.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 3
+  },
+  {
+   "name": "slot.input.6.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 3
+  },
+  {
+   "name": "slot.input.6.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 3
+  },
+  {
+   "name": "slot.check.1.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 4
+  },
+  {
+   "name": "slot.check.1.test",
+   "kind": "text",
+   "role": "test",
+   "max_words": 6
+  },
+  {
+   "name": "slot.check.1.source",
+   "kind": "text",
+   "role": "input read",
+   "max_words": 5
+  },
+  {
+   "name": "slot.check.2.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 4
+  },
+  {
+   "name": "slot.check.2.test",
+   "kind": "text",
+   "role": "test",
+   "max_words": 6
+  },
+  {
+   "name": "slot.check.2.source",
+   "kind": "text",
+   "role": "input read",
+   "max_words": 4
+  },
+  {
+   "name": "slot.check.3.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 4
+  },
+  {
+   "name": "slot.check.3.test",
+   "kind": "text",
+   "role": "test",
+   "max_words": 5
+  },
+  {
+   "name": "slot.check.3.source",
+   "kind": "text",
+   "role": "input read",
+   "max_words": 4
+  },
+  {
+   "name": "slot.check.4.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 4
+  },
+  {
+   "name": "slot.check.4.test",
+   "kind": "text",
+   "role": "test",
+   "max_words": 6
+  },
+  {
+   "name": "slot.check.4.source",
+   "kind": "text",
+   "role": "input read",
+   "max_words": 4
+  },
+  {
+   "name": "slot.check.5.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 4
+  },
+  {
+   "name": "slot.check.5.test",
+   "kind": "text",
+   "role": "test",
+   "max_words": 6
+  },
+  {
+   "name": "slot.check.5.source",
+   "kind": "text",
+   "role": "input read",
+   "max_words": 4
+  },
+  {
+   "name": "slot.check.6.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 4
+  },
+  {
+   "name": "slot.check.6.test",
+   "kind": "text",
+   "role": "test",
+   "max_words": 6
+  },
+  {
+   "name": "slot.check.6.source",
+   "kind": "text",
+   "role": "input read",
+   "max_words": 4
+  },
+  {
+   "name": "slot.rules.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.rule.1.num",
+   "kind": "text",
+   "max_words": 1
+  },
+  {
+   "name": "slot.rule.1.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 3
+  },
+  {
+   "name": "slot.rule.1.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 6
+  },
+  {
+   "name": "slot.rule.1.route",
+   "kind": "text",
+   "role": "outcome",
+   "max_words": 4
+  },
+  {
+   "name": "slot.rule.2.num",
+   "kind": "text",
+   "max_words": 1
+  },
+  {
+   "name": "slot.rule.2.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 4
+  },
+  {
+   "name": "slot.rule.2.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 6
+  },
+  {
+   "name": "slot.rule.2.route",
+   "kind": "text",
+   "role": "outcome",
+   "max_words": 4
+  },
+  {
+   "name": "slot.rule.3.num",
+   "kind": "text",
+   "max_words": 1
+  },
+  {
+   "name": "slot.rule.3.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 3
+  },
+  {
+   "name": "slot.rule.3.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 6
+  },
+  {
+   "name": "slot.rule.3.route",
+   "kind": "text",
+   "role": "outcome",
+   "max_words": 4
+  },
+  {
+   "name": "slot.rule.4.num",
+   "kind": "text",
+   "max_words": 1
+  },
+  {
+   "name": "slot.rule.4.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 4
+  },
+  {
+   "name": "slot.rule.4.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 6
+  },
+  {
+   "name": "slot.rule.4.route",
+   "kind": "text",
+   "role": "outcome",
+   "max_words": 4
+  },
+  {
+   "name": "slot.rule.5.num",
+   "kind": "text",
+   "max_words": 1
+  },
+  {
+   "name": "slot.rule.5.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 4
+  },
+  {
+   "name": "slot.rule.5.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 5
+  },
+  {
+   "name": "slot.rule.5.route",
+   "kind": "text",
+   "role": "outcome",
+   "max_words": 4
+  },
+  {
+   "name": "slot.outcome.1.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 3
+  },
+  {
+   "name": "slot.outcome.1.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 10
+  },
+  {
+   "name": "slot.outcome.2.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 4
+  },
+  {
+   "name": "slot.outcome.2.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 7
+  },
+  {
+   "name": "slot.record.head",
+   "kind": "text",
+   "role": "heading",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.record.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 13,
+   "background": "accent"
+  },
+  {
+   "name": "slot.example.label",
+   "kind": "text",
+   "role": "stage name",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.example.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 21,
+   "background": "card"
+  },
+  {
+   "name": "slot.input.1.icon",
+   "kind": "glyph",
+   "role": "glyph"
+  },
+  {
+   "name": "slot.input.2.icon",
+   "kind": "glyph",
+   "role": "glyph"
+  },
+  {
+   "name": "slot.input.3.icon",
+   "kind": "glyph",
+   "role": "glyph"
+  },
+  {
+   "name": "slot.input.4.icon",
+   "kind": "glyph",
+   "role": "glyph"
+  },
+  {
+   "name": "slot.input.5.icon",
+   "kind": "glyph",
+   "role": "glyph"
+  },
+  {
+   "name": "slot.input.6.icon",
+   "kind": "glyph",
+   "role": "glyph"
+  },
+  {
+   "name": "slot.rules.icon",
+   "kind": "glyph",
+   "role": "glyph",
+   "background": "accent"
+  }
+ ],
+ "samples": [
+  "Five ordered rules route every late shipment to expedite or hold",
+  "Order signals",
+  "Six inputs",
+  "Yes or no",
+  "Routing rules",
+  "Five rules, in order",
+  "Outcomes",
+  "Two dispositions",
+  "Decision",
+  "Per order",
+  "Order profile",
+  "Units and margin",
+  "Store stock",
+  "Days of cover left",
+  "Carrier status",
+  "Last scan and delay",
+  "Lane distance",
+  "Hub to store miles",
+  "Promo calendar",
+  "Upcoming events",
+  "Price tier",
+  "Markdown exposure",
+  "Shelf empties first?",
+  "Cover shorter than the delay",
+  "Reads stock and carrier",
+  "Event at stake?",
+  "Promo starts within 7 days",
+  "Reads promo calendar",
+  "Margin worth saving?",
+  "Lost margin above $5K",
+  "Reads order profile",
+  "Faster lane open?",
+  "Air or direct truck free",
+  "Reads lane distance",
+  "Cost in bounds?",
+  "Expedite under 20% of value",
+  "Reads price tier",
+  "Substitute on hand?",
+  "Like item within 30 miles",
+  "Reads store stock",
+  "First match sets the route",
+  "Promo stock-out",
+  "Shelf empty during a promo",
+  "Expedite by air",
+  "Margin and lane",
+  "Loss over limit, lane open",
+  "Expedite by truck",
+  "Substitute nearby",
+  "Like item covers the gap",
+  "Hold and transfer",
+  "Cost over bounds",
+  "Cost above 20% of value",
+  "No rule matched",
+  "All other late orders",
+  "Expedite now",
+  "Carrier booked same day, cost charged to promo",
+  "Like item moved in, planner alerted",
+  "Each decision logs",
+  "Rule that fired",
+  "Inputs it read",
+  "Cost and owner",
+  "Decision time",
+  "Sample late order",
+  "Cover  2 days",
+  "Promo  in 5 days",
+  "Rule fired  1",
+  "Route  expedite by air",
+  "Owner  store planner",
+  "Cover  2 days / Promo  in 5 days / Rule fired  1 / Route  expedite by air / Owner  store planner"
+ ]
+}

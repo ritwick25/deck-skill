@@ -1,0 +1,749 @@
+{
+ "id": "DL25",
+ "name": "Pill-headed input, method, output triptych",
+ "archetypes": [
+  "input-process-output",
+  "process-flow"
+ ],
+ "family": "Directed sequence",
+ "variant": "pill-triptych-step-stack-proofs",
+ "mechanism": "Three pill-headed panels read left to right through handoff discs, the widest holding six numbered step cards marked by who runs each one beside proof zones, so the method is the subject while the inputs and typed outputs frame it and two strips beneath name what the method reuses and where else it applies.",
+ "canvas": "wide",
+ "source": "d02-s010",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.input.head",
+   "kind": "text",
+   "role": "panel header",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.method.head",
+   "kind": "text",
+   "role": "panel header",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.output.head",
+   "kind": "text",
+   "role": "output",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.input.brief.head",
+   "kind": "text",
+   "role": "section head",
+   "max_words": 5
+  },
+  {
+   "name": "slot.input.brief.1",
+   "kind": "text",
+   "role": "brief item",
+   "max_words": 6
+  },
+  {
+   "name": "slot.input.brief.2",
+   "kind": "text",
+   "role": "brief item",
+   "max_words": 6
+  },
+  {
+   "name": "slot.input.brief.3",
+   "kind": "text",
+   "role": "brief item",
+   "max_words": 6
+  },
+  {
+   "name": "slot.input.sources.head",
+   "kind": "text",
+   "role": "section head",
+   "max_words": 5
+  },
+  {
+   "name": "slot.input.source.1",
+   "kind": "text",
+   "role": "data source",
+   "max_words": 2
+  },
+  {
+   "name": "slot.input.source.2",
+   "kind": "text",
+   "role": "data source",
+   "max_words": 2
+  },
+  {
+   "name": "slot.input.source.3",
+   "kind": "text",
+   "role": "data source",
+   "max_words": 2
+  },
+  {
+   "name": "slot.input.source.4",
+   "kind": "text",
+   "role": "data source",
+   "max_words": 2
+  },
+  {
+   "name": "slot.input.source.5",
+   "kind": "text",
+   "role": "data source",
+   "max_words": 2
+  },
+  {
+   "name": "slot.input.source.6",
+   "kind": "text",
+   "role": "data source",
+   "max_words": 2
+  },
+  {
+   "name": "slot.input.source.7",
+   "kind": "text",
+   "role": "data source",
+   "max_words": 2
+  },
+  {
+   "name": "slot.input.source.8",
+   "kind": "text",
+   "role": "data source",
+   "max_words": 2
+  },
+  {
+   "name": "slot.method.legend.1",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.method.legend.2",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.method.legend.3",
+   "kind": "text",
+   "role": "legend label",
+   "max_words": 2
+  },
+  {
+   "name": "slot.step.1.num",
+   "kind": "text",
+   "role": "step",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.1.head",
+   "kind": "text",
+   "role": "step",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.step.2.num",
+   "kind": "text",
+   "role": "step",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.2.head",
+   "kind": "text",
+   "role": "step",
+   "max_words": 3,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.step.3.num",
+   "kind": "text",
+   "role": "step",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.3.head",
+   "kind": "text",
+   "role": "step",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.step.4.num",
+   "kind": "text",
+   "role": "step",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.4.head",
+   "kind": "text",
+   "role": "step",
+   "max_words": 3,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.step.5.num",
+   "kind": "text",
+   "role": "step",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.5.head",
+   "kind": "text",
+   "role": "step",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.step.6.num",
+   "kind": "text",
+   "role": "step",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.step.6.head",
+   "kind": "text",
+   "role": "step",
+   "max_words": 3,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.output.1.head",
+   "kind": "text",
+   "role": "output",
+   "max_words": 3
+  },
+  {
+   "name": "slot.output.1.tag.2",
+   "kind": "text",
+   "role": "format tag",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.output.1.tag.1",
+   "kind": "text",
+   "role": "format tag",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.output.1.body",
+   "kind": "text",
+   "role": "output",
+   "max_words": 6
+  },
+  {
+   "name": "slot.output.2.head",
+   "kind": "text",
+   "role": "output",
+   "max_words": 3
+  },
+  {
+   "name": "slot.output.2.tag.2",
+   "kind": "text",
+   "role": "format tag",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.output.2.tag.1",
+   "kind": "text",
+   "role": "format tag",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.output.2.body",
+   "kind": "text",
+   "role": "output",
+   "max_words": 7
+  },
+  {
+   "name": "slot.output.3.head",
+   "kind": "text",
+   "role": "output",
+   "max_words": 3
+  },
+  {
+   "name": "slot.output.3.tag.1",
+   "kind": "text",
+   "role": "format tag",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.output.3.body",
+   "kind": "text",
+   "role": "output",
+   "max_words": 6
+  },
+  {
+   "name": "slot.output.3.note",
+   "kind": "text",
+   "role": "output detail",
+   "max_words": 9
+  },
+  {
+   "name": "slot.reuse.head",
+   "kind": "text",
+   "role": "reusable skill",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.uses.head",
+   "kind": "text",
+   "role": "further use",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.reuse.1",
+   "kind": "text",
+   "role": "reusable skill",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.reuse.2",
+   "kind": "text",
+   "role": "reusable skill",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.reuse.3",
+   "kind": "text",
+   "role": "reusable skill",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.reuse.4",
+   "kind": "text",
+   "role": "reusable skill",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.uses.1",
+   "kind": "text",
+   "role": "further use",
+   "max_words": 3
+  },
+  {
+   "name": "slot.uses.2",
+   "kind": "text",
+   "role": "further use",
+   "max_words": 3
+  },
+  {
+   "name": "slot.uses.3",
+   "kind": "text",
+   "role": "further use",
+   "max_words": 3
+  },
+  {
+   "name": "slot.input.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.method.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.output.icon",
+   "kind": "glyph",
+   "role": "output"
+  },
+  {
+   "name": "slot.input.brief.head.icon",
+   "kind": "glyph",
+   "role": "section head"
+  },
+  {
+   "name": "slot.input.brief.1.icon",
+   "kind": "glyph",
+   "role": "brief item"
+  },
+  {
+   "name": "slot.input.brief.2.icon",
+   "kind": "glyph",
+   "role": "brief item"
+  },
+  {
+   "name": "slot.input.brief.3.icon",
+   "kind": "glyph",
+   "role": "brief item"
+  },
+  {
+   "name": "slot.input.sources.head.icon",
+   "kind": "glyph",
+   "role": "section head"
+  },
+  {
+   "name": "slot.input.source.1.icon",
+   "kind": "glyph",
+   "role": "data source"
+  },
+  {
+   "name": "slot.input.source.2.icon",
+   "kind": "glyph",
+   "role": "data source"
+  },
+  {
+   "name": "slot.input.source.3.icon",
+   "kind": "glyph",
+   "role": "data source"
+  },
+  {
+   "name": "slot.input.source.4.icon",
+   "kind": "glyph",
+   "role": "data source"
+  },
+  {
+   "name": "slot.input.source.5.icon",
+   "kind": "glyph",
+   "role": "data source"
+  },
+  {
+   "name": "slot.input.source.6.icon",
+   "kind": "glyph",
+   "role": "data source"
+  },
+  {
+   "name": "slot.input.source.7.icon",
+   "kind": "glyph",
+   "role": "data source"
+  },
+  {
+   "name": "slot.input.source.8.icon",
+   "kind": "glyph",
+   "role": "data source"
+  },
+  {
+   "name": "slot.input.sample.1.icon",
+   "kind": "glyph",
+   "role": "sample data",
+   "background": "card"
+  },
+  {
+   "name": "slot.input.sample.1.label",
+   "kind": "text",
+   "role": "sample data",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.input.sample.2.icon",
+   "kind": "glyph",
+   "role": "sample data",
+   "background": "card"
+  },
+  {
+   "name": "slot.input.sample.2.label",
+   "kind": "text",
+   "role": "sample data",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.method.legend.1.icon",
+   "kind": "glyph",
+   "role": "legend label"
+  },
+  {
+   "name": "slot.method.legend.2.icon",
+   "kind": "glyph",
+   "role": "legend label"
+  },
+  {
+   "name": "slot.method.legend.3.icon",
+   "kind": "glyph",
+   "role": "legend label"
+  },
+  {
+   "name": "slot.step.1.body",
+   "kind": "text",
+   "role": "step",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.step.1.mark.1",
+   "kind": "glyph",
+   "role": "step",
+   "background": "card"
+  },
+  {
+   "name": "slot.step.1.mark.2",
+   "kind": "glyph",
+   "role": "step",
+   "background": "card"
+  },
+  {
+   "name": "slot.step.2.body",
+   "kind": "text",
+   "role": "step",
+   "max_words": 4,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.step.2.mark.1",
+   "kind": "glyph",
+   "role": "step",
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.step.3.body",
+   "kind": "text",
+   "role": "step",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.step.3.mark.1",
+   "kind": "glyph",
+   "role": "step",
+   "background": "card"
+  },
+  {
+   "name": "slot.step.4.body",
+   "kind": "text",
+   "role": "step",
+   "max_words": 4,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.step.4.mark.1",
+   "kind": "glyph",
+   "role": "step",
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.step.5.body",
+   "kind": "text",
+   "role": "step",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.step.5.mark.1",
+   "kind": "glyph",
+   "role": "step",
+   "background": "card"
+  },
+  {
+   "name": "slot.step.6.body",
+   "kind": "text",
+   "role": "step",
+   "max_words": 4,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.step.6.mark.1",
+   "kind": "glyph",
+   "role": "step",
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.method.proof.1.icon",
+   "kind": "glyph",
+   "role": "proof",
+   "background": "card"
+  },
+  {
+   "name": "slot.method.proof.1.label",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.method.proof.2.icon",
+   "kind": "glyph",
+   "role": "proof",
+   "background": "card"
+  },
+  {
+   "name": "slot.method.proof.2.label",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.method.proof.3.icon",
+   "kind": "glyph",
+   "role": "proof",
+   "background": "card"
+  },
+  {
+   "name": "slot.method.proof.3.label",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.output.1.icon",
+   "kind": "glyph",
+   "role": "output"
+  },
+  {
+   "name": "slot.output.2.icon",
+   "kind": "glyph",
+   "role": "output"
+  },
+  {
+   "name": "slot.output.3.icon",
+   "kind": "glyph",
+   "role": "output"
+  },
+  {
+   "name": "slot.output.proof.1.icon",
+   "kind": "glyph",
+   "role": "proof",
+   "background": "card"
+  },
+  {
+   "name": "slot.output.proof.1.label",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.output.proof.2.icon",
+   "kind": "glyph",
+   "role": "proof",
+   "background": "card"
+  },
+  {
+   "name": "slot.output.proof.2.label",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.output.proof.3.icon",
+   "kind": "glyph",
+   "role": "proof",
+   "background": "card"
+  },
+  {
+   "name": "slot.reuse.icon",
+   "kind": "glyph",
+   "role": "reusable skill"
+  },
+  {
+   "name": "slot.uses.icon",
+   "kind": "glyph",
+   "role": "further use"
+  },
+  {
+   "name": "slot.reuse.1.icon",
+   "kind": "glyph",
+   "role": "reusable skill",
+   "background": "card"
+  },
+  {
+   "name": "slot.reuse.2.icon",
+   "kind": "glyph",
+   "role": "reusable skill",
+   "background": "card"
+  },
+  {
+   "name": "slot.reuse.3.icon",
+   "kind": "glyph",
+   "role": "reusable skill",
+   "background": "card"
+  },
+  {
+   "name": "slot.reuse.4.icon",
+   "kind": "glyph",
+   "role": "reusable skill",
+   "background": "card"
+  },
+  {
+   "name": "slot.uses.1.icon",
+   "kind": "glyph",
+   "role": "further use"
+  },
+  {
+   "name": "slot.uses.2.icon",
+   "kind": "glyph",
+   "role": "further use"
+  },
+  {
+   "name": "slot.uses.3.icon",
+   "kind": "glyph",
+   "role": "further use"
+  }
+ ],
+ "samples": [
+  "Six automated steps turn sales signals into a weekly demand plan",
+  "Forecast engine",
+  "Planning questions",
+  "Forecast horizon of 13 weeks",
+  "Regions and channels in scope",
+  "Accuracy target per product family",
+  "Data sources",
+  "Order history",
+  "Promotions",
+  "Shipments",
+  "Market trends",
+  "Inventory",
+  "Field notes",
+  "Price lists",
+  "Event calendar",
+  "Reviewer",
+  "Clean and join",
+  "Detect demand drivers",
+  "Build the baseline",
+  "Adjust for signals",
+  "Explain each change",
+  "Planner sign-off",
+  "Demand plan",
+  "Units by product, region and week",
+  "Exception list",
+  "Products drifting more than 10% off target",
+  "Change summary",
+  "Reasons behind each forecast shift",
+  "Planner brief",
+  "One page per region",
+  "Reusable skills",
+  "Further uses",
+  "Data cleaning",
+  "Driver search",
+  "Report writer",
+  "Inventory planning",
+  "Price testing",
+  "Staff scheduling",
+  "Order archive",
+  "Daily store feeds",
+  "Units aligned, gaps filled",
+  "Seasonality tagged by item",
+  "Forecast per product line",
+  "Trends shift the baseline",
+  "A reason drafted per shift",
+  "Overrides logged and dated",
+  "Joined dataset",
+  "Baseline forecast",
+  "Change notes",
+  "Plan view",
+  "Flag queue"
+ ]
+}

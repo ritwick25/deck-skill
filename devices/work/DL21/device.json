@@ -1,0 +1,500 @@
+{
+ "id": "DL21",
+ "name": "Source band over staged platform",
+ "archetypes": [
+  "layered-architecture",
+  "solution-architecture",
+  "process-flow"
+ ],
+ "family": "Stacked layers",
+ "variant": "source-band-stage-cards-enablers",
+ "mechanism": "A band of grouped source systems sits over a captioned seam that names what crosses down and back up, a platform layer turns those sources into outcomes through four chevron-joined stage cards of component chips, and a full-width strip of enablers beneath reads as touching every layer.",
+ "canvas": "wide",
+ "source": "d07-s004",
+ "slots": [
+  {
+   "name": "slot.source.head",
+   "kind": "text",
+   "role": "layer-header",
+   "max_words": 4,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.source.1.head",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.source.2.head",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.source.3.head",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.source.4.head",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.platform.head",
+   "kind": "text",
+   "role": "layer-header",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.enabler.head",
+   "kind": "text",
+   "role": "strip-header",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.enabler.1.head",
+   "kind": "text",
+   "role": "enabler-header",
+   "max_words": 4
+  },
+  {
+   "name": "slot.enabler.1.body",
+   "kind": "text",
+   "role": "enabler-body",
+   "max_words": 14
+  },
+  {
+   "name": "slot.enabler.2.head",
+   "kind": "text",
+   "role": "enabler-header",
+   "max_words": 4
+  },
+  {
+   "name": "slot.enabler.2.body",
+   "kind": "text",
+   "role": "enabler-body",
+   "max_words": 14
+  },
+  {
+   "name": "slot.enabler.3.head",
+   "kind": "text",
+   "role": "enabler-header",
+   "max_words": 4
+  },
+  {
+   "name": "slot.enabler.3.body",
+   "kind": "text",
+   "role": "enabler-body",
+   "max_words": 14
+  },
+  {
+   "name": "slot.seam",
+   "kind": "text",
+   "role": "seam-caption",
+   "max_words": 10
+  },
+  {
+   "name": "slot.stage.1.head",
+   "kind": "text",
+   "role": "stage-header",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.stage.2.head",
+   "kind": "text",
+   "role": "stage-header",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.stage.3.head",
+   "kind": "text",
+   "role": "stage-header",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.stage.4.head",
+   "kind": "text",
+   "role": "stage-header",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.stage.1.outcome",
+   "kind": "text",
+   "role": "stage-outcome",
+   "max_words": 6
+  },
+  {
+   "name": "slot.stage.2.outcome",
+   "kind": "text",
+   "role": "stage-outcome",
+   "max_words": 6
+  },
+  {
+   "name": "slot.stage.3.outcome",
+   "kind": "text",
+   "role": "stage-outcome",
+   "max_words": 6
+  },
+  {
+   "name": "slot.stage.4.outcome",
+   "kind": "text",
+   "role": "stage-outcome",
+   "max_words": 6
+  },
+  {
+   "name": "slot.source.1.item.1.icon",
+   "kind": "glyph",
+   "role": "source-icon"
+  },
+  {
+   "name": "slot.source.1.item.1",
+   "kind": "text",
+   "role": "source-system",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.1.item.2.icon",
+   "kind": "glyph",
+   "role": "source-icon"
+  },
+  {
+   "name": "slot.source.1.item.2",
+   "kind": "text",
+   "role": "source-system",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.1.item.3.icon",
+   "kind": "glyph",
+   "role": "source-icon"
+  },
+  {
+   "name": "slot.source.1.item.3",
+   "kind": "text",
+   "role": "source-system",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.2.item.1.icon",
+   "kind": "glyph",
+   "role": "source-icon"
+  },
+  {
+   "name": "slot.source.2.item.1",
+   "kind": "text",
+   "role": "source-system",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.2.item.2.icon",
+   "kind": "glyph",
+   "role": "source-icon"
+  },
+  {
+   "name": "slot.source.2.item.2",
+   "kind": "text",
+   "role": "source-system",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.2.item.3.icon",
+   "kind": "glyph",
+   "role": "source-icon"
+  },
+  {
+   "name": "slot.source.2.item.3",
+   "kind": "text",
+   "role": "source-system",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.3.item.1.icon",
+   "kind": "glyph",
+   "role": "source-icon"
+  },
+  {
+   "name": "slot.source.3.item.1",
+   "kind": "text",
+   "role": "source-system",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.3.item.2.icon",
+   "kind": "glyph",
+   "role": "source-icon"
+  },
+  {
+   "name": "slot.source.3.item.2",
+   "kind": "text",
+   "role": "source-system",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.3.item.3.icon",
+   "kind": "glyph",
+   "role": "source-icon"
+  },
+  {
+   "name": "slot.source.3.item.3",
+   "kind": "text",
+   "role": "source-system",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.4.item.1.icon",
+   "kind": "glyph",
+   "role": "source-icon"
+  },
+  {
+   "name": "slot.source.4.item.1",
+   "kind": "text",
+   "role": "source-system",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.4.item.2.icon",
+   "kind": "glyph",
+   "role": "source-icon"
+  },
+  {
+   "name": "slot.source.4.item.2",
+   "kind": "text",
+   "role": "source-system",
+   "max_words": 2
+  },
+  {
+   "name": "slot.source.4.item.3.icon",
+   "kind": "glyph",
+   "role": "source-icon"
+  },
+  {
+   "name": "slot.source.4.item.3",
+   "kind": "text",
+   "role": "source-system",
+   "max_words": 2
+  },
+  {
+   "name": "slot.stage.1.icon",
+   "kind": "glyph",
+   "role": "stage-icon",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.stage.1.chip.1",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.1.chip.2",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.1.chip.3",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.1.chip.4",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.2.icon",
+   "kind": "glyph",
+   "role": "stage-icon",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.stage.2.chip.1",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.2.chip.2",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.2.chip.3",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.2.chip.4",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.3.icon",
+   "kind": "glyph",
+   "role": "stage-icon",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.stage.3.chip.1",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.3.chip.2",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.3.chip.3",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.3.chip.4",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.4.icon",
+   "kind": "glyph",
+   "role": "stage-icon",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.stage.4.chip.1",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.4.chip.2",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.4.chip.3",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.stage.4.chip.4",
+   "kind": "text",
+   "role": "component-chip",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.enabler.1.icon",
+   "kind": "glyph",
+   "role": "enabler-icon",
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.enabler.2.icon",
+   "kind": "glyph",
+   "role": "enabler-icon",
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.enabler.3.icon",
+   "kind": "glyph",
+   "role": "enabler-icon",
+   "background": "ink-strong"
+  }
+ ],
+ "samples": [
+  "Source systems",
+  "Four shared stages turn twelve sources into governed analytics",
+  "Core operations",
+  "Customer channels",
+  "Event streams",
+  "External feeds",
+  "Shared data platform",
+  "Cross-cutting enablers",
+  "Data governance",
+  "Named owners, shared definitions and quality targets for each shared table",
+  "Platform operations",
+  "Automated releases, uptime monitoring and cost controls across all four stages",
+  "Security and access",
+  "Role-based access, masked fields and an audit trail on every layer of the stack",
+  "Raw records flow down, trusted signals flow back up",
+  "Ingest and land",
+  "Clean and model",
+  "Analyze and predict",
+  "Serve and govern",
+  "Every source landed daily",
+  "One version of each record",
+  "Models retrained on schedule",
+  "One governed metrics layer",
+  "Logistics",
+  "Workforce",
+  "Web store",
+  "Call center",
+  "Mobile app",
+  "App logs",
+  "Clickstream",
+  "Price data",
+  "Registries",
+  "Batch connectors",
+  "Stream capture",
+  "Schema checks",
+  "Raw landing zone",
+  "Quality rules",
+  "Entity matching",
+  "Conformed tables",
+  "Lineage capture",
+  "Feature store",
+  "Forecast models",
+  "Anomaly alerts",
+  "Model registry",
+  "Metrics layer",
+  "Self-service views",
+  "Access policies",
+  "Usage audit"
+ ]
+}

@@ -1,0 +1,239 @@
+{
+ "id": "DL09",
+ "name": "S-curve with operating vignettes",
+ "archetypes": [
+  "value-horizons"
+ ],
+ "family": "Axis of time or maturity",
+ "variant": "s-curve-vignettes",
+ "mechanism": "Value rises along an S-curve across four horizons while small vignettes above it show human steps giving way to agent steps, so the climb and the operating change that drives it read together.",
+ "canvas": "wide",
+ "source": "d01-s068",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.horizon.1",
+   "kind": "text",
+   "role": "horizon label",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.horizon.2",
+   "kind": "text",
+   "role": "horizon label",
+   "max_words": 3,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.horizon.3",
+   "kind": "text",
+   "role": "horizon label",
+   "max_words": 3,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.horizon.4",
+   "kind": "text",
+   "role": "horizon label",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.vignette.a.head",
+   "kind": "text",
+   "role": "operating model at this horizon",
+   "max_words": 7
+  },
+  {
+   "name": "slot.vignette.b.head",
+   "kind": "text",
+   "role": "operating model at this horizon",
+   "max_words": 7
+  },
+  {
+   "name": "slot.vignette.c.head",
+   "kind": "text",
+   "role": "operating model at this horizon",
+   "max_words": 7
+  },
+  {
+   "name": "slot.vignette.d.head",
+   "kind": "text",
+   "role": "operating model at the destination",
+   "max_words": 8
+  },
+  {
+   "name": "slot.start",
+   "kind": "text",
+   "role": "baseline",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.value.1.icon",
+   "kind": "glyph",
+   "role": "value callout icon"
+  },
+  {
+   "name": "slot.value.1.text",
+   "kind": "text",
+   "role": "value gained, keyword first",
+   "max_words": 7,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.value.2.icon",
+   "kind": "glyph",
+   "role": "value callout icon"
+  },
+  {
+   "name": "slot.value.2.text",
+   "kind": "text",
+   "role": "value gained, keyword first",
+   "max_words": 7,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.value.3.icon",
+   "kind": "glyph",
+   "role": "value callout icon"
+  },
+  {
+   "name": "slot.value.3.text",
+   "kind": "text",
+   "role": "value gained, keyword first",
+   "max_words": 7,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.value.4.icon",
+   "kind": "glyph",
+   "role": "value callout icon"
+  },
+  {
+   "name": "slot.value.4.text",
+   "kind": "text",
+   "role": "value gained, keyword first",
+   "max_words": 7,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.value.5.icon",
+   "kind": "glyph",
+   "role": "value callout icon"
+  },
+  {
+   "name": "slot.value.5.text",
+   "kind": "text",
+   "role": "value gained, keyword first",
+   "max_words": 8,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.value.6.icon",
+   "kind": "glyph",
+   "role": "value callout icon"
+  },
+  {
+   "name": "slot.value.6.text",
+   "kind": "text",
+   "role": "value gained, keyword first",
+   "max_words": 8,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.value.7.icon",
+   "kind": "glyph",
+   "role": "value callout icon"
+  },
+  {
+   "name": "slot.value.7.text",
+   "kind": "text",
+   "role": "value gained, keyword first",
+   "max_words": 8,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.value-row.label",
+   "kind": "text",
+   "role": "row label",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.value-row.icon",
+   "kind": "glyph",
+   "role": "row label icon",
+   "background": "accent"
+  },
+  {
+   "name": "slot.value-row.1",
+   "kind": "text",
+   "role": "outcome head and one line",
+   "max_words": 9
+  },
+  {
+   "name": "slot.value-row.2",
+   "kind": "text",
+   "role": "outcome head and one line",
+   "max_words": 9
+  },
+  {
+   "name": "slot.value-row.3",
+   "kind": "text",
+   "role": "outcome head and one line",
+   "max_words": 9
+  },
+  {
+   "name": "slot.value-row.4",
+   "kind": "text",
+   "role": "outcome head and one line",
+   "max_words": 9
+  },
+  {
+   "name": "slot.value-row.5",
+   "kind": "text",
+   "role": "outcome head and one line",
+   "max_words": 9
+  }
+ ],
+ "samples": [
+  "Planning value climbs fastest once agents take over the routine steps",
+  "Year 3 onward",
+  "Planners run every step by hand",
+  "Agents prepare the inputs, planners decide",
+  "Agents draft the plan, planners approve",
+  "Agents run the cycle,",
+  "one planner oversees",
+  "Manual weekly cycle",
+  "Working capital",
+  "released from safety stock",
+  "Stock counts",
+  "reconciled every night",
+  "Service level",
+  "held through demand swings",
+  "Forecast error",
+  "tracked by product family",
+  "Plan cycle",
+  "cut from days to hours",
+  "Expedited freight",
+  "largely avoided",
+  "scheduled to live demand",
+  "Value at full scale",
+  "Lower inventory",
+  "Less cover held across the network",
+  "Higher service",
+  "Fill rate steady through peaks",
+  "Less freight",
+  "Fewer rush loads every quarter",
+  "Faster cycle",
+  "Weekly plan becomes a daily one",
+  "Planner time",
+  "Shifted to supplier and customer issues"
+ ]
+}

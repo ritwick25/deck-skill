@@ -1,0 +1,409 @@
+{
+ "id": "DL10",
+ "name": "Four-stage record trace with hub",
+ "archetypes": [
+  "worked-example",
+  "input-process-output",
+  "process-flow"
+ ],
+ "family": "Directed sequence",
+ "variant": "stage-columns-hub-trace",
+ "mechanism": "One named record moves through four numbered stage columns, fields in, lines matched in a table with the exception row marked, the exception checked against five sources around a hub, outcomes logged, while a strip beneath sets the manual path against the traced one.",
+ "canvas": "wide",
+ "source": "d01-s084",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.stage.1.num",
+   "kind": "text",
+   "role": "stage-numeral",
+   "max_words": 1
+  },
+  {
+   "name": "slot.stage.1.head",
+   "kind": "text",
+   "role": "column-header",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.stage.2.num",
+   "kind": "text",
+   "role": "stage-numeral",
+   "max_words": 1
+  },
+  {
+   "name": "slot.stage.2.head",
+   "kind": "text",
+   "role": "column-header",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.stage.3.num",
+   "kind": "text",
+   "role": "stage-numeral",
+   "max_words": 1
+  },
+  {
+   "name": "slot.stage.3.head",
+   "kind": "text",
+   "role": "column-header",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.stage.4.num",
+   "kind": "text",
+   "role": "stage-numeral",
+   "max_words": 1
+  },
+  {
+   "name": "slot.stage.4.head",
+   "kind": "text",
+   "role": "column-header",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.field.1",
+   "kind": "text",
+   "role": "record-field",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.field.2",
+   "kind": "text",
+   "role": "record-field",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.field.3",
+   "kind": "text",
+   "role": "record-field",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.field.4",
+   "kind": "text",
+   "role": "record-field",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.field.5",
+   "kind": "text",
+   "role": "record-field",
+   "max_words": 5,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.field.5.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.check.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.check.1.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.check.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.check.2.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.check.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.check.3.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.check.4.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.check.4.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.check.5.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.check.5.label",
+   "kind": "text",
+   "role": "label",
+   "max_words": 1
+  },
+  {
+   "name": "slot.lines.table",
+   "kind": "text",
+   "role": "payload-table",
+   "max_words": 50
+  },
+  {
+   "name": "slot.note",
+   "kind": "text",
+   "role": "exception-note",
+   "max_words": 11,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.hub.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.source.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.source.1",
+   "kind": "text",
+   "role": "source-and-value",
+   "max_words": 5
+  },
+  {
+   "name": "slot.source.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.source.2",
+   "kind": "text",
+   "role": "source-and-value",
+   "max_words": 5
+  },
+  {
+   "name": "slot.source.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.source.3",
+   "kind": "text",
+   "role": "source-and-value",
+   "max_words": 5
+  },
+  {
+   "name": "slot.source.4.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.source.4",
+   "kind": "text",
+   "role": "source-and-value",
+   "max_words": 5
+  },
+  {
+   "name": "slot.source.5.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.source.5",
+   "kind": "text",
+   "role": "source-and-value",
+   "max_words": 5
+  },
+  {
+   "name": "slot.outcome.1.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.outcome.1",
+   "kind": "text",
+   "role": "outcome-and-value",
+   "max_words": 9
+  },
+  {
+   "name": "slot.outcome.2.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.outcome.2",
+   "kind": "text",
+   "role": "outcome-and-value",
+   "max_words": 9
+  },
+  {
+   "name": "slot.outcome.3.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.outcome.3",
+   "kind": "text",
+   "role": "outcome-and-value",
+   "max_words": 9
+  },
+  {
+   "name": "slot.outcome.4.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.outcome.4",
+   "kind": "text",
+   "role": "outcome-and-value",
+   "max_words": 9
+  },
+  {
+   "name": "slot.outcome.5.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.outcome.5",
+   "kind": "text",
+   "role": "outcome-and-value",
+   "max_words": 9
+  },
+  {
+   "name": "slot.paths.head",
+   "kind": "text",
+   "role": "strip-label",
+   "max_words": 5,
+   "background": "accent"
+  },
+  {
+   "name": "slot.paths.versus",
+   "kind": "text",
+   "role": "versus",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.paths.before.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.before.head",
+   "kind": "text",
+   "role": "side-label",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.before.body",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 12,
+   "background": "card"
+  },
+  {
+   "name": "slot.before.stat.1",
+   "kind": "text",
+   "role": "stat-chip",
+   "max_words": 4
+  },
+  {
+   "name": "slot.before.stat.2",
+   "kind": "text",
+   "role": "stat-chip",
+   "max_words": 4
+  },
+  {
+   "name": "slot.paths.after.icon",
+   "kind": "glyph"
+  },
+  {
+   "name": "slot.after.head",
+   "kind": "text",
+   "role": "side-label",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.after.body",
+   "kind": "text",
+   "role": "head-and-line",
+   "max_words": 12,
+   "background": "card"
+  },
+  {
+   "name": "slot.after.stat.1",
+   "kind": "text",
+   "role": "stat-chip",
+   "max_words": 4
+  },
+  {
+   "name": "slot.after.stat.2",
+   "kind": "text",
+   "role": "stat-chip",
+   "max_words": 4
+  }
+ ],
+ "samples": [
+  "One invoice cleared in four minutes, with one price gap held for a buyer",
+  "Invoice in",
+  "INV-20418",
+  "Received",
+  "Mon, 09:12",
+  "Supplier",
+  "Packaging vendor",
+  "PO-7731, net 30",
+  "Total billed",
+  "Line 4 price",
+  "$6.40 a unit",
+  "Lines matched",
+  "Order, receipt and price",
+  "Shipping cartons",
+  "Divider inserts",
+  "Pallet wrap",
+  "Printed sleeves",
+  "Gap checked",
+  "Five sources around one case",
+  "Outcome logged",
+  "Every step traceable",
+  "Lines 1 to 3 posted",
+  "$28,420 paid on day 30",
+  "Line 4 held",
+  "$1,550 gap with the buyer",
+  "Buyer decision",
+  "Surcharge approved to June",
+  "Rule tuned",
+  "Surcharges flagged on arrival",
+  "Audit trail",
+  "Eleven checks, each sourced",
+  "Line 4 breaks the 5% price tolerance, so it is held",
+  "Supplier note",
+  "Resin surcharge",
+  "Order history",
+  "Six at $5.90",
+  "Price index",
+  "Resin up 9%",
+  "Buyer queue",
+  "Routed with evidence",
+  "Contract terms",
+  "$5.90 a unit to June",
+  "Same invoice, two paths",
+  "Keyed and matched by hand",
+  "Price gaps surface after the payment run",
+  "3 days to clear",
+  "Matched on arrival",
+  "Only the price gap reaches a person",
+  "4 minutes to clear",
+  "Manual review",
+  "With the agent",
+  "6 touches"
+ ]
+}

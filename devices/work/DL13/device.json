@@ -1,0 +1,270 @@
+{
+ "id": "DL13",
+ "name": "Dated gantt with gates and phases",
+ "archetypes": [
+  "gantt",
+  "phased-roadmap"
+ ],
+ "family": "timeline",
+ "variant": "milestone-axis-phase-cards",
+ "mechanism": "Staggered phase bars on a dated axis close on exit rings, and dashed gate lines drop through matching phase cards to the decision boxes that hold the end date.",
+ "canvas": "wide",
+ "source": "d01-s132",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.period.1",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2
+  },
+  {
+   "name": "slot.period.2",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2
+  },
+  {
+   "name": "slot.period.3",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2
+  },
+  {
+   "name": "slot.period.4",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2
+  },
+  {
+   "name": "slot.period.5",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2
+  },
+  {
+   "name": "slot.period.6",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2
+  },
+  {
+   "name": "slot.period.7",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2
+  },
+  {
+   "name": "slot.period.8",
+   "kind": "text",
+   "role": "period",
+   "max_words": 2
+  },
+  {
+   "name": "slot.bar.1",
+   "kind": "text",
+   "role": "bar",
+   "max_words": 2,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.bar.2",
+   "kind": "text",
+   "role": "bar",
+   "max_words": 2,
+   "background": "accent-deep"
+  },
+  {
+   "name": "slot.bar.3",
+   "kind": "text",
+   "role": "bar",
+   "max_words": 2,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.bar.4",
+   "kind": "text",
+   "role": "bar",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.bar.5",
+   "kind": "text",
+   "role": "bar",
+   "max_words": 4,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.bar.6",
+   "kind": "text",
+   "role": "bar",
+   "max_words": 4,
+   "background": "navy"
+  },
+  {
+   "name": "slot.bar.7",
+   "kind": "text",
+   "role": "bar",
+   "max_words": 2,
+   "background": "hairline"
+  },
+  {
+   "name": "slot.mark.1",
+   "kind": "text",
+   "role": "date",
+   "max_words": 3
+  },
+  {
+   "name": "slot.mark.2",
+   "kind": "text",
+   "role": "date",
+   "max_words": 3
+  },
+  {
+   "name": "slot.mark.3",
+   "kind": "text",
+   "role": "date",
+   "max_words": 3
+  },
+  {
+   "name": "slot.mark.4",
+   "kind": "text",
+   "role": "date",
+   "max_words": 3
+  },
+  {
+   "name": "slot.mark.5",
+   "kind": "text",
+   "role": "date",
+   "max_words": 3
+  },
+  {
+   "name": "slot.card.1.head",
+   "kind": "text",
+   "role": "phase",
+   "max_words": 3,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.card.1.body",
+   "kind": "text",
+   "role": "scope-and-exit",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.2.head",
+   "kind": "text",
+   "role": "phase",
+   "max_words": 3,
+   "background": "accent-deep"
+  },
+  {
+   "name": "slot.card.2.body",
+   "kind": "text",
+   "role": "scope-and-exit",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.3.head",
+   "kind": "text",
+   "role": "phase",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.card.3.body",
+   "kind": "text",
+   "role": "scope-and-exit",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.4.head",
+   "kind": "text",
+   "role": "phase",
+   "max_words": 3,
+   "background": "navy"
+  },
+  {
+   "name": "slot.card.4.body",
+   "kind": "text",
+   "role": "scope-and-exit",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.5.head",
+   "kind": "text",
+   "role": "phase",
+   "max_words": 3,
+   "background": "hairline"
+  },
+  {
+   "name": "slot.card.5.body",
+   "kind": "text",
+   "role": "scope-and-exit",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.gates.label",
+   "kind": "text",
+   "role": "rail-label",
+   "max_words": 5
+  },
+  {
+   "name": "slot.gate.1",
+   "kind": "text",
+   "role": "gate",
+   "max_words": 10
+  },
+  {
+   "name": "slot.gate.2",
+   "kind": "text",
+   "role": "gate",
+   "max_words": 10
+  },
+  {
+   "name": "slot.gate.3",
+   "kind": "text",
+   "role": "gate",
+   "max_words": 10
+  }
+ ],
+ "samples": [
+  "Go-live lands in week 30 if the design gate clears by week 10",
+  "Discover",
+  "Build and migrate",
+  "Training and adoption",
+  "Parallel run",
+  "Week 5 exit",
+  "Week 10 exit",
+  "Week 22 exit",
+  "Week 26 exit",
+  "Week 30 exit",
+  "Map every source feed",
+  "Exit: scope agreed",
+  "Target data model",
+  "Exit: design signed",
+  "Migrate in three waves",
+  "Exit: tests pass",
+  "Both systems live",
+  "Exit: two clean closes",
+  "Switch in one weekend",
+  "Exit: legacy retired",
+  "Three go or no-go gates",
+  "Gate 1 · Week 10",
+  "Design signed, build budget released",
+  "Gate 2 · Week 22",
+  "Defect backlog under the agreed limit",
+  "Gate 3 · Week 30",
+  "Go-live call, legacy set to read-only"
+ ]
+}

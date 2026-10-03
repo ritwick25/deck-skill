@@ -1,0 +1,228 @@
+{
+ "id": "DL17",
+ "name": "Disc-crowned figure band, card row",
+ "archetypes": [
+  "headline-figures",
+  "case-study"
+ ],
+ "family": "Numbers-led",
+ "variant": "disc-band-figures-card-row",
+ "mechanism": "Six glyph discs break the top edge of a dark band so each headline figure reads as one measured column, and a row of implication cards closes on a solid panel that turns the figures into the next step.",
+ "canvas": "wide",
+ "source": "d03-s008",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.fig.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.fig.1",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 7,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.fig.1.basis",
+   "kind": "text",
+   "role": "basis",
+   "max_words": 7,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.fig.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.fig.2",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 7,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.fig.2.basis",
+   "kind": "text",
+   "role": "basis",
+   "max_words": 7,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.fig.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.fig.3",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 7,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.fig.3.basis",
+   "kind": "text",
+   "role": "basis",
+   "max_words": 7,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.fig.4.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.fig.4",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 7,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.fig.4.basis",
+   "kind": "text",
+   "role": "basis",
+   "max_words": 7,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.fig.5.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.fig.5",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 7,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.fig.5.basis",
+   "kind": "text",
+   "role": "basis",
+   "max_words": 7,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.fig.6.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.fig.6",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 7,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.fig.6.basis",
+   "kind": "text",
+   "role": "basis",
+   "max_words": 7,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.card.1.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.card.1.body",
+   "kind": "text",
+   "role": "implication",
+   "max_words": 10,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.2.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.card.2.body",
+   "kind": "text",
+   "role": "implication",
+   "max_words": 10,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.3.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.3.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.card.3.body",
+   "kind": "text",
+   "role": "implication",
+   "max_words": 10,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.head",
+   "kind": "text",
+   "role": "panel-heading",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.panel.body",
+   "kind": "text",
+   "role": "next-step",
+   "max_words": 10,
+   "background": "accent"
+  }
+ ],
+ "samples": [
+  "Against a twelve-month business case",
+  "Analysts moved from keying invoices to exceptions",
+  "Annual run-rate savings identified",
+  "Booked over the first two quarters",
+  "Close now runs in five days, not nine",
+  "Controls held",
+  "Every posting keeps an audit trail and an approver",
+  "Exceptions routed to one shared queue",
+  "Extend to two more regional centers next quarter",
+  "First-pass match rate on payments",
+  "Invoices posted with no manual touch",
+  "Measured over the last eight weeks",
+  "Recommended next step",
+  "Savings mix",
+  "Shorter month-end close cycle",
+  "Team roles",
+  "The invoice automation pilot paid back its cost in five months",
+  "To recover the full pilot cost",
+  "Two thirds from analyst time, a third from discounts",
+  "Vendor queries resolved per analyst",
+  "five months"
+ ]
+}
