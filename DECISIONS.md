@@ -222,3 +222,12 @@ about 5M tokens after step 2 ran 2.8M against a 1M estimate.
   prototype and POC but not demo or alpha, which CLAUDE.md §4 also bans for the firm's own maturity. A "Live demo"
   pill passed every gate; caught by reading the render. The fix is in the global hook, so it is the user's call.
 - Token cost: showcase agents about 1.8M.
+
+## 2026-10-03 · RULING 15 — Showcase accepted; the skill ships (user)
+SKILL.draft.md became SKILL.md; the skill triggers in every session.
+
+## 2026-10-03 · RULING 16 — Maturity words: deck gate only (user)
+`dv-maturity` (demo, alpha, prototype, proof of concept, POC) joins the opt-in deck-voice tier in
+`~/.claude/hooks/fingerprints.json`: P17 runs it on slides, the editor hook does not (its `mat-prototype` rule is
+unchanged). A deck quoting the client's own vocabulary grants `P17:dv-maturity` in deck.json with its source.
+Planter `maturity-word`; canary sentence added.

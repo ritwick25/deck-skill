@@ -39,6 +39,7 @@ CANARY = (
     ("deck-voice", "dv-person", "We read the store."),
     ("deck-voice", "dv-al-ai", "Al tools read it."),
     ("deck-voice", "dv-placeholder", "Owner: {{slot:owner}}"),
+    ("deck-voice", "dv-maturity", "Run the live demo next week."),
 )
 QUOTES = ('"', chr(0x201C), chr(0x2018), "'")
 URL = re.compile(r"(?i)\b(?:https?://|www\.)[^\s<>\"']+"
@@ -109,12 +110,15 @@ def run(deck, ctx):
     if missing:
         return out
     semis = 0
+    maturity_ok = ctx.overridden("P17:dv-maturity")     # a deck quoting the client's own "alpha" grants it, with a source
     for i in range(1, ctx.n + 1):
         for where, t, is_quote in blocks(ctx, i):
             t = strip_urls(t)
             for rid, tier, rx in rules:
                 txt = t.replace("Thank you", "") if rid == "dv-person" else t
                 if rid == "dv-person" and is_quote:
+                    continue
+                if rid == "dv-maturity" and maturity_ok:
                     continue
                 for m in rx.finditer(txt):
                     if rid in ADVISORY_IDS:

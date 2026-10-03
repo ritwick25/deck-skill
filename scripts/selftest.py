@@ -2,7 +2,7 @@
 
     $PY scripts/selftest.py
 
-  * SKILL.md (or SKILL.draft.md) frontmatter: name deck, a description of 1024 characters or fewer, no angle brackets
+  * SKILL.md frontmatter: name deck, a description of 1024 characters or fewer, no angle brackets
   * every archetype in archetypes.json has a family, a wide budget at or under 250, a card file and 2+ exemplars
   * every slug the chooser in SKILL names exists in archetypes.json, and every archetype is in the chooser
   * archetypes.json is not stale against the library export (build_archetypes --check), when the library exists
@@ -25,7 +25,6 @@ from paths import ARCH_JSON, PY, SKILL, library_ready  # noqa: E402
 def main() -> int:
     fails: list[str] = []
     sk = SKILL / "SKILL.md"
-    sk = sk if sk.is_file() else SKILL / "SKILL.draft.md"
     text = sk.read_text()
     fm = text.split("---")[1] if text.startswith("---") else ""
     name = re.search(r"^name:\s*(\S+)", fm, re.M)

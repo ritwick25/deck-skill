@@ -319,6 +319,10 @@ def p09_high_foot_band(p, w):
     with_prs(p, fn)
 
 
+def p17_maturity(p, w):
+    with_prs(p, lambda prs: _add_text(prs, 3, (0.6, 6.0, 6.0, 0.3), "Watch the live demo at kickoff", 12.0, "demo.text"))
+
+
 def p09_pagenum(p, w):
     with_prs(p, lambda prs: _add_text(prs, 3, (11.60, 0.14, 1.20, 0.25), "2 / 34", 10.0, "page.number"))
 
@@ -1375,6 +1379,7 @@ PLANTERS = [
             "subtitle under"),
     Planter("high-foot-band", "P09", "a next-step band from 6.0in carrying one sentence", p09_high_foot_band,
             "foot band carrying a sentence"),
+    Planter("maturity-word", "P17", "'live demo' on a content slide", p17_maturity, "dv-maturity"),
     Planter("page-number", "P09", "a page number '2 / 34' in the top-right corner", p09_pagenum, "'2 / 34'"),
     Planter("page-number-bare", "P09", "a bare page number in the bottom-right corner", p09_pagenum_bare,
             "page number '3'"),
