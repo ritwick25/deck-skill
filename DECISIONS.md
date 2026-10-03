@@ -274,3 +274,12 @@ onprem, programming and saas sets, byte-verified as before.
 LangGraph, LangChain, Langfuse, Anthropic, Dataiku and other marks absent offline are fetched once through the 21st
 MCP logo search. Each is stored in the kit with its source, fetch date and sha256, and verified by bytes like the
 vendor marks. Marks are used nominatively, unaltered, to name the product in a diagram.
+
+## 2026-10-03 · RULING 20 — Every technical diagram type, researched first (user)
+The bar covers every technical diagram, not only architecture: solution architecture (AWS, Azure), the house L0
+master and deep dive, deployment and network topology, CI/CD and release, MLOps and LLMOps, DFD and threat model,
+data flow and lineage, sequence, and event-driven integration. A research sweep sets the measured spec per type
+before the engine is extended: the user's own epic diagrams (the AI Council platform architecture, a pharma
+client's KOL architecture and AWS deployment view, the AI architecture test decks) plus the official AWS, Azure and
+Google architecture centres and the diagram-craft literature. Notes and spec are internal at
+`library/design/tech-diagrams/`; a scrubbed spec becomes `references/tech-diagrams.md`.
