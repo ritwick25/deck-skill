@@ -27,7 +27,7 @@ from deckkit.read.zones import slide_zones  # noqa: E402
 
 LIB = "/Users/Nikunj/Codes/Decks-For-Visuals/library"
 MANIFEST = json.load(open(os.path.join(LIB, "manifest.json")))
-DECKS = MANIFEST["decks"]
+DECKS = {k: v for k, v in MANIFEST["decks"].items() if k <= "d18"}   # the v1 corpus these counts are pinned on
 REFERENCE = [k for k, v in DECKS.items() if v["tier"] == "reference"]
 
 _D01 = {}

@@ -1,12 +1,12 @@
 # Leak references
 
-Hashed references for the leak gate. Built by the library's `tools/harvest_refs.py` from 18 reference decks,
+Hashed references for the leak gate. Built by the library's `tools/harvest_refs.py` from 21 reference decks,
 read-only. No name, slide text or deck file name is stored here in plaintext, only digests. The single
 normalisation lives in `kit/deckkit/read/refnorm.py`; a gate imports it, so a digest computed on a built deck
 equals the digest harvested from the corpus. Every digest is SHA-1 of the UTF-8 key, lowercase hex, one per line,
 sorted.
 
-## names.sha1 (249 lines)
+## names.sha1 (257 lines)
 
 One digest per denylist key: client and brand names, client people, Sigmoid people, contacts (e-mails, phone
 numbers, URLs) and codenames.
@@ -22,14 +22,14 @@ numbers, URLs) and codenames.
 - Gate: hash every key of `refnorm.name_keys(text)` (all 1- to 4-grams) and look each up.
 - The canary's keys are included (see canary.json).
 
-## ngrams6.sha1 (31624 lines)
+## ngrams6.sha1 (33174 lines)
 
 One digest per 6-word shingle of corpus slide text (every shape, cell and persistent master or layout text block,
 hidden slides included). Tokens are those of `textmetrics.tokens` (the word counter's tokens), each folded
 (NFKD, combining marks dropped, casefolded) and stripped of leading and trailing non-alphanumeric characters.
 Shingles never cross a text block. Gate: `refnorm.shingles(text)` per text block; any shared shingle fails.
 
-## numphrases.sha1 (408 lines)
+## numphrases.sha1 (419 lines)
 
 One digest per distinctive numeric phrase, `refnorm.num_phrases(text)`. A number is canonicalised (thousands
 commas dropped, lowercase, a leading approximation sign dropped, currency and unit kept). It is stored alone
@@ -48,7 +48,7 @@ angles; paths join with ` | `. Signatures with fewer than 5 points are trivial a
 The canary vector's digest is included (see canary.json). Gate: a built deck's custom geometry must not match;
 the gate refuses an index with no corpus entry or without the canary's.
 
-## media.json (2801 parts, 2559 unique, 2431 with a dHash)
+## media.json (3041 parts, 2679 unique, 2551 with a dHash)
 
 Every picture blob in the corpus: `sha256` of the raw bytes, `dhash` from `refnorm.dhash64` (composited on
 white, greyscale, LANCZOS to 9x8, 64 horizontal-gradient bits, hex; null for EMF, WMF, SVG or unreadable
