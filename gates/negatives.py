@@ -299,6 +299,12 @@ def p09_subtitle(p, w):
                                       "How the regional teams will plan demand together next year", 13.0, "subtitle"))
 
 
+def p09_cover_sentence(p, w):
+    """A cover keeps a short label stack under its title; a sentence there is still a subtitle."""
+    with_prs(p, lambda prs: _add_text(prs, 1, (0.5, 3.75, 11.0, 0.3), "How every regional planning team will "
+                                      "share one demand view and one forecast from next year", 13.0, "cover.sub"))
+
+
 def p09_pagenum(p, w):
     with_prs(p, lambda prs: _add_text(prs, 3, (11.60, 0.14, 1.20, 0.25), "2 / 34", 10.0, "page.number"))
 
@@ -1351,6 +1357,8 @@ PLANTERS = [
             "top-heavy"),
     Planter("foot-band", "P09", "a full-width band along the foot with a sentence on it", p09_band, "foot band"),
     Planter("subtitle", "P09", "a nine-word sentence directly under the title", p09_subtitle, "subtitle under"),
+    Planter("cover-sentence", "P09", "a sixteen-word sentence under the cover title", p09_cover_sentence,
+            "subtitle under"),
     Planter("page-number", "P09", "a page number '2 / 34' in the top-right corner", p09_pagenum, "'2 / 34'"),
     Planter("page-number-bare", "P09", "a bare page number in the bottom-right corner", p09_pagenum_bare,
             "page number '3'"),

@@ -20,6 +20,7 @@ from _shared import FAIL, NOTE, Finding, bx, cli, has_text, is_filled, is_lined,
 from deckkit.read.deckinfo import CONFIDENTIAL
 
 GATE, TITLE = "P09", "chrome"
+COVER_LABEL_WORDS = 12   # a label line under a cover title (parties, engagement, date), never a sentence
 FOOT_Y, BAND_Y, BAND_W, CARD_W = 6.30 / 7.5, 6.20 / 7.5, 8.0 / 13.333, 6.5 / 13.333
 LOGO_Y = 0.90
 FOOT_WORDS = 5
@@ -56,6 +57,7 @@ def run(deck, ctx):
         if src:
             out.append(Finding(GATE, NOTE, None, key, "overridden by deck.json (%s)" % src))
     for i in range(1, ctx.n + 1):
+        cover = ctx.tags()[i - 1]["archetype"] == "cover"
         s = ctx.slide(i)
         shapes = s["shapes"]
         boxes = [(bx(L), L) for L in shapes if L["kind"] == "sp" and (is_filled(L) or is_lined(L))]
@@ -90,6 +92,8 @@ def run(deck, ctx):
                 narrow = [c for c, CL in boxes if CL is not L and (c[2] - c[0]) < CARD_W * W and _inside(b, c)]
                 if not narrow:
                     out.append(Finding(GATE, FAIL, i, L["name"], "foot sentence at %.2fin: %r" % (b[1], t[:50])))
+            if role == "subtitle" and cover and words(t) <= COVER_LABEL_WORDS:
+                continue                       # a cover's party, engagement and date lines are its label stack
             if role == "subtitle" and not sub_ok and t != t.upper():
                 cy = (b[1] + b[3]) / 2
                 on_fill = any(c[1] <= cy <= c[3] and b[0] >= c[0] - 0.15 and b[2] <= c[2] + 0.15

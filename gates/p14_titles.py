@@ -24,6 +24,7 @@ from deckkit.read.refnorm import shingle_tokens
 from deckkit.read.walk import cover_like, pick_title
 
 GATE, TITLE = "P14", "titles"
+COVER_LINES = 3          # a slide tagged cover may stack its title on up to three lines
 MAX_WORDS, MAX_KEYWORDS, MAX_SHARE = 14, 3, 2
 
 
@@ -92,9 +93,11 @@ def _slide(ctx, i, ink, openers, out):
         for f in unknown:
             out.append(Finding(GATE, FAIL, i, T["name"], "face %r has no metrics; wrapped as %s (a labelled "
                                "fallback)" % (f, FALLBACK_FACE)))
-        if lines > ctx.canvas.title_max_lines:
+        cap = max(ctx.canvas.title_max_lines, COVER_LINES) if ctx.tags()[i - 1]["archetype"] == "cover" \
+            else ctx.canvas.title_max_lines                      # a cover's title is a stack set large
+        if lines > cap:
             out.append(Finding(GATE, FAIL, i, T["name"], "title wraps to %d lines (the %s canvas holds %d)"
-                               % (lines, ctx.canvas.name, ctx.canvas.title_max_lines)))
+                               % (lines, ctx.canvas.name, cap)))
         kw = sum(_spans(p, ink) for p in T["text"]["paragraphs"])
         if kw > MAX_KEYWORDS:
             out.append(Finding(GATE, FAIL, i, T["name"], "%d two-tone keywords (max %d)" % (kw, MAX_KEYWORDS)))

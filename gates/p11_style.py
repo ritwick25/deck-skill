@@ -12,7 +12,7 @@ from __future__ import annotations
 import re
 import sys
 
-from _shared import FAIL, Finding, cards, cli
+from _shared import bx, FAIL, Finding, cards, cli
 from deckkit.read.ns import local
 
 GATE, TITLE = "P11", "style"
@@ -89,7 +89,9 @@ def run(deck, ctx):
         for c in cards(s, ctx):
             g = c["L"].get("geom") or {}
             r = g.get("radius_in")
-            if g.get("prst") in ROUNDED and r is not None and abs(r - want) > RADIUS_TOL:
+            x0, y0, x1, y1 = bx(c["L"])
+            full_round = r is not None and r >= 0.45 * min(x1 - x0, y1 - y0)     # a pill or a circle, not a corner
+            if g.get("prst") in ROUNDED and r is not None and not full_round and abs(r - want) > RADIUS_TOL:
                 out.append(Finding(GATE, FAIL, i, c["L"]["name"], "card radius %.3fin, the %s canvas sets %.2fin "
                                    "(within %.2fin)" % (r, ctx.canvas.name, want, RADIUS_TOL)))
         if not ctx.is_frame(i):

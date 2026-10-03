@@ -553,6 +553,51 @@ def step_header(slide, box: Box, labels, *, fill="ink-strong", active=None, dept
 
 
 @ooxml.transactional
+def block(slide, box: Box, *, fill="accent", radius_in=None, name: str, theme=None):
+    """A solid rounded block in a strong fill (accent, accent-deep, ink-strong, ink-deep, navy, or any ON_FILL
+    role): a gantt bar, a price panel, a hub core drawn square. Text on it takes ON_FILL[fill] and
+    background=fill. radius_in None takes the canvas radius; 0 draws it square. A strip-thin block raises
+    unless named state.*."""
+    _name(name, "block")
+    if fill not in ON_FILL:
+        raise ThemeInvariant("block %s fill" % name, need=" / ".join(ON_FILL), have=fill)
+    _bar_check(box, (fill,), name, "block", th=theme_of(theme), k=canvas_for(slide).k)
+    cv = canvas_for(slide)
+    th = theme_of(theme)
+    r = cv.radius_in if radius_in is None else float(radius_in)
+    if r == 0:
+        return _shape(slide, "RECTANGLE", box, fill=fill, line=None, weight_pt=None, name=name, theme=th)
+    sh = _add(slide, "ROUNDED_RECTANGLE", box, name)
+    sh.adjustments[0] = _adj(r, box)
+    set_fill(sh, fill, theme=th)
+    set_line(sh, None, theme=th)
+    _drop_text(sh)
+    ooxml.finish(sh)
+    return sh
+
+
+@ooxml.transactional
+def circle(slide, box: Box, *, fill="accent", line=None, name: str, theme=None):
+    """A plain circle (box must be square): a hub core, a roundel behind a glyph, a milestone dot, a portrait
+    stand-in. fill is an ON_FILL role or None with a line role for an outline ring. No text: put a glyph or a
+    textbox on it with background=fill."""
+    _name(name, "circle")
+    if abs(box.w - box.h) > 0.005:
+        raise GeometryError("circle %s" % name, need="a square box", have="%.3f x %.3f in" % (box.w, box.h))
+    if fill is not None and fill not in ON_FILL:
+        raise ThemeInvariant("circle %s fill" % name, need=" / ".join(ON_FILL), have=fill)
+    if fill is None and line is None:
+        raise ThemeInvariant("circle %s" % name, need="a fill or a line", have="neither")
+    th = theme_of(theme)
+    sh = _add(slide, "OVAL", box, name)
+    set_fill(sh, fill, theme=th)
+    set_line(sh, line, canvas_for(slide).hairline_pt if line else None, theme=th)
+    _drop_text(sh)
+    ooxml.finish(sh)
+    return sh
+
+
+@ooxml.transactional
 def disc(slide, box: Box, n, *, fill="accent", pt=None, name: str, theme=None):
     """A numbered disc: a circle (box must be square) with its number centred in the fill's text role."""
     _name(name, "disc")

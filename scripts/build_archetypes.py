@@ -5,8 +5,9 @@
 Reads LIB/export/catalog.json, export/cards/<aNN>.md, export/design-system.md and export/storylines.md (the
 scrubbed, leak-gated layer; nothing else in the library is read except leak/denylist.json, to re-check the copy).
 archetypes.json is what gates P10, P13 and P15 read: family by name, budgets per kit canvas (wide, std), the
-exemplar ids and the greeked sheet path. A std budget is the library's w10 measure when two or more compact
-exemplars exist, else the wide budget scaled by the canvas area ratio and marked "derived". --check rebuilds in
+exemplar ids and the greeked sheet path. The wide budget is the library's @norm measure, the one every card cites;
+a std budget is the w10 measure when two or more compact exemplars exist, else the wide budget scaled by the canvas
+area ratio and marked "derived". Advisory floors never exceed half their budget. --check rebuilds in
 memory and exits 1 if the published files differ (stale) or any copied text carries a denylisted term.
 """
 from __future__ import annotations
@@ -26,14 +27,20 @@ CEILING = 250
 
 
 def _budget(b: dict | None) -> dict | None:
+    """The measured budget, capped at the ceiling; the advisory floor never above half the budget (a floor near a
+    capped budget would push copy to the ceiling, the opposite of cut-to-the-device)."""
     if not isinstance(b, dict) or not isinstance(b.get("budget"), (int, float)):
         return None
-    return {"budget": min(CEILING, int(b["budget"])), "floor": b.get("floor"), "n": b.get("n"),
-            "p25": b.get("p25"), "p75": b.get("p75")}
+    budget = min(CEILING, int(b["budget"]))
+    floor = b.get("floor")
+    half = int(math.floor(budget / 2 / 10.0) * 10)
+    if isinstance(floor, (int, float)) and floor > half:
+        floor = half
+    return {"budget": budget, "floor": floor, "n": b.get("n"), "p25": b.get("p25"), "p75": b.get("p75")}
 
 
 def budgets(src: dict) -> dict:
-    wide = _budget(src.get("w13")) or _budget(src.get("norm"))
+    wide = _budget(src.get("norm")) or _budget(src.get("w13"))          # the cards cite @norm
     out = {}
     if wide:
         out["wide"] = wide

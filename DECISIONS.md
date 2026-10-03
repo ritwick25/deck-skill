@@ -1,6 +1,6 @@
 # deck skill — decisions
 
-Newest ruling last. Every entry dated. Rulings 1–8 are the user's, recorded verbatim in substance.
+Newest ruling last. Every entry dated. Rulings 1–9 and CP1 are the user's, recorded verbatim in substance.
 
 ## 2026-10-02 · RULING 1 — Rules win, devices borrowed
 Every device and composition lifted from the reference decks is rendered under `~/.claude/CLAUDE.md` §4:
@@ -120,3 +120,36 @@ decides the archetype.
   exemplars by script (fit, then catalogue quality, round-robin across decks).
 - Cards: one agent per family writes its archetypes' cards; numbers stay script-measured and cited by key.
 - The deferred parts can resume later from the saved runs; nothing built is thrown away.
+
+## 2026-10-03 · Lean-finish build decisions
+- **archetypes/archetypes.json is the taxonomy the gates read** (family by name, budgets per kit canvas `wide` and
+  `std`, exemplars, sheet, card), published by `scripts/build_archetypes.py` from the library export; `--check`
+  exits 1 when stale or leaking. `gates/families.json` carries the same v1 families as the fallback. The golden
+  fixture, tests and negatives use v1 slugs and family names.
+- **A `std` budget** is the library's w10 measure when two or more compact exemplars exist, else the wide budget x
+  the canvas area ratio, marked `derived`.
+- **P08 judges a card by ink, crediting the kit's fitting slack** (15% of the ink height, never past the frame). The
+  first example build passed P08 with cards half empty because the gate read text frames. Planter
+  `stretched-frame` proves the new reading; it passes under the frame reading by arithmetic.
+- **Fingerprint adjudication, skill text.** `references/copy.md` quotes banned words as the rule itself (prototype,
+  POC, "This slide shows") and `references/library.md` names the user's own deck title (Prototype-vs-Enterprise
+  POV). These are internal Claude-context files, the class CLAUDE.md is in; kept. Canary verified firing.
+- **Acceptance is reduced to one fictional RFP deck** of 8 to 10 slides built by one fresh agent with only the
+  skill (ruling 9); the three-judge panel and trigger evals are deferred with the twin.
+
+## 2026-10-03 · After the acceptance deck (user chose: fix the leak and the cheap bugs, ship)
+- **Kit**: `prims.block` (rounded strong fill) and `prims.circle` (plain circle, filled or ring) close the gap
+  that forced empty-label discs; `rect` already drew square solids and is now documented.
+- **P11** exempts fully rounded shapes (radius at least 45% of the short side: pills and circles) from the card
+  corner rule; a kit pill failing a gate by size was a gate bug.
+- **P14** lets a slide tagged `cover` stack its title on up to three lines; **P09** lets a cover carry label lines
+  of 12 words or fewer under its title (parties, engagement, date). Planter `cover-sentence` proves a sentence there
+  still fails.
+- **Budgets**: the published wide budget is the `@norm` measure every card cites (it was w13, so cards and gates
+  disagreed); advisory floors never exceed half their budget.
+- **run_all** marks a gate whose sub-check printed SKIPPED as `partial`, never `pass`.
+- **SKILL.md** documents lines (hairline is orthogonal; a diagonal spoke is `connect(head="none", role="hairline")`),
+  type translation up to the house scale, variant slugs, and a short-RFP rule (merge adjacent requested sections
+  before dropping the agenda; a house default).
+- **Deferred, logged**: P07 flags staggered swimlane lanes; P10 does not count gantt bars and gate lines as a
+  device; P24 discards an unfilled stat band a card prescribes; LibreOffice hyphenation is unchecked until R01.

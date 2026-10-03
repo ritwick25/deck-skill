@@ -254,6 +254,19 @@ class TestRefusals(unittest.TestCase):
         rule, label = find(self.s, "s.rule"), find(self.s, "s.label")
         self.assertLessEqual(rule.top, label.top)
 
+    def test_block_and_circle(self):
+        b = prims.block(self.s, Box(1, 1, 3, 0.5), fill="ink-strong", name="bar")
+        self.assertEqual(b.name, "bar")
+        with self.assertRaises(ThemeInvariant):
+            prims.block(self.s, Box(1, 2, 3, 0.5), fill="not-a-role", name="bad")
+        c = prims.circle(self.s, Box(1, 3, 1, 1), fill="accent", name="core")
+        self.assertEqual(c.name, "core")
+        prims.circle(self.s, Box(3, 3, 1, 1), fill=None, line="rule-strong", name="ring")
+        with self.assertRaises(GeometryError):
+            prims.circle(self.s, Box(1, 5, 1, 0.8), name="oval")
+        with self.assertRaises(ThemeInvariant):
+            prims.circle(self.s, Box(5, 5, 1, 1), fill=None, line=None, name="nothing")
+
     def test_disc_needs_square(self):
         with self.assertRaises(GeometryError):
             prims.disc(self.s, Box(1, 1, 0.5, 0.4), 1, name="d")

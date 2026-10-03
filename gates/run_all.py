@@ -117,7 +117,8 @@ def run_deck(args, reg) -> int:
             continue
         code, found = run_gate(mod, str(deck), ctx)
         dt = time.time() - t0
-        state = "pass" if code == 0 else "FAIL"
+        skipped = [f for f in found if f.level == "note" and f.msg.startswith("SKIPPED")]
+        state = ("partial" if skipped else "pass") if code == 0 else "FAIL"     # a skipped sub-check is not a pass
         if code != 0 or args.verbose:
             print("\n%s %s" % (g["id"], g["title"]))
             shown = [f for f in found if f.level == FAIL or args.verbose]
@@ -125,7 +126,8 @@ def run_deck(args, reg) -> int:
                 print(f.line())
             if len(shown) > 25:
                 print("  ... and %d more" % (len(shown) - 25))
-        detail = first_fail(found) if code else next((f.msg for f in found if f.level == "note"), "")
+        detail = first_fail(found) if code else (skipped[0].msg if skipped else
+                                                 next((f.msg for f in found if f.level == "note"), ""))
         if code == 2:
             detail = "missing input: " + detail
         rows.append((g, state, detail, dt))
@@ -139,8 +141,10 @@ def run_deck(args, reg) -> int:
     n_pend = sum(1 for _, s, _, _ in rows if s == "PENDING")
     n_pass = sum(1 for _, s, _, _ in rows if s == "pass")
     n_miss = sum(1 for _, s, _, _ in rows if s == "MISSING")
-    print("%d gates: %d pass, %d fail (%d missing), %d pending (later phase)\n"
-          % (len(rows), n_pass, n_fail, n_miss, n_pend))
+    n_part = sum(1 for _, s, _, _ in rows if s == "partial")
+    part = (", %d partial (a sub-check SKIPPED)" % n_part) if n_part else ""
+    print("%d gates: %d pass%s, %d fail (%d missing), %d pending (later phase)\n"
+          % (len(rows), n_pass, part, n_fail, n_miss, n_pend))
     return 1 if n_fail else 0
 
 

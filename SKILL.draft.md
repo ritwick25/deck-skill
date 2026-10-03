@@ -34,7 +34,9 @@ K=~/.claude/skills/deck
    yes before building.
 3. **Storyline.** Read `references/storylines.md`. Write the ghost deck: one line per slide, the claim as its title,
    its archetype and family. An RFP's own section order wins over any house order; keep a requirement-to-slide
-   coverage table beside it. Get a yes on the ghost deck.
+   coverage table beside it. When a slide cap is shorter than the request's sections plus an agenda, merge two
+   adjacent requested sections onto one slide before dropping the agenda (a house default, not a measured pattern).
+   Get a yes on the ghost deck.
 4. **One archetype per slide** from the chooser below. Check variety now: at least two families in any three
    consecutive slides, no archetype twice in a section (unless the section is a declared `series`), never more than
    two tables in a row, and no two adjacent slides with the same structure.
@@ -154,12 +156,24 @@ title(s, "Every brief passes four steps before it reaches the field", keywords=(
   `navy`, `series-1` to `series-5`.
 - **Text**: `textbox(slide, box, [Para((Run(text, role, bold=, size=),), space_before=)], name, th,
   background=fill_role, anchor="top"|"middle"|"bottom")` measures and refuses overflow, the floor and low contrast.
-  Pass the role of the fill the text sits on as `background`.
-- **Shapes**: `prims.card(s, box, fill="card", line=None|"hairline"|"rule-strong", name=)`;
-  `zone(..., fill="accent-tint")`; `tab`, `pill`, `disc(s, square_box, n)`;
-  `step_header(s, box, labels, active=i)`; `hairline(s, p1, p2)`; `connect(s, p1, p2, head="end", dash=None)`;
-  `elbow(s, points)`; `stat(s, box, value, label, kind="measured|delivered|illustrative|target|benchmark")`;
-  `quote(s, box, text, attribution)` (its left bar is the one the rules allow); `person(s, box)`.
+  Pass the role of the fill the text sits on as `background`. `text.title_runs(text, keywords)` builds two-tone
+  runs with no size: pass `size=` when measuring them with `text.need_height`. On light fills text takes `ink`
+  roles; on a `block`, `circle` or `disc` it takes `paper` (dark fills) or `on-accent` (accent fills).
+- **Type sizes**: a card's type roles are the references' sizes. Translate them up to the house scale: body 11 to
+  12pt, labels 10pt and up, nothing under 8pt. Fewer words, never smaller type.
+- **Variants**: tag the variant as a short kebab slug of the card's variant line you used (`icon-columns`,
+  `numbered-rows`); in a declared series every member's slug differs.
+- **Shapes**: light containers are `prims.card(s, box, fill="card"|"paper"|"accent-tint", line=None|"hairline"|
+  "rule-strong", name=)` and `zone(..., fill="accent-tint")`. Strong fills are `block(s, box, fill="accent"|
+  "ink-strong"|"navy"|...)` (rounded: a gantt bar, a price panel) and `rect(s, box, fill=role)` (square).
+  `circle(s, square_box, fill=role)` or `circle(..., fill=None, line="rule-strong")` is a hub core, a roundel or a
+  milestone dot; `disc(s, square_box, n)` is a numbered one. Also `tab`, `pill`, `step_header(s, box, labels,
+  active=i)`, `stat(s, box, value, label, kind="measured|delivered|illustrative|target|benchmark")` (it raises
+  `Overflows` with the height it needs), `quote(s, box, text, attribution)` (its left bar is the one the rules
+  allow), `person(s, box)`.
+- **Lines**: `hairline(s, p1, p2)` is horizontal or vertical; `connect(s, p1, p2, head="end", dash=None)` is an
+  arrow; an undirected diagonal (a hub spoke) is `connect(..., head="none", role="hairline")`, because outside the
+  rule roles an undirected line is refused; `elbow(s, points)` routes orthogonally.
 - **Icons**: `glyph(s, name, box, role="accent", shape_name=)` from 193 curated Lucide glyphs (an unknown name
   raises with the closest matches); `vendor(s, key, box)` for AWS, Azure and GCP marks; `monogram(s, box, "AB")` for
   a mark with no asset. Never emoji, never a corpus raster.
