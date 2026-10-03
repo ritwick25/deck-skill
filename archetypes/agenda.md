@@ -90,9 +90,9 @@ Word budget 70 with an advisory floor of 40, under the hard ceiling of 250. The 
 dv58, dv03
 
 ## Provenance
-- Source: cards/src/a02.json sha256 4d225928c743db247cf48de18d9ea803c4839b88e0497ea43978a3e8ac2ea101
-- Measures: measures/a02.json sha256 06226857c0ba88af256795240b81a5d288081545cd055f49bfc828e6b216c4a5
-- Final ranking: rankings/a02.final.json sha256 913192831f2dcdea0dd89c327e73a865b1bba159343a3fea2fd321dab6732f33
+- Source: cards/src/a02.json sha256 686c949a12e39ae7dc89c2fa88a2566658965a5918a1817ff47fa22aa9cbaf66
+- Measures: measures/a02.json sha256 ae0e687e2a3da6e7316bade6537ed16aefcd621f90a12eafb53b584e3ce28392
+- Final ranking: rankings/a02.final.json sha256 330136f8e2e367fba6366ffce46b5c53fc519962b89bfa63f56075a0cf99d188
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227
 - Taxonomy: taxonomy/v1.json sha256 6f40a44386d2e633aa1808cc786483039990b5fec9b80c856b53211a00836924
 - Claims removed: 0

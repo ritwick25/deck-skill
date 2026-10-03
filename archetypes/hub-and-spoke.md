@@ -16,82 +16,85 @@
 ## Zones
 | Zone | x | y | w | h |
 |---|---|---|---|---|
-| title | 3% (2 to 3) | 3% (1 to 6) | 95% (94 to 98) | 13% (6 to 15) |
-| wheel | 15% (3 to 26) | 19% (15 to 30) | 49% (43 to 81) | 63% (49 to 79) |
-| satellite-text | 3% (3 to 3) | 16% (15 to 18) | 79% (64 to 94) | 76% (73 to 78) |
-| base | 14% (14 to 14) | 54% (54 to 54) | 71% (71 to 71) | 40% (40 to 40) |
-| side-rail | 63% (54 to 72) | 23% (17 to 28) | 34% (27 to 41) | 71% (65 to 76) |
+| title | 3% (2 to 3) | 2% (1 to 6) | 94% (92 to 94) | 11% (5 to 15) |
+| wheel | 9% (1 to 27) | 22% (19 to 30) | 48% (32 to 81) | 63% (49 to 74) |
+| satellite-text | 18% (3 to 34) | 20% (20 to 20) | 78% (62 to 94) | 73% (73 to 74) |
+| side-rail | 29% (4 to 54) | 24% (20 to 28) | 67% (41 to 93) | 66% (65 to 66) |
 
 ## Components
 - One core drawn as a disc, a quartered disc, a hub mark or a set of type, sitting at the geometric center of the wheel.
-- Peer parts arranged around the core as wedges, quadrant tiles, ring roundels, hexagon triangles or interlocking lobes, all one size.
-- Optional satellite text: a short heading plus one line beside each part.
-- Optional base: foundation cards or bands seated directly under the wheel.
-- Optional side rail of proof figures or a sample gallery, split from the wheel by a hairline.
-- Icons per slide 7 (0 to 41), connectors per slide 0 (0 to 7).
+- Peer parts arranged around the core as icon petals, sectors, discs on an open arc, quadrant tiles or hexagon triangles, all one size.
+- Optional satellite text or a card stack: a short heading plus one line beside each part.
+- Optional side rail of proof figures or a sample gallery, split from the wheel by white space.
+- Icons per slide 5 (0 to 21), connectors per slide 0 (0 to 3).
 
 ## Type roles
 | Role | Size |
 |---|---|
-| title | 28 pt (26.75 to 32) |
-| card-heading | 13.5 pt (10.5 to 18.75) |
-| label | 11 pt (10 to 13.25) |
-| body | 12.75 pt (12 to 13.25) |
-| section-label | 11 pt (10 to 12) |
-| numeral | 37.25 pt (37.25 to 37.25) |
+| title | 24 pt (21.25 to 32) |
+| card-heading | 13.25 pt (10.5 to 18.75) |
+| label | 10.75 pt (10.75 to 11) |
+| body | 11.25 pt (10.75 to 13.25) |
+| section-label | 12 pt (12 to 12) |
+| numeral | 12 pt (12 to 12) |
 
 ## Density
-Content words 94 (25 to 175) over 5 exemplars. Title words 8 (3 to 13). Wheel width 49% (43 to 81) of the canvas.
+Content words 146 (56 to 169) over 5 exemplars. Title words 12 (6 to 13). Wheel width 48% (32 to 81) of the canvas.
 
 ## Word budget
-Word budget 100 pooled, 140 on the standard canvas and 90 on the wide canvas, under the 250 ceiling. Advisory floor 60.
+Word budget 160 pooled, 160 on the standard canvas and 100 on the wide canvas, under the 250 ceiling. Advisory floor 90.
 
 ## Device notes
-- The core contrasts with its parts by hue or by tint, a lime disc against dark tiles, an orange disc inside navy wedges, a white disc inside saturated lobes, so the eye lands on the center first.
-- Every part has the same shape and size as its peers, which is what makes them read as equals rather than as a sequence.
-- Where parts carry explanation, the text sits outside the wheel beside its own part, never inside the shape, and mirrors left and right.
-- When a side rail is present it is split from the wheel by a hairline or white space and holds a different kind of content, figures or samples, not more parts.
+- The core contrasts with its parts by hue, tint or size, a lime disc against dark tiles, an orange disc inside navy wedges, a white hub inside tinted sectors, so the eye lands on the center first (d09-s039, d03-s047, d09-s055).
+- Every part has the same shape and size as its peers, which is what makes them read as equals rather than as a sequence (d16-s017, d20-s005, d03-s047, d09-s055).
+- Where parts carry explanation, the text sits outside the wheel beside its own part, never inside the shape (d20-s005, d16-s017, d09-s055).
+- Each part can index a block outside the wheel, a petal to a card or a sector to a proof card, so the wheel doubles as a contents list for the slide (d16-s017, d09-s055).
+- When a side rail is present it is split from the wheel by white space and holds a different kind of content, figures or samples, not more parts (d03-s047, d09-s055).
 
 ## Translation under the house rules
 | Rule | Reference | House | Consequence |
 |---|---|---|---|
-| light-bg | Dark navy base bars under the wheel on one exemplar, 1 flagged in the top set. | Light tint bars with navy ink on a light ground. | The base keeps its position and height, only its fill and ink change. |
-| flat-fill | Gradient crescents, gradient stat bars and textured pipes, 2 flagged. | Flat brand fills, or brand and tint alternating across the parts. | Lobes need a white gap or a hairline to separate them once the gradient is gone. |
-| shadow | Soft shadows under cards, lobes and the hub, 2 flagged. | Hairline outline, at most a 1 px shadow. | No change to geometry, the edge carries the separation. |
-| first-person | Titles and satellite bodies written as we, our and you, 3 flagged. | Third person claims with role nouns such as the client and the vendor. | Satellite lines often shorten, which frees width for the wheel. |
-| no-footer | Page number, logo lockup and folio at the foot, 3 flagged. | No foot chrome at all. | The wheel and satellites may extend into the reclaimed foot band. |
-| glyphs | En dashes in bodies, a leading ellipsis and a smart apostrophe in titles, 3 flagged. | Commas, colons or full stops, straight apostrophes, no leading ellipsis. | None on layout. |
-| word-budget | Satellite paragraphs and three bullets per lobe, 2 flagged. | One heading plus one line per part, detail moved to notes, within the word budget. | Satellite text blocks shrink to two lines, so the wheel can grow. |
-| left-accent | Twin brand bars flush to both edges of the title band that encode no state, 1 flagged. | Remove the bars. | The title band runs clean to the margins. |
+| flat-fill | A gradient core disc and petals and radial gradient wedges, 2 flagged in the top set. | Flat brand fills on the core and parts, a flat light tint on any field behind them. | Parts need a white gap or a hairline to separate them once the gradient is gone. |
+| shadow | Soft shadows under cards, 2 flagged. | Hairline outline, at most a 1 px shadow. | No change to geometry, the edge carries the separation. |
+| left-accent | Decorative left bars on cards and a short rule under the title that encode no state, 2 flagged. | Remove the bars, a hairline above each card name if the cards need a mark. | Cards and title start at their shared margins. |
+| 8pt-floor | Sector labels, a hub caption and figure units set inside the wheel below the floor, 1 flagged. | Every run at or above 8 pt, labels moved outside the sectors or the wheel enlarged. | The wheel grows or its labels move to satellite positions beside each part. |
+| first-person | Titles, headings and paragraphs written as we, our and you, 4 flagged. | Third person claims with role nouns such as the client and the vendor. | Satellite lines often shorten, which frees width for the wheel. |
+| no-footer | Page numbers, logo lockups, folios and a key at the foot, 4 flagged. | No foot chrome at all. | The wheel and satellites may extend into the reclaimed foot band. |
+| glyphs | Leading ellipses in titles, em dashes in paragraphs and smart apostrophes, 4 flagged. | Commas, colons or full stops, straight apostrophes, no leading ellipsis. | Titles become standalone claims, with no layout change. |
+| word-budget | A paragraph under every disc, 1 flagged. | One heading plus one line per part, detail moved to notes, within the word budget. | Satellite text blocks shrink to two lines, so the wheel can grow. |
 | no-subtitle | A two line subtitle under the title, 1 flagged. | Delete the subtitle, the title carries the one claim. | The wheel moves up into the freed band. |
-| other | Vendor logos, a logo raster as the hub, illegible thumbnails and tiles stretched around one label, 5 flagged. | Tools named by category, the hub set as the claim noun in type, a named list in place of thumbnails, tiles sized to their content. | Hub and rail carry meaning rather than decoration, and tile height drops to fit content. |
+| other | Vendor marks as the hub, an at sign in a title, a navigation roundel, illegible thumbnails, an unlabeled hub and a key that decodes nothing, 4 flagged. | The hub set as the claim noun in type, a named list in place of thumbnails, no navigation marks or empty keys. | Hub and rail carry meaning rather than decoration. |
 
 ## Exemplars
 | Slide | View | Why |
 |---|---|---|
-| d04-s015 | greeked/d04/s015.png | half wheel of use case wedges fanning from one platform core, foundation cards seated under the hub |
-| d09-s025 | greeked/d09/s025.png | four tiles meeting at a quartered contrasting disc, reusable as a map on later slides |
-| d12-s021 | greeked/d12/s021.png | ring roundels strung on an arc around a central mark, heading and line mirrored left and right |
-| d16-s005 | greeked/d16/s005.png | three interlocking lobes around a hub disc beside a hairline split rail of three figures |
+| d16-s017 | greeked/d16/s017.png | core disc fanning an arc of icon petals, each petal indexing one capability card in the stack beside it |
+| d09-s055 | greeked/d09/s055.png | three pillar sectors around a score hub, each fanned out to its own card of proof figures |
+| d20-s005 | greeked/d20/s005.png | icon discs strung on an open horseshoe around a central mark, each disc owning a heading set outside the arc |
 | d03-s047 | greeked/d03/s047.png | six flat triangles tiled into a hexagon around a contrasting value disc |
+| d09-s039 | greeked/d09/s039.png | four pillar tiles meeting at a quartered contrasting hub, one tile opened into a detail panel as a spotlight |
 
 ## Anti-exemplars
-None.
+| Slide | View | Failure |
+|---|---|---|
+| d16-s019 | greeked/d16/s019.png | Nested bands with a wedge crossing them read as convergence rather than peers around a core, and item labels float at tiny size with no tie to a band. |
+| d16-s005 | greeked/d16/s005.png | The lobes float far from their bullet lists, underlined italic keywords clutter the bodies, and gradients and shadows carry the diagram. |
+| d12-s021 | greeked/d12/s021.png | Seven peer claims orbit a mark as second person prose, and the satellite text edges are irregular around the arc. |
 
 ## Variants
-- Half wheel fan over a foundation, shown by d04-s015.
-- Quartered hub with four tiles, shown by d09-s025.
-- Roundel arc with mirrored satellites, shown by d12-s021.
-- Interlocking lobes beside a figure rail, shown by d16-s005.
+- Petal fan index, a core disc fanning icon petals that each point to a card in a stack beside it, shown by d16-s017.
+- Sector wheel feeding proof cards, each pillar sector fanned out to its own card of figures, shown by d09-s055.
+- Disc horseshoe, icon discs on an open arc around a central mark with text outside each disc, shown by d20-s005.
 - Wedge hexagon beside a sample gallery, shown by d03-s047.
+- Spotlight quadrant, four tiles around a quartered hub with one tile opened into a detail panel per slide, shown by d09-s039.
 
 ## Devices used
 dv19, dv20, dv08, dv33
 
 ## Provenance
-- Source: cards/src/a34.json sha256 0c29096af87f3c318cb3844e77bd580fdcb0f3235f9f56240b42049c3c4db33b
-- Measures: measures/a34.json sha256 cb6a1dd4a24f98369b8e76ade929f630175c207893f53a498ce6ea67ca27f614
-- Final ranking: rankings/a34.final.json sha256 c7a7f9bc6d7129c8ea20321351bc1a5ab7e8022e5050e0784b5c1dd7504d1675
+- Source: cards/src/a34.json sha256 e3fdf87b722d79681e2ebf0280dce0524b1b9cab3215c433cc9039c897fe5e1b
+- Measures: measures/a34.json sha256 7b4e0e9a5842a22748ba683357dfdde7bd60527d05bcf5c99eaa80cbcc41b79b
+- Final ranking: rankings/a34.final.json sha256 26852acb8f8aef1a7597ccbc51f7cc30ca3e5e091b30dcb5bfe358604924d994
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227
 - Taxonomy: taxonomy/v1.json sha256 6f40a44386d2e633aa1808cc786483039990b5fec9b80c856b53211a00836924
 - Claims removed: 0

@@ -26,26 +26,24 @@
    "definition": "Opens the deck: names the engagement, the parties and the date in one title stack set against an image field, a brand panel or a welcome row of the people attending.",
    "budget": {
     "wide": {
-     "budget": 30,
+     "budget": 40,
      "floor": 10,
      "n": 5,
-     "p25": 11,
-     "p75": 26
+     "p25": 19,
+     "p75": 34
     },
     "std": {
-     "budget": 20,
-     "floor": 0,
-     "n": 2,
-     "p25": 9.5,
-     "p75": 10.5
+     "budget": 30,
+     "floor": 10,
+     "derived": "wide x area ratio"
     }
    },
    "exemplars": [
     "d18-s001",
-    "d01-s001",
-    "d11-s001",
     "d13-s001",
-    "d17-s001"
+    "d01-s001",
+    "d17-s001",
+    "d21-s001"
    ],
    "anti": [
     "d15-s001",
@@ -54,7 +52,7 @@
    ],
    "sheet": "export/sheets/a01.png",
    "card": "archetypes/cover.md",
-   "members": 18
+   "members": 20
   },
   "agenda": {
    "id": "a02",
@@ -126,7 +124,7 @@
    "anti": [],
    "sheet": "export/sheets/a03.png",
    "card": "archetypes/section-divider.md",
-   "members": 65
+   "members": 66
   },
   "closing": {
    "id": "a04",
@@ -161,7 +159,7 @@
    ],
    "sheet": "export/sheets/a04.png",
    "card": "archetypes/closing.md",
-   "members": 14
+   "members": 16
   },
   "problem-framing": {
    "id": "a05",
@@ -174,7 +172,7 @@
      "budget": 250,
      "floor": 120,
      "n": 5,
-     "p25": 207,
+     "p25": 171,
      "p75": 278
     },
     "std": {
@@ -185,18 +183,18 @@
    },
    "exemplars": [
     "d01-s063",
+    "d21-s003",
     "d07-s002",
     "d03-s007",
-    "d01-s064",
-    "d15-s002"
+    "d01-s064"
    ],
    "anti": [
     "d01-s012",
-    "d07-s003"
+    "d20-s010"
    ],
    "sheet": "export/sheets/a05.png",
    "card": "archetypes/problem-framing.md",
-   "members": 9
+   "members": 11
   },
   "principles": {
    "id": "a06",
@@ -233,7 +231,7 @@
    ],
    "sheet": "export/sheets/a06.png",
    "card": "archetypes/principles.md",
-   "members": 7
+   "members": 10
   },
   "why-us": {
    "id": "a07",
@@ -266,7 +264,7 @@
    ],
    "sheet": "export/sheets/a07.png",
    "card": "archetypes/why-us.md",
-   "members": 6
+   "members": 7
   },
   "offering-pillars": {
    "id": "a08",
@@ -302,7 +300,7 @@
    ],
    "sheet": "export/sheets/a08.png",
    "card": "archetypes/offering-pillars.md",
-   "members": 9
+   "members": 10
   },
   "catalogue": {
    "id": "a09",
@@ -415,7 +413,7 @@
    ],
    "sheet": "export/sheets/a11.png",
    "card": "archetypes/case-wall.md",
-   "members": 11
+   "members": 13
   },
   "the-ask": {
    "id": "a12",
@@ -457,7 +455,7 @@
      "budget": 250,
      "floor": 120,
      "n": 5,
-     "p25": 162,
+     "p25": 210,
      "p75": 252
     },
     "std": {
@@ -471,12 +469,12 @@
     "d03-s018",
     "d15-s021",
     "d18-s014",
-    "d12-s046"
+    "d20-s011"
    ],
    "anti": [],
    "sheet": "export/sheets/a13.png",
    "card": "archetypes/process-flow.md",
-   "members": 16
+   "members": 19
   },
   "as-is-process": {
    "id": "a14",
@@ -521,9 +519,9 @@
    "budget": {
     "wide": {
      "budget": 250,
-     "floor": 120,
+     "floor": 100,
      "n": 5,
-     "p25": 124,
+     "p25": 102,
      "p75": 245
     },
     "std": {
@@ -539,12 +537,12 @@
     "d10-s005",
     "d11-s003",
     "d13-s031",
-    "d02-s011"
+    "d21-s005"
    ],
    "anti": [],
    "sheet": "export/sheets/a15.png",
    "card": "archetypes/input-process-output.md",
-   "members": 10
+   "members": 11
   },
   "decision-logic": {
    "id": "a16",
@@ -619,9 +617,9 @@
    "budget": {
     "wide": {
      "budget": 250,
-     "floor": 100,
+     "floor": 120,
      "n": 5,
-     "p25": 102,
+     "p25": 158,
      "p75": 368
     },
     "std": {
@@ -633,14 +631,14 @@
    "exemplars": [
     "d01-s084",
     "d18-s016",
+    "d21-s007",
     "d13-s011",
-    "d15-s024",
-    "d01-s076"
+    "d15-s024"
    ],
    "anti": [],
    "sheet": "export/sheets/a18.png",
    "card": "archetypes/worked-example.md",
-   "members": 28
+   "members": 29
   },
   "engagement-model": {
    "id": "a19",
@@ -682,31 +680,33 @@
    "definition": "Stacks the platform as full-width layers from sources to consumers, each naming what it holds, so the audience sees every part has a place and depends on the one beneath.",
    "budget": {
     "wide": {
-     "budget": 200,
-     "floor": 100,
+     "budget": 250,
+     "floor": 120,
      "n": 5,
-     "p25": 169,
-     "p75": 195
+     "p25": 259,
+     "p75": 320
     },
     "std": {
-     "budget": 190,
-     "floor": 90,
-     "n": 3,
-     "p25": 138.5,
-     "p75": 186
+     "budget": 150,
+     "floor": 70,
+     "derived": "wide x area ratio"
     }
    },
    "exemplars": [
-    "d01-s054",
-    "d07-s004",
+    "d15-s031",
+    "d01-s056",
+    "d18-s007",
     "d09-s036",
-    "d12-s008",
-    "d15-s031"
+    "d15-s032"
    ],
-   "anti": [],
+   "anti": [
+    "d01-s130",
+    "d12-s042",
+    "d21-s010"
+   ],
    "sheet": "export/sheets/a20.png",
    "card": "archetypes/layered-architecture.md",
-   "members": 18
+   "members": 19
   },
   "solution-architecture": {
    "id": "a21",
@@ -716,29 +716,35 @@
    "definition": "Places the components in tab-headed zones inside a drawn boundary, sources outside one edge, consumers outside the other and a platform band beneath, so every crossing reads as a deliberate decision.",
    "budget": {
     "wide": {
-     "budget": 200,
+     "budget": 180,
      "floor": 90,
-     "n": 5,
-     "p25": 92,
-     "p75": 200
+     "n": 6,
+     "p25": 141.5,
+     "p75": 171
     },
     "std": {
-     "budget": 120,
-     "floor": 60,
-     "derived": "wide x area ratio"
+     "budget": 170,
+     "floor": 80,
+     "n": 4,
+     "p25": 154.5,
+     "p75": 165
     }
    },
    "exemplars": [
-    "d03-s026",
+    "d19-s002",
+    "d19-s004",
     "d06-s002",
-    "d01-s050",
     "d04-s016",
-    "d08-s007"
+    "d13-s048",
+    "d03-s038"
    ],
-   "anti": [],
+   "anti": [
+    "d19-s003",
+    "d01-s059"
+   ],
    "sheet": "export/sheets/a21.png",
    "card": "archetypes/solution-architecture.md",
-   "members": 24
+   "members": 28
   },
   "governance-model": {
    "id": "a22",
@@ -887,24 +893,24 @@
      "p75": 186
     },
     "std": {
-     "budget": 170,
-     "floor": 80,
-     "n": 3,
-     "p25": 136,
-     "p75": 165
+     "budget": 190,
+     "floor": 90,
+     "n": 4,
+     "p25": 148,
+     "p75": 187
     }
    },
    "exemplars": [
     "d01-s098",
     "d09-s057",
     "d13-s027",
-    "d12-s024",
-    "d01-s099"
+    "d20-s006",
+    "d12-s024"
    ],
    "anti": [],
    "sheet": "export/sheets/a26.png",
    "card": "archetypes/case-study.md",
-   "members": 22
+   "members": 23
   },
   "deep-dive": {
    "id": "a27",
@@ -1119,14 +1125,14 @@
      "budget": 250,
      "floor": 120,
      "n": 5,
-     "p25": 228,
+     "p25": 165,
      "p75": 253
     },
     "std": {
      "budget": 250,
      "floor": 120,
      "n": 5,
-     "p25": 228,
+     "p25": 165,
      "p75": 253
     }
    },
@@ -1134,13 +1140,13 @@
     "d09-s073",
     "d12-s010",
     "d16-s010",
-    "d09-s074",
-    "d12-s027"
+    "d20-s012",
+    "d09-s074"
    ],
    "anti": [],
    "sheet": "export/sheets/a33.png",
    "card": "archetypes/reference-table.md",
-   "members": 8
+   "members": 9
   },
   "hub-and-spoke": {
    "id": "a34",
@@ -1150,31 +1156,35 @@
    "definition": "Puts one core at the centre, a platform, a team or an idea, with its parts arranged around it by spokes, petals, quadrant tiles or rings, so the audience sees what everything depends on.",
    "budget": {
     "wide": {
-     "budget": 100,
-     "floor": 50,
+     "budget": 160,
+     "floor": 80,
      "n": 5,
-     "p25": 61,
-     "p75": 95
+     "p25": 94,
+     "p75": 154
     },
     "std": {
-     "budget": 140,
-     "floor": 60,
-     "n": 3,
-     "p25": 60,
-     "p75": 135
+     "budget": 160,
+     "floor": 80,
+     "n": 4,
+     "p25": 123.5,
+     "p75": 157.75
     }
    },
    "exemplars": [
-    "d04-s015",
-    "d09-s025",
-    "d12-s021",
-    "d16-s005",
-    "d03-s047"
+    "d16-s017",
+    "d09-s055",
+    "d20-s005",
+    "d03-s047",
+    "d09-s039"
    ],
-   "anti": [],
+   "anti": [
+    "d16-s019",
+    "d16-s005",
+    "d12-s021"
+   ],
    "sheet": "export/sheets/a34.png",
    "card": "archetypes/hub-and-spoke.md",
-   "members": 12
+   "members": 13
   },
   "lifecycle-loop": {
    "id": "a35",
@@ -1349,30 +1359,28 @@
    "budget": {
     "wide": {
      "budget": 220,
-     "floor": 90,
+     "floor": 80,
      "n": 5,
-     "p25": 98,
+     "p25": 88,
      "p75": 216
     },
     "std": {
-     "budget": 170,
-     "floor": 80,
-     "n": 2,
-     "p25": 121.5,
-     "p75": 168.5
+     "budget": 130,
+     "floor": 60,
+     "derived": "wide x area ratio"
     }
    },
    "exemplars": [
     "d01-s013",
     "d17-s004",
+    "d21-s002",
     "d03-s031",
-    "d07-s006",
-    "d09-s017"
+    "d07-s006"
    ],
    "anti": [],
    "sheet": "export/sheets/a40.png",
    "card": "archetypes/maturity-model.md",
-   "members": 10
+   "members": 11
   },
   "headline-figures": {
    "id": "a41",
@@ -1473,7 +1481,7 @@
    "anti": [],
    "sheet": "export/sheets/a43.png",
    "card": "archetypes/credentials.md",
-   "members": 12
+   "members": 14
   },
   "product-screen": {
    "id": "a44",

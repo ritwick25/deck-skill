@@ -87,9 +87,9 @@ None.
 dv42, dv40, dv41
 
 ## Provenance
-- Source: cards/src/a32.json sha256 138a7a451ed44cd87050c3eafba7334e275bb99fa5af893491c022bbfbca7b7c
-- Measures: measures/a32.json sha256 bf8c27561bf0176d35f32e3b3f506b8375d7cebb1b000e0577f4e14f10860099
-- Final ranking: rankings/a32.final.json sha256 d358f9e7ac59a03ef89bdc4361479f88d0aa90c80c2868d6252b0cf0cf2aaed1
+- Source: cards/src/a32.json sha256 6da3d3ac251cbbd52de2b049ef256ae62de9eef14e41768b7d5f7f13abd21276
+- Measures: measures/a32.json sha256 708ec68ec70297626096787ee81803bb901aeb9b054a41b711bc48ba4d8795fb
+- Final ranking: rankings/a32.final.json sha256 29d10bb56124e619adad67c9316ab8fd3fb6cfc9c9a5b386402519e0790be0a6
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227
 - Taxonomy: taxonomy/v1.json sha256 6f40a44386d2e633aa1808cc786483039990b5fec9b80c856b53211a00836924
 - Claims removed: 0

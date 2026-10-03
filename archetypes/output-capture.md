@@ -79,9 +79,9 @@ None.
 dv39
 
 ## Provenance
-- Source: cards/src/a45.json sha256 bf1ac9e7ecd8b07b4ac07f9fa71a8455bfda1428e61badf17522149f19f73b84
-- Measures: measures/a45.json sha256 13845142251636353b30d4d3dc591f84f993e4a31d567ddfe6bf85a6e0f75b8a
-- Final ranking: rankings/a45.final.json sha256 3beb68b869a7241769e63b6a13eed8d6806ffd28e8a30309f0afea90527c94fe
+- Source: cards/src/a45.json sha256 0648486a89ed8f6616f3403bddd46b344b872d715572f1d43df42a732db85192
+- Measures: measures/a45.json sha256 da42f494ecc9333c859364fa46b4c5b76873f47cb62ab2ee6af6360795b7af27
+- Final ranking: rankings/a45.final.json sha256 cfeecb46df2721cf87c0a615098a14eb5173595412df9503d060c01e2991a687
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227
 - Taxonomy: taxonomy/v1.json sha256 6f40a44386d2e633aa1808cc786483039990b5fec9b80c856b53211a00836924
 - Claims removed: 0

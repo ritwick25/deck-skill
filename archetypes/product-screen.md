@@ -81,9 +81,9 @@ None.
 dv56
 
 ## Provenance
-- Source: cards/src/a44.json sha256 752fb60b5463ee772ffdb7dc62008f92ad3512bd78d9ba391002498e333a080c
-- Measures: measures/a44.json sha256 9af75dfa7ad2bcde47bac57d1d2d195ebcc03553ba0f55171d6dff3ae758fdd5
-- Final ranking: rankings/a44.final.json sha256 b9d9991b09408a29ca3beff37bac6564262cb05d75c2a0bb5064c248cdbd167a
+- Source: cards/src/a44.json sha256 b5f614844fe0e5e90a3a9e4540acf8f39abe9e991639bc39513c6643daafbb9e
+- Measures: measures/a44.json sha256 9d7e86e8d69f7c755a9130cbd375fd01861a359ff55988393cf46006aedfefc7
+- Final ranking: rankings/a44.final.json sha256 b4b28ae756dc88acc656742358b0051ba71736f3675ef9ac5b282349895a2318
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227
 - Taxonomy: taxonomy/v1.json sha256 6f40a44386d2e633aa1808cc786483039990b5fec9b80c856b53211a00836924
 - Claims removed: 0

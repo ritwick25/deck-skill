@@ -79,9 +79,9 @@ None.
 dv01, dv02, dv03, dv04
 
 ## Provenance
-- Source: cards/src/a03.json sha256 397b5cf90710f5ea91992e8aad8b5633495da5f6382c4bec4def223da65c149d
-- Measures: measures/a03.json sha256 5e481f1965b6b90b577d091943a8bf16dcb1bf3aa0bc653d58f446810797e355
-- Final ranking: rankings/a03.final.json sha256 7a46c6c7fa7629b22653942206a111b55622c23db7643ec3d817a33ef21dad72
+- Source: cards/src/a03.json sha256 9ee1e1ee3df81eb8b21db090e424badfe8e105c2387c30ad21e50eb69f1b087a
+- Measures: measures/a03.json sha256 e1ad3f7d1c854c3a345d7164f40b64a1fe6bfda91bc112ddfe8264700f82e47e
+- Final ranking: rankings/a03.final.json sha256 e6a5ac1e1c256303f586bcd7e10bffa863e0e00824047d5e269c7d10559ae0bd
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227
 - Taxonomy: taxonomy/v1.json sha256 6f40a44386d2e633aa1808cc786483039990b5fec9b80c856b53211a00836924
 - Claims removed: 0

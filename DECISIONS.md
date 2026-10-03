@@ -171,3 +171,12 @@ The CI decks, the material-planner POV and the AI Hub scale-up proposal stay out
 ## 2026-10-03 · RULING 12 — Colour: brand solid plus near-black panels (user)
 Solid brand bands and cards, and near-black stat and header panels on light slides. No second hue: a client cut is
 still one accent swap. Pastel tints are for large backgrounds only, never the default container.
+
+## 2026-10-03 · RULING 13 — Technical architecture boards pinned as a variant (user)
+The two service-icon reference architecture boards from the intake are pinned as exemplars of a named
+`technical-service-icons` variant of solution-architecture (a21), by the user's ruling, although their catalogue
+quality is 3 and 2 (type down to 5pt, words broken in narrow tiles, half-empty agent cards). The scores stay on
+record unaltered. The card translates the device: type raised to the 8pt floor, fewer tiles per layer, a measured
++N more chip. Layered-architecture, solution-architecture and hub-and-spoke get a comparative re-rank with the new
+members; the other affected archetypes a scripted one, and a comparatively ranked archetype is re-ranked only where
+a new member's quality reaches its top (cost cap, logged in the library DECISIONS).

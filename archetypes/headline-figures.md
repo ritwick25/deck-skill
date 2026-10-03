@@ -91,9 +91,9 @@ None.
 dv05, dv34, dv35, dv36, dv38
 
 ## Provenance
-- Source: cards/src/a41.json sha256 16b0088e4b57954d3945b8358b6bd25d7296123f87b5959a3d481381d2d10ccc
-- Measures: measures/a41.json sha256 0aaf198f31b1ef4c147187cbc4f25c4c990c6b7032d9a647e09cb2c6db817833
-- Final ranking: rankings/a41.final.json sha256 9d37d1ac31ddd7253cdb5ba5f97ed2b938096b696f870f5caff2280ee5af1fde
+- Source: cards/src/a41.json sha256 a6bba0f044cf2dbf748a2f0202a09daba7da2f00e20327cbccb5621332062122
+- Measures: measures/a41.json sha256 4656d30ec3027e1187b953e6e76924f21857ef9c17736ff0e531a4d31712a58c
+- Final ranking: rankings/a41.final.json sha256 f7d353d6914fa1801227ff4209031710be85a8ff3487fbb89706d214e575877d
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227
 - Taxonomy: taxonomy/v1.json sha256 6f40a44386d2e633aa1808cc786483039990b5fec9b80c856b53211a00836924
 - Claims removed: 0

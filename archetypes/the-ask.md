@@ -80,9 +80,9 @@ None.
 dv08, dv24
 
 ## Provenance
-- Source: cards/src/a12.json sha256 64f550ffcc3769d3e389a4b73281d12a2a3e733f9cc601cec85580f69275207a
-- Measures: measures/a12.json sha256 3ba4432436be964bc398156012b749872b46c0c3d07b2296b5b4951519f969de
-- Final ranking: rankings/a12.final.json sha256 bcc6bf3d91729df193193cfd8b8fe9ad03443bccd6b2d0fcb01d5208b050f1ad
+- Source: cards/src/a12.json sha256 6ef696ddf209b480b0295335c5193007decd5b639fce2df609055349c2016fb0
+- Measures: measures/a12.json sha256 fd67b0eca5642dfa8c4a96dd718c1e5a6efd0cd9475c9934f093b456b663d7e2
+- Final ranking: rankings/a12.final.json sha256 27dea75a02f620d3f70f3b7645a94df729e1dafc4b38c24aad968fa529cd539a
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227
 - Taxonomy: taxonomy/v1.json sha256 6f40a44386d2e633aa1808cc786483039990b5fec9b80c856b53211a00836924
 - Claims removed: 0

@@ -90,9 +90,9 @@ Word budget 250, the upper quartile of the top exemplars capped at 250. Content 
 dv01, dv06, dv52, dv58, dv43, dv29
 
 ## Provenance
-- Source: cards/src/a06.json sha256 163540ba85d63b9c266347ced93647f222da506583f86aed6f104354951f384b
-- Measures: measures/a06.json sha256 7d635946358ed656229c6b2b9d1122677cabe7a19de12277576494b191a23cb9
-- Final ranking: rankings/a06.final.json sha256 623d677648e0b3d238376f6fa6f07ce7cfe143fc5d2ca6995160dad51552612b
+- Source: cards/src/a06.json sha256 77bcbbdff92d8a543ffcadb908fff232110e376f09c7e6f3954d6ebf281e44cd
+- Measures: measures/a06.json sha256 ae117824069ac5c27c4d81b7eb6d8b1a01fb0873369da2c9048e58d204c3ab41
+- Final ranking: rankings/a06.final.json sha256 25ebb268cf60e1c60812e8151c7bb028c5ef2cd7dddbad0509c07da41488edde
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227
 - Taxonomy: taxonomy/v1.json sha256 6f40a44386d2e633aa1808cc786483039990b5fec9b80c856b53211a00836924
 - Claims removed: 0

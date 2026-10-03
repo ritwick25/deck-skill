@@ -93,9 +93,9 @@ None.
 dv41, dv06, dv27, dv08, dv57, dv17
 
 ## Provenance
-- Source: cards/src/a31.json sha256 e013507799c4d0b41637a5babc832403087f39d2464818b35702fd036fb656bc
-- Measures: measures/a31.json sha256 e72051ef3db82338bc2dea97c1d3e9269e6277a57056c1992ebfa3b2b49d411c
-- Final ranking: rankings/a31.final.json sha256 0791297fe684cc259b87d4dde74113202aed0f03cc476dbb5a5cf8f8989b4ad5
+- Source: cards/src/a31.json sha256 fa637bcbce90b3a2d883bf199679e76e91162fb094975ea006f5bd02aeea5b76
+- Measures: measures/a31.json sha256 081313dbff44db2b25ed67ced3d084086622cea7b40fdb00e5652ce340330b46
+- Final ranking: rankings/a31.final.json sha256 aff043dd85342d8898df41e59922e9c8d9702da77cee283142648cdac245c275
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227
 - Taxonomy: taxonomy/v1.json sha256 6f40a44386d2e633aa1808cc786483039990b5fec9b80c856b53211a00836924
 - Claims removed: 0
