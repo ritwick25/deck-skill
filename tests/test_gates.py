@@ -94,8 +94,8 @@ class TestGolden(Golden):
     def test_seven_slides_tagged_in_both_homes(self):
         rows = tag.read(str(self.deck))
         self.assertEqual([r["tag"] for r in rows],
-                         ["cover:title-only", "pillars:icon-row", "process-flow:chevron-row", "stat-hero:stat-row",
-                          "matrix:table", "from-to:two-panel", "closing:line"])
+                         ["cover:title-only", "offering-pillars:icon-row", "process-flow:chevron-row", "headline-figures:stat-row",
+                          "reference-table:table", "from-to-shift:two-panel", "closing:line"])
         self.assertTrue(all(r["source"] == "custom" for r in rows))
         # without docProps/custom.xml every tag still reads from the slide's cSld name
         bare = self.copy("bare")

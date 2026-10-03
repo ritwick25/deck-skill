@@ -9,10 +9,21 @@ from __future__ import annotations
 
 import sys
 
-from _shared import FAIL, Finding, bx, cards, cli, kids_of
+from _shared import FAIL, Finding, bx, cards, cli, ink_box, kids_of
 
 GATE, TITLE = "P08", "balance"
 TOL = 0.12
+
+
+SLACK_CREDIT = 0.15     # the kit sizes a text frame at its measured height x 1.15 (deckkit.measure.SLACK)
+
+
+def _bottom(L):
+    """Where a kid's content ends: its ink, credited with the kit's fitting slack, never past its frame. A frame
+    sized to its text reads as content; a frame stretched past its text is air (the half-empty card)."""
+    ix0, iy0, ix1, iy1 = ink_box(L)
+    fb = bx(L)[3]
+    return min(fb, iy1 + SLACK_CREDIT * (iy1 - iy0) + 0.02)
 
 
 def _air(c, s):
@@ -20,8 +31,8 @@ def _air(c, s):
     if len(kids) < 2:
         return None
     l, t, r, b = c["box"]
-    top = min(bx(L)[1] for L in kids) - t
-    bot = b - max(bx(L)[3] for L in kids)
+    top = min(ink_box(L)[1] for L in kids) - t
+    bot = b - max(_bottom(L) for L in kids)
     return top, bot
 
 

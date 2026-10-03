@@ -253,6 +253,24 @@ def p08_topheavy(p, w):
     with_prs(p, fn)
 
 
+def p08_stretched(p, w):
+    """The half-empty card the frame test missed: two lines of text in a frame stretched to the card's foot."""
+    from deckkit import prims, text
+    from deckkit.canvas import Box
+    from deckkit.text import Para, Run
+    th = theme()
+
+    def fn(prs):
+        s = prs.slides[6]
+        with prims.use(th):
+            prims.card(s, Box(1.0, 4.3, 4.0, 1.8), fill="card", line="hairline", name="stretch.card")
+            text.textbox(s, Box(1.2, 4.45, 3.6, 0.25), [Para(Run("Pilot owner", role="ink-deep", bold=True))],
+                         "stretch.text.1", th, size=11.0)
+            text.textbox(s, Box(1.2, 4.75, 3.6, 1.2), [Para(Run("Named per region", role="ink"))],
+                         "stretch.text.2", th, size=11.0)
+    with_prs(p, fn)
+
+
 def _add_text(prs, i, box, t, pt, name, role="ink", bold=False):
     from deckkit import text
     from deckkit.canvas import Box
@@ -667,7 +685,7 @@ def p15_lookalike(p, w):
         dst = prs.slides.add_slide(src.slide_layout)
         for el in list(src.shapes._spTree)[2:]:
             dst.shapes._spTree.append(etree.fromstring(etree.tostring(el)))
-        dst._element.find(P + "cSld").set("name", "decision-flow:chevron-row")
+        dst._element.find(P + "cSld").set("name", "decision-logic:chevron-row")
         lst = prs.part._element.find(P + "sldIdLst")
         new = lst[-1]
         lst.remove(new)
@@ -679,7 +697,7 @@ def p15_family(p, w):
     def fn(r):
         for prop in r:
             nm = prop.get("name")
-            v = {"deckkit:258": "team:grid", "deckkit:259": "the-ask:numbered-row"}.get(nm)
+            v = {"deckkit:258": "team-roster:grid", "deckkit:259": "the-ask:numbered-row"}.get(nm)
             if v:
                 prop[0].text = v
     edit_part(p, "docProps/custom.xml", fn)
@@ -958,10 +976,10 @@ def p24_top_heavy(p, w):
 
 
 def p15_share(p, w):
-    """Slides 2, 4 and 6 all in the Columns family (three archetypes, never adjacent): 60% of the content slides."""
+    """Slides 2, 4 and 6 all in the Parallel columns family (three archetypes, never adjacent): 60% of the content slides."""
     def fn(r):
         for prop in r:
-            v = {"deckkit:259": "context-problem:split", "deckkit:261": "team:grid"}.get(prop.get("name"))
+            v = {"deckkit:259": "problem-framing:split", "deckkit:261": "team-roster:grid"}.get(prop.get("name"))
             if v:
                 prop[0].text = v
     edit_part(p, "docProps/custom.xml", fn)
@@ -1301,7 +1319,7 @@ def p24_cover_as_content(p, w):
     def fn(r):
         for prop in r:
             if (prop[0].text or "").startswith("cover:"):
-                prop[0].text = "pillars:icon-row"
+                prop[0].text = "offering-pillars:icon-row"
     edit_part(p, "docProps/custom.xml", fn)
 
 
@@ -1327,6 +1345,8 @@ PLANTERS = [
             "first content at"),
     Planter("ragged-under-cards", "P07", "the same drop with the cards raised above their content in z-order",
             p07_ragged_under, "first content at"),
+    Planter("stretched-frame", "P08", "a card whose last text frame is stretched to its foot around one line",
+            p08_stretched, "top-heavy"),
     Planter("top-heavy", "P08", "a card whose content sits at its top with an inch of air below", p08_topheavy,
             "top-heavy"),
     Planter("foot-band", "P09", "a full-width band along the foot with a sentence on it", p09_band, "foot band"),
@@ -1367,10 +1387,10 @@ PLANTERS = [
             "appears 2 times"),
     Planter("lookalike", "P15", "the process slide duplicated next to itself under another archetype", p15_lookalike,
             "looks like slide"),
-    Planter("same-family-run", "P15", "three slides in a row retagged into one family", p15_family, "are all Columns"),
+    Planter("same-family-run", "P15", "three slides in a row retagged into one family", p15_family, "are all Parallel columns"),
     Planter("three-tables", "P15", "the table slide copied twice beside itself", p15_tables, "table slides in a row"),
-    Planter("family-share", "P15", "slides 2, 4 and 6 retagged into Columns (60% of content slides)", p15_share,
-            "content slides are Columns"),
+    Planter("family-share", "P15", "slides 2, 4 and 6 retagged into Parallel columns (60% of content slides)", p15_share,
+            "content slides are Parallel columns"),
     Planter("magenta-fill", "P16", "a card filled with srgb FF00FF", p16_magenta, "FF00FF"),
     Planter("mod-not-role", "P16", "a card fill at bg1 lumMod 93000, no role", p16_mod, "not a theme role"),
     Planter("theme-hex-fill", "P16", "a card filled with srgb D91E18, the accent1 slot's hex", p16_theme_hex,

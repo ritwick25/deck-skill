@@ -110,3 +110,13 @@ The library taxonomy v1 is frozen: 10 visual families (Frame, Parallel columns, 
 layers, Split, Two-dimensional field, Radial hub, Axis of time or maturity, Numbers-led, Exhibit-led), 45
 archetypes, 59 devices. The variety gate counts these families. The form decides the family; the job
 decides the archetype.
+
+## 2026-10-03 · RULING 9 — Lean finish (user, on token budget); amends rulings 3 and 4
+- Deferred: the sanitised device library (ruling 3), per-archetype composers and the generated HTML twin
+  (ruling 4). Claude builds slides from each archetype card's measured anatomy with the kit's primitives,
+  text writer, glyphs and gates. The kit's clone tool still serves clone-and-retext of the user's OWN
+  accepted decks (CLAUDE.md §6); raw reference slides are still never cloned into client work.
+- Exemplars: the 12 archetypes ranked comparatively keep their rankings; the other 33 take their top
+  exemplars by script (fit, then catalogue quality, round-robin across decks).
+- Cards: one agent per family writes its archetypes' cards; numbers stay script-measured and cited by key.
+- The deferred parts can resume later from the saved runs; nothing built is thrown away.

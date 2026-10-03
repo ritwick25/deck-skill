@@ -8,11 +8,11 @@ breakage per copy; a gate that does not go red on its plant has proved nothing.
 
 Slides (archetype:variant, family):
   1 cover:title-only            Frame     one two-tone title, nothing else
-  2 pillars:icon-row            Columns   three cards, each a glyph, a heading, a measured body and five rows
+  2 offering-pillars:icon-row   Parallel columns   three cards, each a glyph, a heading, a measured body and five rows
   3 process-flow:chevron-row    Sequence  a chevron header, four step cards, three arrows card to card
-  4 stat-hero:stat-row          Number    four stat cards (measured, delivered, illustrative, target), a glyph each
-  5 matrix:table                Field     a readiness table and two side cards
-  6 from-to:two-panel           Split     two zones, one arrow between them
+  4 headline-figures:stat-row   Numbers-led   four stat cards (measured, delivered, illustrative, target), a glyph each
+  5 reference-table:table      Two-dimensional field  a readiness table and two side cards
+  6 from-to-shift:two-panel     Split     two zones, one arrow between them
   7 closing:line                Frame     the closing line
 
 Every content slide fills the canvas content band (gate P24): its structure runs from just inside the band's top
@@ -244,7 +244,7 @@ RULE_GAP = 0.20       # air above and below the hairline that separates a card's
 
 
 def s_pillars(prs, th):
-    s = new_slide(prs, "pillars", "icon-row")
+    s = new_slide(prs, "offering-pillars", "icon-row")
     text.title(s, "Three capabilities carry the regional planning model", ["Three capabilities"], WIDE, th)
     cols = Box(C.x, TOP, C.w, BOTTOM - TOP).split_cols(3, 0.30)
     iw = cols[0].w - 2 * PAD
@@ -332,7 +332,7 @@ STAT_ICON = 0.60
 
 
 def s_stats(prs, th):
-    s = new_slide(prs, "stat-hero", "stat-row")
+    s = new_slide(prs, "headline-figures", "stat-row")
     text.title(s, "Planning cycle time falls once regions share one view", ["cycle time"], WIDE, th)
     cols = Box(C.x, TOP, C.w, BOTTOM - TOP).split_cols(4, 0.40)
     iw = cols[0].w - 2 * PAD
@@ -373,7 +373,7 @@ NEXT = [("calendar-check", "Wave two", "Lakeside and Plains, once their planners
 
 
 def s_table(prs, th):
-    s = new_slide(prs, "matrix", "table")
+    s = new_slide(prs, "reference-table", "table")
     text.title(s, "Two regions are ready for the pilot this quarter", ["Two regions"], WIDE, th)
     _gf, _th = table(s, C.x, TOP, [3.0, 2.6, 2.6], REGIONS, th, "readiness.table", height=BOTTOM - TOP)
     x = C.x + 8.2 + 0.40
@@ -404,7 +404,7 @@ PANELS = [
 
 
 def s_fromto(prs, th):
-    s = new_slide(prs, "from-to", "two-panel")
+    s = new_slide(prs, "from-to-shift", "two-panel")
     text.title(s, "Weekly reconciliation gives way to one governed view", ["one governed view"], WIDE, th)
     cols = Box(C.x, TOP, C.w, BOTTOM - TOP).split_cols(2, 0.90)
     pad = 0.25

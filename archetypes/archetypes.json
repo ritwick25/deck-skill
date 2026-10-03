@@ -1,0 +1,1547 @@
+{
+ "about": "Published from the deck library export by scripts/build_archetypes.py. Read by gates P10, P13, P15 and by scripts/find.py. Families are visual; budgets are words on glass per kit canvas.",
+ "taxonomy": {
+  "version": "v1",
+  "sha256": "6f40a44386d2e633aa1808cc786483039990b5fec9b80c856b53211a00836924"
+ },
+ "library": "/Users/Nikunj/Codes/Decks-For-Visuals/library",
+ "families": {
+  "f01": "Frame",
+  "f02": "Parallel columns",
+  "f03": "Directed sequence",
+  "f04": "Stacked layers",
+  "f05": "Split",
+  "f06": "Two-dimensional field",
+  "f07": "Radial hub",
+  "f08": "Axis of time or maturity",
+  "f09": "Numbers-led",
+  "f10": "Exhibit-led"
+ },
+ "archetypes": {
+  "cover": {
+   "id": "a01",
+   "name": "Cover",
+   "family": "Frame",
+   "family_id": "f01",
+   "definition": "Opens the deck: names the engagement, the parties and the date in one title stack set against an image field, a brand panel or a welcome row of the people attending.",
+   "budget": {
+    "wide": {
+     "budget": 30,
+     "floor": 20,
+     "n": 3,
+     "p25": 22.5,
+     "p75": 30
+    },
+    "std": {
+     "budget": 20,
+     "floor": 0,
+     "n": 2,
+     "p25": 9.5,
+     "p75": 10.5
+    }
+   },
+   "exemplars": [
+    "d18-s001",
+    "d01-s001",
+    "d11-s001",
+    "d13-s001",
+    "d17-s001"
+   ],
+   "anti": [
+    "d15-s001",
+    "d08-s001",
+    "d14-s001"
+   ],
+   "sheet": "export/sheets/a01.png",
+   "card": "archetypes/cover.md",
+   "members": 18
+  },
+  "agenda": {
+   "id": "a02",
+   "name": "Agenda",
+   "family": "Frame",
+   "family_id": "f01",
+   "definition": "Lists the parts of the session or document once, in order, as numbered rows, bars or tiles, so the audience holds the whole route before it starts.",
+   "budget": {
+    "wide": {
+     "budget": 130,
+     "floor": 80,
+     "n": 2,
+     "p25": 84,
+     "p75": 124
+    },
+    "std": {
+     "budget": 50,
+     "floor": 30,
+     "n": 3,
+     "p25": 31.5,
+     "p75": 49
+    }
+   },
+   "exemplars": [
+    "d10-s002",
+    "d16-s003",
+    "d13-s002",
+    "d14-s012",
+    "d02-s002"
+   ],
+   "anti": [
+    "d01-s003",
+    "d09-s003",
+    "d12-s049"
+   ],
+   "sheet": "export/sheets/a02.png",
+   "card": "archetypes/agenda.md",
+   "members": 11
+  },
+  "section-divider": {
+   "id": "a03",
+   "name": "Section divider",
+   "family": "Frame",
+   "family_id": "f01",
+   "definition": "Marks the turn into a new part with a numeral, a part name and one graphic anchor, and almost no other words. Dividers in one deck share one frame and advance only the number.",
+   "budget": {
+    "wide": {
+     "budget": 40,
+     "floor": 0,
+     "n": 3,
+     "p25": 2.5,
+     "p75": 35
+    },
+    "std": {
+     "budget": 10,
+     "floor": 0,
+     "n": 2,
+     "p25": 5,
+     "p75": 5
+    }
+   },
+   "exemplars": [
+    "d02-s003",
+    "d12-s003",
+    "d13-s003",
+    "d01-s004",
+    "d03-s004"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a03.png",
+   "card": "archetypes/section-divider.md",
+   "members": 65
+  },
+  "closing": {
+   "id": "a04",
+   "name": "Closing",
+   "family": "Frame",
+   "family_id": "f01",
+   "definition": "Ends the deck with one last line: a sign-off with contact detail, an attributed testimonial beside it, or a single closing claim, and no new argument.",
+   "budget": {
+    "wide": {
+     "budget": 40,
+     "floor": 30,
+     "n": 1,
+     "p25": 32,
+     "p75": 32
+    },
+    "std": {
+     "budget": 60,
+     "floor": 50,
+     "n": 2,
+     "p25": 57,
+     "p75": 57
+    }
+   },
+   "exemplars": [
+    "d16-s025",
+    "d18-s025",
+    "d12-s020"
+   ],
+   "anti": [
+    "d03-s049",
+    "d01-s096"
+   ],
+   "sheet": "export/sheets/a04.png",
+   "card": "archetypes/closing.md",
+   "members": 14
+  },
+  "problem-framing": {
+   "id": "a05",
+   "name": "Problem framing",
+   "family": "Parallel columns",
+   "family_id": "f02",
+   "definition": "Makes the audience accept the problem before any answer: the situation, its pressures or its causes as parallel headed columns or cards, often over a shared band of consequences or figures.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 230,
+     "n": 4,
+     "p25": 234,
+     "p75": 298.75
+    },
+    "std": {
+     "budget": 150,
+     "floor": 70,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d01-s063",
+    "d07-s002",
+    "d03-s007",
+    "d01-s064",
+    "d15-s002"
+   ],
+   "anti": [
+    "d01-s012",
+    "d07-s003"
+   ],
+   "sheet": "export/sheets/a05.png",
+   "card": "archetypes/problem-framing.md",
+   "members": 9
+  },
+  "principles": {
+   "id": "a06",
+   "name": "Principles",
+   "family": "Parallel columns",
+   "family_id": "f02",
+   "definition": "States the beliefs or design decisions that govern the solution as numbered peer cards, each with a short rationale, so the audience agrees with how the work will be done.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 180,
+     "n": 2,
+     "p25": 181,
+     "p75": 287
+    },
+    "std": {
+     "budget": 200,
+     "floor": 110,
+     "n": 3,
+     "p25": 114,
+     "p75": 193.5
+    }
+   },
+   "exemplars": [
+    "d01-s024",
+    "d01-s086",
+    "d13-s009",
+    "d12-s056",
+    "d13-s028"
+   ],
+   "anti": [
+    "d13-s041",
+    "d13-s013"
+   ],
+   "sheet": "export/sheets/a06.png",
+   "card": "archetypes/principles.md",
+   "members": 7
+  },
+  "why-us": {
+   "id": "a07",
+   "name": "Why us",
+   "family": "Parallel columns",
+   "family_id": "f02",
+   "definition": "Names the few reasons to choose the vendor as numbered pillars or panels, each backed by a short proof, so the audience can repeat the reasons afterwards.",
+   "budget": {
+    "wide": {
+     "budget": 220,
+     "floor": 190,
+     "n": 2,
+     "p25": 194.75,
+     "p75": 216.25
+    },
+    "std": {
+     "budget": 130,
+     "floor": 60,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d01-s026",
+    "d16-s023",
+    "d01-s027"
+   ],
+   "anti": [
+    "d04-s006",
+    "d09-s007"
+   ],
+   "sheet": "export/sheets/a07.png",
+   "card": "archetypes/why-us.md",
+   "members": 6
+  },
+  "offering-pillars": {
+   "id": "a08",
+   "name": "Offering pillars",
+   "family": "Parallel columns",
+   "family_id": "f02",
+   "definition": "Shows what the offer is made of as two to five peer panels, tiers or bands, each naming one part the client would buy and what it brings.",
+   "budget": {
+    "wide": {
+     "budget": 220,
+     "floor": 110,
+     "n": 5,
+     "p25": 117,
+     "p75": 213
+    },
+    "std": {
+     "budget": 130,
+     "floor": 60,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d03-s037",
+    "d01-s029",
+    "d15-s003",
+    "d01-s041",
+    "d01-s049"
+   ],
+   "anti": [
+    "d13-s045",
+    "d09-s040",
+    "d02-s016"
+   ],
+   "sheet": "export/sheets/a08.png",
+   "card": "archetypes/offering-pillars.md",
+   "members": 9
+  },
+  "catalogue": {
+   "id": "a09",
+   "name": "Catalogue",
+   "family": "Parallel columns",
+   "family_id": "f02",
+   "definition": "Lists every agent, product or accelerator on offer as uniform entries carrying the same fields, such as name, type, purpose and a link, so the audience can scan the full set.",
+   "budget": {
+    "wide": {
+     "budget": 210,
+     "floor": 150,
+     "n": 5,
+     "p25": 152,
+     "p75": 202
+    },
+    "std": {
+     "budget": 120,
+     "floor": 60,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d01-s030",
+    "d04-s007",
+    "d18-s023",
+    "d02-s005",
+    "d01-s033"
+   ],
+   "anti": [
+    "d12-s030",
+    "d01-s115",
+    "d07-s008"
+   ],
+   "sheet": "export/sheets/a09.png",
+   "card": "archetypes/catalogue.md",
+   "members": 16
+  },
+  "team-roster": {
+   "id": "a10",
+   "name": "Team roster",
+   "family": "Parallel columns",
+   "family_id": "f02",
+   "definition": "Introduces the people who will do the work: portraits with name and role in a row or grid, or one profile page per lead with a sectioned biography.",
+   "budget": {
+    "wide": {
+     "budget": 110,
+     "floor": 70,
+     "n": 3,
+     "p25": 73.5,
+     "p75": 102.5
+    },
+    "std": {
+     "budget": 250,
+     "floor": 330,
+     "n": 2,
+     "p25": 339.75,
+     "p75": 373.25
+    }
+   },
+   "exemplars": [
+    "d03-s002",
+    "d01-s010",
+    "d01-s009",
+    "d09-s052",
+    "d09-s053"
+   ],
+   "anti": [
+    "d01-s008",
+    "d16-s024",
+    "d09-s051"
+   ],
+   "sheet": "export/sheets/a10.png",
+   "card": "archetypes/team-roster.md",
+   "members": 8
+  },
+  "case-wall": {
+   "id": "a11",
+   "name": "Case wall",
+   "family": "Parallel columns",
+   "family_id": "f02",
+   "definition": "Shows several delivered engagements at once, each reduced to a headline and an outcome figure, so the breadth of proof reads at a glance.",
+   "budget": {
+    "wide": {
+     "budget": 190,
+     "floor": 170,
+     "n": 2,
+     "p25": 170.5,
+     "p75": 183.5
+    },
+    "std": {
+     "budget": 220,
+     "floor": 170,
+     "n": 3,
+     "p25": 176.5,
+     "p75": 217.5
+    }
+   },
+   "exemplars": [
+    "d16-s014",
+    "d03-s011",
+    "d09-s056",
+    "d07-s011",
+    "d01-s046"
+   ],
+   "anti": [
+    "d09-s011",
+    "d09-s009",
+    "d04-s027",
+    "d04-s009"
+   ],
+   "sheet": "export/sheets/a11.png",
+   "card": "archetypes/case-wall.md",
+   "members": 11
+  },
+  "the-ask": {
+   "id": "a12",
+   "name": "The ask",
+   "family": "Parallel columns",
+   "family_id": "f02",
+   "definition": "States the decisions the audience is asked to make now, one verb-led card each, and the dated milestones that follow, so the meeting ends in a commitment.",
+   "budget": {
+    "wide": {
+     "budget": 210,
+     "floor": 200,
+     "n": 1,
+     "p25": 202,
+     "p75": 202
+    },
+    "std": {
+     "budget": 120,
+     "floor": 60,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d01-s053",
+    "d12-s045"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a12.png",
+   "card": "archetypes/the-ask.md",
+   "members": 3
+  },
+  "process-flow": {
+   "id": "a13",
+   "name": "Process flow",
+   "family": "Directed sequence",
+   "family_id": "f03",
+   "definition": "Shows how the proposed solution runs, step by step in reading order, with what happens and what is checked at each step, so the audience believes it works end to end.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 190,
+     "n": 4,
+     "p25": 195.75,
+     "p75": 285
+    },
+    "std": {
+     "budget": 150,
+     "floor": 70,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d01-s042",
+    "d03-s018",
+    "d15-s021",
+    "d18-s014",
+    "d12-s046"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a13.png",
+   "card": "archetypes/process-flow.md",
+   "members": 16
+  },
+  "as-is-process": {
+   "id": "a14",
+   "name": "As-is process",
+   "family": "Directed sequence",
+   "family_id": "f03",
+   "definition": "Walks today's process stage by stage and pins each pain to the stage where it occurs, so the audience sees where the work breaks before any fix is shown.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 220,
+     "n": 3,
+     "p25": 225,
+     "p75": 328.5
+    },
+    "std": {
+     "budget": 190,
+     "floor": 130,
+     "n": 2,
+     "p25": 139,
+     "p75": 189
+    }
+   },
+   "exemplars": [
+    "d10-s004",
+    "d15-s004",
+    "d01-s066",
+    "d13-s030",
+    "d01-s067"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a14.png",
+   "card": "archetypes/as-is-process.md",
+   "members": 5
+  },
+  "input-process-output": {
+   "id": "a15",
+   "name": "Input, process, output",
+   "family": "Directed sequence",
+   "family_id": "f03",
+   "definition": "Frames the mechanism as three panels read left to right: what goes in, the numbered method in the widest middle panel, and what comes out.",
+   "budget": {
+    "wide": {
+     "budget": 240,
+     "floor": 210,
+     "n": 2,
+     "p25": 211,
+     "p75": 235
+    },
+    "std": {
+     "budget": 190,
+     "floor": 90,
+     "n": 3,
+     "p25": 95.5,
+     "p75": 184.5
+    }
+   },
+   "exemplars": [
+    "d02-s010",
+    "d10-s005",
+    "d11-s003",
+    "d13-s031",
+    "d02-s011"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a15.png",
+   "card": "archetypes/input-process-output.md",
+   "members": 10
+  },
+  "decision-logic": {
+   "id": "a16",
+   "name": "Decision logic",
+   "family": "Directed sequence",
+   "family_id": "f03",
+   "definition": "Shows the rules that route each case to an action, a ladder of yes or no questions or a split into disposition lanes, so the audience sees the system decides predictably and can be audited.",
+   "budget": {
+    "wide": {
+     "budget": 220,
+     "floor": 150,
+     "n": 2,
+     "p25": 158.5,
+     "p75": 213.5
+    },
+    "std": {
+     "budget": 250,
+     "floor": 250,
+     "n": 3,
+     "p25": 256,
+     "p75": 329
+    }
+   },
+   "exemplars": [
+    "d12-s025",
+    "d03-s028",
+    "d12-s051",
+    "d03-s017",
+    "d12-s052"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a16.png",
+   "card": "archetypes/decision-logic.md",
+   "members": 13
+  },
+  "swimlane-handoff": {
+   "id": "a17",
+   "name": "Swimlane hand-off",
+   "family": "Directed sequence",
+   "family_id": "f03",
+   "definition": "Separates actors into lanes under shared stage headers and draws every hand-off between them, so the audience sees who acts when and where people stay in control.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 330,
+     "n": 2,
+     "p25": 339.25,
+     "p75": 425.75
+    },
+    "std": {
+     "budget": 150,
+     "floor": 70,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d15-s020",
+    "d02-s007",
+    "d12-s015"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a17.png",
+   "card": "archetypes/swimlane-handoff.md",
+   "members": 3
+  },
+  "worked-example": {
+   "id": "a18",
+   "name": "Worked example",
+   "family": "Directed sequence",
+   "family_id": "f03",
+   "definition": "Proves the mechanism on one named instance, a record, a case or a persona, traced hop by hop with its literal values, payloads or outcomes, so a technical reader can check rather than trust.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 210,
+     "n": 4,
+     "p25": 213.75,
+     "p75": 374.25
+    },
+    "std": {
+     "budget": 150,
+     "floor": 70,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d01-s084",
+    "d18-s016",
+    "d13-s011",
+    "d15-s024",
+    "d01-s076"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a18.png",
+   "card": "archetypes/worked-example.md",
+   "members": 28
+  },
+  "engagement-model": {
+   "id": "a19",
+   "name": "Engagement model",
+   "family": "Directed sequence",
+   "family_id": "f03",
+   "definition": "Shows how the vendor will run the engagement: the method steps or workstreams, with the activities, inputs and deliverables of each, so the audience trusts the way of working.",
+   "budget": {
+    "wide": {
+     "budget": 180,
+     "floor": 130,
+     "n": 4,
+     "p25": 139.25,
+     "p75": 171.5
+    },
+    "std": {
+     "budget": 110,
+     "floor": 50,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d02-s015",
+    "d03-s027",
+    "d04-s022",
+    "d09-s041",
+    "d01-s039"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a19.png",
+   "card": "archetypes/engagement-model.md",
+   "members": 17
+  },
+  "layered-architecture": {
+   "id": "a20",
+   "name": "Layered architecture",
+   "family": "Stacked layers",
+   "family_id": "f04",
+   "definition": "Stacks the platform as full-width layers from sources to consumers, each naming what it holds, so the audience sees every part has a place and depends on the one beneath.",
+   "budget": {
+    "wide": {
+     "budget": 240,
+     "floor": 190,
+     "n": 2,
+     "p25": 192.5,
+     "p75": 239.5
+    },
+    "std": {
+     "budget": 190,
+     "floor": 130,
+     "n": 3,
+     "p25": 138.5,
+     "p75": 186
+    }
+   },
+   "exemplars": [
+    "d01-s054",
+    "d07-s004",
+    "d09-s036",
+    "d12-s008",
+    "d15-s031"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a20.png",
+   "card": "archetypes/layered-architecture.md",
+   "members": 18
+  },
+  "solution-architecture": {
+   "id": "a21",
+   "name": "Solution architecture",
+   "family": "Stacked layers",
+   "family_id": "f04",
+   "definition": "Places the components in tab-headed zones inside a drawn boundary, sources outside one edge, consumers outside the other and a platform band beneath, so every crossing reads as a deliberate decision.",
+   "budget": {
+    "wide": {
+     "budget": 230,
+     "floor": 80,
+     "n": 4,
+     "p25": 85.75,
+     "p75": 221.75
+    },
+    "std": {
+     "budget": 130,
+     "floor": 60,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d03-s026",
+    "d06-s002",
+    "d01-s050",
+    "d04-s016",
+    "d08-s007"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a21.png",
+   "card": "archetypes/solution-architecture.md",
+   "members": 24
+  },
+  "governance-model": {
+   "id": "a22",
+   "name": "Governance model",
+   "family": "Stacked layers",
+   "family_id": "f04",
+   "definition": "Sets out the forums, cadences and escalation path of the joint engagement as tiers read top to bottom, keyed across to who attends and what each decides.",
+   "budget": {
+    "wide": {
+     "budget": 220,
+     "floor": 150,
+     "n": 3,
+     "p25": 157,
+     "p75": 213.5
+    },
+    "std": {
+     "budget": 130,
+     "floor": 120,
+     "n": 2,
+     "p25": 120,
+     "p75": 126
+    }
+   },
+   "exemplars": [
+    "d01-s093",
+    "d03-s044",
+    "d09-s049",
+    "d13-s020",
+    "d01-s094"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a22.png",
+   "card": "archetypes/governance-model.md",
+   "members": 9
+  },
+  "from-to-shift": {
+   "id": "a23",
+   "name": "From-to shift",
+   "family": "Split",
+   "family_id": "f05",
+   "definition": "Draws the current state and the target state of the same subject side by side or stacked, with the change carried by a wedge, a bridge or paired rows, so the shift itself is the message.",
+   "budget": {
+    "wide": {
+     "budget": 230,
+     "floor": 150,
+     "n": 3,
+     "p25": 157,
+     "p75": 220.5
+    },
+    "std": {
+     "budget": 100,
+     "floor": 40,
+     "n": 2,
+     "p25": 49.75,
+     "p75": 97.25
+    }
+   },
+   "exemplars": [
+    "d08-s004",
+    "d12-s005",
+    "d15-s005",
+    "d18-s021",
+    "d13-s006"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a23.png",
+   "card": "archetypes/from-to-shift.md",
+   "members": 12
+  },
+  "options-comparison": {
+   "id": "a24",
+   "name": "Options comparison",
+   "family": "Split",
+   "family_id": "f05",
+   "definition": "Sets two or more alternatives against the same criteria or on one shared axis, with the recommended one marked, so the audience sees why it wins.",
+   "budget": {
+    "wide": {
+     "budget": 200,
+     "floor": 90,
+     "n": 4,
+     "p25": 93.25,
+     "p75": 198.75
+    },
+    "std": {
+     "budget": 120,
+     "floor": 60,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d01-s081",
+    "d15-s029",
+    "d09-s014",
+    "d18-s005",
+    "d01-s037"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a24.png",
+   "card": "archetypes/options-comparison.md",
+   "members": 6
+  },
+  "gap-analysis": {
+   "id": "a25",
+   "name": "Gap analysis",
+   "family": "Split",
+   "family_id": "f05",
+   "definition": "Sets what exists against what is missing, or the visible symptom against the hidden cause, in opposed zones, so the audience sees the gap the proposal fills.",
+   "budget": {
+    "wide": {
+     "budget": 150,
+     "floor": 140,
+     "n": 1,
+     "p25": 143,
+     "p75": 143
+    },
+    "std": {
+     "budget": 250,
+     "floor": 290,
+     "n": 2,
+     "p25": 293,
+     "p75": 373
+    }
+   },
+   "exemplars": [
+    "d16-s013",
+    "d18-s003",
+    "d16-s016"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a25.png",
+   "card": "archetypes/gap-analysis.md",
+   "members": 3
+  },
+  "case-study": {
+   "id": "a26",
+   "name": "Case study",
+   "family": "Split",
+   "family_id": "f05",
+   "definition": "Tells one delivered engagement on one page in a fixed order: the context and need, what was built as a small flow or stack, and the reported outcomes in a solid figure rail.",
+   "budget": {
+    "wide": {
+     "budget": 220,
+     "floor": 190,
+     "n": 2,
+     "p25": 196.75,
+     "p75": 218.25
+    },
+    "std": {
+     "budget": 170,
+     "floor": 130,
+     "n": 3,
+     "p25": 136,
+     "p75": 165
+    }
+   },
+   "exemplars": [
+    "d01-s098",
+    "d09-s057",
+    "d13-s027",
+    "d12-s024",
+    "d01-s099"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a26.png",
+   "card": "archetypes/case-study.md",
+   "members": 22
+  },
+  "deep-dive": {
+   "id": "a27",
+   "name": "Deep dive with brief rail",
+   "family": "Split",
+   "family_id": "f05",
+   "definition": "Explains one use case, method or mechanism on one page: a wide zone holds its diagram or exhibit, and a narrow rail restates the problem, the approach and the decision it supports.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 120,
+     "n": 5,
+     "p25": 124,
+     "p75": 301
+    },
+    "std": {
+     "budget": 150,
+     "floor": 70,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d01-s015",
+    "d15-s008",
+    "d18-s026",
+    "d01-s016",
+    "d15-s013"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a27.png",
+   "card": "archetypes/deep-dive.md",
+   "members": 25
+  },
+  "executive-summary": {
+   "id": "a28",
+   "name": "Executive summary",
+   "family": "Split",
+   "family_id": "f05",
+   "definition": "Compresses the whole proposal onto one page partitioned into labelled cells, the ask, the answer, the scope, the figures and the assumptions, so a reader who sees nothing else can agree to it.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 380,
+     "n": 1,
+     "p25": 380,
+     "p75": 380
+    },
+    "std": {
+     "budget": 250,
+     "floor": 120,
+     "n": 4,
+     "p25": 124.25,
+     "p75": 265.25
+    }
+   },
+   "exemplars": [
+    "d09-s013",
+    "d16-s002",
+    "d03-s005",
+    "d10-s003",
+    "d13-s004"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a28.png",
+   "card": "archetypes/executive-summary.md",
+   "members": 8
+  },
+  "scope-and-assumptions": {
+   "id": "a29",
+   "name": "Scope and assumptions",
+   "family": "Split",
+   "family_id": "f05",
+   "definition": "Fences the commitment: what is in and what is out set against each other, with the assumptions and dependencies it rests on, so nothing is promised by omission.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 150,
+     "n": 5,
+     "p25": 156,
+     "p75": 308
+    },
+    "std": {
+     "budget": 250,
+     "floor": 150,
+     "n": 5,
+     "p25": 156,
+     "p75": 308
+    }
+   },
+   "exemplars": [
+    "d09-s063",
+    "d10-s013",
+    "d13-s012",
+    "d12-s031",
+    "d10-s014"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a29.png",
+   "card": "archetypes/scope-and-assumptions.md",
+   "members": 10
+  },
+  "use-case-map": {
+   "id": "a30",
+   "name": "Use-case map",
+   "family": "Two-dimensional field",
+   "family_id": "f06",
+   "definition": "Places many use cases or agents on the client's value chain, functions or phases, so the audience sees coverage and where each one acts.",
+   "budget": {
+    "wide": {
+     "budget": 150,
+     "floor": 90,
+     "n": 2,
+     "p25": 99.25,
+     "p75": 147.75
+    },
+    "std": {
+     "budget": 180,
+     "floor": 130,
+     "n": 3,
+     "p25": 130.5,
+     "p75": 174.5
+    }
+   },
+   "exemplars": [
+    "d01-s014",
+    "d09-s035",
+    "d12-s012",
+    "d07-s007",
+    "d01-s065"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a30.png",
+   "card": "archetypes/use-case-map.md",
+   "members": 9
+  },
+  "coverage-matrix": {
+   "id": "a31",
+   "name": "Coverage matrix",
+   "family": "Two-dimensional field",
+   "family_id": "f06",
+   "definition": "Crosses two lists, such as owners by duties, phases by domains or stages by terms, so every cell states what applies where.",
+   "budget": {
+    "wide": {
+     "budget": 240,
+     "floor": 130,
+     "n": 3,
+     "p25": 137,
+     "p75": 235
+    },
+    "std": {
+     "budget": 250,
+     "floor": 210,
+     "n": 2,
+     "p25": 219,
+     "p75": 351
+    }
+   },
+   "exemplars": [
+    "d03-s014",
+    "d15-s033",
+    "d16-s012",
+    "d12-s044",
+    "d01-s045"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a31.png",
+   "card": "archetypes/coverage-matrix.md",
+   "members": 10
+  },
+  "prioritization-matrix": {
+   "id": "a32",
+   "name": "Prioritization matrix",
+   "family": "Two-dimensional field",
+   "family_id": "f06",
+   "definition": "Scores or plots many candidates against criteria or on two axes such as value and effort, so the audience can agree which go first.",
+   "budget": {
+    "wide": {
+     "budget": 200,
+     "floor": 180,
+     "n": 5,
+     "p25": 181,
+     "p75": 199
+    },
+    "std": {
+     "budget": 200,
+     "floor": 180,
+     "n": 5,
+     "p25": 181,
+     "p75": 199
+    }
+   },
+   "exemplars": [
+    "d09-s020",
+    "d12-s040",
+    "d16-s018",
+    "d09-s021",
+    "d09-s022"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a32.png",
+   "card": "archetypes/prioritization-matrix.md",
+   "members": 11
+  },
+  "reference-table": {
+   "id": "a33",
+   "name": "Reference table",
+   "family": "Two-dimensional field",
+   "family_id": "f06",
+   "definition": "Lists many items as rows against the same attribute columns, a catalogue, a method map or a value breakdown, so a reader can look up and compare any row.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 220,
+     "n": 5,
+     "p25": 228,
+     "p75": 253
+    },
+    "std": {
+     "budget": 250,
+     "floor": 220,
+     "n": 5,
+     "p25": 228,
+     "p75": 253
+    }
+   },
+   "exemplars": [
+    "d09-s073",
+    "d12-s010",
+    "d16-s010",
+    "d09-s074",
+    "d12-s027"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a33.png",
+   "card": "archetypes/reference-table.md",
+   "members": 8
+  },
+  "hub-and-spoke": {
+   "id": "a34",
+   "name": "Hub and spoke",
+   "family": "Radial hub",
+   "family_id": "f07",
+   "definition": "Puts one core at the centre, a platform, a team or an idea, with its parts arranged around it by spokes, petals, quadrant tiles or rings, so the audience sees what everything depends on.",
+   "budget": {
+    "wide": {
+     "budget": 90,
+     "floor": 60,
+     "n": 2,
+     "p25": 69.25,
+     "p75": 85.75
+    },
+    "std": {
+     "budget": 140,
+     "floor": 60,
+     "n": 3,
+     "p25": 60,
+     "p75": 135
+    }
+   },
+   "exemplars": [
+    "d04-s015",
+    "d09-s025",
+    "d12-s021",
+    "d16-s005",
+    "d03-s047"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a34.png",
+   "card": "archetypes/hub-and-spoke.md",
+   "members": 12
+  },
+  "lifecycle-loop": {
+   "id": "a35",
+   "name": "Lifecycle loop",
+   "family": "Radial hub",
+   "family_id": "f07",
+   "definition": "Places stages on a closed loop around a hub or an open centre, with directional arrows, so the work reads as repeating and improving rather than ending.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 110,
+     "n": 4,
+     "p25": 111.75,
+     "p75": 262
+    },
+    "std": {
+     "budget": 150,
+     "floor": 70,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d01-s044",
+    "d03-s046",
+    "d09-s042",
+    "d15-s030",
+    "d01-s043"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a35.png",
+   "card": "archetypes/lifecycle-loop.md",
+   "members": 7
+  },
+  "convergence-hub": {
+   "id": "a36",
+   "name": "Convergence hub",
+   "family": "Radial hub",
+   "family_id": "f07",
+   "definition": "Draws many feeders, sources or cases converging by arrows onto one shared element, a disc, a card or a band, which then reads out to outcomes, so everything visibly resolves into one contract or implication.",
+   "budget": {
+    "wide": {
+     "budget": 200,
+     "floor": 140,
+     "n": 5,
+     "p25": 141,
+     "p75": 196
+    },
+    "std": {
+     "budget": 120,
+     "floor": 60,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d01-s111",
+    "d02-s008",
+    "d03-s024",
+    "d04-s008",
+    "d18-s009"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a36.png",
+   "card": "archetypes/convergence-hub.md",
+   "members": 13
+  },
+  "gantt": {
+   "id": "a37",
+   "name": "Gantt",
+   "family": "Axis of time or maturity",
+   "family_id": "f08",
+   "definition": "Places workstreams as bars on a dated grid of weeks, months or quarters, with milestones and gate lines crossing it, so the audience sees duration, overlap and the critical dates.",
+   "budget": {
+    "wide": {
+     "budget": 140,
+     "floor": 130,
+     "n": 2,
+     "p25": 134.25,
+     "p75": 138.75
+    },
+    "std": {
+     "budget": 150,
+     "floor": 90,
+     "n": 3,
+     "p25": 91.5,
+     "p75": 147.5
+    }
+   },
+   "exemplars": [
+    "d01-s090",
+    "d03-s040",
+    "d09-s046",
+    "d10-s009",
+    "d12-s019"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a37.png",
+   "card": "archetypes/gantt.md",
+   "members": 16
+  },
+  "phased-roadmap": {
+   "id": "a38",
+   "name": "Phased roadmap",
+   "family": "Axis of time or maturity",
+   "family_id": "f08",
+   "definition": "Breaks delivery into a few phases or waves in time order under a milestone rail or arrow, each repeating one anatomy of scope, deliverables, exit gate and duration.",
+   "budget": {
+    "wide": {
+     "budget": 190,
+     "floor": 120,
+     "n": 3,
+     "p25": 120,
+     "p75": 189
+    },
+    "std": {
+     "budget": 180,
+     "floor": 160,
+     "n": 2,
+     "p25": 164.75,
+     "p75": 176.25
+    }
+   },
+   "exemplars": [
+    "d01-s035",
+    "d02-s004",
+    "d03-s019",
+    "d07-s009",
+    "d09-s038"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a38.png",
+   "card": "archetypes/phased-roadmap.md",
+   "members": 14
+  },
+  "value-horizons": {
+   "id": "a39",
+   "name": "Value horizons",
+   "family": "Axis of time or maturity",
+   "family_id": "f08",
+   "definition": "Shows value, capability or a relationship growing across years or horizons, as year headers over a rising curve, a road or columns that grow denser, so the audience sees the climb and the destination.",
+   "budget": {
+    "wide": {
+     "budget": 200,
+     "floor": 150,
+     "n": 4,
+     "p25": 152.75,
+     "p75": 198.5
+    },
+    "std": {
+     "budget": 120,
+     "floor": 60,
+     "derived": "wide x area ratio"
+    }
+   },
+   "exemplars": [
+    "d01-s068",
+    "d04-s011",
+    "d08-s002",
+    "d12-s013",
+    "d14-s002"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a39.png",
+   "card": "archetypes/value-horizons.md",
+   "members": 13
+  },
+  "maturity-model": {
+   "id": "a40",
+   "name": "Maturity model",
+   "family": "Axis of time or maturity",
+   "family_id": "f08",
+   "definition": "Ranks levels of capability or autonomy from basic to advanced as a staircase, tapering wedge, graded ladder or positioned curve, so the audience places itself on a rung and sees the next one.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 150,
+     "n": 3,
+     "p25": 152,
+     "p75": 276
+    },
+    "std": {
+     "budget": 170,
+     "floor": 120,
+     "n": 2,
+     "p25": 121.5,
+     "p75": 168.5
+    }
+   },
+   "exemplars": [
+    "d01-s013",
+    "d17-s004",
+    "d03-s031",
+    "d07-s006",
+    "d09-s017"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a40.png",
+   "card": "archetypes/maturity-model.md",
+   "members": 10
+  },
+  "headline-figures": {
+   "id": "a41",
+   "name": "Headline figures",
+   "family": "Numbers-led",
+   "family_id": "f09",
+   "definition": "Makes three to six large figures the argument, a finding, a result or the size of the prize, each explained, decomposed into drivers or sourced in the cards beneath.",
+   "budget": {
+    "wide": {
+     "budget": 250,
+     "floor": 170,
+     "n": 3,
+     "p25": 172.5,
+     "p75": 251
+    },
+    "std": {
+     "budget": 140,
+     "floor": 90,
+     "n": 2,
+     "p25": 92,
+     "p75": 140
+    }
+   },
+   "exemplars": [
+    "d03-s008",
+    "d04-s013",
+    "d09-s068",
+    "d12-s004",
+    "d15-s034"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a41.png",
+   "card": "archetypes/headline-figures.md",
+   "members": 5
+  },
+  "commercials": {
+   "id": "a42",
+   "name": "Commercials",
+   "family": "Numbers-led",
+   "family_id": "f09",
+   "definition": "Presents the price and what it buys: a price panel or rail beside blocks for scope, team, duration and terms, or a cost table resolving into the price, so the audience can approve the spend.",
+   "budget": {
+    "wide": {
+     "budget": 110,
+     "floor": 40,
+     "n": 4,
+     "p25": 47.5,
+     "p75": 100.75
+    },
+    "std": {
+     "budget": 110,
+     "floor": 40,
+     "n": 4,
+     "p25": 47.5,
+     "p75": 100.75
+    }
+   },
+   "exemplars": [
+    "d10-s011",
+    "d09-s062",
+    "d13-s022",
+    "d12-s035"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a42.png",
+   "card": "archetypes/commercials.md",
+   "members": 5
+  },
+  "credentials": {
+   "id": "a43",
+   "name": "Credentials",
+   "family": "Numbers-led",
+   "family_id": "f09",
+   "definition": "Shows the firm in facts: scale figures, reach, recognition and sector breadth, stacked as a stat band over a split of the workforce, a map, badges or marks.",
+   "budget": {
+    "wide": {
+     "budget": 170,
+     "floor": 60,
+     "n": 3,
+     "p25": 65.5,
+     "p75": 167
+    },
+    "std": {
+     "budget": 140,
+     "floor": 100,
+     "n": 2,
+     "p25": 107.5,
+     "p75": 134.5
+    }
+   },
+   "exemplars": [
+    "d04-s005",
+    "d01-s005",
+    "d03-s010",
+    "d07-s010",
+    "d09-s005"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a43.png",
+   "card": "archetypes/credentials.md",
+   "members": 12
+  },
+  "product-screen": {
+   "id": "a44",
+   "name": "Product screen",
+   "family": "Exhibit-led",
+   "family_id": "f10",
+   "definition": "Lets the running product carry the claim: one framed screen, a device mockup on a band or numbered screen tiles in tour order, with a title and almost no other words.",
+   "budget": {
+    "wide": {
+     "budget": 10,
+     "floor": 10,
+     "n": 1,
+     "p25": 10,
+     "p75": 10
+    },
+    "std": {
+     "budget": 10,
+     "floor": 0,
+     "n": 4,
+     "p25": 2,
+     "p75": 3.25
+    }
+   },
+   "exemplars": [
+    "d01-s074",
+    "d09-s029",
+    "d10-s008",
+    "d13-s014",
+    "d12-s028"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a44.png",
+   "card": "archetypes/product-screen.md",
+   "members": 8
+  },
+  "output-capture": {
+   "id": "a45",
+   "name": "Output capture",
+   "family": "Exhibit-led",
+   "family_id": "f10",
+   "definition": "Reproduces a real deliverable the solution produced, a table, a chart page, a letter or a dashboard, whole as a captured page, so the reader can inspect actual output.",
+   "budget": {
+    "wide": {
+     "budget": 0,
+     "floor": 0,
+     "n": 2,
+     "p25": 0,
+     "p75": 0
+    },
+    "std": {
+     "budget": 10,
+     "floor": 0,
+     "n": 3,
+     "p25": 1,
+     "p75": 2
+    }
+   },
+   "exemplars": [
+    "d02-s025",
+    "d10-s006",
+    "d12-s037",
+    "d10-s007",
+    "d02-s018"
+   ],
+   "anti": [],
+   "sheet": "export/sheets/a45.png",
+   "card": "archetypes/output-capture.md",
+   "members": 24
+  }
+ }
+}
