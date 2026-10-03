@@ -1,7 +1,8 @@
 # deck
 
-The house deck builder for Claude Code. It plans a deck, picks one measured archetype per slide, builds it in
-python-pptx, gates it against the house rules and reads every slide. Everything it needs at runtime lives here.
+The house deck builder for Claude Code. It plans a deck, picks one measured archetype per slide, builds it natively
+in python-pptx with its own kit, draws architecture diagrams and charts with its own engines, gates the result
+against the house rules and reads every slide. Everything it needs at runtime lives in this folder.
 
 ## Commands
 
@@ -32,29 +33,37 @@ or one edit, without typing it again. After a context compaction, type it once m
 
 | Path | Holds |
 |---|---|
-| `SKILL.md` | The procedure, the chooser and the kit API |
-| `archetypes/` | 45 cards and `archetypes.json` (families, budgets, exemplars) |
-| `refs/` | Greeked contact sheets and exemplar views, `catalog.json` |
-| `devices/` | 31 sanitised native devices, `devices.json`, renders |
-| `themes/` | House themes (client themes live in the deck's folder) |
-| `kit/deckkit/` | Theme roles, primitives, text, glyphs, marks, the diagram engine |
-| `gates/` | P01 to P26 and `run_all.py` |
-| `scripts/` | `find.py`, `new_deck.py`, `brand.py`, `render.py`, `selftest.py` |
-| `DECISIONS.md` | Every ruling, dated |
+| `SKILL.md` | Commands, procedure, brand intake, the archetype, diagram and chart choosers, the kit API |
+| `archetypes/` | 45 cards in 10 families and `archetypes.json` (budgets, floors, exemplars) |
+| `refs/` | The greeked reference pack: 45 contact sheets, 249 exemplar views, `catalog.json` |
+| `devices/` | 44 sanitised native devices (DL01 to DL30, DL32 to DL45), `devices.json`, renders |
+| `themes/` | House themes `sigmoid` and `neutral` (client themes live in the deck's folder) |
+| `kit/deckkit/` | Theme roles, primitives, text, compose, exhibits, tables, charts, glyphs, marks, diagram engines |
+| `gates/` | P01 to P27, `run_all.py`, the negatives |
+| `scripts/` | `new_deck.py`, `find.py`, `brand.py`, `render.py`, `capture.py`, the worked examples, `selftest.py` |
+| `references/` | Rules, design system, tech diagrams, charts, devices, copy, storylines, the library |
+| `DECISIONS.md` | Every ruling, dated, newest last |
+
+## Tests and checks
+
+```bash
+PY=/Library/Frameworks/Python.framework/Versions/3.14/bin/python3
+cd ~/.claude/skills/deck
+$PY -m unittest discover -s tests -t .      # the unit suite (about 540 tests, a few minutes)
+$PY gates/run_all.py --negatives            # every gate fails on its own planted breakage
+$PY gates/run_all.py --deck X.pptx          # gate one deck
+$PY scripts/selftest.py                     # frontmatter, chooser, reference pack, name scan, self-containment
+$PY scripts/build_archetypes.py --check     # the published cards and pack are not stale (needs the library)
+```
+
+Library-bound tests skip when the library is absent (`DECK_LIBRARY=/nonexistent` proves it).
 
 ## Refreshing from the library
 
 The raw reference decks and the mining pipeline stay in the library (`DECK_LIBRARY`, default
-`~/Codes/Decks-For-Visuals/library`). Nothing at runtime needs it.
-
-```bash
-PY=/Library/Frameworks/Python.framework/Versions/3.14/bin/python3
-$PY scripts/build_archetypes.py           # cards, budgets, references and refs/
-$PY scripts/build_archetypes.py --pack    # refs/ only
-$PY scripts/selftest.py                   # pack, paths and cards agree
-```
+`~/Codes/Decks-For-Visuals/library`). Nothing at runtime needs it. `references/library.md` has the refresh order.
 
 ## House rules
 
-`~/.claude/CLAUDE.md` sections 3, 4 and 6 govern every slide and win over this skill. `references/rules.md` maps each
-rule to its gate.
+`~/.claude/CLAUDE.md` sections 3, 4, 6 and 8 govern every slide and win over this skill. `references/rules.md` maps
+each rule to its gate.

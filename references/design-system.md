@@ -57,16 +57,16 @@ Some measured roles do not survive the house rules. Subtitles appear on 44% of w
 The ground is white on 93% of 354 content slides and near-white on 7%. Dark, mid-tone, tinted, gradient and picture grounds each measure 0%. The most common ground is FFFFFF. House rendering: a white or near-white ground on every slide.
 
 ### Surface and card
-A non-white surface appears on 63% of content slides. Surface fills sit at lightness 1.00 (0.90 to 1.00) across 1936 fills, and 55% of them are white. The most common non-white surface is F2F2F2. Use two card treatments only: a white card held by a hairline, or a light neutral fill with no outline.
+A non-white surface appears on 63% of content slides. Surface fills sit at lightness 1.00 (0.90 to 1.00) across 1936 fills, and 55% of them are white. The most common non-white surface is F2F2F2. House rendering: four card treatments, a white card held by a hairline, a light neutral fill with no outline, a solid brand card, and a near-black panel. A brand tint is never the default container.
 
 ### Brand and brand tint
-Each palette names one brand color, the saturated hue that carries title keywords, header tabs and the active state. A brand tint, a pale wash of the brand, appears on 50% of content slides, 66% wide and 26% compact. Tints sit at lightness 0.94 (0.86 to 0.97) and mix 88% (58 to 97) white into the hue, across 942 fills. 46% of tints derive from the first accent slot. Fills drawn from the theme scheme rather than typed hex make up 46% of colored fills.
+Each palette names one brand color, the saturated hue that carries title keywords, header tabs and the active state. A brand tint, a pale wash of the brand, appears on 50% of content slides, 66% wide and 26% compact. Tints sit at lightness 0.94 (0.86 to 0.97) and mix 88% (58 to 97) white into the hue, across 942 fills. 46% of tints derive from the first accent slot. Fills drawn from the theme scheme rather than typed hex make up 46% of colored fills. House rendering: the brand is a solid fill (a band, a header tab, an emphasis card) or the title keywords. A brand tint covers a large background only, never a card, a chip or a small panel, unless the tint encodes a state a legend keys.
 
 ### Hairline
 Hairlines weigh 0.75 pt (0.25 to 1) across 6922 lines and sit at lightness 0.75 (0.00 to 1.00). A neutral gray carries 66% of them, most often BFBFBF. House rendering: hairlines are the structure, plus at most a 1 px shadow. A boundary that carries meaning holds at least 3.00 against its surface. A decorative divider is exempt.
 
 ### Ink tiers
-Primary ink sits at lightness 0.11 (0.00 to 1.00) with contrast against white of 17.22 (1.00 to 21.00), across 354 slides. Pure black is the primary ink on 49% of slides, and the most common ink is 000000. A second tier, a slate or dark gray, comes from the dark-two theme slot, as in p3 (44546A) and p5 (4B5960). House rendering: a near-black primary ink, a gray secondary ink, and every text pair at least 4.50, or 3.00 for large text.
+Primary ink sits at lightness 0.11 (0.00 to 1.00) with contrast against white of 17.22 (1.00 to 21.00), across 354 slides. Pure black is the primary ink on 49% of slides, and the most common ink is 000000. A second tier, a slate or dark gray, comes from the dark-two theme slot, as in p3 (44546A) and p5 (4B5960). House rendering: a near-black primary ink, a gray secondary ink, and every text pair at least 4.50, or 3.00 for large text. Two brand text roles derive from the brand: accent-ink, deepened until it clears 4.50 on paper and card, carries title keywords and brand numerals on a light ground; accent-bright, lightened until it clears 3.00 on the near-black and navy fills, carries large brand numerals on a dark band and nothing smaller.
 
 ### Accent slots
 Decks use 1 (0 to 5) accent slots beyond the brand, across 18 decks. accent1 is in use in 56% of decks, accent2 in 50%, accent3 in 33% and accent6 in 22%. House rendering: the brand, a navy and a gray carry the deck. A further accent is introduced by the deck owner, never by the build, and identity never rides on color alone.
@@ -75,7 +75,7 @@ Decks use 1 (0 to 5) accent slots beyond the brand, across 18 decks. accent1 is 
 Traffic-light status appears on 2% of content slides. The observed red is F30009, amber FFC000 and green 00B050. The p1 brand (F30009) is the same red as the status red, so on that palette a red mark cannot mean risk. House rendering: status carries a glyph and a word beside the color, and a palette whose brand is a status hue moves status to the glyph.
 
 ### Dark surfaces and the house translation
-No content slide renders on a dark ground (0%). Dark surfaces inside a slide appear on 14% of content slides, 20% wide, and cover 7% (2 to 67) of the slide area across 51 slides. The most common is 000000. House rendering: no dark slide and no dark panel. A dark header band becomes a brand-color tab with white text at 4.50 or better. A dark callout becomes a brand-tint fill with primary ink.
+No content slide renders on a dark ground (0%). Dark surfaces inside a slide appear on 14% of content slides, 20% wide, and cover 7% (2 to 67) of the slide area across 51 slides. The most common is 000000. House rendering: the slide ground is always light. Inside it, a near-black panel (ink-deep, ink-strong) carries stats and headers and a solid brand band or card carries emphasis, each with text in the fill's own text role at 4.50 or better, and brand numerals on a dark band in accent-bright. Pastel tint is for large backgrounds only, never the default container.
 
 ### Observed palettes p1 to p5
 Examples only, never a target. p1: brand F30009, tint FCEFE5, hairline BFBFBF, 91 slides. p2 (single-deck): brand 237C25, tint D3F8CA, hairline E7E7EB. p3: brand 001A70, tint E8EEFC, hairline DDE4F6, on the stock theme accents. p4: brand 024AE4, tint E2F6FD, hairline DCE0E7, across 5 decks. p5 (single-deck): brand 072130, tint FEF0E7.
@@ -84,7 +84,7 @@ Examples only, never a target. p1: brand F30009, tint FCEFE5, hairline BFBFBF, 9
 p6: brand 1F36C7, tint FACFCC, hairline BFBFBF. p7 (single-deck): brand 0E4C86, tint CFE2F3, hairline 7F7F7F. p8 (single-deck): brand 0045AC, tint D9F2FC, ink 323F4F. p9: brand 3136C6, tint D4F0FF, hairline ECEFF7. Every palette repeats one shape: a saturated brand, a tint near white, a pale neutral hairline and a near-black ink. Copy the shape, not the hues.
 
 ### Provenance
-- Source: system/colour-roles.json sha256 17a5170894b8ec1d7a895b97468df9bbaaf3d6605d98540bbdd19b93d0b6984d
+- Source: system/colour-roles.json sha256 ace7461bf372c669e3f8670a8e0adb093175499917268ad627234916f9a23afc
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227
 - Input: system/colour.measures.json sha256 28c412a674b398e072edf63acdbeed44a794d73cc283235ed2d187d4f620a8e7
 - Renderer: render_card@1
@@ -98,7 +98,7 @@ Text cards are plain rectangles in 41% of cases and rounded rectangles in 34%, w
 Corner radius on rounded shapes is 0.06 in (0.00 to 0.77) on the wide canvas across 2426 shapes, and 0.05 in (0.00 to 0.85) on the compact canvas. As a preset adjustment it is 0.12 (0.00 to 4.19). A small, fixed radius in inches reads as deliberate. A large adjustment on a small shape turns a card into a pill, which the house refuses.
 
 ### Header tabs
-A header tab, a filled strip that names the column or zone below it, appears on 21% of content slides. Tabs stand 0.50 in (0.20 to 5.76) tall on the wide canvas across 151 tabs, and 0.34 in (0.14 to 5.04) compact. Their radius is 0.08 in (0.00 to 0.46) wide. House rendering: a brand-color tab with white text, sitting flush on a white card held by a hairline.
+A header tab, a filled strip that names the column or zone below it, appears on 21% of content slides. Tabs stand 0.50 in (0.20 to 5.76) tall on the wide canvas across 151 tabs, and 0.34 in (0.14 to 5.04) compact. Their radius is 0.08 in (0.00 to 0.46) wide. House rendering: a near-black or brand-color tab with paper or on-accent text, sitting flush on a white card held by a hairline.
 
 ### Step chevrons
 Stepped process rows appear on 12% of content slides, across 267 step shapes. Home-plate pentagons make up 40% of steps and chevrons the rest. The point depth is 0.09 in (0.03 to 0.23) on the wide canvas and 0.33 (0.00 to 1.00) as an adjustment. A shallow point keeps the label room. Number the steps in text, since the arrow shape alone does not order them in grayscale.
@@ -122,13 +122,13 @@ Soft shadows appear on 32% of content slides, 31% wide and 33% compact, though o
 Icons appear on 78% of content slides, at 8 (0 to 95) per wide slide and 4 (0 to 71) per compact slide. Density follows the slide role: architecture slides carry 16 (0 to 71), solution slides 11 (0 to 95) and insight slides 1 (0 to 14). Icons stand 0.28 in (0.12 to 0.90) on the wide canvas across 2445 icons.
 
 ### Raster versus vector icons
-Raster icons are 73% of icons and native vector icons 22%, with SVG at 1%. Baked-color pictures are 74%, and vectors filled from the theme scheme are 15%. Decks hold 2 (1 to 13) icon styles. House rendering: one vector icon family per deck, filled from the theme so a re-skin recolors it, every named tool given an icon, and no emoji.
+Raster icons are 73% of icons and native vector icons 22%, with SVG at 1%. Baked-color pictures are 74%, and vectors filled from the theme scheme are 15%. Decks hold 2 (1 to 13) icon styles. House rendering: one vector icon family per deck, filled from the theme so a re-skin recolors it, every named tool given an icon, and no emoji. Vendor and product marks are the exception: official artwork in its own colors, never recolored, verified by bytes.
 
 ### Photos and screenshots
 Imagery is sparse. Photos appear on 6% of content slides and cluster on team slides (0 (0 to 10)). Screenshots appear on 9% and cluster on proof slides (0 (0 to 6)). Illustrations appear on 27%, logos on 7%, and full-bleed images on 0%. House rendering: a screenshot is evidence and sits inside a hairline frame. A logo wall that names clients stays out of published material.
 
 ### Provenance
-- Source: system/shape-icon-image.json sha256 1fb6cbd26279a783ea2f41053c58f7106512489158e5091f1839e02acebacbdb
+- Source: system/shape-icon-image.json sha256 09efb0b308ba7708cff07da877100bd9294d593a11a3d6a93079dc2127cc7680
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227
 - Input: system/shape.measures.json sha256 4e21c4057546ff1d3fb708661aa5a6b332b4164994cd1f0d7ef2fc38a0e4cf74
 - Input: system/icons.measures.json sha256 95fde2d4ad2a856b79089a466996e78be73a23cd0013e1245c05526c7cee22ae

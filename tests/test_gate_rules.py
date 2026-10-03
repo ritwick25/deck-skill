@@ -578,6 +578,33 @@ class TestContracts(Golden):
         negatives.edit_slide(d, 7, fn)
         self.assertEqual(self._fails("P14", d), (0, []))
 
+    def _series(self, name, tags, series):
+        d = self.copy(name)
+
+        def fn(r):
+            for prop in r:
+                v = tags.get(prop.get("name"))
+                if v:
+                    prop[0].text = v
+        negatives.edit_part(d, "docProps/custom.xml", fn)
+        dj = d.parent / "deck.json"
+        doc = json.loads(dj.read_text())
+        doc["series"] = series
+        dj.write_text(json.dumps(doc))
+        code, found = run("P15", d)
+        return [f.msg for f in found if f.level == "fail" and ("appears" in f.msg or "series" in f.msg)]
+
+    def test_a_technical_series_behind_a_divider_passes(self):
+        """Ruling 5 as extended on 2026-10-04: a divider, then an L0 master, then two solution architectures of
+        different types; the divider names the section."""
+        tags = {"deckkit:256": "section-divider:brand-block", "deckkit:257": "layered-architecture:l0-house",
+                "deckkit:258": "solution-architecture:aws-reference", "deckkit:259": "solution-architecture:arch-dfd"}
+        self.assertEqual(self._series("series-ok", tags, ["One shared demand view for every region"]), [])
+        self.assertTrue(any("appears 2 times" in m for m in self._series("series-undeclared", tags, [])))
+        bad = dict(tags, **{"deckkit:257": "offering-pillars:icon-row"})
+        self.assertTrue(any("not opened by" in m for m in
+                            self._series("series-opener", bad, ["One shared demand view for every region"])))
+
     def test_one_foot_band_in_five_content_slides_passes(self):
         d = self.copy("one-band")
         negatives.foot_band(d, (3,))

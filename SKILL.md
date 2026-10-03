@@ -1,30 +1,70 @@
 ---
 name: deck
-description: House deck builder. Use whenever planning, building, extending, restyling, reviewing or fixing a slide, deck, pptx, proposal, RFP or RFI response, POV, pitch, capability or credentials deck, roadmap or architecture slide, including before any project folder exists. Picks a storyline and one archetype per slide from 45 measured archetypes in 10 visual families, builds natively in python-pptx with the house kit (theme roles, primitives, glyphs, measured text, deterministic save), gates every deck against the house rules (8pt floor, no footer, no subtitle, no AI tells, word budgets, fill, balance, arrows, contrast, numbers, leaks), then renders and reads every slide. Colour- and client-agnostic, so a client cut is a theme swap. Not for Word, Excel or PDF documents. For only reading or extracting text from an existing pptx without changing its design, the pptx skill's file mechanics are enough.
+description: House deck builder. Use whenever a message contains /deck anywhere, or asks to plan, build, extend, restyle, review or fix a slide, deck, pptx, proposal, RFP or RFI response, POV, pitch, capability or credentials deck, roadmap, chart, or architecture or technical diagram, including before any project folder exists. Once loaded, every later deck iteration in the session goes through it, one slide or one edit included. Picks a storyline and one archetype per slide from 45 measured archetypes, builds natively in python-pptx with the house kit, asks for the client's colours, logo and font when a client deck has none, gates every deck against the house rules and renders and reads every slide. Not for Word, Excel or PDF documents.
+when_to_use: The user types /deck with or without a mode word (new, slide, edit, review, diagram, chart, brand), names a deck or slide to change, or asks for one more slide or one more change after the skill was used earlier in the session.
+argument-hint: "[new|slide|edit|review|diagram|chart|brand] [brief, path or change]"
 ---
 
-# deck
+Request: $ARGUMENTS
 
-Decides what goes on each slide and how it looks, then builds it with the kit and proves it with the gates.
-`~/.claude/CLAUDE.md` (§3, §4, §6) is the authority: where this skill and CLAUDE.md disagree, CLAUDE.md wins. A
-project's `DECISIONS.md`, `DESIGN.md`, `CANON.md` or `deck.json` override wins inside that project when it names its
-source. The pptx skill keeps file mechanics only; its pptxgenjs route and its design advice do not apply. Read the
-`dataviz` skill before drawing any chart.
+## Commands
+
+| Command | Does | Asks for, when missing |
+|---|---|---|
+| `/deck new <brief>` | Plans and builds a deck: restate, storyline, ghost deck, build, gates, read every slide | audience and the decision the deck must win, and for a client deck the brand (see `/deck brand`) |
+| `/deck slide <what> [--deck path]` | Adds or rebuilds one slide: archetype, build in the deck's `build.py`, gates, read it | which deck, when more than one is in reach, and the claim the slide makes |
+| `/deck edit <path> <change>` | Changes only what was pointed at, rebuilds, re-gates, re-reads. A deletion sweeps the whole deck | the slide, when the change could land on more than one |
+| `/deck review <path>` | Runs the gates, reads every slide, reports. Changes nothing | the path, when the folder holds more than one deck |
+| `/deck diagram <type> <subject>` | Architecture or technical diagram from the diagram engine (aws, azure or house grammar, L0 or deep dive) | the stack and cloud, and which components are in scope |
+| `/deck chart <what>` | A native chart slide from supplied data, under the dataviz rules | the numbers and their source. Never invents a figure |
+| `/deck brand <client>` | Client theme and logo lockup from `scripts/brand.py`, contrast-solved, identity colours kept | brand colours (hex, or a site to read the CSS from), logo file, font |
+| `/deck` | Picks the mode from context: a path plus a change is edit, a brief is new, a deck alone is review | what the user wants, when context does not decide |
+
+- `/deck` may sit anywhere in a longer prompt. The whole message is the brief, and the word after `/deck` picks the mode.
+- Once loaded, the skill governs the session. Every later deck iteration, one slide or one word, follows this file
+  (build, gates, read the changed slides) without the user typing `/deck` again.
+- A client deck with no colour system or logo given stops at intake: ask for the brand colours, the logo file and
+  the font, then run `brand.py`. The house theme is used for a client deck only when the user says so.
+- After a context compaction, invoke the skill again before the next change.
+
+## Setup
 
 ```bash
 PY=/Library/Frameworks/Python.framework/Versions/3.14/bin/python3
-K=~/.claude/skills/deck
+K=${CLAUDE_SKILL_DIR}                          # filled in by Claude Code
+[ -d "$K/kit" ] || K=~/.claude/skills/deck     # the default home, when this file is read raw
 ```
+
+Shell variables do not survive between Bash calls: repeat the two lines, or write the paths out, in every command.
+
+## Standing rules
+
+- `~/.claude/CLAUDE.md` §3, §4, §6 and §8 are the authority; where this skill disagrees, CLAUDE.md wins. A project's
+  `DECISIONS.md`, `DESIGN.md`, `CANON.md` or `deck.json` wins inside that project when it names its source. The pptx
+  skill keeps file mechanics only. Read the `dataviz` skill before any chart.
+- `build.py` is the source of truth. Never hand-edit a built pptx: change the build and rebuild (gate P21).
+- Gates exit 0 before anything is called done. Fix the slide, never the gate; a gate that is wrong goes to the user
+  with the evidence.
+- Render and read every slide a change could touch, not a sample. A gate cannot see a hollow card.
+- Change only what was pointed at. A deletion is global: sweep the deck for every instance and report the list.
+- A restyle is proposed on one representative slide and gets a yes before any sweep.
+- Before a scripted pass on an existing deck (EXTEND, RESTYLE, FIX), copy it to `NAME-backup.pptx`.
+- Every figure is a stat with a kind (measured, delivered, illustrative, target, benchmark). Never invent a number.
+- No client names, logos or identifying structure in anything published; approved firm claims only (CLAUDE.md §5).
+- Never commit, push or publish unless asked.
 
 ## Modes
 
-| Mode | When | Starts at |
+| Mode | Command | Starts at |
 |---|---|---|
-| NEW | A deck that does not exist yet, folder or not | step 1 |
-| EXTEND | Slides added to an existing deck | step 1; clone the deck's own accepted slides first |
-| RESTYLE | Same content, house look | step 1; propose on ONE representative slide, get a yes, then sweep |
-| REVIEW | Judge a deck, change nothing | run the gates on it (step 8), render and read (step 9), report |
-| FIX | A named defect | step 8 on the deck; change only what was pointed at; re-gate; re-read |
+| NEW | `/deck new` | step 1 |
+| SLIDE | `/deck slide` | step 5 in the deck's own `build.py`, then 8 and 9 for that slide and its neighbours |
+| EDIT, FIX | `/deck edit` | step 8 on the deck; change only what was pointed at; re-gate; re-read |
+| REVIEW | `/deck review` | step 8 with `-v`, then step 9; report, change nothing |
+| DIAGRAM | `/deck diagram` | the diagram chooser under Kit, then steps 7 to 9 |
+| CHART | `/deck chart` | the chart chooser under Kit, then steps 7 to 9 |
+| BRAND | `/deck brand` | Brand intake, then a rebuild on the new theme |
+| RESTYLE | (a restyle request) | step 1; one representative slide first, a yes, then the sweep |
 
 ## Procedure
 
@@ -32,30 +72,67 @@ K=~/.claude/skills/deck
    deck" could mean more than one file, name the candidates and ask.
 2. **Restate the object**: what it is, who reads it, what is not in it, and three checkable done-conditions. Get a
    yes before building.
-3. **Storyline.** Read `references/storylines.md`. Write the ghost deck: one line per slide, the claim as its title,
+3. **Brand.** A client deck with no colour system or logo given goes through Brand intake (below) before any build.
+4. **Storyline.** Read `references/storylines.md`. Write the ghost deck: one line per slide, the claim as its title,
    its archetype and family. An RFP's own section order wins over any house order; keep a requirement-to-slide
    coverage table beside it. When a slide cap is shorter than the request's sections plus an agenda, merge two
-   adjacent requested sections onto one slide before dropping the agenda (a house default, not a measured pattern).
-   Get a yes on the ghost deck.
-4. **One archetype per slide** from the chooser below. Check variety now: at least two families in any three
-   consecutive slides, no archetype twice in a section (unless the section is a declared `series`), never more than
-   two tables in a row, and no two adjacent slides with the same structure.
-5. **Open the card**: `archetypes/<slug>.md`. It gives use-when and avoid-when, measured zones, components, type
-   roles, density, the word budget, the device notes, the translation table (how the references break the house
-   rules and what the house does instead), the exemplars and anti-exemplars, and named variants.
-6. **Look at the exemplars**: `$PY $K/scripts/find.py <slug>`, then Read the greeked sheet it prints. Borrow
-   structure, never words (`references/library.md`).
-7. **Build** in `build.py` (scaffold with `$PY $K/scripts/new_deck.py FOLDER --name "Name"`). In order of preference:
-   clone the deck's own accepted slide and retext it (EXTEND); else place a library device that serves the archetype
-   (`find.py <slug>` lists them with renders; `references/device-library.md` has all 31) and fill every slot; else
-   compose from the card's anatomy with `deckkit.compose` and the kit (below). Never clone a raw reference slide.
-8. **Gate**: `$PY $K/gates/run_all.py --deck OUT.pptx` must exit 0. Fix the slide, never the gate. A gate that
-   is wrong is reported to the user with the evidence, not edited to pass.
-9. **Render and read every slide**: `$PY $K/scripts/render.py OUT.pptx`, then Read every PNG. Not a sample. Look for
-   what no gate sees: cards stretched around one line, a device that does not argue the title, uneven row counts,
-   a zone larger than its content, arrows that point at nothing, a slide that looks like its neighbour.
-10. **Sweep the pack**: deck, notes deck, any twin or client cut agree on every id, number, name and claim.
-11. **Report** what ran, what passed, what was skipped and why. Never commit, push or publish unless asked.
+   adjacent requested sections onto one slide before dropping the agenda (a house default). Get a yes.
+5. **One archetype per slide** from the chooser. Variety (P15): two families in any three consecutive slides; no
+   archetype twice in a section unless `deck.json` declares the section a `series`; at most two tables in a row; no
+   two adjacent slides alike; no family over 40% of the content slides; at most one content slide in five ends on a
+   full-width foot band, and never two adjacent.
+6. **Card and exemplars.** Open `archetypes/<slug>.md` (zones, components, type roles, word budget, device notes,
+   translation table, variants). Run `$PY $K/scripts/find.py <slug>`: it prints the budget and floor, the library
+   devices with their renders, the greeked contact sheet and the exemplar views. Read the sheet. Borrow structure,
+   never words.
+7. **Build** in `build.py`. A new deck starts from `$PY $K/scripts/new_deck.py FOLDER --name "Name" [--theme
+   brand/theme.json]`: `deck.json`, a `CLAUDE.md` that sends later sessions here, and a three-slide `build.py` in the
+   epic layer whose every word is a `{{placeholder}}` gate P19 refuses until replaced. In order of preference: clone
+   the deck's own accepted slide and retext it (EXTEND); place a library device; compose from the card with the kit.
+   Never clone a raw reference slide.
+8. **Gate**: `$PY $K/gates/run_all.py --deck OUT.pptx` must exit 0. An advisory count in P13's detail column is a
+   slide under its archetype's floor: fill it with rows, owners, dates, figures and named specifics, never longer
+   sentences.
+9. **Render and read every slide**: `$PY $K/scripts/render.py OUT.pptx`, then Read every PNG. Look for what no gate
+   sees: cards stretched around one line, a device that does not argue the title, uneven row counts, a zone larger
+   than its content, arrows that point at nothing, a slide that looks like its neighbour.
+10. **Notes**, when asked: a separate presenter deck (CLAUDE.md §6: verbatim transcript, slide thumbnail, IF THEY
+    ASK, time chip). The travelling deck carries no notes (P20). The kit has no notes builder.
+11. **Sweep the pack**: deck, notes deck, any twin or client cut agree on every id, number, name and claim.
+12. **Report** what ran, what passed, what was skipped and why.
+
+## Brand intake
+
+Ask all three in one AskUserQuestion, the recommended option first. "Other" carries the URL, hexes, path or font.
+
+| Header | Question | Options, recommended first |
+|---|---|---|
+| Colours | Which brand colours should the CLIENT deck use? | Read them from the client's website (Recommended): the skill reads the production CSS and lists candidates with counts and the date read · I'll give the hex codes · Use the house theme |
+| Logo | Which logo file should the cover carry? | An SVG file (Recommended), embedded as is with a PNG fallback · A PNG file, at least twice its shown size · No logo |
+| Font | Which font should the deck set in? | Arial (Recommended), measured by the kit · The client's brand font, used only when installed and measurable, else Arial with the reason printed · Montserrat |
+
+```bash
+$PY $K/scripts/brand.py --name "Client" --from-url https://client.example        # candidates only, exit 3
+$PY $K/scripts/brand.py --name "Client" --from-url https://client.example \
+    --primary "#0B6E4F" --secondary "#F2A900" --logo logo.svg [--font "Name"]   # after the user confirms
+$PY $K/scripts/brand.py --name "Client" --primary "#0B6E4F" [--secondary HEX] [--accent HEX ...] --logo logo.svg
+PYTHONPATH=$K/kit $PY -m deckkit theme check brand/theme.json                    # re-check at any time
+```
+
+- Never pick a colour for the user from the candidates. Exit codes: 0 written, 1 refused, 2 bad input, 3 waiting.
+- Writes `brand/theme.json` (client primary in accent1; navy and the near-white derived; accent-ink solved to 4.5:1;
+  accent-bright solved to 3:1 on the dark fills; identity and vendor registries copied from the house theme; a
+  `brand` block with client, font, logo sha256 and the CSS URL and date) and the logo, byte for byte.
+- A mid-luminance primary is refused with a deeper shade of the same hue named: rerun with that shade as
+  `--primary` and the brand colour as `--secondary`. More than five series colours are refused. Fewer than five are
+  padded with house slates.
+- New deck: `new_deck.py ... --theme brand/theme.json`. Existing deck: set `deck.json` `"theme"` to the file, then
+  rebuild. A client cut of a built deck is a rebuild into its own folder, `$PY build.py --theme brand/theme.json
+  --out CUT/Name.pptx` (P21 rebuilds it); `theme apply` is only for a hand-edited deck holding a P21 grant.
+- The logo goes on the cover and the closing only (P09 fails a logo in the foot):
+  `brand.lockup(s, Box(0.9, 0.75, 5.0, 0.56), brand.logo_path(th), firm_logo=None, theme=th,
+  name=th.data["brand"]["client"])`. It refuses a slide not tagged `cover` or `closing`. The kit carries no firm logo
+  file: pass one as `firm_logo` for a two-mark lockup.
 
 ## Chooser: the job decides the archetype, the form decides the family
 
@@ -107,31 +184,11 @@ K=~/.claude/skills/deck
 | Exhibit-led | `product-screen` | let the running product carry the claim |
 | | `output-capture` | reproduce a real deliverable whole |
 
-`$PY $K/scripts/find.py` lists them with their wide budgets; `--search "words"` matches definitions. The visual
-mechanisms a card cites as `dvNN` are in `references/devices.md`.
-
-## Building a slide from its card
-
-The card's numbers are measured from the top exemplars and printed as `median (min to max)`. Use them as a starting
-geometry, then fit the content.
-
-| Card section | Becomes |
-|---|---|
-| Zones (x, y, w, h as % of the slide) | `Box` values inside `WIDE.content`; the title zone is always `text.title` |
-| Components | prims: `card`, `zone`, `tab`, `pill`, `disc`, `step_header`, `connect`, `elbow`, `stat`, `quote`, `person`, glyphs |
-| Type roles | `Run(size=...)`; body 11 to 12pt, card heading 13 to 14pt, title from the canvas; never under 8pt |
-| Density, word budget | the ceiling for words on glass (P13); density beats air (P24) |
-| Device notes | the drawing that carries the argument; build this first, then the text around it |
-| Translation table | the reference habits NOT to copy (footers, subtitles, gradients, accent bars) and what replaces them |
-| Variants | pick one per use; in a declared series every member takes a different variant |
-
-Order of work for one slide: tag it, set the title claim, lay the governing device from one grid split, put text
-in measured boxes, connect with points computed from box edges, declare any figure, then gate and look.
-
-**Fill to the measured range.** A content slide carries between its archetype's advisory floor (the exemplars' p25
-of words, `find.py <slug>`) and its budget. A slide under the floor is thin, the gap the reference decks do not
-have: add rows, proof lines, owners, dates, figures and named specifics to the device, never longer sentences, and
-keep card bodies to one or two lines. P13 reports a slide under its floor.
+`$PY $K/scripts/find.py` lists them with their wide budgets; `--search "words"` matches definitions. A card's `dvNN`
+mechanisms are in `references/devices.md`. The card's numbers are `median (min to max)` from the top exemplars: a
+starting geometry, then fit the content. A content slide carries between its archetype's advisory floor (the
+exemplars' p25 of words) and its budget (ceiling 250). Card bodies stay one or two lines; density comes from the
+device. In a declared series every member takes a different variant slug.
 
 ## Kit
 
@@ -139,127 +196,187 @@ keep card bodies to one or two lines. P13 reports a slide under its floor.
 import sys; from pathlib import Path
 SKILL = Path("~/.claude/skills/deck").expanduser(); sys.path.insert(0, str(SKILL / "kit"))
 from pptx import Presentation
-from deckkit import package, prims, tag
+from deckkit import arch, brand, charts, compose, devices, exhibits, icons, package, prims, tables, tag
 from deckkit.canvas import WIDE, Box          # WIDE 13.333 x 7.5; STD 10 x 5.625 only to extend a 10-inch deck
 from deckkit.glyphs import glyph
-from deckkit.icons import vendor, monogram
-from deckkit.text import Para, Run, textbox, title
+from deckkit.icons import mark, monogram, vendor
+from deckkit.text import Para, Run, textbox, title, title_runs
 from deckkit.theme import Theme
 
-th = Theme.load(SKILL / "themes" / "sigmoid.json")       # or neutral.json, or the project's client theme
+th = Theme.load(SKILL / "themes" / "sigmoid.json")      # neutral.json, or the client's brand/theme.json
 prs = Presentation(str(SKILL / "kit" / "assets" / "base-wide.pptx"))
 prims.bind(th)
-s = prs.slides.add_slide(prs.slide_layouts[0])          # the one blank layout
-tag.tag(s, "process-flow", "numbered-rows")              # archetype slug : variant, read by P13 and P15
+C = WIDE.content                                          # x 0.50, y 0.85, w 12.40, h 5.99
+s = prs.slides.add_slide(prs.slide_layouts[0])           # the one blank layout
+tag.tag(s, "process-flow", "numbered-rows")              # archetype : variant, read by P13, P15, P24, P26
 title(s, "Every brief passes four steps before it reaches the field", keywords=("four steps",), canvas=WIDE, theme=th)
 ```
 
-- **Geometry**: `C = WIDE.content` (x 0.50, y 0.85, w 12.40, h 5.99); `C.split_cols(n, WIDE.gutter)`,
-  `split_rows`, `inset`; `.r` and `.b` are the right and bottom edges. Every shape takes a `name`, which the gates
-  report.
-- **Roles, never hexes**: `paper`, `card`, `ink`, `ink-deep`, `ink-strong`, `ink-muted`, `hairline`,
-  `hairline-soft`, `rule-strong`, `accent`, `accent-deep`, `accent-ink`, `accent-tint`, `accent-wash`, `on-accent`,
-  `navy`, `series-1` to `series-5`.
+Order of work for one slide: tag it, set the title claim, lay the governing device from one grid split, put text in
+measured boxes, connect with points computed from box edges, declare every figure, then gate and look. Every shape
+takes a `name`, which the gates report. Every kit call measures first and raises (`Overflows` with the height it
+needs, `GeometryError`, `ThemeInvariant`, `BelowFloor`) instead of shrinking or clamping: cut words, never type.
+
+- **Geometry**: `C.split_cols(n, WIDE.gutter, weights=)`, `split_rows`, `inset`; `.r` and `.b` are the right and
+  bottom edges. P03 holds every shape inside x 0.50 to 12.90in; `bleed.*` names are the exception.
+- **Roles, never hexes** (22): `paper`, `card`, `hairline-soft`, `hairline`, `rule-strong`, `ink-deep`, `ink`,
+  `ink-strong`, `ink-muted`, `accent`, `accent-tint`, `accent-wash`, `accent-deep`, `accent-ink`, `accent-bright`,
+  `on-accent`, `navy`, `series-1` to `series-5`. `accent-ink` is brand text on light ground (title keywords, stat
+  numerals). `accent-bright` is brand numerals on `ink-deep`, `ink-strong` or `navy`, large text only. Text on a fill
+  takes that fill's text role: `ink` on light fills, `paper` on the inks and navy, `on-accent` on accent fills.
+  Identity names (`rag-red`, `rag-amber`, `rag-green`, the `aws-*` and `azure-*` notation colours) work in `rect`,
+  `glyph` and line roles only; a status mark always carries its word and glyph (on the house theme `rag-red` is the
+  brand's hex).
+- **Colour, ruling 12**: solid brand bands and cards, near-black stat and header panels, light slide ground. Pastel
+  `accent-tint` and `accent-wash` are for large backgrounds only: a tinted shape under 4 sq in fails P16 unless named
+  `state.*`. `references/design-system.md` is published from the library and predates this ruling in four places
+  (two card treatments, no dark panel, brand-tint callouts, brand-colour header tabs): this bullet wins.
 - **Text**: `textbox(slide, box, [Para((Run(text, role, bold=, size=),), space_before=)], name, th,
-  background=fill_role, anchor="top"|"middle"|"bottom")` measures and refuses overflow, the floor and low contrast.
-  Pass the role of the fill the text sits on as `background`. `text.title_runs(text, keywords)` builds two-tone
-  runs with no size: pass `size=` when measuring them with `text.need_height`. On light fills text takes `ink`
-  roles; on a `block`, `circle` or `disc` it takes `paper` (dark fills) or `on-accent` (accent fills).
-- **Type sizes**: a card's type roles are the references' sizes. Translate them up to the house scale: body 11 to
-  12pt, labels 10pt and up (architecture diagram captions excepted: 9pt names, 8pt roles and flow labels), nothing
-  under 8pt. Fewer words, never smaller type.
-- **Variants**: tag the variant as a short kebab slug of the card's variant line you used (`icon-columns`,
-  `numbered-rows`); in a declared series every member's slug differs.
-- **Shapes**: light containers are `prims.card(s, box, fill="card"|"paper"|"accent-tint", line=None|"hairline"|
-  "rule-strong", name=)` and `zone(..., fill="accent-tint")`. Strong fills are `block(s, box, fill="accent"|
-  "ink-strong"|"navy"|...)` (rounded: a gantt bar, a price panel) and `rect(s, box, fill=role)` (square).
-  `circle(s, square_box, fill=role)` or `circle(..., fill=None, line="rule-strong")` is a hub core, a roundel or a
-  milestone dot; `disc(s, square_box, n)` is a numbered one. Also `tab`, `pill`, `step_header(s, box, labels,
-  active=i)`, `stat(s, box, value, label, kind="measured|delivered|illustrative|target|benchmark")` (it raises
-  `Overflows` with the height it needs), `quote(s, box, text, attribution)` (its left bar is the one the rules
-  allow), `person(s, box)`.
-- **Devices** (`from deckkit import devices`; rulings 3 and 14): 31 native slides lifted from the references,
-  sanitised and theme-mapped. `devices.place(prs, "DL07", {slot: value}, theme=th)` adds the slide, tags it, and
-  fills each named slot in its own box, size, weight, colour and alignment; a value that does not fit raises
-  `Overflows` (cut words, never shrink). Text slots take a string or a list of paragraph strings; a title slot takes
-  `(text, keywords)`; a glyph slot takes a glyph name or `vendor:<key>` for an official AWS, Azure or GCP mark
-  (`icons.vendor_keys()`, for example `vendor:aws/ml/bedrock`); `None` removes an optional slot. Every slot must be filled: a
-  device's sample copy left on its slide fails P19. Slot names and word capacities are in `devices/devices.json`.
-- **Composed components** (`from deckkit import compose`; ruling 10, the flagship's devices under the house rules):
-  `icon_cards` (solid brand cards, glyph over head and line), `numbered_rows` (a panel under a solid header band,
-  numbered discs), `stat_band` (near-black band, brand numerals, returns stat names for the manifest),
-  `pressure_band` (solid band, label block, columns), `stage_chain` (chevron header, glyph and lines per step,
-  optional label-value facts, returns its foot), `ladder` (coded levels L0 to L4 rising), `ask_cards` (01 to 04
-  decision cards with chevrons), `milestone_rail` (ringed dots, date and label). Each lays out a whole row or panel
-  in one box and raises `Overflows` with the height it needs. Solid brand and near-black are the strong fills;
-  pastel tint is for large backgrounds only (ruling 12). `scripts/example_epic.py` is the pattern.
+  background=fill_role, anchor="top"|"middle"|"bottom")` measures and refuses overflow, the floor and low contrast;
+  pass the role of the fill the text sits on as `background`. `title()` is one line, 14 words, 21pt, 0 to 3 keywords
+  in accent-ink. `title_runs(text, keywords)` builds two-tone runs with no size, for a cover, closing or divider
+  headline set large (P14 lets those three wrap to 3 lines).
+- **Type**: body 10.5 to 12pt, card heads 12 to 14pt, labels 10pt, small 9pt (`WIDE.ramp`), diagram captions 9pt
+  names and 8pt roles and flow labels, nothing under 8pt (P01). Fewer words, never smaller type.
+- **Shapes** (`prims`): `card(s, box, fill="card"|"paper"|"accent-tint", line="hairline"|"rule-strong"|None, name=)`;
+  `block(s, box, fill=)` a rounded strong fill (`accent`, `accent-deep`, `ink-deep`, `ink-strong`, `navy`: a brand
+  card, a near-black panel, a gantt bar); `rect(s, box, fill=)` square; `circle(s, square_box, fill=)` or
+  `circle(..., fill=None, line="rule-strong")`; `disc(s, square_box, n)`; `tab(s, box, label, fill="ink-strong")`;
+  `pill`; `step_header(s, box, labels, active=i)`; `zone(s, box, fill="accent-tint")` (large backgrounds only);
+  `stat(s, box, value, label, kind=, basis=True)`; `quote(s, box, text, attribution)` (its left bar is the one the
+  rules allow); `person` (prefer `exhibits.portrait`).
 - **Lines**: `hairline(s, p1, p2)` is horizontal or vertical; `connect(s, p1, p2, head="end", dash=None)` is an
-  arrow; an undirected diagonal (a hub spoke) is `connect(..., head="none", role="hairline")`, because outside the
-  rule roles an undirected line is refused; `elbow(s, points)` routes orthogonally.
-- **Icons**: `glyph(s, name, box, role="accent", shape_name=)` from 193 curated Lucide glyphs (an unknown name
-  raises with the closest matches); `vendor(s, key, box)` for AWS, Azure, GCP, onprem, programming, saas and generic
-  marks; `mark(s, key, box)` for a brand mark from `kit/assets/marks/registry.json` (ruling 19, byte-verified);
-  `monogram(s, box, "AB")` for a mark with no asset. Never emoji, never a corpus raster.
-- **Architecture diagrams** (`from deckkit import arch`; ruling 18): every layered-architecture and
-  solution-architecture slide is a declared diagram, never hand-placed tiles.
-  `d = arch.Diagram("aws" | "azure" | "house", l0=False, grid=(cols, rows), weights=, stretch=, gaps=, head_air=)`;
-  `d.group(id, kind, label, parent=, at=(col, row, cols, rows), grid=(cols, rows), weights=, band=, drop=, row_gap=,
-  gutter=)` (aws: aws-cloud, aws-account, aws-region, aws-az, aws-vpc, aws-public-subnet, aws-private-subnet,
-  aws-security-group, aws-asg, corporate-dc, generic; azure: azure-region, azure-subscription,
-  azure-resource-group, azure-vnet (a filled ground its subnets tile), azure-subnet, azure-zone, generic; house:
-  region, rail, band, section, boundary (dashed platform frame), zone (dashed trust zone); every grammar: lane).
-  `band=True` (and every house band) marks a platform or operations band whose marks may carry no flow; `gutter`
-  opens the air between sibling groups where labelled flows run (0.55in or more); `row_gap` reserves room above a
-  child's top edge for pins.
-  `d.node(id, "vendor:<key>" | "mark:<key>" | "glyph:<actor>", name, role, group=, at=(col, row), anchor=,
-  size=, caption=)`: anchor `left` or `right` sets an icon in its cell, `edge:l`, `edge:r` or `edge:t` pins it on
-  its group's frame line (a VPC endpoint, a load balancer, a NAT gateway; the caption sits outside); `caption=`
-  `right` or `left` sets the caption beside the icon so a vertical flow can leave its bottom; `size=0.62` is the
-  L0 anchor tier. `d.align(node, to, axis="y" | "x")` puts two icons on one line or one column.
-  `d.flow(src, dst, label, step=, kind="data" | "async" | "control" | "private", over=True, bend=)`: `private` is a
-  keyed private-endpoint link, labelled by the legend. `d.steps({n: text})`; `d.render(s, box, th, legend="right" |
-  "bottom", legend_cols=)` returns `{marks, actors, icons, flows, labelled, badge_only, boxed_alone}`. Marks float
-  on the group ground, cropped to their ink; flows run edge to edge, never cross, and carry a label (one line, never
-  wrapped), a numbered step or a keyed style; `l0=True` refuses flows. A caption, label, badge or route that does not
-  fit raises; `render(draft=True)` lists them instead while iterating. Diagram captions are 9pt names and 8pt roles
-  (spec 1.2), the exception to the 10pt label size below. AWS and Azure notation colours are identity colours
-  (themes, `identity`), verified in the module's header. Gate P26 holds the grammar (marks, boxed alone, labels,
-  captions, crossings, steps, boundary facts, orphans, notation, collisions, one name one mark, ink size).
-  `scripts/example_arch.py` is the pattern (four slides).
-- **Tables**: python-pptx `add_table` with no table style, cells written by `deckkit.text.write`, and a hairline
-  under each row. `table()` in `tests/build_golden.py` is the recipe.
-- **Save**: `package.save(prs, out, title=, theme=th, manifest={"numbers": {stat_name: {"value": v, "kind": k}}},
-  overwrite=True, date="YYYY-MM-DD")` is deterministic, which gate P21 proves by rebuilding from `deck.json`.
-- **Worked patterns**: `scripts/example_epic.py` (the epic layer: problem-framing, process-flow,
-  layered-architecture), `scripts/example_arch.py` (AWS, Azure, house L0 and house deep-dive architecture),
-  `scripts/example_build.py` (offering-pillars and process-flow, plain kit) and
-  `tests/build_golden.py` (seven archetypes, the gates' clean fixture).
-- **Client cut**: a theme JSON in the project, verified against the client's production CSS with the date, then
-  `$PY -m deckkit theme check THEME.json` and `theme apply THEME.json DECK.pptx`. Identity colours keep their hue;
-  theme colours move.
+  arrow; a diagonal spoke is `connect(..., head="none", role="hairline")`; `elbow(s, points)` routes orthogonally.
+  An undirected line outside the rule roles, and any strip in a colour, is refused (the accent-bar rule).
+- **Icons**: `glyph(s, name, box, role="accent", shape_name=)` from 193 curated Lucide glyphs (an unknown name raises
+  with the closest matches); `vendor(s, key, box)` from 1,771 byte-verified marks (aws 525, azure 808, gcp 123,
+  onprem 173, programming 74, saas 41, generic 27; `[k for k in icons.vendor_keys() if "kafka" in k]`);
+  `mark(s, key, box)` for the registered brand marks in `kit/assets/marks/registry.json` (anthropic-logo,
+  anthropic-symbol, claude-logo, claude-spark, dataiku-logo, dataiku-logo-straight, langchain-logo, langgraph-logo,
+  langfuse-icon; vendor-published SVG, ruling 21); `monogram(s, box, "AB", name=)` for anything else. Marks keep
+  their own artwork and colour. Never emoji.
+- **Devices** (rulings 3, 14): 44 sanitised native slides, DL01 to DL30 and DL32 to DL45 (DL31 is retired: the
+  diagram engine replaced it). `references/device-library.md` lists them with archetypes, slots and capacity;
+  `find.py <slug>` shows the ones serving an archetype with renders.
+  `s = devices.place(prs, "DL07", {slot: value}, theme=th, archetype="input-process-output", variant=None)` adds,
+  tags and fills the slide. `archetype=` is required when the device serves more than one; `variant=` gives each
+  member of a declared series its own slug. A `slot.title` takes `(text, keywords)` and is set in the kit's title
+  geometry; DL32, DL34 and DL35 (cover, divider, closing) take a large `slot.headline`, given as
+  `[Para(title_runs(text, keywords))]`. A text slot takes a string, a list of paragraph strings or kit Paras; a
+  group slot one string per text, top to bottom; a table slot rows of cell strings; a glyph slot a glyph name or a
+  `vendor:<key>`; `None` deletes that slot's shapes. Every slot is filled (P19 fails surviving sample copy). Figure
+  slots are plain text that P23 cannot read: keep the device's basis slot true to their kind, or compose the
+  figures with `stat_band`. Slot names, words and paragraphs: `devices/devices.json`.
+- **Compose** (ruling 10; each lays out a whole row or panel in one box and raises with the height it needs):
+  `icon_cards(s, box, [(glyph, head, body)], fill="accent")` and `ask_cards(s, box, [(verb, glyph, head, body)])`
+  return the row foot (place the next row there; `spread=True` fills the box and refuses a hollow card);
+  `numbered_rows(s, box, [(lead, line)], header=, header_glyph=)`; `stat_band(s, box, [(value, label, kind)],
+  fill="ink-deep")` returns the stat names and draws one basis label for the band (mixed bases raise);
+  `pressure_band(s, box, label, [(lead, line)])` at the top or middle, never the foot; `stage_chain(s, box,
+  [(label, glyph, head, body)], facts=)` returns its foot; `ladder(s, box, [(code, head, body)])`;
+  `milestone_rail(s, box, [(date, label)])`. All take `name=` and `theme=`.
+- **Exhibits** (`exhibits`, `tables`): `cycle_ring(s, box, [(glyph, head, line)], hub=, style="wedges"|"nodes")`
+  (lifecycle-loop); `mark_wall(s, box, [(label, [(key, caption)])])` with `vendor:`, `mark:` or `mono:` keys
+  (credentials, tech stacks); `screen_frame(s, box, png, chrome="browser"|"laptop"|None)` on a capture from
+  `$PY $K/scripts/capture.py page.html out.png --placed-width 11.5` (refused under 8pt at the placed width);
+  `portrait(s, box, image=None, initials=)` and `quote_portrait` (team-roster); `cell_grid(s, box, rows, cols,
+  cells, legend)` (coverage-matrix: glyph plus word in every cell); `tables.table(s, box, header, rows,
+  marked_col=, cell_glyphs=)` returns `(frame, height, row_tops, col_lefts)`.
+- **Charts** (`charts`, ruling 22): the chart chooser below and `references/charts.md`.
+- **Diagrams** (`arch`, `arch_flow`, `arch_seq`, ruling 18): the diagram chooser below and
+  `references/tech-diagrams.md`. Every layered-architecture and solution-architecture slide is a declared diagram,
+  never hand-placed tiles. `render(draft=True)` lists what does not fit while iterating; never ship a draft.
+- **Save**: `package.save(prs, out, title=, theme=th, manifest={"numbers": {stat_name: {"value": v, "kind": k}},
+  "charts": charts.records(prs)}, overwrite=True, date="YYYY-MM-DD")` is deterministic; P21 rebuilds from
+  `deck.json` `"build"` and compares bytes.
+- **Worked patterns**: `scripts/template_build.py` (what `new_deck.py` scaffolds: composed panels and stat band,
+  engine L0, device DL01), `scripts/example_epic.py` (the epic layer), `scripts/example_exhibits.py`,
+  `scripts/example_charts.py`, `scripts/example_arch.py`, `scripts/example_arch_topology.py`,
+  `scripts/example_arch_flow.py`, `scripts/example_arch_seq.py`, `scripts/example_build.py` (plain prims) and
+  `tests/build_golden.py` (the gates' clean fixture). Each runs with `--out` and `--theme`.
+
+### Diagram chooser
+
+Tag the slide `archetype:variant` as below: the `arch-*` variant word picks P26's thresholds. Each example function
+is the worked instance.
+
+| Diagram | Tag | Engine | Example |
+|---|---|---|---|
+| AWS solution architecture | `solution-architecture:aws-reference` | `arch.Diagram("aws")` | `example_arch.py` `aws()` |
+| Azure solution architecture | `solution-architecture:azure-reference` | `arch.Diagram("azure")` | `example_arch.py` `azure()` |
+| House L0 master (no arrows, no numbers) | `layered-architecture:l0-house` | `arch.Diagram("house", l0=True)` | `example_arch.py` `l0()` |
+| House deep dive | `solution-architecture:house-deep-dive` | `arch.Diagram("house")` | `example_arch.py` `deep()` |
+| AWS deployment and network | `solution-architecture:arch-deploy-aws` | `arch.Diagram("aws")`, `span`, `pin` | `example_arch_topology.py` `aws_deploy()` |
+| Azure deployment and network | `solution-architecture:arch-deploy-azure` | `arch.Diagram("azure")`, peering | `example_arch_topology.py` `azure_deploy()` |
+| DR and landing zone | `solution-architecture:arch-dr-aws` | `arch.Diagram("aws")`, `bus(tree=True)` | `example_arch_topology.py` `aws_dr()` |
+| Current versus target | `solution-architecture:arch-current-target` | `arch.Diagram`, `change`, `change_key` | `example_arch_topology.py` `current_target()` |
+| CI/CD and release | `process-flow:arch-cicd` | `arch_flow.cicd` | `example_arch_flow.py` `cicd()` |
+| MLOps and LLMOps | `solution-architecture:arch-mlops` | `arch_flow.mlops` | `example_arch_flow.py` `mlops()` |
+| Data flow, medallion, lineage inset | `input-process-output:arch-medallion` | `arch_flow.medallion` | `example_arch_flow.py` `medallion()` |
+| Event-driven integration | `convergence-hub:arch-events` | `arch_flow.events` | `example_arch_flow.py` `events()` |
+| Agent state machine | `decision-logic:arch-state` | `arch_flow.state_graph` | `example_arch_flow.py` `state()` |
+| Sequence, API and agent | `swimlane-handoff:arch-sequence` | `arch_seq.Sequence` | `example_arch_seq.py` `sequence()` |
+| DFD and threat model | `solution-architecture:arch-dfd` | `arch_seq.DFD` | `example_arch_seq.py` `dfd()` |
+| C4 system context | `solution-architecture:arch-c4-context` | `arch_seq.C4("context")` | `example_arch_seq.py` `c4_context()` |
+| C4 container | `layered-architecture:arch-c4-container` | `arch_seq.C4("container")` | `example_arch_seq.py` `c4_container()` |
+
+No builder or example yet: a lineage DAG of datasets (`arch-lineage`), a hub-and-spoke view (`arch-hub`) and a GCP
+grammar (use the house grammar with `vendor:gcp/...` marks). P26 still judges a slide tagged with those words.
+
+### Chart chooser
+
+Read the `dataviz` skill first. One chart argues one message, with one subject in accent and one annotation.
+
+| Message | Call |
+|---|---|
+| rank or compare magnitudes | `charts.bar(s, box, cats, values, kind=, name=, subject=, sort="desc")` |
+| a value over a few periods | `charts.column(s, box, cats, values, kind=, name=, subject=)` |
+| what a whole is made of, per category | `charts.stacked(s, box, cats, {series: values}, kind=, name=, subject=)` |
+| a trend, up to three series | `charts.line(s, box, cats, {series: values}, kind=, name=, subject=, area=False)` |
+| one series and its volume | `charts.area(s, box, cats, values, series_name=, kind=, name=)` |
+| how a total is built (price, bridge) | `charts.waterfall(s, box, [(label, value)], total=, kind=, name=)` |
+| two scores per item (value and effort) | `charts.scatter(s, box, [(label, x, y)], x_range=, y_range=, x_label=, y_label=, kind=, name=, splits=, quadrants=, sizes=)` |
+| one share of a whole | `charts.ring(s, square, value, of, kind=, name=)` plus a `prims.stat` in the hole |
+| KPIs against targets, one ratio | `charts.bullet(s, box, [charts.Row(label, value, target)], scale_max=, kind=, name=)`, `charts.progress` |
+| the one point that proves the title | `charts.annotate(plot, at, text, kind="callout")`; also `drop`, `crossover`, `band` |
 
 ## Gates
 
-`$PY $K/gates/run_all.py --deck OUT.pptx` runs P01 to P26 cheapest first (`--only P13,P24`, `-v` for every
-finding). `references/rules.md` maps each rule to its gate and to the fix. A deck with no build command needs a
-`deck.json` grant for P21 naming its source (a hand-edited deck whose pptx is the source of truth).
-`$PY $K/gates/run_all.py --negatives` proves every gate fails on a planted breakage; run it after editing a gate.
+```bash
+$PY $K/gates/run_all.py --deck OUT.pptx                  # P01 to P27, cheapest first; exit 0 or it is not done
+$PY $K/gates/run_all.py --deck OUT.pptx -v --only P13,P24 # every finding, chosen gates
+$PY $K/gates/run_all.py --deck X.pptx --theme T.json -v   # REVIEW: a deck with no deck.json beside it
+$PY $K/gates/run_all.py --negatives                       # after editing a gate: each gate fails its planted breakage
+$PY $K/scripts/selftest.py                                # after editing skill text: must print OK
+```
+
+- `references/rules.md` has one line per gate and the fix. R01 to R03 and H01 to H10 report PENDING.
+- REVIEW of a deck the kit did not build: untagged slides make P13, P15, P24 and P26 meaningless and P21 has no build
+  command. Say so in the report; never retag a client's deck to pass.
+- `deck.json` in the deck's own folder: `"overrides": {"RULE:key": "SOURCE#anchor"}` (a grant without a source is
+  refused; for example `"P17:dv-maturity"` when the client's own vocabulary says alpha, `"P26:marks"` for a
+  conceptual architecture, `"P21"` for a hand-edited deck whose pptx is the source); `"series"`: section names (a
+  section opens at each section-divider and takes its title); `"budgets"`, `"client"`, `"theme"`, `"build"`,
+  `"media_allow"`, `"notes_deck"`.
 
 ## References
 
 | File | Read it when |
 |---|---|
 | `references/storylines.md` | choosing the deck's order (proposal, POV, RFP and RFI response, capability, workshop) |
-| `references/design-system.md` | setting grid, type scale, colour roles, cards, radius, lines, connectors, icons |
+| `references/design-system.md` | setting grid, type scale, colour roles, cards, radius, lines, connectors, icons (ruling 12 wins over it, see Kit) |
+| `references/tech-diagrams.md` | drawing any architecture or technical diagram |
+| `references/charts.md` | drawing any chart, KPI bar or share ring |
 | `references/devices.md` | a card cites `dvNN` |
-| `references/device-library.md` | choosing a library device (DL01 to DL31) to place |
+| `references/device-library.md` | choosing a library device (DL01 to DL30, DL32 to DL45) to place |
 | `references/rules.md` | a gate fails, or before a review |
 | `references/copy.md` | writing titles, card bodies, numbers and notes |
 | `references/library.md` | looking at exemplars, cloning the user's own decks, refreshing from the library |
-| `DECISIONS.md` | why the skill is the way it is (rulings 1 to 9) |
+| `DECISIONS.md` | why the skill is the way it is (rulings 1 to 23, newest last) |
 
-## Not built yet (ruling 9, lean finish)
+## Not built
 
-- **The HTML twin** (generated from the pptx) and its gates H01 to H10, plus the render gates R01 to R03, all
-  report PENDING. A twin, when one is needed, is built by hand under CLAUDE.md §7.
-- **Per-archetype composers.** Every slide is composed from its card with the kit.
+- The generated HTML twin and its gates H01 to H10, and the render gates R01 to R03, report PENDING. A twin, when one
+  is needed, is built by hand under CLAUDE.md §7.
+- A presenter-notes builder. Build the notes deck by hand (step 10).
+- Diagram builders for a dataset lineage DAG, a hub-and-spoke view and a GCP grammar (see the diagram chooser).

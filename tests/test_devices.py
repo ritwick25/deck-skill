@@ -53,6 +53,37 @@ class TestPlace(unittest.TestCase):
         s = devices.place(self.prs, "DL01", fill, theme=self.th, archetype=self.e["archetypes"][0])
         self.assertTrue(any(x in self._text(s) for x in self.e["samples"] if len(x) >= 8))
 
+    def test_residue_is_judged_slot_by_slot(self):
+        """P19: an unfilled slot fails; a slot whose new copy happens to be another slot's sample does not."""
+        import shutil
+        import tempfile
+        sys.path.insert(0, str(SKILL / "gates"))
+        import _shared
+        import p19_residue
+        from deckkit import package
+        own = p19_residue._slot_samples()[self.e["variant"]]
+        texts = [s["name"] for s in self.e["slots"] if s["kind"] == "text" and s["name"] in own]
+        empty, borrower, lender = texts[0], texts[1], texts[2]
+        fill = self._fill()
+        fill.pop(empty)
+        fill[borrower] = own[lender]
+        devices.place(self.prs, "DL01", fill, theme=self.th, archetype=self.e["archetypes"][0])
+        tmp = Path(tempfile.mkdtemp(prefix="p19-"))
+        try:
+            deck = tmp / "p19.pptx"
+            package.save(self.prs, deck, title="p19", theme=self.th, manifest={"numbers": {}}, overwrite=True,
+                         date="2026-10-04")
+            ctx = _shared.Ctx(deck)
+            try:
+                _code, found = _shared.run_gate(p19_residue, str(deck), ctx)
+            finally:
+                ctx.close()
+            names = {f.where for f in found if f.level == "fail"}
+            self.assertIn(empty, names)
+            self.assertNotIn(borrower, names)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
     def test_every_device_places_with_plain_fills(self):
         """Every library device places with plain strings in every slot: roles, grounds, glyph colours, anchors,
         group and table slots resolve without a contrast or fit error the device itself does not have."""

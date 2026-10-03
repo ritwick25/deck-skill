@@ -419,3 +419,38 @@ quality. The best reference slides must be used. It must not become a 10-hour jo
   ruling 18 measured against. The device library holds 44 devices.
 - **Verified:** 539 unit tests OK, every negative behaves, selftest OK, build_archetypes --check OK, and all eight
   example decks pass all 27 implemented gates.
+
+## 2026-10-04 · Showcase v3 and the docs rewrite (ruling 22, wave 2)
+- **Showcase v3** (`~/Codes/Decks-For-Visuals/acceptance/showcase/Quillmont Showcase v3.pptx`, 65 slides, seven
+  sections): v2 kept where it passes; new devices on the cover (DL32), pillars (DL38) and closing (DL35); five native
+  chart slides; the exhibits for credentials, product screen and team; and a 16-slide technical series carrying every
+  engine diagram type, wired from the example scripts (`parts/ptech.py`, `pchart.py`, `pexh.py`). 27/27 gates,
+  every slide rendered and read.
+- **P15 series, extended (lead's default under ruling 20, open to the user):** a declared series may be opened by a
+  use-case map (ruling 5) or by a layered architecture master; the opener is the section's first slide outside the
+  Frame family, so a divider may stand in front; a divider-opened section is named by the divider's title (the name
+  deck.json "series" uses). Reason: a technical section repeats solution-architecture once per diagram type, and the
+  old rule could never pass behind a divider. Tested both ways in `tests/test_gate_rules.py`.
+- **P19 device residue is slot-matched:** a slot that still holds its own device sample fails; deck copy that happens
+  to equal another slot's sample (a role such as "Delivery manager") does not; samples of four words or more are
+  still matched anywhere; a shared basis label ("Illustrative figures") is never residue. The rule had no test and
+  no negative; `tests/test_devices.py` now holds it, and fails against the old rule.
+- **Kit:** mark_wall sizes each mark to the ink area of a square mark (wide wordmarks no longer read as small text);
+  screen_frame alt text stays inside P20's 120 characters; arch_flow draws a blocked path dashDot, as arch.py does.
+- **Examples:** the lineage example is tagged input-process-output (its zones read left to right); the flow example
+  carries a P15 override like its siblings; the topology example writes to `.cache/topology/`, because sharing
+  `.cache/arch/deck.json` with example_arch made one of the two fail P21.
+- **Canon sweep on the showcase:** one phase model on every slide (Assess to gate 1, Pilot to gate 2, Scale to gate 3,
+  Run from full rollout on 22 Jan 2027 with brands two and three joining by Sep 2027), which is the only reading under
+  which the run fee from 22 Jan holds; the precedent case study and case wall carry their own figures, never
+  Quillmont's targets; governance roles are roster roles; the credentials title no longer claims the wall is this
+  brief's stack; the dated brief pages moved to Dec 2027, when every region is live. `canon.json` records the model.
+- **Docs:** SKILL.md rewritten (commands first, brand intake, diagram and chart choosers, counts corrected);
+  `references/rules.md` one row per gate; new `references/tech-diagrams.md` and `references/charts.md`;
+  design-system.md regenerated through the library with ruling 12.
+- **Known, not fixed:** devices.json capacity overstates two slots (DL08 agent names, DL22 level description); DL32's
+  first feeder arrow can cross a wide label and no gate measures a line crossing text; P04/P05 judge an unfilled text
+  frame by its ink, so an over-wide empty frame can spill into a neighbour unseen; `devices.place` accepts an
+  archetype the device does not list; `brand.py` accepts a client colour close to a status colour.
+- **Verified:** 544 unit tests OK; 179 negatives behave, 27/27 gates covered; selftest OK; build_archetypes --check
+  OK; all eight example decks and the showcase pass all 27 implemented gates; source decks untouched.

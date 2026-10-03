@@ -5,7 +5,7 @@ ruling 21's agent state machine).
 
   1 process-flow:arch-cicd                 one signed image through four gates, a digest rail, a blocked console path
   2 solution-architecture:arch-mlops       a prompt change gated by the golden set, the registry hinged on the zones
-  3 layered-architecture:arch-medallion    five sources by stream and batch, bronze to gold, a lineage inset
+  3 input-process-output:arch-medallion    five sources by stream and batch, bronze to gold, a lineage inset
   4 convergence-hub:arch-events            four event types on one EventBridge bus, rules to targets, a dead letter
   5 decision-logic:arch-state              the brief graph, conditional edges, a human-in-the-loop interrupt
 
@@ -120,7 +120,7 @@ def mlops(prs, th):
 
 def medallion(prs, th):
     s = blank(prs)
-    tag.tag(s, "layered-architecture", "arch-medallion")
+    tag.tag(s, "input-process-output", "arch-medallion")
     title(s, "Every brief cites certified tables built from five sources, weekly and by stream",
           keywords=("certified tables",), canvas=WIDE, theme=th)
     S3 = "vendor:aws/storage/simple-storage-service-s3"
@@ -274,7 +274,10 @@ def main() -> int:
     sha = package.save(prs, out, title="Flow diagrams", theme=th, manifest={"numbers": {}}, overwrite=True,
                        date="2026-10-04")
     dj = {"type": "example", "canvas": "wide", "theme": a.theme, "client": None, "spelling": "US",
-          "media_allow": vendor_media(out), "series": [], "deliverable": out.name,
+          "media_allow": vendor_media(out),
+          "overrides": {"P15": "DECISIONS.md ruling 20: the engine's example deck shows five flow diagram types, "
+                               "three of them directed sequences by archetype"},
+          "series": [], "deliverable": out.name,
           "build": ["{python}", str(Path(__file__).resolve()), "--theme", a.theme, "--out", "{out}"]}
     (out.parent / "deck.json").write_text(json.dumps(dj, indent=2) + "\n", encoding="utf-8")
     for k, m in metrics.items():

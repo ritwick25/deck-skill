@@ -2,7 +2,9 @@
 
   * any three consecutive slides span at least two families (from the archetype tags);
   * no archetype repeats inside a section, except in a section deck.json declares a "series" (ruling 5):
-    a use-case map opens it and every repeated member uses a different variant;
+    a use-case map opens it (or, for a technical series, a layered architecture master) and every repeated member
+    uses a different variant. The opener is the section's first slide outside the Frame family, so a divider may
+    stand in front of it;
   * at most two slides carrying a table in a row, outside the appendix;
   * two adjacent slides whose 12 x 7 occupancy grids (each cell marked strong mass or other drawn content) have a
     Jaccard of 0.85 or more look alike;
@@ -14,8 +16,8 @@
     that carries text (its own, or a text block painted on it), with nothing drawn below it but a short source
     line (12 words or fewer). A band along the foot as a cadence makes every slide look alike; the alternatives
     are a side rail, a header strip, or the shared items folded into the device.
-Sections are PowerPoint's own (p14:sectionLst), else a section-divider slide opens one, else the deck is one
-section. An untagged slide fails: the gate cannot see its family.
+Sections are PowerPoint's own (p14:sectionLst), else a section-divider slide opens one and the section takes the
+divider's title as its name (what deck.json "series" names), else the deck is one section. An untagged slide fails: the gate cannot see its family.
 """
 from __future__ import annotations
 
@@ -26,6 +28,7 @@ from _shared import FAIL, Finding, bx, cli, full_bleed, has_text, is_drawn, word
 from deckkit.read.deckinfo import status_ranges
 
 GATE, TITLE = "P15", "variety"
+SERIES_OPENERS = ("use-case-map", "layered-architecture")
 COLS, ROWS, COVER = 12, 7, 0.30
 JACCARD = 0.85
 MAX_TABLES = 2
@@ -50,12 +53,22 @@ def sections(ctx) -> list[tuple[str, list[int]]]:
         return [o for o in out if o[1]]
     out, cur = [], ("", [])
     for i in range(1, ctx.n + 1):
-        if ctx.tags()[i - 1]["archetype"] == "section-divider" and cur[1]:
-            out.append(cur)
-            cur = ("section %d" % (len(out) + 1), [])
+        if ctx.tags()[i - 1]["archetype"] == "section-divider":
+            if cur[1]:
+                out.append(cur)
+            cur = (divider_title(ctx, i) or "section %d" % (len(out) + 1), [])
         cur[1].append(i)
     out.append(cur)
     return out
+
+
+def divider_title(ctx, i) -> str:
+    """A divider's title: its title shape's text, else its longest text."""
+    texts = [(L.get("name") or "", " ".join(((L.get("text") or {}).get("text") or "").split()))
+             for L in ctx.slide(i)["shapes"]]
+    texts = [(n, t) for n, t in texts if t]
+    named = [t for n, t in texts if n in ("title", "slot.title")]
+    return (named or sorted((t for _, t in texts), key=lambda t: -len(t.split())) or [""])[0]
 
 
 def _strong(L) -> bool:
@@ -180,13 +193,14 @@ def run(deck, ctx):
         if not repeats:
             continue
         if name in series:
-            first = tags[members[0] - 1]["archetype"]
+            first = next((tags[i - 1]["archetype"] for i in members if fam.get(i) not in (None, "Frame")), None)
             variants = defaultdict(list)
             for i in members:
                 variants[tags[i - 1]["archetype"]].append(tags[i - 1]["variant"])
             bad = [a for a in repeats if len(set(variants[a])) != len(variants[a])]
-            if first != "use-case-map":
-                out.append(Finding(GATE, FAIL, members[0], name, "series section not opened by a use-case map"))
+            if first not in SERIES_OPENERS:
+                out.append(Finding(GATE, FAIL, members[0], name, "series section not opened by a use-case map or a "
+                                   "layered architecture master"))
             if len(repeats) > 1:
                 out.append(Finding(GATE, FAIL, members[0], name, "a series repeats one archetype, this repeats %s"
                                    % ", ".join(sorted(repeats))))

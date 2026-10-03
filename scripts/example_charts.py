@@ -106,14 +106,14 @@ def horizons(prs, th):
     rail = Box(left.r + GAP, C.y, C.r - left.r - GAP, C.h)
     heading(s, Box(left.x, left.y, 4.0, 0.30), "Reps briefed within a day", th, "reach.head")
     plot = charts.area(s, Box(left.x, left.y + 0.40, left.w, left.h - 0.40),
-                       ["Today", "Pilot, Dec 2026", "Rollout, Jan 2027", "Scale, Sep 2027"], [0, 200, 1200, 1200],
+                       ["Today", "Pilot, Dec 2026", "Rollout, Jan 2027", "Brand three, Sep 2027"], [0, 200, 1200, 1200],
                        series_name="Reps", fmt="{:,.0f}", kind="illustrative", name="reach", theme=th)
     charts.annotate(plot, "Rollout, Jan 2027", "1,200 reps, six regions", kind="crossover", side="above")
     cards = [("Pilot, North region", "One brand, from Dec 2026", "Prove the brief in one region first",
               "Gate: medical signs off two weeks running"),
              ("Rollout, six regions", "All 1,200 reps from 22 Jan 2027", "One brief replaces six regional versions",
               "Gate: every region reads the one brief"),
-             ("Scale, three brands", "The same reps by Sep 2027", "More brands on one service, no new team",
+             ("Run, three brands", "The same reps by Sep 2027", "More brands on one service, no new team",
               "Gate: three brands through one review queue")]
     built = []
     for head, fact, line, gate in cards:
@@ -184,12 +184,12 @@ def commercials(prs, th, numbers):
 def case(prs, th):
     s = blank(prs)
     tag.tag(s, "case-study", "need-build-before-after")
-    title(s, "A specialty pharma field team cut brief lead time from five days to one",
-          keywords=("five days to one",), canvas=WIDE, theme=th)
+    title(s, "A specialty pharma field team cut brief lead time from four days to one",
+          keywords=("four days to one",), canvas=WIDE, theme=th)
     cols = C.split_cols(3, GAP, weights=(1, 1, 1.2))
     compose.numbered_rows(s, cols[0], [
-        ("Briefs reached reps late", "Five days from a competitor move to the field"),
-        ("Six regions, six versions", "Every region rewrote the same weekly brief"),
+        ("Briefs reached reps late", "Four days from a competitor move to the field"),
+        ("Eight regional versions", "Every region rewrote the same weekly brief"),
         ("Review came last", "Medical read briefs after reps had used them"),
         ("No source on claims", "Reps could not show where a claim came from")],
         header="The need", header_glyph="clipboard-check", header_fill="ink-strong", disc_fill="ink-strong",
@@ -198,7 +198,7 @@ def case(prs, th):
         ("One sourced brief", "Every claim cites its source, on one page"),
         ("Review in the flow", "Medical approves before the brief goes out"),
         ("Regions add one line", "Local notes ride on the shared brief"),
-        ("Twelve weeks, three gates", "Pilot in one region, then all six")],
+        ("Ten weeks, three gates", "Pilot in one region, then all eight")],
         header="What was built", header_glyph="layers", header_fill="ink-strong", disc_fill="ink-strong",
         name="build", theme=th)
     out = cols[2]
@@ -211,11 +211,11 @@ def case(prs, th):
             [Para((Run("The outcome", "on-accent", bold=True, size=12),))], "after.header.text", th,
             background="accent", anchor="middle")
     heading(s, Box(out.x, out.y + hb + 0.22, out.w, 0.30), "Days from a move to the field", th, "after.head")
-    items = [("One brief, not six", "The same reps, briefed the day after a move"),
+    items = [("One brief, not eight", "The same reps, briefed the day after a move"),
              ("Every claim sourced", "Medical signs off before the brief goes out")]
     h = text_h(items, out.w, th)
     top = out.y + hb + 0.62
-    plot = charts.column(s, Box(out.x, top, out.w, out.b - top - h - 0.30), ["Before", "After"], [5, 1],
+    plot = charts.column(s, Box(out.x, top, out.w, out.b - top - h - 0.30), ["Before", "After"], [4, 1],
                          subject="After", fmt=days, kind="illustrative", name="after", theme=th)
     charts.annotate(plot, "After", "One shared brief", side="above")
     lines(s, Box(out.x, out.b - h, out.w, h), items, th, "after.text")

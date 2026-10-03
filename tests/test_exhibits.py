@@ -169,6 +169,73 @@ class MarkWall(unittest.TestCase):
                 if x.name.startswith(("vendor.", "mark.")) and x.name.endswith(("-1.1", "-2.1", "-3.1"))}
         self.assertEqual(len(tops), 1, tops)
 
+    WIDE = [("Cloud", [("vendor:aws/ml/bedrock", "Amazon Bedrock"), ("vendor:gcp/ml/vertex-ai", "Vertex AI"),
+                       ("vendor:azure/ml/azure-open-ai", "Azure OpenAI")]),
+            ("Agents", [("mark:langgraph-logo", "LangGraph"), ("mark:langchain-logo", "LangChain")]),
+            ("Data", [("mark:dataiku-logo", "Dataiku"), ("vendor:onprem/database/postgresql", "PostgreSQL")])]
+
+    def test_wide_wordmark_carries_a_square_marks_weight(self):
+        """A 4.7:1 wordmark, and a mark published on a wide empty canvas, are drawn at the ink area of a square
+        mark. The old wall squeezed a wordmark into a square's column (about 40% of the area) and drew a padded
+        canvas whole, its ink a quarter of the frame."""
+        _prs, s = slide()
+        out = exhibits.mark_wall(s, Box(C.x, C.y, C.w, 3.0), self.WIDE, name="wall")
+        side = out["mark"]
+        sh = named(s)
+        sq = box_of(sh["vendor.aws/ml/bedrock.wall-1.1"])
+        self.assertAlmostEqual(sq.w, side, places=3)          # square marks: side x side, unchanged
+        self.assertAlmostEqual(sq.h, side, places=3)
+        for key in ("langgraph-logo", "langchain-logo", "dataiku-logo"):
+            pic = next(x for x in s.shapes if x.name.startswith("mark.%s." % key))
+            b = box_of(pic)
+            self.assertGreater(b.w * b.h, 0.9 * side * side, "%s ink %.2f x %.2f against a %.2f square"
+                               % (key, b.w, b.h, side))
+            self.assertLessEqual(b.h, side + 1e-6, key)       # never taller than the mark line
+        dk = next(x for x in s.shapes if x.name.startswith("mark.dataiku-logo."))
+        sr = dk._element.find(".//" + A + "srcRect")
+        self.assertIsNotNone(sr, "the canvas's empty margin is trimmed, not drawn")
+        aspect, crop = exhibits._mark_ink("mark:dataiku-logo")
+        self.assertAlmostEqual(dk.width / dk.height, aspect, delta=0.02)        # trimmed, never stretched
+        self.assertEqual([round(int(sr.get(c, "0")) / 1e5, 3) for c in "ltrb"], [round(c, 3) for c in crop])
+
+    def test_wide_marks_stay_in_their_columns_captions_on_one_line(self):
+        _prs, s = slide()
+        exhibits.mark_wall(s, Box(C.x, C.y, C.w, 3.0), self.WIDE, name="wall")
+        sh = named(s)
+        for gi in (1, 2, 3):
+            body = box_of(sh["wall.%d.body" % gi])
+            marks = sorted((box_of(x) for x in s.shapes if x.name.startswith(("vendor.", "mark.")) and
+                            x.name.split(".wall-")[-1].split(".")[0] == str(gi)), key=lambda b: b.x)
+            self.assertTrue(marks)
+            for b in marks:
+                self.assertGreaterEqual(b.x, body.x + 0.10, "group %d mark left of its card" % gi)
+                self.assertLessEqual(b.r, body.r - 0.10, "group %d mark right of its card" % gi)
+            for a, b in zip(marks, marks[1:]):
+                self.assertGreaterEqual(b.x - a.r, 0.18, "group %d marks %.2fin apart" % (gi, b.x - a.r))
+        caps = [box_of(sh[n]) for n in sh if n.endswith(".caption")]
+        self.assertEqual(len(caps), 7)
+        self.assertEqual(len({round(c.y, 4) for c in caps}), 1, "captions in a row share one top")
+        self.assertEqual(len({round(c.h, 4) for c in caps}), 1, "and one height")
+
+    def test_square_wall_keeps_its_even_grid(self):
+        """No wide mark: every column one width and every mark side x side, as the wall always drew it."""
+        _prs, s = slide()
+        groups = [("Cloud", [("vendor:aws/ml/bedrock", "Amazon Bedrock"), ("vendor:gcp/ml/vertex-ai", "Vertex AI")]),
+                  ("Agents", [("mark:claude-spark", "Claude"), ("mono:QX", "Queue service")]),
+                  ("Delivery", [("vendor:programming/language/python", "Python"),
+                                ("vendor:onprem/iac/terraform", "Terraform"),
+                                ("vendor:programming/framework/react", "React")])]
+        out = exhibits.mark_wall(s, C, groups, name="wall")
+        cols = [int(math.ceil(len(items) / out["rows"])) for _l, items in groups]
+        cw = (C.w - 0.16 * (len(groups) - 1) - 2 * 0.16 * len(groups)) / sum(cols)
+        for b, c in zip(out["groups"], cols):
+            self.assertAlmostEqual(b.w, c * cw + 0.32, places=6)
+        self.assertLessEqual(out["mark"], 0.72 * cw + 1e-9)
+        for x in s.shapes:
+            if x.name.startswith(("vendor.", "mark.")) or x.name.endswith(".mono"):
+                self.assertAlmostEqual(box_of(x).w, out["mark"], places=3, msg=x.name)
+                self.assertAlmostEqual(box_of(x).h, out["mark"], places=3, msg=x.name)
+
     def test_refusals(self):
         _prs, s = slide()
         n0 = len(s.shapes)

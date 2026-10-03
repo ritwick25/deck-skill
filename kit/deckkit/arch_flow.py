@@ -26,7 +26,7 @@ What it refuses (each a GeometryError or Overflows, or listed under draft=True):
 
 Kinds of edge (spec 1.4, one dash per kind, keyed in the legend whenever more than one is drawn):
   data solid, async dash, control sysDot, conditional sysDash, feedback lgDash in accent-deep (retrain, rollback,
-  revise; routed on the perimeter through a lane row), blocked dash with a no-entry glyph before the target (the
+  revise; routed on the perimeter through a lane row), blocked dashDot with a no-entry glyph before the target (the
   forbidden path: a manual console deploy).
 
 Kinds of node: mark (a product mark with its caption), glyph (an actor glyph with its caption), gate (quality
@@ -35,7 +35,7 @@ glyph), activity (a dashed text box with no icon, spec 3.7), state (a LangGraph 
 inside, interrupt variant dashed in accent-deep), terminal (START and END pills), chip (an event type, a dataset,
 a digest token, or a +N more count).
 
-The five type builders below (cicd, mlops, lineage, events, state_graph) each lay out one anatomy from a content
+The five type builders below (cicd, mlops, medallion, events, state_graph) each lay out one anatomy from a content
 dict and return the Board; scripts/example_arch_flow.py builds one slide of each.
 """
 from __future__ import annotations
@@ -94,7 +94,7 @@ EDGE_KINDS = {
     "control": {"dash": "sysDot", "role": LINE_ROLE, "key": "Control or configuration"},
     "conditional": {"dash": "sysDash", "role": LINE_ROLE, "key": "Conditional edge"},
     "feedback": {"dash": "lgDash", "role": "accent-deep", "key": "Feedback loop"},
-    "blocked": {"dash": "dash", "role": LINE_ROLE, "key": "Blocked path"},
+    "blocked": {"dash": "dashDot", "role": LINE_ROLE, "key": "Blocked path"},     # async holds dash (as arch.py)
 }
 GATE_KINDS = {"quality": ("DIAMOND", "check"), "approval": ("OVAL", "user-check"), "health": ("OVAL", "clock"),
               "traffic": ("OVAL", "bar-chart-3")}

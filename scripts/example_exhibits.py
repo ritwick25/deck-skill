@@ -124,7 +124,7 @@ def s_register(prs, th):
 def s_credentials(prs, th, numbers):
     s = blank(prs)
     tag.tag(s, "credentials", "stat-band-mark-wall")
-    title(s, "The team ships on the platforms this brief will run on", keywords=("platforms",), canvas=WIDE,
+    title(s, "The team already ships on the major cloud, data and agent platforms", keywords=("already ships",), canvas=WIDE,
           theme=th)
     band_h = 1.30
     names = compose.stat_band(s, Box(C.x, C.y, C.w, band_h), [

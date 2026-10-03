@@ -1,6 +1,6 @@
 """Four topology slides drawn by deckkit.arch on the fictional Quillmont brief service (spec 3.5, ruling 21).
 
-    $PY scripts/example_arch_topology.py [--out .cache/arch/topology.pptx] [--theme themes/sigmoid.json] [--draft]
+    $PY scripts/example_arch_topology.py [--out .cache/topology/topology.pptx] [--theme themes/sigmoid.json] [--draft]
 
   1 solution-architecture:arch-deploy-aws     Region > VPC > two AZ columns x three subnet tiers; the ECS service as a
                                               span band across both AZs; Aurora writer and reader; interface
@@ -153,11 +153,12 @@ Z = {
 }
 
 
-def azure_deploy(prs, th):
+def azure_deploy(prs, th, heading=("Spoke agents reach Azure models only through private endpoints",
+                                   ("only through private endpoints",))):
+    """heading: (title, keywords); a deck that shows Azure as a variant of an AWS build says so in its title."""
     s = blank(prs)
     tag.tag(s, "solution-architecture", "arch-deploy-azure")
-    title(s, "Spoke agents reach Azure models only through private endpoints",
-          keywords=("only through private endpoints",), canvas=WIDE, theme=th)
+    title(s, heading[0], keywords=heading[1], canvas=WIDE, theme=th)
     d = arch.Diagram("azure", grid=(3, 1), weights=[0.85, 1.12, 10.43], head_air=0.12, icon=0.38)
     d.group("left", "lane", None, at=(0, 0, 1, 1), grid=(1, 4))
     d.node("reps", Z["users"], "Field reps", group="left", at=(0, 0), anchor="left")
@@ -358,7 +359,7 @@ def current_target(prs, th):
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=str(SKILL / ".cache" / "arch" / "topology.pptx"))
+    ap.add_argument("--out", default=str(SKILL / ".cache" / "topology" / "topology.pptx"))
     ap.add_argument("--theme", default=str(SKILL / "themes" / "sigmoid.json"))
     ap.add_argument("--draft", action="store_true")
     ap.add_argument("--only", default="")

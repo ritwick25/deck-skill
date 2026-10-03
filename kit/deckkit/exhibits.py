@@ -393,6 +393,67 @@ def _check_mark(key, th):
     return kind, val
 
 
+SQUARE_SHARE = 0.72          # a square mark takes at most this share of its column's width (the rest is air)
+MARK_MARGIN = 0.24           # in, x k: the least air in a column beside a wide mark, both sides together
+WIDE_CAP = 2.4               # a mark is never drawn wider than this many mark sizes
+
+
+_INK_CACHE: dict = {}
+
+
+def _mark_ink(key: str) -> tuple[float, tuple | None]:
+    """(aspect, crop) of a mark's ink, the part of its artwork that paints anything.
+
+    aspect is the ink's width over its height; crop is (left, top, right, bottom), the share of the image on each
+    side that is fully transparent margin, or None when there is none to speak of. Vendor marks and monograms are
+    square tiles drawn whole: (1.0, None). A registry mark is rasterised once (rsvg-convert for an SVG) and its alpha
+    bounding box read, so a wordmark published on a wide empty canvas is measured by its letters, not its canvas.
+    Nothing is altered: the crop trims only pixels that paint nothing."""
+    kind, val = _mark_kind(key)
+    if kind != "mark":
+        return 1.0, None
+    entry = icons.mark_registry()[val]
+    blob = (icons.marks_dir() / entry["file"]).read_bytes()
+    ck = (val, icons.blob_sha256(blob))
+    if ck not in _INK_CACHE:
+        from PIL import Image
+        if entry["file"].lower().endswith(".svg"):
+            sw, sh = icons.svg_size(blob)
+            raster = icons.rasterise(blob, 600)
+        else:
+            raster = blob
+            with Image.open(io.BytesIO(blob)) as im0:
+                sw, sh = im0.size
+        with Image.open(io.BytesIO(raster)) as im:
+            im = im.convert("RGBA")
+            W, H = im.size
+            bb = im.getchannel("A").getbbox()
+        if bb is None:
+            raise GeometryError("mark_wall mark %s" % val, need="artwork that paints something", have="blank")
+        crop = [bb[0] / W, bb[1] / H, 1.0 - bb[2] / W, 1.0 - bb[3] / H]
+        crop = [0.0 if c < 0.01 else c for c in crop]          # anti-aliasing noise at the canvas edge is not margin
+        aspect = ((1.0 - crop[0] - crop[2]) * sw) / ((1.0 - crop[1] - crop[3]) * sh)
+        _INK_CACHE[ck] = (aspect, tuple(crop) if any(crop) else None)
+    return _INK_CACHE[ck]
+
+
+def _mark_size(aspect: float, side: float, cap_w: float) -> tuple[float, float]:
+    """The drawn (width, height) of a mark's ink at the wall's mark size `side`.
+
+    Equal visual weight: a mark wider than tall keeps the ink area of a square mark (side x side), so a 4.7:1
+    wordmark is drawn 2.16 sides wide and 0.46 sides tall instead of being squeezed into a square's width; a square
+    mark is side x side, unchanged; a tall mark fits the side x side square (its height sets the caption line). The
+    width is capped at WIDE_CAP sides and by the column (cap_w), the height following the mark's own aspect."""
+    if aspect >= 1.0:
+        w = side * min(math.sqrt(aspect), WIDE_CAP)
+        h = w / aspect
+    else:
+        w, h = side * aspect, side
+    if w > cap_w:
+        w, h = cap_w, cap_w / aspect
+    return w, h
+
+
 @ooxml.transactional
 def mark_wall(slide, box: Box, groups, *, tab_fill="ink-strong", fill="card", caption_pt=CAPTION_PT,
               max_mark=0.80, name: str, theme=None) -> dict:
@@ -404,6 +465,14 @@ def mark_wall(slide, box: Box, groups, *, tab_fill="ink-strong", fill="card", ca
     marks need (a group of six is wider than a group of two, never an even tile grid); every group shares one row
     count and one mark size, chosen as the largest that fits. Raises Overflows when the marks would fall under
     0.34in or a caption needs more than two lines.
+
+    Visual weight is normalised. Every mark is drawn at the ink area of a square mark (_mark_size), measured on its
+    ink rather than its canvas (_mark_ink, which trims a canvas's empty margin), so a wide wordmark gets a wider
+    column instead of reading as small text beside full-size squares. When a wall holds a wide mark, each column is
+    as wide as its widest need (a square at SQUARE_SHARE of the column, a wide mark's drawn width plus MARK_MARGIN,
+    a caption in two lines), the mark size is the largest at which every column fits, and spare width is shared out
+    in proportion to need. A square mark is side x side as before, and a wall with no wide mark lays out exactly as
+    it did. Every mark stays inside its column; the captions in a row share one top and one height.
 
     Returns {"groups": [Box], "mark": side_in, "rows": rows}."""
     th = theme_of(theme)
@@ -419,77 +488,160 @@ def mark_wall(slide, box: Box, groups, *, tab_fill="ink-strong", fill="card", ca
             _check_mark(key, th)
             if not str(cap or "").strip():
                 raise GeometryError("mark_wall %s caption for %s" % (name, key), need="a caption", have="none")
+    ink = [[_mark_ink(key) for key, _cap in items] for _l, items in groups]
+    any_wide = any(a > 1.0 for inks in ink for a, _c in inks)
     tab_h = 0.40 * k
     pad = 0.16 * k
     gut = 0.16 * k
+    margin = MARK_MARGIN * k
     body_h = box.h - tab_h
     cap_face = _face(th)
     n_g = len(groups)
+    avail = box.w - gut * (n_g - 1) - 2 * pad * n_g
+    cap_max = measure.line_in(caption_pt, cap_face) * 2 * measure.SLACK + 0.02
 
-    def caps_need(cw):
+    def cap_paras(cap):
+        return [Para((Run(str(cap), "ink", size=caption_pt),), align="center")]
+
+    def cap_fits(cap, col_w):
+        try:
+            return _need(cap_paras(cap), col_w - 0.08 * k, th) <= cap_max
+        except Overflows:                       # a word wider than its column
+            return False
+
+    def cap_min(cap):
+        """The narrowest column that sets the caption in two lines."""
+        lo, hi = 0.10 * k, max(0.5 * k, measure.width_in(str(cap), caption_pt, cap_face) * measure.SLACK + 0.3 * k)
+        while not cap_fits(cap, hi):
+            hi *= 1.5
+        for _ in range(30):
+            mid = (lo + hi) / 2.0
+            lo, hi = (lo, mid) if cap_fits(cap, mid) else (mid, hi)
+        return hi + 0.02 * k                    # clear of the boundary, so rounding to EMU never tips it
+
+    def caps_need(colw):
         hs = []
-        for _l, items in groups:
-            for _key, cap in items:
-                p = [Para((Run(str(cap), "ink", size=caption_pt),), align="center")]
-                h = _need(p, cw - 0.08 * k, th)
-                if h > measure.line_in(caption_pt, cap_face) * 2 * measure.SLACK + 0.02:
+        for (_l, items), g in zip(groups, colw):
+            c = len(g)
+            for j, (_key, cap) in enumerate(items):
+                if not cap_fits(cap, g[j % c]):
                     return None
-                hs.append(h)
+                hs.append(_need(cap_paras(cap), g[j % c] - 0.08 * k, th))
         return max(hs)
+
+    def pieces(rows):
+        """Per group, per column: the linear needs (u, v) of what it holds, width = u * side / SQUARE_SHARE + v."""
+        out = []
+        for (_l, items), inks in zip(groups, ink):
+            c = int(math.ceil(len(items) / rows))
+            col = [[(1.0, 0.0)] for _ in range(c)]
+            for j, ((_key, cap), (aspect, _crop)) in enumerate(zip(items, inks)):
+                col[j % c].append((0.0, cap_min(cap)))
+                if aspect > 1.0:
+                    col[j % c].append((min(math.sqrt(aspect), WIDE_CAP) * SQUARE_SHARE, margin))
+            out.append(col)
+        return out
+
+    def widths_at(pcs, side):
+        """Column widths at mark size side, spare width shared in proportion to need; None when they overflow."""
+        cw = side / SQUARE_SHARE
+        need = [[max(u * cw + v for u, v in col) for col in g] for g in pcs]
+        total = sum(sum(g) for g in need)
+        if total > avail + 1e-9:
+            return None
+        return [[w * avail / total for w in g] for g in need]
+
+    def side_for_width(pcs):
+        """The largest mark size at which every column fits: bisected, then exact on the active linear pieces."""
+        lo, hi = 0.0, 4.0 * k
+        if widths_at(pcs, 1e-6) is None:
+            return 0.0
+        for _ in range(60):
+            mid = (lo + hi) / 2.0
+            lo, hi = (mid, hi) if widths_at(pcs, mid) is not None else (lo, mid)
+        cw = lo / SQUARE_SHARE
+        act = [max(col, key=lambda p: p[0] * cw + p[1]) for g in pcs for col in g]
+        units, fixed = sum(u for u, _v in act), sum(v for _u, v in act)
+        exact = SQUARE_SHARE * ((avail - fixed) / units) if units else lo
+        return exact if widths_at(pcs, exact) is not None else lo
 
     best = None
     max_n = max(len(items) for _l, items in groups)
     for rows in range(1, max_n + 1):
         cols = [int(math.ceil(len(items) / rows)) for _l, items in groups]
-        avail = box.w - gut * (n_g - 1) - 2 * pad * n_g
-        cw = avail / sum(cols)
-        if cw < 0.70 * k:
-            continue
-        cap_h = caps_need(cw)
-        if cap_h is None:
-            continue
         cell_h = (body_h - 2 * pad) / rows
-        side = min(max_mark * k, 0.72 * cw, cell_h - cap_h - 0.20 * k)
+        if not any_wide:                         # the even grid, exactly as before
+            cw = avail / sum(cols)
+            if cw < 0.70 * k:
+                continue
+            colw = [[cw] * c for c in cols]
+            cap_h = caps_need(colw)
+            if cap_h is None:
+                continue
+            side = min(max_mark * k, SQUARE_SHARE * cw, cell_h - cap_h - 0.20 * k)
+        else:
+            pcs = pieces(rows)
+            side = min(max_mark * k, side_for_width(pcs))
+            colw = cap_h = None
+            for _ in range(6):                   # captions wrap with the widths: settle the side against the height
+                colw = widths_at(pcs, side) if side > 0 else None
+                cap_h = caps_need(colw) if colw is not None else None
+                if cap_h is None:
+                    break
+                nxt = min(side, cell_h - cap_h - 0.20 * k)
+                if nxt >= side - 1e-12:
+                    break
+                side = nxt
+            if colw is None or cap_h is None or min(w for g in colw for w in g) < 0.70 * k:
+                continue
         if side < 0.34 * k:
             continue
         empty = sum(c * rows - len(items) for c, (_l, items) in zip(cols, groups))
         empty_rows = sum(rows - int(math.ceil(len(items) / c)) for c, (_l, items) in zip(cols, groups))
         score = (round(side - 0.08 * k * empty_rows - 0.01 * k * empty, 3), -empty)   # a card with an empty row is air
         if best is None or score > best[0]:
-            best = (score, rows, cols, cw, cap_h, side, cell_h)
+            best = (score, rows, cols, colw, cap_h, side, cell_h)
     if best is None:
         raise Overflows("mark_wall %s" % name, need="marks of 0.34in with two-line captions",
                         have="%.2f x %.2fin" % (box.w, box.h), hint="fewer marks, shorter captions or a larger box")
-    _score, rows, cols, cw, cap_h, side, cell_h = best
-    widths = [c * cw + 2 * pad for c in cols]
+    _score, rows, cols, colw, cap_h, side, cell_h = best
+    widths = [sum(g) + 2 * pad for g in colw]
     x = box.x
     out = []
-    for gi, ((label, items), c, w) in enumerate(zip(groups, cols, widths), 1):
+    for gi, ((label, items), c, w, g, inks) in enumerate(zip(groups, cols, widths, colw, ink), 1):
         gname = "%s.%d" % (name, gi)
         prims.tab(slide, Box(x, box.y, w, tab_h), label, fill=tab_fill, align="c", name="%s.tab" % gname, theme=th)
         body = Box(x, box.y + tab_h, w, body_h)
         prims.card(slide, body, fill=fill, line=None if fill == "card" else "rule-strong", radius_in=0,
                    name="%s.body" % gname, theme=th)
         y0 = body.y + pad            # every group starts its marks on one line (P07); the fullest sets the air
-        for j, (key, cap) in enumerate(items):
+        for j, ((key, cap), (aspect, crop)) in enumerate(zip(items, inks)):
             r, cc = divmod(j, c)
             in_row = min(c, len(items) - r * c)
-            row_x = body.x + pad + (c - in_row) * cw / 2.0
-            cell = Box(row_x + cc * cw, y0 + r * cell_h, cw, cell_h)
+            row_x = body.x + pad + (sum(g) - sum(g[:in_row])) / 2.0      # a short last row is centred
+            cell = Box(row_x + sum(g[:cc]), y0 + r * cell_h, g[cc], cell_h)
             stack_h = side + 0.10 * k + cap_h
             my = cell.y + (cell.h - stack_h) / 2.0
-            mbox = Box(cell.cx - min(cw - 0.12 * k, side * 2.4) / 2.0, my, min(cw - 0.12 * k, side * 2.4), side)
             kind, val = _mark_kind(key)
             sub = "%s.%d" % (gname.replace(".", "-"), j + 1)
             if kind == "vendor":
                 icons.vendor(slide, val, Box(cell.cx - side / 2, my, side, side), name=sub, alt=str(cap), theme=th)
             elif kind == "mark":
-                icons.mark(slide, val, mbox, name=sub, alt=str(cap))
+                mw, mh = _mark_size(aspect, side, cell.w - margin)
+                inkb = Box(cell.cx - mw / 2.0, my + (side - mh) / 2.0, mw, mh)
+                if crop is None:
+                    icons.mark(slide, val, inkb, name=sub, alt=str(cap))
+                else:                # place the whole canvas so its ink lands on inkb, then trim the empty margin
+                    l_, t_, r_, b_ = crop
+                    fw, fh = mw / (1.0 - l_ - r_), mh / (1.0 - t_ - b_)
+                    pic = icons.mark(slide, val, Box(inkb.x - l_ * fw, inkb.y - t_ * fh, fw, fh), name=sub,
+                                     alt=str(cap))
+                    pic.crop_left, pic.crop_top, pic.crop_right, pic.crop_bottom = l_, t_, r_, b_
+                    pic.left, pic.top, pic.width, pic.height = inkb.emu
             else:
                 icons.monogram(slide, Box(cell.cx - side / 2, my, side, side), val, "ink-strong",
                                name="%s.%d.mono" % (gname, j + 1), theme=th)
-            p = [Para((Run(str(cap), "ink", size=caption_pt),), align="center")]
-            textbox(slide, Box(cell.x + 0.04 * k, my + side + 0.10 * k, cw - 0.08 * k, cap_h), p,
+            textbox(slide, Box(cell.x + 0.04 * k, my + side + 0.10 * k, cell.w - 0.08 * k, cap_h), cap_paras(cap),
                     "%s.%d.caption" % (gname, j + 1), th, background=fill)
         out.append(body)
         x += w + gut
@@ -697,7 +849,8 @@ def screen_frame(slide, box: Box, png, chrome="browser", band=None, *, pill=None
     if 0.0 < type_pt < measure.FLOOR - 1e-9:
         raise BelowFloor("screen_frame %s type" % name, need=measure.FLOOR, have=type_pt,
                          hint="place the capture wider, or capture at a narrower CSS width or with larger type")
-    label = " ".join(str(alt).split())[:80] or "Product screen"
+    suffix = " (capture, smallest type %.1fpt as placed)" % type_pt
+    label = " ".join(str(alt).split())[:120 - len(suffix)] or "Product screen"     # P20 holds alt text to 120
     if band:
         bh = win_h / 3.0
         by = wy + win_h / 3.0
@@ -721,7 +874,7 @@ def screen_frame(slide, box: Box, png, chrome="browser", band=None, *, pill=None
                     name="%s.base" % name, theme=th)
     pic = slide.shapes.add_picture(io.BytesIO(blob), *screen.emu)
     pic.crop_top, pic.crop_bottom = crop_top, crop_bottom
-    _set_alt(pic, "%s.screen" % name, "%s (capture, smallest type %.1fpt as placed)" % (label, type_pt))
+    _set_alt(pic, "%s.screen" % name, label + suffix)
     if chrome is None:
         prims.set_line(pic, "hairline", cv.hairline_pt, theme=th)
     ooxml.finish(pic)
