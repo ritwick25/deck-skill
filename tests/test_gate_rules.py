@@ -6,9 +6,14 @@ Run: cd ~/.claude/skills/deck && $PY -m unittest tests.test_gate_rules -v
   * page numbers: every spelled-out form in a band is one, a digit on a filled marker or mid-slide is not;
   * figures: ranges and units are figures, ordinals and years are not, a digit in a disc is not;
   * P10: a neutral hairline (chroma under 0.10, thinner than 1.5pt) beside text is not an accent bar;
+  * P22: a kit vendor mark whose key resolves passes in its own hue; the same picture hand-named icon.aws.* does not;
   * P12: PowerPoint's extension parts are SKIPPED and buSzPct 100000 is a known value, both printed, the deck passes;
   * P02: a shape whose measurement crashes is a finding on that shape and the gate goes on;
-  * P18: an index holding only its canary entry is empty.
+  * P18: an index holding only its canary entry is empty;
+  * P24: a foot line under content that stops halfway never stretches the extent; the golden fills its band;
+  * P25: text under an opaque shape drawn over it is noted, never measured;
+  * P07: fitted frames agree on tops or on centres; a centre-anchored frame with room compares its centre;
+  * P09: page labels count only in a page-number position.
 """
 from __future__ import annotations
 
@@ -154,6 +159,30 @@ class TestPassSide(Golden):
         code, found = run("P10", d)
         self.assertEqual(code, 0, [f.line() for f in found])
 
+    def test_resolving_vendor_marks_pass_without_a_hue_check(self):
+        """A kit vendor mark keeps the vendor's own hue (AWS orange, Azure blue): the key resolves, so P22 passes.
+        The same picture under a hand-placed icon.aws.* name is hue-checked and fails, so the pass is the rule."""
+        from deckkit import icons
+        from deckkit.canvas import Box
+        keys = [next(k for k in icons.vendor_keys() if k.startswith(v + "/")) for v in ("aws", "azure", "gcp")]
+        d = self.copy("vendor")
+
+        def fn(prs):
+            for j, k in enumerate(keys):
+                icons.vendor(prs.slides[6], k, Box(10.4 + 0.7 * j, 5.6, 0.5, 0.5))
+        negatives.with_prs(d, fn)
+        code, found = run("P22", d)
+        self.assertEqual(code, 0, [f.line() for f in found])
+        legacy = self.copy("vendor-legacy")
+
+        def fn2(prs):                                   # a blue mark: no identity colour is near it
+            pic = icons.vendor(prs.slides[6], keys[1], Box(10.4, 5.6, 0.5, 0.5))
+            pic._element.find(".//" + negatives.P + "cNvPr").set("name", "icon." + keys[1].replace("/", "."))
+        negatives.with_prs(legacy, fn2)
+        code, found = run("P22", legacy)
+        self.assertEqual(code, 1)
+        self.assertTrue(any("not in the theme identity registry" in f.msg for f in found), [f.line() for f in found])
+
     def test_extension_parts_skipped_and_known_bullet_size(self):
         d = self.copy("ext")
         negatives._authors_part(d)
@@ -202,15 +231,113 @@ class TestPassSide(Golden):
         self.assertTrue(any("names.sha1 holds only its canary" in f.msg for f in found), [f.line() for f in found])
 
     def test_every_golden_content_slide_fills_its_band(self):
+        """Content mass, not a union box: every golden content slide reaches 85% of the band with 35% of it marked,
+        and its mass runs to within an inch of the band's foot."""
         import p24_fill
         ctx = _shared.Ctx(self.deck)
         try:
             band = ctx.canvas.content
             for i in range(2, 7):
-                l, t, r, b = p24_fill.content_box(ctx.slide(i), ctx)
-                self.assertGreaterEqual((b - t) / band.h, p24_fill.EXTENT, i)
+                extent, share, _n = p24_fill.measures(p24_fill.grid(ctx.slide(i), ctx))
+                self.assertGreaterEqual(extent, p24_fill.EXTENT, i)
+                self.assertGreaterEqual(share, p24_fill.SHARE, i)
+                self.assertGreater(band.y + extent * band.h, band.y + band.h - 1.0, i)
         finally:
             ctx.close()
+
+    def test_text_under_an_opaque_shape_is_not_measured(self):
+        """White text with an opaque card drawn over it is not on glass: P25 notes it and passes."""
+        d = self.copy("covered")
+        from deckkit import prims
+        from deckkit.canvas import Box
+        th = negatives.theme()
+
+        def fn(prs):
+            negatives._add_text(prs, 7, (1.2, 4.8, 5.6, 0.3), "Pilot regions confirm by month end", 12.0, "hid.text")
+            with prims.use(th):
+                prims.card(prs.slides[6], Box(1.0, 4.6, 6.0, 1.0), fill="card", line="hairline", name="lid.card")
+        negatives.with_prs(d, fn)
+        negatives.edit_slide(d, 7, lambda r: negatives._recolour_runs(negatives.shape(r, "hid.text"), "FFFFFF"))
+        code, found = run("P25", d)
+        self.assertEqual(code, 0, [f.line() for f in found])
+        self.assertTrue(any("under an opaque shape" in f.msg for f in found), [f.line() for f in found])
+
+
+def tleaf(y, h, anchor="t", occ=1.0, autofit="none", w=1.0):
+    return {"kind": "sp", "bbox": {"x_in": 0.0, "y_in": y, "w_in": w, "h_in": h},
+            "text": {"text": "Heading", "words": 1, "occupancy": occ,
+                     "body": {"anchor": anchor, "autofit": autofit}}}
+
+
+class TestRowOffsets(unittest.TestCase):
+    """P07 offsets: anchor-aware, with fitted frames judged by tops or by centres."""
+
+    def test_fitted_frames_top_aligned_pass(self):
+        import p07_row
+        firsts = [tleaf(1.59, 0.52, "ctr", autofit="shape"), tleaf(1.60, 0.34, "ctr", autofit="shape")]
+        self.assertLessEqual(p07_row.spread(firsts, [1.47, 1.47]), p07_row.HEAD_TOL)
+
+    def test_fitted_frames_centred_pass(self):
+        import p07_row
+        firsts = [tleaf(4.90, 0.56, "ctr", autofit="shape"), tleaf(5.00, 0.37, "ctr", autofit="shape")]
+        self.assertLessEqual(p07_row.spread(firsts, [4.77, 4.77]), p07_row.HEAD_TOL)
+
+    def test_roomy_centre_anchored_frames_compare_centres(self):
+        import p07_row
+        same = [tleaf(1.0, 0.6, "ctr", occ=0.4), tleaf(0.9, 0.8, "ctr", occ=0.3)]     # centres both at 1.30
+        self.assertLessEqual(p07_row.spread(same, [0.5, 0.5]), p07_row.HEAD_TOL)
+        off = [tleaf(1.0, 0.6, "ctr", occ=0.4), tleaf(1.0, 0.9, "ctr", occ=0.3)]      # tops agree, centres 0.15 apart
+        self.assertGreater(p07_row.spread(off, [0.5, 0.5]), p07_row.HEAD_TOL)
+
+    def test_bottom_anchored_frames_compare_bottoms(self):
+        import p07_row
+        firsts = [tleaf(1.0, 0.6, "b", occ=0.4), tleaf(0.8, 0.8, "b", occ=0.4)]       # bottoms both at 1.60
+        self.assertLessEqual(p07_row.spread(firsts, [0.5, 0.5]), p07_row.HEAD_TOL)
+
+
+class TestFillGrid(unittest.TestCase):
+    """P24 measures on synthetic grids: a three-cell foot line never stretches the extent."""
+
+    def test_top_half_plus_a_foot_line_fails_extent(self):
+        import p24_fill
+        cells = [[r < 12 for _c in range(48)] for r in range(27)]
+        cells[26][0:5] = [True] * 5
+        extent, share, n = p24_fill.measures(cells)
+        self.assertEqual(n, 12 * 48 + 5)
+        self.assertAlmostEqual(extent, 12 / 27)
+        self.assertLess(extent, p24_fill.EXTENT)
+
+    def test_full_band_passes(self):
+        import p24_fill
+        cells = [[c % 2 == 0 for c in range(48)] for _r in range(27)]
+        extent, share, _n = p24_fill.measures(cells)
+        self.assertEqual(extent, 1.0)
+        self.assertAlmostEqual(share, 0.5)
+
+
+class TestPageLabels(unittest.TestCase):
+    """P09 page labels: 'A1'..'A9', 'Appendix N' and 'N / M' in a page-number position, nowhere else."""
+    W, H = 13.333, 7.5
+
+    def lab(self, t, x, y, w=0.6, h=0.25, pt=10.0, fill="none"):
+        import p09_chrome
+        L = {"bbox": {"x_in": x, "y_in": y, "w_in": w, "h_in": h}, "fill": {"type": fill},
+             "text": {"size": {"dominant_pt": pt}}}
+        return p09_chrome.page_label(L, t, self.W, self.H)
+
+    def test_in_position(self):
+        for t in ("A1", "A9", "Appendix 2", "appendix 12", "2 / 34"):
+            self.assertTrue(self.lab(t, 12.5, 7.05), t)             # bottom-right corner
+            self.assertTrue(self.lab(t, 0.4, 0.14), t)              # top-left corner
+        self.assertTrue(self.lab("A3", 6.37, 7.05))                 # centred at the foot
+
+    def test_not_page_labels(self):
+        self.assertFalse(self.lab("A3", 6.0, 3.5))                  # mid-slide: a grid reference
+        self.assertFalse(self.lab("A3", 12.5, 7.05, fill="solid"))  # on its own tab
+        self.assertFalse(self.lab("A3", 12.5, 7.05, pt=28.0))       # set large
+        self.assertFalse(self.lab("A10", 12.5, 7.05))
+        self.assertFalse(self.lab("Appendix", 12.5, 7.05))
+        self.assertFalse(self.lab("A3", 4.0, 7.05))                 # in the band, neither a side nor the centre
 
 
 if __name__ == "__main__":

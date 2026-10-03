@@ -38,6 +38,7 @@ SLOT_ORDER = ("dk1", "lt1") + OPEN_SLOTS
 CLRMAP = {"bg1": "lt1", "tx1": "dk1", "bg2": "lt2", "tx2": "dk2", **{s: s for s in OPEN_SLOTS[2:]}}
 EXPR_SLOTS = tuple(CLRMAP)            # what a role may name in a schemeClr (mapped names, never dk1/lt1)
 MODS = ("lumMod", "lumOff")
+VENDOR_SOURCES = ("diagrams",)        # the diagrams package's resources tree, the kit's one vendor-mark source
 
 # Roles, as expressions. Contrast figures against white are in engineering.md (b).
 ROLE_DEFAULTS = {
@@ -241,6 +242,17 @@ class Theme:
                 raise ThemeInvariant("identity %r" % k, need="{hex, reason}", have=v,
                                      hint="every identity colour states why it keeps its hue")
             self.identity[k] = {"hex": v["hex"].upper(), "reason": v["reason"]}
+        # Vendor registry: the vendors whose service marks keep their own artwork and hue on this theme.
+        # A key ('aws/compute/ec2') resolves when its first segment is registered here and the mark file
+        # exists in the source (deckkit.icons.vendor_resolves); gate P22 checks that instead of a hue.
+        self.vendors = {}
+        for k, v in (data.get("vendors") or {}).items():
+            if not (re.fullmatch(r"[a-z][a-z0-9-]{0,20}", str(k)) and isinstance(v, dict)
+                    and v.get("source") in VENDOR_SOURCES and v.get("reason")):
+                raise ThemeInvariant("vendor %r" % k, need="{source: %s, reason}" % " / ".join(VENDOR_SOURCES),
+                                     have=v, hint="every vendor states where its marks come from and why they keep "
+                                                  "their hue")
+            self.vendors[k] = {"source": v["source"], "reason": v["reason"]}
         self.roles: dict[str, Expr] = {}
         self.solved: dict[str, dict] = {}
         self._load_roles(data.get("roles") or {})

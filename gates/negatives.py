@@ -556,6 +556,19 @@ def p22_svg_fallback(p, w):
     edit_slide(p, 4, fn)
 
 
+def p22_vendor_key(p, w):
+    """A kit vendor mark whose recorded key names a mark the source does not hold (name and alt agree)."""
+    from deckkit import icons
+    from deckkit.canvas import Box
+
+    def fn(prs):
+        pic = icons.vendor(prs.slides[6], "aws/compute/ec2", Box(11.0, 5.5, 0.5, 0.5))
+        c = pic._element.find(".//" + P + "cNvPr")
+        c.set("name", "vendor.aws/compute/ec3")
+        c.set("descr", "Ec3 (vendor mark aws/compute/ec3)")
+    with_prs(p, fn)
+
+
 def p23_chip(p, w):
     def fn(r):
         chip = shape(r, "stat.3.basis")
@@ -968,6 +981,127 @@ def p05_loose_chevron(p, w):
     with_prs(p, fn)
 
 
+# ------------------------------------------------------------------ planters for the fourth fix round
+
+def p10_thin_line(p, w):
+    """A 1pt undirected line in the accent colour down the left of a card body: a line's thickness is its weight,
+    so it is a strip under deckkit.rules.is_accent_strip (the gate used to wave lines under 2pt through)."""
+    from pptx.dml.color import RGBColor
+    from pptx.enum.shapes import MSO_CONNECTOR
+    from pptx.util import Pt
+
+    def fn(prs):
+        s = prs.slides[1]
+        body = next(sh for sh in s.shapes if sh.name == "pillar.1.text.2")
+        x, y, h = body.left - int(0.08 * EMU), body.top, body.height
+        ln = s.shapes.add_connector(MSO_CONNECTOR.STRAIGHT, x, y, x, y + h)
+        ln.name = "accent.line"
+        ln.line.color.rgb = RGBColor.from_string("D91E18")
+        ln.line.width = Pt(1.0)
+    with_prs(p, fn)
+
+
+def _recolour_runs(sh, hex_):
+    for rn in runs_of(sh):
+        rpr = rn.find(A + "rPr")
+        sf = rpr.find(A + "solidFill")
+        for c in list(sf):
+            sf.remove(c)
+        sf.append(etree.Element(A + "srgbClr", val=hex_))
+
+
+def p25_white_on_white(p, w):
+    """A paper (white) card on the closing slide with a sentence on it set in white."""
+    from deckkit import prims
+    from deckkit.canvas import Box
+    th = theme()
+
+    def fn(prs):
+        with prims.use(th):
+            prims.card(prs.slides[6], Box(1.0, 4.6, 6.0, 1.0), fill="paper", line="rule-strong", name="white.card")
+        _add_text(prs, 7, (1.2, 4.8, 5.6, 0.3), "Pilot regions confirm by month end", 12.0, "white.text")
+    with_prs(p, fn)
+    edit_slide(p, 7, lambda r: _recolour_runs(shape(r, "white.text"), "FFFFFF"))
+
+
+def p25_grey_band(p, w):
+    """A mid-grey band (9E9E9E) on the closing slide with a 9pt source line in ink-muted grey on it."""
+    from pptx.dml.color import RGBColor
+    from pptx.enum.shapes import MSO_SHAPE
+
+    def fn(prs):
+        s = prs.slides[6]
+        band = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, int(1.0 * EMU), int(5.0 * EMU), int(6.0 * EMU), int(0.5 * EMU))
+        band.name = "grey.band"
+        band.fill.solid()
+        band.fill.fore_color.rgb = RGBColor.from_string("9E9E9E")
+        band.line.fill.background()
+        band.shadow.inherit = False
+        _add_text(prs, 7, (1.2, 5.12, 5.0, 0.25), "Source: regional planning log, last two quarters", 9.0, "grey.text",
+                  role="ink-muted")
+    with_prs(p, fn)
+
+
+def p07_icon_centre(p, w):
+    """The second pillar's glyph grown from 0.45 to 0.75in with its top left where it was: the tops still agree, the
+    centres (what a row of marks is compared by) drop 0.15in."""
+    def fn(r):
+        _off, ext = xfrm(shape(r, "pillar.2.icon"))
+        for k in ("cx", "cy"):
+            ext.set(k, str(int(round(0.75 * EMU))))
+    edit_slide(p, 2, fn)
+
+
+def p07_header_bar(p, w):
+    """A full-width header bar across the top of each pillar card, the second dropped 0.10in below its card's top."""
+    from pptx.dml.color import RGBColor
+    from pptx.enum.shapes import MSO_SHAPE
+
+    def fn(prs):
+        s = prs.slides[1]
+        for k in (1, 2, 3):
+            c = next(sh for sh in s.shapes if sh.name == "pillar.%d.card" % k)
+            dy = int(0.10 * EMU) if k == 2 else 0
+            bar = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, c.left, c.top + dy, c.width, int(0.12 * EMU))
+            bar.name = "pillar.%d.bar" % k
+            bar.fill.solid()
+            bar.fill.fore_color.rgb = RGBColor.from_string("404040")
+            bar.line.fill.background()
+            bar.shadow.inherit = False
+    with_prs(p, fn)
+
+
+def p24_top_heavy_source(p, w):
+    """The pillars slide squeezed into the top 45% of the band, then a three-word source line set at its foot: a union
+    box would span the band, the content mass does not."""
+    p24_top_heavy(p, w)
+    with_prs(p, lambda prs: _add_text(prs, 2, (0.5, 6.50, 3.0, 0.25), "Source: planning log", 9.0, "source.line",
+                                      role="ink-muted"))
+
+
+def p09_appendix_corner(p, w):
+    with_prs(p, lambda prs: _add_text(prs, 3, (12.40, 7.05, 0.45, 0.25), "A3", 10.0, "page.label"))
+
+
+def p09_appendix_top(p, w):
+    with_prs(p, lambda prs: _add_text(prs, 3, (11.40, 0.14, 1.40, 0.25), "Appendix 2", 10.0, "page.label"))
+
+
+def p14_cover_tier(p, w):
+    """The cover's title renamed and run to 16 words, with a short unbolded line named 'title' at its foot: the title
+    is the one deckkit.read picks (the cover tier), never whatever carries the kit's name."""
+    def fn(r):
+        sh = shape(r, "title")
+        sh.find(".//" + P + "cNvPr").set("name", "cover.title")
+        runs = runs_of(sh)
+        runs[0].find(A + "t").text = ("One shared demand view for every region, signed each Friday by finance, supply "
+                                      "and sales together")
+        for rn in runs[1:]:
+            rn.find(A + "t").text = ""
+    edit_slide(p, 1, fn)
+    with_prs(p, lambda prs: _add_text(prs, 1, (0.5, 6.40, 3.0, 0.25), "Regional planning", 10.0, "title"))
+
+
 PLANTERS = [
     Planter("run-7.5pt", "P01", "a body run set at 7.5pt", p01_75, "7.50pt run"),
     Planter("autofit-75pct", "P01", "a 10pt run under normAutofit fontScale 75% (7.5pt drawn)", p01_scale,
@@ -1074,6 +1208,8 @@ PLANTERS = [
     Planter("svg-no-fallback", "P22", "an SVG picture with its PNG fallback removed", p22_svg_fallback,
             "without a PNG fallback"),
     Planter("emoji-icon", "P22", "an emoji after a card heading", p22_emoji, "emoji"),
+    Planter("vendor-unresolved", "P22", "a vendor.* mark whose key names no mark in the source", p22_vendor_key,
+            "does not resolve"),
     Planter("unlabelled-illustrative", "P23", "an illustrative stat with its chip removed", p23_chip,
             "'Illustrative' chip"),
     Planter("value-drift", "P23", "a stat value changed on glass after the build", p23_drift, "on glass '46%'"),
@@ -1081,6 +1217,22 @@ PLANTERS = [
     Planter("loose-range", "P23", "'5 to 10%' set large and bold outside any stat", p23_range, "no kind: '5 to 10%'"),
     Planter("top-heavy-slide", "P24", "the pillars slide's content squeezed into the top 45% of the band",
             p24_top_heavy, "content spans"),
+    Planter("top-heavy-plus-source", "P24", "the same squeeze plus a three-word source line at the foot",
+            p24_top_heavy_source, "content spans"),
+    Planter("thin-accent-line", "P10", "a 1pt undirected accent line down the left of a card body", p10_thin_line,
+            "left accent bar"),
+    Planter("icon-centre-drop", "P07", "one pillar glyph grown 0.30in from its top (centres drop 0.15in)",
+            p07_icon_centre, "first content at"),
+    Planter("header-bar-drop", "P07", "full-width header bars on three cards, the second 0.10in low", p07_header_bar,
+            "first content at"),
+    Planter("appendix-corner", "P09", "an 'A3' label in the bottom-right corner", p09_appendix_corner,
+            "page label 'A3'"),
+    Planter("appendix-top", "P09", "an 'Appendix 2' label in the top-right corner", p09_appendix_top,
+            "page label 'Appendix 2'"),
+    Planter("cover-tier-title", "P14", "a 16-word cover title renamed, a two-word line named 'title'",
+            p14_cover_tier, "words in the title"),
+    Planter("white-on-white", "P25", "white text on a white card", p25_white_on_white, "white.card"),
+    Planter("grey-on-grey-band", "P25", "grey 9pt text on a mid-grey band", p25_grey_band, "grey.band"),
 ]
 
 

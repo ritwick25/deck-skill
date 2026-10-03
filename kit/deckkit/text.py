@@ -11,7 +11,11 @@ Lifted from pptxlib `textbox`, the PMR deck engine's `text` / `action_title`, an
   * textbox() measures with deckkit.measure BEFORE it creates the shape, and raises Overflows;
   * title() is two-tone (DECISIONS ruling 6): one to three keywords in the brand text role, the rest
     ink-deep. PMR's subtitle, accent_rule (the title underline), chip row and page furniture are gone;
-  * retext() writes runs only, never paragraph-level text, and refuses rather than dropping content.
+  * retext() writes runs only, never paragraph-level text, and refuses rather than dropping content;
+  * every writer knows what is behind its text (background=: a fill role or a hex; textbox() and title()
+    default to paper, the slide background; write() reads the fill of the shape it writes into) and refuses
+    with ThemeInvariant a run that does not clear 4.5:1 against it, 3.0:1 for 14pt bold or 18pt and larger
+    (deckkit.rules.contrast_min, deckkit.read.colour.contrast).
 
 Colour words. A run names a TEXT role. The brand colour on text is `accent-ink` (the role each theme
 solves to clear 4.5:1); `accent` is a fill role, and a run that names it is refused with that hint.
@@ -23,13 +27,14 @@ from dataclasses import dataclass, field
 
 from lxml import etree
 
-from . import measure, ooxml
+from . import measure, ooxml, rules
 from .canvas import EMU_PER_IN, Box, Canvas, canvas_of
 from .measure import FLOOR
 from .errors import BelowFloor, Capacity, DeckkitError, OverBudget, Overflows, ThemeInvariant
+from .read.colour import apply_mods, contrast
 from .read.ns import NS, local
 from .read.textmetrics import words
-from .theme import TEXT_ROLES
+from .theme import ROLES, TEXT_ROLES
 
 _A = "{%s}" % NS["a"]
 
@@ -179,6 +184,67 @@ def _default_face(theme, which: str = "minor") -> str:
     return (getattr(theme, "fonts", None) or {}).get(which) or "Arial"
 
 
+# ------------------------------------------------------------------------------- contrast
+
+PAGE = "paper"          # free text sits on the slide background, which is paper in every kit theme
+
+
+def background_hex(background, theme) -> str:
+    """The hex behind the text: a theme role name, or a 6-digit hex (with or without #)."""
+    if isinstance(background, str) and background in ROLES:
+        return theme.hex(background).upper()
+    h = str(background or "").lstrip("#")
+    if re.fullmatch(r"[0-9A-Fa-f]{6}", h):
+        return h.upper()
+    raise ThemeInvariant("text background", need="a theme role or a 6-digit hex", have=background,
+                         hint="pass the fill role the text sits on, or paper for text on the slide")
+
+
+def _check_prepped(what: str, prepped, theme, background):
+    bg = background_hex(background, theme)
+    for _p, rr, _m in prepped:
+        for r in rr:
+            if not r.text.strip():
+                continue
+            fg = theme.hex(r.role)
+            ratio = contrast(fg, bg)
+            need = rules.contrast_min(r.pt, r.bold)
+            if ratio + 1e-9 < need:
+                raise ThemeInvariant("%s: run %r in %s on %s" % (what, r.text[:40], r.role, background),
+                                     need="%.1f:1" % need, have="%.2f:1" % ratio,
+                                     hint="%s %s on %s %s; set the text in a role that reads on this fill "
+                                          "(prims.ON_FILL), or put it on another background"
+                                          % (r.role, fg, background, bg))
+
+
+def check_contrast(what: str, paras, theme, background, *, size=None, face=None):
+    """Raise ThemeInvariant when any run of paras does not clear rules.contrast_min (4.5:1, or 3.0:1 for
+    14pt bold and larger or 18pt and larger) against background (a fill role or a hex)."""
+    _check_prepped(what, _prepare(paras, theme, size, face or _default_face(theme)), theme, background)
+
+
+def _frame_background(tx, theme) -> str:
+    """The fill of the shape (or table cell) a txBody belongs to, as a hex: a solid schemeClr or srgbClr
+    fill, else paper (no fill, or a fill the kit does not write, shows the slide). A fill set after the text
+    is written is not seen: pass background= then."""
+    sp = tx.getparent()
+    if sp is None:
+        props = None
+    elif local(sp) == "tc":
+        props = sp.find(_A + "tcPr")
+    else:
+        props = sp.find("{%s}spPr" % NS["p"])
+    sf = props.find(_A + "solidFill") if props is not None else None
+    if sf is not None and len(sf):
+        c = sf[0]
+        mods = [(local(m), int(m.get("val"))) for m in c if m.get("val") is not None]
+        if local(c) == "schemeClr":
+            return apply_mods(theme.slot_hex(c.get("val")), mods).upper()
+        if local(c) == "srgbClr":
+            return apply_mods(c.get("val"), mods).upper()
+    return background_hex(PAGE, theme)
+
+
 # ------------------------------------------------------------------------------- measuring
 
 def _measure(prepped, box, insets) -> measure.Fit:
@@ -295,13 +361,18 @@ def _write_prepped(text_frame, prepped, theme, insets, anchor):
     return text_frame
 
 
-def write(text_frame, paras, theme, insets=measure.ZERO, *, size=None, face=None, anchor="top"):
+def write(text_frame, paras, theme, insets=measure.ZERO, *, size=None, face=None, anchor="top", background=None):
     """Replace every paragraph of text_frame with paras. Each run gets an explicit size, typeface,
     kern 0 and role colour; each paragraph its own spacing and bullet; bodyPr noAutofit, wrap
-    square, explicit insets. Raises BelowFloor below 8.0pt. Does not measure (textbox() does)."""
+    square, explicit insets. Raises BelowFloor below 8.0pt, and ThemeInvariant when a run does not clear
+    its contrast minimum against background (the fill role or hex behind the text; None reads the fill
+    of the shape being written into, paper when it has none). Does not measure (textbox() does)."""
     if anchor not in _ANCHOR:
         raise ValueError("anchor %r: top, middle or bottom" % (anchor,))
     prepped = _prepare(paras, theme, size, face or _default_face(theme))
+    if background is None:
+        background = _frame_background(ooxml._el(text_frame), theme)
+    _check_prepped("text", prepped, theme, background)
     return _write_prepped(text_frame, prepped, theme, insets, anchor)
 
 
@@ -316,12 +387,15 @@ def _add_box(slide, box: Box, name: str):
 
 @ooxml.transactional
 def textbox(slide, box: Box, paras, name: str, theme, require_fit: bool = True, *,
-            insets=measure.ZERO, size=None, face=None, anchor="top"):
+            insets=measure.ZERO, size=None, face=None, anchor="top", background=PAGE):
     """A named text box at box, measured BEFORE it is created: Overflows (with a cut-words hint)
-    when require_fit and the text needs more height than the box offers."""
+    when require_fit and the text needs more height than the box offers, ThemeInvariant when a run
+    does not clear its contrast minimum against background (paper, the slide, unless the box sits on a
+    fill: pass that fill's role or hex)."""
     if anchor not in _ANCHOR:
         raise ValueError("anchor %r: top, middle or bottom" % (anchor,))
     prepped = _prepare(paras, theme, size, face or _default_face(theme))
+    _check_prepped(name, prepped, theme, background)
     if require_fit:
         _require(name, prepped, box, insets)
     sh = _add_box(slide, box, name)
@@ -398,6 +472,7 @@ def title(slide, text: str, keywords=(), canvas: Canvas | None = None, theme=Non
     para = Para(title_runs(text, keywords))
     major = _default_face(theme, "major")
     prepped = _prepare([para], theme, canvas.title_pt, major)
+    _check_prepped("title", prepped, theme, PAGE)
     tb = canvas.title_box
     fit = measure.fits([prepped[0][2]], (tb.w, 1e9))
     if fit.n_lines > canvas.title_max_lines:
@@ -515,4 +590,4 @@ def retext(shape, chunks):
 
 
 __all__ = ["Run", "Para", "RUN_ROLES", "TITLE_MAX_WORDS", "TITLE_MAX_KEYWORDS", "write", "textbox",
-           "check_fit", "need_height", "title", "title_runs", "retext"]
+           "check_fit", "check_contrast", "background_hex", "need_height", "title", "title_runs", "retext"]

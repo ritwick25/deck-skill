@@ -1,9 +1,13 @@
-"""P22 icons: every SVG picture has a raster fallback, every raster is at least 2x its displayed size, vendor marks keep a registered hue, no emoji.
+"""P22 icons: every SVG picture has a raster fallback, every raster is at least 2x its displayed size, vendor marks resolve or keep a registered hue, no emoji.
 
   * an svgBlip with no r:embed raster beside it renders blank in older readers;
   * a raster's effective resolution (pixels over displayed inches, crop applied) is at least 192 dpi;
-  * a vendor mark (a picture named icon.aws.*, icon.azure.* or icon.gcp.*) keeps its own hue, and that hue
-    must be one the theme's identity registry declares (CIEDE2000 under 12), so it is a decision, not drift;
+  * a kit vendor mark (a picture named vendor.<key>, deckkit.icons.vendor) must record the same key in its alt
+    text ('(vendor mark <key>)') and the key must resolve: its vendor in the theme's vendor registry and the mark
+    file present in that source (deckkit.icons.vendor_resolves). Its hue is the vendor's own artwork, so no hue
+    check; a mark whose key does not resolve fails;
+  * a hand-placed vendor mark (a picture named icon.aws.*, icon.azure.* or icon.gcp.*) keeps its own hue, and that
+    hue must be one the theme's identity registry declares (CIEDE2000 under 12), so it is a decision, not drift;
   * emoji are never icons.
 """
 from __future__ import annotations
@@ -13,6 +17,7 @@ import sys
 
 from _shared import FAIL, Finding, cli, text_of
 from deckkit.read.ns import local
+from deckkit.icons import VENDOR_ALT, VENDOR_PREFIX, vendor_key_of, vendor_resolves
 from deckkit.read.walk import EMOJI
 from deckkit.theme import delta_e00
 
@@ -60,6 +65,16 @@ def run(deck, ctx):
             ct = dr.content_type(target) if target else None
             if svg and (not target or not dr.has(target) or not (ct or "").startswith(("image/png", "image/jpeg"))):
                 out.append(Finding(GATE, FAIL, i, name, "SVG picture without a PNG fallback (r:embed %s, %s)" % (emb, ct)))
+            if name.startswith(VENDOR_PREFIX):
+                alt = c.get("descr", "") if c is not None else ""
+                key = vendor_key_of(name, alt)
+                if key is None:
+                    m = VENDOR_ALT.search(alt)
+                    out.append(Finding(GATE, FAIL, i, name, "vendor mark name and alt text disagree on its key (alt %s)"
+                                       % (repr(m.group(1)) if m else "records no key")))
+                elif not vendor_resolves(key, ctx.theme):
+                    out.append(Finding(GATE, FAIL, i, name, "vendor mark key %r does not resolve (theme vendor "
+                                       "registry: %s)" % (key, ", ".join(sorted(ctx.theme.vendors)) or "empty")))
         for L in ctx.slide(i)["shapes"]:
             pic = L.get("picture")
             if pic and pic.get("dpi_effective") is not None and (pic.get("format") not in ("WMF", "EMF")) \

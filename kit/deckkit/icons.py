@@ -10,8 +10,12 @@ Lifted from the fabric _prim icon / rasterize_icons and the hospital attach_icon
     clone.rasterise_svg, so there is one rasteriser in the kit
 
 Vendor marks keep their hue on purpose: they are identity, not theme. Their source is the diagrams
-package's resource tree (aws, azure, gcp), addressed by key 'aws/compute/ec2'. A product with no mark
-gets a monogram tile drawn in a theme role, one consistent family so it reads as intentional.
+package's resource tree (aws, azure, gcp), addressed by key 'aws/compute/ec2', and a theme declares which
+sources it accepts in its vendor registry (theme JSON "vendors"). vendor() names its picture
+vendor.<key> and records the key in the alt text ('Ec2 (vendor mark aws/compute/ec2)'), so gate P22 knows
+the mark is a registered vendor's own artwork and checks that its key resolves instead of its hue.
+A product with no mark gets a monogram tile drawn in a theme role, one consistent family so it reads as
+intentional.
 """
 from __future__ import annotations
 
@@ -40,6 +44,8 @@ RT_IMAGE = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/
 DIAGRAMS_RESOURCES = Path("/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/"
                           "diagrams/resources")
 VENDORS = ("aws", "azure", "gcp")
+VENDOR_PREFIX = "vendor."
+VENDOR_ALT = re.compile(r"\(vendor mark ([A-Za-z0-9_./-]+)\)\s*$")
 SVG_FALLBACK_SCALE = 4.0     # an SVG's PNG fallback is 4x its displayed size at 96 dpi
 RASTER_MIN_SCALE = 2.0       # a raster placed bigger than half its pixels at 96 dpi is refused (gate P22)
 
@@ -69,6 +75,34 @@ def vendor_keys() -> tuple[str, ...]:
         for f in sorted((root / v).rglob("*.png")):
             out.append(f.relative_to(root).with_suffix("").as_posix())
     return tuple(out)
+
+
+def vendor_resolves(key: str, theme=None) -> bool:
+    """True when key names a mark file in the diagrams resources and, with a theme, its vendor (the key's
+    first segment) is in the theme's vendor registry. Never raises."""
+    k = str(key or "").strip().strip("/")
+    v = k.split("/")[0]
+    if v not in VENDORS or ".." in k.split("/"):
+        return False
+    if theme is not None and v not in (getattr(theme, "vendors", None) or {}):
+        return False
+    try:
+        return (_resources() / (k + ".png")).is_file()
+    except UnsupportedPart:
+        return False
+
+
+def vendor_key_of(name: str, alt: str) -> str | None:
+    """The key a vendor picture records: the alt text's '(vendor mark <key>)', when its name is
+    vendor.<key> or vendor.<key>.<suffix>. None when either record is missing or they disagree."""
+    m = VENDOR_ALT.search(alt or "")
+    if not m or not (name or "").startswith(VENDOR_PREFIX):
+        return None
+    key = m.group(1)
+    rest = name[len(VENDOR_PREFIX):]
+    if rest == key or rest.startswith(key + "."):
+        return key
+    return None
 
 
 def vendor_path(key: str) -> Path:
@@ -158,18 +192,37 @@ def svg_size(svg: bytes) -> tuple[float, float]:
 
 
 @ooxml.transactional
-def vendor(slide, key: str, box: Box, *, name: str | None = None, alt: str | None = None):
+def vendor(slide, key: str, box: Box, *, name: str | None = None, alt: str | None = None, theme=None):
     """A vendor service mark (diagrams resources, 'aws/compute/ec2'), aspect kept, centred in box,
-    in its own colours. Refused when the raster is under 2x its displayed size."""
+    in its own colours. Refused when the raster is under 2x its displayed size, and, when a theme is bound
+    or passed, when the key's vendor is not in the theme's vendor registry.
+
+    The picture is named vendor.<key> (name, when given, is a suffix: vendor.<key>.<name>, for two marks
+    of one service on a slide) and its alt text is '<label> (vendor mark <key>)', so gate P22 can resolve
+    the key; label is alt, else the key's last segment title-cased."""
+    from . import prims
     p = vendor_path(key)
-    label = _alt(alt or key.rsplit("/", 1)[-1].replace("-", " ").title())     # refused before anything is added
+    k = key.strip().strip("/")
+    th = theme if theme is not None else (prims._ACTIVE[-1] if prims._ACTIVE else None)
+    if th is not None and not vendor_resolves(k, th):
+        reg = ", ".join(sorted(getattr(th, "vendors", None) or {})) or "empty"
+        raise UnsupportedPart("vendor icon %r" % key, need="a vendor in the theme registry (%s)" % reg,
+                              have=k.split("/")[0], hint="add the vendor to the theme's \"vendors\" registry")
+    if name is not None:
+        suffix = _name(name, "vendor")
+        if not re.fullmatch(r"[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+)*", suffix):
+            raise GeometryError("vendor %s name" % k, need="a dotted suffix (letters, digits, - and _)", have=name,
+                                hint="the picture is named vendor.<key>.<suffix>")
+    pic_name = VENDOR_PREFIX + k + ("." + name if name is not None else "")
+    label = _alt(alt or k.rsplit("/", 1)[-1].replace("-", " ").title())
+    label = _alt("%s (vendor mark %s)" % (label, k))                         # refused before anything is added
     blob = p.read_bytes()
     pw, ph = _png_size(blob)
     b = _fit(box, pw, ph)
     _check_raster("vendor icon %s" % key, pw, b)
     x, y, w, h = b.emu
     pic = slide.shapes.add_picture(io.BytesIO(blob), x, y, w, h)
-    _set_nv(pic, name or "icon.%s" % key.replace("/", "."), label)
+    _set_nv(pic, pic_name, label)
     ooxml.finish(pic)
     return pic
 
@@ -234,12 +287,13 @@ def monogram(slide, box: Box, letters: str, role: str = "ink-strong", *, name: s
     what = "monogram %s" % name
     paras = [text.Para([text.Run(letters, role=prims.ON_FILL[role], bold=True, size=prims.check_pt(pt, what))],
                        align="center")]
+    text.check_contrast(what, paras, th, role)
     text.check_fit(what, paras, (side * 0.86, side), th)
     sh = prims._add(slide, "ROUNDED_RECTANGLE", sq, name)
     sh.adjustments[0] = 0.18
     prims.set_fill(sh, role, theme=th)
     prims.set_line(sh, None, theme=th)
-    text.write(sh.text_frame, paras, th, anchor="middle")
+    text.write(sh.text_frame, paras, th, anchor="middle", background=role)
     ooxml.finish(sh)
     return sh
 
@@ -265,5 +319,5 @@ def fix_svg_ct(path) -> bool:
     return True
 
 
-__all__ = ["vendor", "vendor_keys", "vendor_path", "svg_picture", "monogram", "rasterise", "svg_size", "fix_svg_ct",
+__all__ = ["vendor", "vendor_keys", "vendor_path", "vendor_resolves", "vendor_key_of", "VENDOR_PREFIX", "svg_picture", "monogram", "rasterise", "svg_size", "fix_svg_ct",
            "SVG_FALLBACK_SCALE", "RASTER_MIN_SCALE"]

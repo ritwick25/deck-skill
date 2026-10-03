@@ -26,7 +26,7 @@ from lxml import etree  # noqa: E402
 from pptx import Presentation  # noqa: E402
 from pptx.oxml.xmlchemy import OxmlElement  # noqa: E402
 
-from deckkit import canvas, glyphs, icons, measure, ooxml, package, prims, text  # noqa: E402
+from deckkit import canvas, glyphs, icons, measure, ooxml, package, prims, rules, text  # noqa: E402
 from deckkit.canvas import STD, WIDE, Box  # noqa: E402
 from deckkit.errors import BelowFloor, DeckkitError, GeometryError, Overflows, ThemeInvariant  # noqa: E402
 from deckkit.read.ns import NS  # noqa: E402
@@ -305,27 +305,180 @@ class FinishOxml(Base):
 # ------------------------------------------------------------------ 5. accent strips
 
 class Strips(Base):
+    """One predicate (deckkit.rules.is_accent_strip) for the builder and gate P10: at most 0.10in thick, longer
+    than 0.18in and more than 2x its thickness, in a colour that is not a neutral grey, not named state.*."""
+
+    def coloured(self):
+        return [r for r in ("accent", "accent-tint", "accent-deep", "series-1", "series-2", "series-3", "series-4",
+                            "accent-wash", "navy", "series-5", "ink-strong", "ink-deep")
+                if not rules.is_neutral_role(r, SIGMOID)]
+
     def test_non_neutral_strips_refused(self):
         U = self.unchanged
-        for role in ("accent", "accent-tint", "accent-deep", "accent-wash", "series-1", "series-5", "navy",
-                     "ink-strong", "ink-deep"):
+        roles = self.coloured()
+        self.assertEqual(roles, ["accent", "accent-tint", "accent-deep", "series-1", "series-2", "series-3",
+                                 "series-4"])
+        for role in roles:
             U(GeometryError, prims.rect, self.s, Box(1, 1, 0.10, 1.0), fill=role, name="edge")      # exactly 0.10
             U(GeometryError, prims.rect, self.s, Box(1, 1, 2.0, 0.06), fill=role, name="top")
+        U(GeometryError, prims.rect, self.s, Box(1, 1, 0.09, 0.5), fill="accent", name="edge.short")   # 5.6x long
+        U(GeometryError, prims.rect, self.s, Box(1, 1, 0.09, 0.19), fill="accent", name="edge.stub")   # past 0.18
         U(GeometryError, prims.rect, self.s, Box(1, 1, 0.05, 1.5), line="accent", name="edge.line")   # line only
         U(GeometryError, prims.card, self.s, Box(1, 1, 0.08, 1.2), fill="accent-tint", line=None, name="c")
         U(GeometryError, prims.card, self.s, Box(1, 1, 2.0, 0.09), fill="accent-tint", line=None, radius_in=0,
           name="c")
-        U(GeometryError, prims.zone, self.s, Box(1, 1, 3.0, 0.08), name="z")
+        U(GeometryError, prims.zone, self.s, Box(1, 1, 3.0, 0.08), fill="accent-tint", name="z")
+        U(GeometryError, prims.person, self.s, Box(1, 1, 0.09, 1.0), role="accent", name="pe")
 
     def test_neutral_state_and_non_strips_pass(self):
-        for role in prims.NEUTRAL_STRIP:
+        for role in prims.NEUTRAL_STRIP + ("ink-strong", "ink-deep", "navy", "accent-wash", "series-5"):
+            self.assertTrue(rules.is_neutral_role(role, SIGMOID), role)          # greys by chroma on this theme
             prims.rect(self.s, Box(1, 1, 0.05, 2.0), fill=role, name="divider.%s" % role)
         prims.rect(self.s, Box(1, 1, 3.0, 0.02), line="hairline", name="rule.line")
         prims.card(self.s, Box(1, 1, 3.0, 0.10), fill="card", line="hairline", name="card.thin")
         prims.rect(self.s, Box(1, 1, 0.05, 1.5), fill="accent", name="state.active")
         prims.rect(self.s, Box(1, 1, 0.11, 2.0), fill="accent", name="block.wide")              # thicker than 0.10
-        prims.rect(self.s, Box(1, 1, 0.10, 0.59), fill="accent", name="block.short")            # under 6x long
+        prims.rect(self.s, Box(1, 1, 0.09, 0.18), fill="accent", name="block.stub")             # not past 0.18
+        prims.rect(self.s, Box(1, 1, 0.10, 0.20), fill="accent", name="block.square")           # not over 2x
         self.assertEqual(prims.BAR_MAX_IN, 0.10)
+
+    def test_builder_and_gate_share_the_predicate(self):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("p10_density", os.path.join(SKILL, "gates", "p10_density.py"))
+        sys.path.insert(0, os.path.join(SKILL, "gates"))
+        try:
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+        finally:
+            sys.path.remove(os.path.join(SKILL, "gates"))
+        self.assertIs(mod.is_accent_strip, rules.is_accent_strip)
+        src = Path(KIT, "prims.py").read_text(encoding="utf-8")
+        self.assertIn("rules.is_accent_strip(", src)
+        for w, h, hx, nm, want in ((0.09, 0.5, "D91E18", "edge", True), (0.09, 0.5, "D91E18", "state.on", False),
+                                   (0.09, 0.5, "8C8C8C", "edge", False), (0.09, 0.5, "DDE4F6", "edge", False),
+                                   (0.10, 0.20, "D91E18", "edge", False), (0.5, 0.06, "1E3C7D", "top", True),
+                                   (0.11, 2.0, "D91E18", "edge", False)):
+            self.assertEqual(rules.is_accent_strip(w, h, hx, nm, SIGMOID), want, (w, h, hx, nm))
+        self.assertTrue(rules.is_accent_strip(0.07, 0.5, "D91E18", "e", SIGMOID, k=0.75))
+        self.assertFalse(rules.is_accent_strip(0.09, 0.5, "D91E18", "e", SIGMOID, k=0.75))   # compact: 0.075 thin
+
+
+class Lines(Base):
+    """Line creators refuse a coloured edge strip: a non-neutral line needs an arrowhead (or a state.* / link.*
+    name) and a non-neutral connector is at most 1.5pt (rules.line_refusal)."""
+
+    def test_coloured_undirected_lines_refused(self):
+        U = self.unchanged
+        prims.card(self.s, Box(1.2, 1, 3, 2), name="beside")
+        U(GeometryError, prims.hairline, self.s, (1.1, 1), (1.1, 3), role="accent", weight_pt=2.25, name="edge")
+        U(GeometryError, prims.hairline, self.s, (1.1, 1), (1.1, 3), role="accent", weight_pt=0.5, name="edge")
+        U(GeometryError, prims.hairline, self.s, (1.1, 1), (1.1, 3), role="series-1", name="edge")
+        U(GeometryError, prims.connect, self.s, (1, 1), (3, 1), head="none", role="accent", name="c")
+        U(GeometryError, prims.connect, self.s, (1, 1), (1, 3), head=None, role="accent", weight_pt=6.5, name="c")
+        U(GeometryError, prims.elbow, self.s, [(1, 1), (1, 3)], head="none", role="accent", weight_pt=6.5, name="e")
+        U(GeometryError, prims.elbow, self.s, [(1, 1), (1, 2), (3, 2)], head="none", role="accent-deep", name="e")
+
+    def test_heavy_coloured_connectors_refused(self):
+        U = self.unchanged
+        U(GeometryError, prims.connect, self.s, (1, 1), (3, 1), head="end", role="accent", weight_pt=2.0, name="c")
+        U(GeometryError, prims.elbow, self.s, [(1, 1), (1, 2), (3, 2)], role="accent", weight_pt=1.75, name="e")
+        U(GeometryError, prims.hairline, self.s, (1, 1), (3, 1), role="accent", weight_pt=2.0, name="link.x")
+
+    def test_connectors_rules_and_named_lines_pass(self):
+        prims.connect(self.s, (1, 1), (3, 1), head="end", role="accent", weight_pt=0.75, name="a1")
+        prims.connect(self.s, (1, 2), (3, 2), head="both", role="accent", weight_pt=1.5, name="a2")
+        prims.elbow(self.s, [(1, 3), (1, 4), (3, 4)], role="accent", weight_pt=1.0, name="a3")
+        prims.connect(self.s, (1, 5), (3, 5), head="none", role="ink-muted", weight_pt=3.0, name="rule.heavy")
+        prims.hairline(self.s, (1, 6), (3, 6), role="rule-strong", weight_pt=2.25, name="rule.strong")
+        prims.hairline(self.s, (4, 1), (4, 3), role="accent", weight_pt=1.0, name="link.ab")
+        prims.hairline(self.s, (5, 1), (5, 3), role="accent", weight_pt=3.0, name="state.active")
+
+
+class TextContrast(Base):
+    """Every text writer knows its background and refuses a pair below 4.5:1 (3.0:1 for large text)."""
+
+    def test_low_contrast_text_refused(self):
+        U = self.unchanged
+        U(ThemeInvariant, prims.caps_label, self.s, Box(1, 1, 2, 0.3), "Label", role="paper", name="l")
+        U(ThemeInvariant, prims.pill, self.s, Box(1, 1, 1.2, 0.3), "Tag", fill="paper", role="paper", name="p")
+        U(ThemeInvariant, prims.pill, self.s, Box(1, 1, 1.2, 0.3), "Tag", fill="accent", role="ink-muted", name="p")
+        U(ThemeInvariant, prims.caps_label, self.s, Box(1, 1, 2, 0.3), "Label", role="ink-muted",
+          background="ink-strong", name="l")
+        U(ThemeInvariant, text.textbox, self.s, Box(1, 1, 4, 1), [text.Run("x", role="paper", size=11)], "tb", SIGMOID)
+        U(ThemeInvariant, text.textbox, self.s, Box(1, 1, 4, 1), [text.Run("x", role="ink", size=11)], "tb", SIGMOID,
+          background="ink-strong")
+        U(ThemeInvariant, prims.stat, self.s, Box(1, 1, 2, 1.5), "3x", "Faster", kind="measured",
+          background="accent", name="s")
+        U(ThemeInvariant, prims.quote, self.s, Box(1, 1, 3.4, 1.1), "Short passage.", "Someone", fill="accent",
+          name="q")
+
+    def test_write_reads_its_own_fill(self):
+        from pptx.enum.shapes import MSO_SHAPE
+        sh = self.s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, 914400, 914400)
+        prims.set_fill(sh, "ink-strong", theme=SIGMOID)
+        with self.assertRaises(ThemeInvariant):
+            text.write(sh.text_frame, [text.Run("x", role="ink", size=11)], SIGMOID)
+        text.write(sh.text_frame, [text.Run("x", role="paper", size=11)], SIGMOID)
+        with self.assertRaises(ThemeInvariant):
+            text.write(sh.text_frame, [text.Run("x", role="paper", size=11)], SIGMOID, background="card")
+
+    def test_large_text_threshold(self):
+        self.assertEqual(rules.contrast_min(11, False), 4.5)
+        self.assertEqual(rules.contrast_min(14, False), 4.5)
+        self.assertEqual(rules.contrast_min(14, True), 3.0)
+        self.assertEqual(rules.contrast_min(18, False), 3.0)
+        mid = "8C8C8C"      # rule-strong: 3.36:1 on white
+        U = self.unchanged
+        U(ThemeInvariant, text.textbox, self.s, Box(1, 1, 6, 1), [text.Run("Mid", role="paper", size=12)], "tb",
+          SIGMOID, background=mid)
+        U(ThemeInvariant, text.textbox, self.s, Box(1, 1, 6, 1), [text.Run("Mid", role="paper", size=13.5, bold=True)],
+          "tb", SIGMOID, background=mid)
+        text.textbox(self.s, Box(1, 1, 6, 1), [text.Run("Mid", role="paper", size=14, bold=True)], "tb.b", SIGMOID,
+                     background=mid)
+        text.textbox(self.s, Box(1, 2, 6, 1), [text.Run("Mid", role="paper", size=18)], "tb.r", SIGMOID,
+                     background=mid)
+
+    def test_house_pairs_still_draw(self):
+        prims.tab(self.s, Box(1, 1, 2, 0.3), "Tab", name="t")
+        prims.pill(self.s, Box(1, 2, 1.2, 0.3), "Tag", name="p")
+        prims.pill(self.s, Box(3, 2, 1.2, 0.3), "Tag", fill="accent", name="pa")
+        prims.disc(self.s, Box(1, 3, 0.4, 0.4), 1, name="d")
+        prims.step_header(self.s, Box(1, 4, 6, 0.5), ["A", "B", "C"], active=1, name="st")
+        prims.zone(self.s, Box(1, 5, 3, 1), label="Group", name="z")
+        prims.quote(self.s, Box(5, 5, 3.4, 1.1), "Short passage.", "Someone", name="q")
+        prims.stat(self.s, Box(8, 1, 2, 1.5), "3x", "Faster", kind="target", name="s")
+        icons.monogram(self.s, Box(8, 3, 0.5, 0.5), "QA", name="m")
+        icons.monogram(self.s, Box(9, 3, 0.5, 0.5), "Dx", "accent", name="m2")
+        text.title(self.s, "One shared view", ("shared",), WIDE, SIGMOID)
+
+
+class Vendors(Base):
+    def test_vendor_name_alt_and_registry(self):
+        p = icons.vendor(self.s, "aws/compute/ec2", Box(1, 1, 0.5, 0.5))
+        nv = p._element.find(".//" + P + "cNvPr")
+        self.assertEqual((nv.get("name"), nv.get("descr")), ("vendor.aws/compute/ec2",
+                                                           "Ec2 (vendor mark aws/compute/ec2)"))
+        self.assertEqual(icons.vendor_key_of(nv.get("name"), nv.get("descr")), "aws/compute/ec2")
+        p2 = icons.vendor(self.s, "aws/compute/ec2", Box(2, 1, 0.5, 0.5), name="2", alt="Amazon EC2")
+        nv2 = p2._element.find(".//" + P + "cNvPr")
+        self.assertEqual(nv2.get("name"), "vendor.aws/compute/ec2.2")
+        self.assertEqual(icons.vendor_key_of(nv2.get("name"), nv2.get("descr")), "aws/compute/ec2")
+        self.assertEqual(sorted(SIGMOID.vendors), ["aws", "azure", "gcp"])
+        for v in ("aws", "azure", "gcp"):
+            key = next(x for x in icons.vendor_keys() if x.startswith(v + "/"))
+            self.assertTrue(icons.vendor_resolves(key, SIGMOID), key)
+        self.assertFalse(icons.vendor_resolves("aws/compute/ec3", SIGMOID))
+        self.assertFalse(icons.vendor_resolves("aws/../aws/compute/ec2", SIGMOID))
+        self.unchanged(GeometryError, icons.vendor, self.s, "aws/compute/ec2", Box(1, 1, 0.5, 0.5), name="a b")
+
+    def test_unregistered_vendor_refused(self):
+        import copy
+        th = copy.copy(SIGMOID)
+        th.vendors = {"aws": SIGMOID.vendors["aws"]}
+        key = next(x for x in icons.vendor_keys() if x.startswith("gcp/"))
+        from deckkit.errors import UnsupportedPart
+        self.unchanged(UnsupportedPart, icons.vendor, self.s, key, Box(1, 1, 0.5, 0.5), theme=th)
+        self.assertFalse(icons.vendor_resolves(key, th))
 
 
 # ------------------------------------------------------------------ 6. WIDE title box

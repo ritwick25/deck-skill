@@ -1,6 +1,8 @@
 """P14 titles: every slide has a title that fits its canvas lines, has 14 words or fewer, and keeps the two-tone rule.
 
-  * the title is the shape named "title" (the kit's name), else the read layer's title role;
+  * the title is the one deckkit.read picks (walk.pick_title, every tier: placeholder, cover on a cover-like slide,
+    top-band, few-words, dominant, top-largest), else the shape named "title" (the kit's name) when no tier finds
+    one;
   * it wraps to no more than the canvas's title_max_lines at SLACK 1.15, and has at most 14 words;
   * no more than two titles share their opening two words;
   * two-tone keywords (runs in the accent-ink role) are one to three spans, and only in titles: a body
@@ -19,16 +21,22 @@ from collections import defaultdict
 from _shared import FAIL, FALLBACK_FACE, Finding, cli, crash, has_text, need_in, words
 from deckkit.errors import Overflows
 from deckkit.read.refnorm import shingle_tokens
+from deckkit.read.walk import cover_like, pick_title
 
 GATE, TITLE = "P14", "titles"
 MAX_WORDS, MAX_KEYWORDS, MAX_SHARE = 14, 3, 2
 
 
-def _title(s):
-    for L in s["shapes"]:
-        if L["name"] == "title" and has_text(L):
-            return L
-    return next((L for L in s["shapes"] if (L.get("role_guess") or {}).get("role") == "title" and has_text(L)), None)
+def _title(s, i: int):
+    """The slide's title leaf: deckkit.read's pick_title with the cover tier on a cover-like slide, else the shape the
+    kit names "title"."""
+    cw, ch = s["canvas"]["w_in"], s["canvas"]["h_in"]
+    wc = s["text"]["words_content"]
+    cover = cover_like(s["shapes"], cw, ch, wc, i, s.get("chrome"))
+    L, _tier = pick_title(s["shapes"], cw, ch, wc, cover=cover)
+    if L is not None and has_text(L):
+        return L
+    return next((L for L in s["shapes"] if L["name"] == "title" and has_text(L)), None)
 
 
 def _spans(p, ink):
@@ -63,7 +71,7 @@ def run(deck, ctx):
 def _slide(ctx, i, ink, openers, out):
     """Every per-slide check, appending to out and recording the title's opener."""
     s = ctx.slide(i)
-    T = _title(s)
+    T = _title(s, i)
     if T is None:
         out.append(Finding(GATE, FAIL, i, "", "no title"))
     else:

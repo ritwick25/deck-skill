@@ -4,10 +4,13 @@
     (the read layer's icon units: pictures, icon-sized vector groups, lone vector glyphs) or at least two
     arrows (headed connectors);
   * more than six identical tiles needs six icons or six arrows to earn it;
-  * a thin filled strip (or a heavy line) in a non-grey colour, immediately left of or above a text block, is
-    the left or top accent bar: allowed only on a state.* shape. Greys are the kit theme's neutral roles plus every
-    neutral slot of the deck's own theme (chroma under 0.10, deckkit.read.colour.is_neutral), and a strip thinner
-    than 1.5pt in any neutral colour is a hairline, never a bar;
+  * a thin filled strip, or an undirected line, immediately left of or above a text block is the left or top
+    accent bar when deckkit.rules.is_accent_strip says so: at most 0.10in thick, longer than 0.18in and more
+    than 2x its thickness (both x k), in a colour that is not a neutral grey (chroma under 0.10, or a rule role
+    of the theme), on a shape not named state.*. A line's thickness is its weight, so a 1pt coloured rule beside
+    a heading is a bar like a 0.05in strip; a line with an arrowhead (a connector) or named link.* is not a strip
+    (deckkit.rules.line_refusal lets both through). The builder refuses the same shapes with the same predicates;
+    this gate holds no geometry of its own and adds only the adjacency to text;
   * an upper-case label sitting above the content of more than half the cards is a kicker on every card.
 """
 from __future__ import annotations
@@ -16,13 +19,12 @@ import sys
 from collections import Counter
 
 from _shared import FAIL, Finding, bx, cards, cli, has_text, is_state, kids_of, text_of, words
-from deckkit.read.colour import is_neutral
+from deckkit.rules import HEADED, LINK_PREFIX, is_accent_strip
 
 GATE, TITLE = "P10", "density"
 MAX_TILES = 6
-BAR_THIN, BAR_LONG, BAR_REACH = 0.10, 0.18, 0.30
-GREYS = ("paper", "card", "hairline", "hairline-soft", "rule-strong")
-HAIRLINE_PT = 1.5       # a neutral strip thinner than this is a hairline rule
+BAR_REACH = 0.30        # how far (x k) a bar may sit from the text it marks
+PT_IN = 1.0 / 72.0
 
 
 def _arrows(shapes) -> int:
@@ -38,23 +40,10 @@ def _arrows(shapes) -> int:
     return n
 
 
-def greys(ctx) -> set:
-    """The kit theme's grey roles and every neutral slot of the deck's own theme(s)."""
-    if "p10_greys" not in ctx._cache:
-        g = {ctx.theme.hex(r) for r in GREYS}
-        for mp in ctx.dr.master_parts:
-            for hx in (ctx.dr.master(mp).theme.get("colors") or {}).values():
-                if is_neutral(hx):
-                    g.add(hx.upper())
-        ctx._cache["p10_greys"] = g
-    return ctx._cache["p10_greys"]
-
-
 def _bars(shapes, ctx):
-    greys_ = greys(ctx)
-    hair = HAIRLINE_PT / 72.0
     texts = [(bx(L), L) for L in shapes if has_text(L)]
     hits = []
+    k = ctx.k
     for L in shapes:
         if is_state(L) or L["kind"] not in ("sp", "cxn"):
             continue
@@ -62,19 +51,23 @@ def _bars(shapes, ctx):
         w, h = x1 - x0, y1 - y0
         if L.get("line_like") or L["kind"] == "cxn":
             line = L.get("line") or {}
-            if line.get("type") in (None, "none") or (line.get("w_pt") or 0) < 2.0 or line.get("hex") in greys_:
+            if line.get("type") in (None, "none") or (L.get("name") or "").startswith(LINK_PREFIX):
                 continue
+            ends = ((line.get("head") or {}).get("type"), (line.get("tail") or {}).get("type"))
+            if any(e not in (None, "none") for e in ends) or (L.get("connector") or {}).get("head") in HEADED:
+                continue
+            weight = (line.get("w_pt") or 0.75) * PT_IN
+            w, h = (max(w, weight), h) if h >= w else (w, max(h, weight))
             colour = line.get("hex")
         else:
             f = L.get("fill") or {}
-            if f.get("type") != "solid" or f.get("hex") in greys_ or has_text(L):
+            if f.get("type") != "solid" or has_text(L):
                 continue
             colour = f.get("hex")
-            if min(w, h) < hair and is_neutral(colour):
-                continue                        # a neutral hairline rule, not a bar
-        k = ctx.k
-        vertical = w < BAR_THIN * k and h > BAR_LONG * k and h > 2 * w
-        horizontal = h < BAR_THIN * k and w > BAR_LONG * k and w > 2 * h
+        if not colour or not is_accent_strip(w, h, colour, L.get("name"), ctx.theme, k=k):
+            continue
+        vertical = h >= w
+        horizontal = not vertical
         for (tx0, ty0, tx1, ty1), T in texts:
             if T is L:
                 continue

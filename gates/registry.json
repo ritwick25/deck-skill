@@ -155,6 +155,15 @@
    ]
   },
   {
+   "id": "P25",
+   "module": "p25_contrast",
+   "title": "contrast",
+   "kind": "pptx",
+   "needs": [
+    "deck"
+   ]
+  },
+  {
    "id": "P17",
    "module": "p17_fingerprints",
    "title": "fingerprints",

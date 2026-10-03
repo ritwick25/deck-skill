@@ -47,6 +47,11 @@
     "accent5": "A6A6A6 is 2.43:1 on white, a fill or mark, never text",
     "accent6": "D9D9D9 is 1.41:1 on white, a fill or mark, never text"
   },
+  "vendors": {
+    "aws": {"source": "diagrams", "reason": "service marks from the diagrams resources keep their own artwork and hue; they are the vendor's identity, not theme"},
+    "azure": {"source": "diagrams", "reason": "service marks from the diagrams resources keep their own artwork and hue; they are the vendor's identity, not theme"},
+    "gcp": {"source": "diagrams", "reason": "service marks from the diagrams resources keep their own artwork and hue; they are the vendor's identity, not theme"}
+  },
   "identity": {
     "rag-red": {"hex": "D91E18", "reason": "status Off track; keeps its hue under any client theme and always prints with its word"},
     "rag-amber": {"hex": "F38B1F", "reason": "status At risk; keeps its hue under any client theme and always prints with its word"},

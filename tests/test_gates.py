@@ -274,7 +274,7 @@ class TestRunner(unittest.TestCase):
         self.assertEqual(r.returncode, 0, r.stdout[-3000:] + r.stderr[-2000:])
         n = len(negatives.PLANTERS)
         self.assertIn("%d negatives, %d behaved as expected, 0 did not" % (n, n), r.stdout)
-        self.assertIn("24/24 implemented gates covered", r.stdout)
+        self.assertIn("25/25 implemented gates covered", r.stdout)
 
     def test_missing_pptx_gate_is_missing_not_pending(self):
         reg = run_all.registry() + [{"id": "P99", "module": "p99_absent", "title": "absent", "kind": "pptx",

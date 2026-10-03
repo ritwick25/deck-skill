@@ -46,6 +46,11 @@
     "accent4": "F38B1F is 2.46:1 on white, a fill or mark, never text",
     "accent5": "4EA347 is 3.16:1 on white, a fill or mark, never text"
   },
+  "vendors": {
+    "aws": {"source": "diagrams", "reason": "service marks from the diagrams resources keep their own artwork and hue; they are the vendor's identity, not theme"},
+    "azure": {"source": "diagrams", "reason": "service marks from the diagrams resources keep their own artwork and hue; they are the vendor's identity, not theme"},
+    "gcp": {"source": "diagrams", "reason": "service marks from the diagrams resources keep their own artwork and hue; they are the vendor's identity, not theme"}
+  },
   "identity": {
     "rag-red": {"hex": "D91E18", "reason": "status Off track; keeps its hue under any client theme and always prints with its word"},
     "rag-amber": {"hex": "F38B1F", "reason": "status At risk; keeps its hue under any client theme and always prints with its word"},

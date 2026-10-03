@@ -5,9 +5,15 @@ work: the foot line is 6.30 / 7.5 of the height, a band is 8 / 13.333 of the wid
 narrow card is under 6.5 / 13.333 of the width. The subtitle is the read layer's own role (text directly
 under the title, smaller, four words or more, at least 40% of the title's width) and must not sit on a
 filled shape. deck.json may grant P09:subtitle (R-NOSUB) or P09:foot (R-NOFOOT) inside its own folder.
+
+Page numbers: the read layer's page-number role (a spelled-out number in the top or bottom band, a bare number in a
+corner), plus a page label in a page-number position: 'A1' to 'A9', 'Appendix N' or 'N / M', set at 14pt or smaller
+in the top or bottom PAGE_BAND of the canvas, in its outer PAGE_SIDE on either side or centred on it (within
+PAGE_MID), and not painted on its own filled shape (a section tab or a step disc carries an ordinal, not a page).
 """
 from __future__ import annotations
 
+import re
 import sys
 
 from _shared import FAIL, NOTE, Finding, bx, cli, has_text, is_filled, is_lined, text_of, words
@@ -17,6 +23,24 @@ GATE, TITLE = "P09", "chrome"
 FOOT_Y, BAND_Y, BAND_W, CARD_W = 6.30 / 7.5, 6.20 / 7.5, 8.0 / 13.333, 6.5 / 13.333
 LOGO_Y = 0.90
 FOOT_WORDS = 5
+PAGE_LABEL = re.compile(r"^(?:A[1-9]|appendix\s+\d{1,3}|\d{1,3}\s*/\s*\d{1,3})$", re.I)
+PAGE_BAND = 0.15          # the top or bottom share of the canvas height
+PAGE_SIDE = 0.25          # the outer share of the canvas width on either side
+PAGE_MID = 0.10           # ... or centred on the canvas, within this share of its width
+PAGE_MAX_PT = 14.0
+
+
+def page_label(L, t: str, W: float, H: float) -> bool:
+    """A page label ('A1'..'A9', 'Appendix N', 'N / M') in a page-number position (see the module notes)."""
+    if not PAGE_LABEL.match(t) or (L.get("fill") or {}).get("type") not in (None, "none"):
+        return False
+    size = ((L.get("text") or {}).get("size") or {}).get("dominant_pt") or 0.0
+    if size > PAGE_MAX_PT:
+        return False
+    x0, y0, x1, y1 = bx(L)
+    if not (y0 >= (1 - PAGE_BAND) * H or y1 <= PAGE_BAND * H):
+        return False
+    return x0 >= (1 - PAGE_SIDE) * W or x1 <= PAGE_SIDE * W or abs((x0 + x1) / 2 - W / 2) <= PAGE_MID * W
 
 
 def _inside(b, c, eps=0.02):
@@ -51,6 +75,8 @@ def run(deck, ctx):
                 out.append(Finding(GATE, FAIL, i, L["name"], "%s placeholder" % ph))
             if role == "page-number":
                 out.append(Finding(GATE, FAIL, i, L["name"], "page number %r" % t))
+            elif has_text(L) and page_label(L, t, W, H):
+                out.append(Finding(GATE, FAIL, i, L["name"], "page label %r in a page-number position" % t))
             if t and CONFIDENTIAL.search(t):
                 out.append(Finding(GATE, FAIL, i, L["name"], "confidentiality line %r" % t[:50]))
             if L["kind"] == "sp" and not foot_ok and (is_filled(L) or is_lined(L)) and b[2] - b[0] >= BAND_W * W \

@@ -391,7 +391,8 @@ class TestIcons(unittest.TestCase):
 
     def test_vendor_keeps_hue_alt_and_raster_floor(self):
         p = icons.vendor(self.s, "aws/compute/ec2", Box(1, 1, 0.5, 0.5))
-        self.assertEqual(p._element.find(".//" + P + "cNvPr").get("descr"), "Ec2")
+        self.assertEqual(p._element.find(".//" + P + "cNvPr").get("descr"), "Ec2 (vendor mark aws/compute/ec2)")
+        self.assertEqual(p._element.find(".//" + P + "cNvPr").get("name"), "vendor.aws/compute/ec2")
         self.assertEqual(effect_defects(self.s._element), [])
         with self.assertRaises(GeometryError):
             icons.vendor(self.s, "aws/compute/ec2", Box(1, 1, 2.5, 2.5))

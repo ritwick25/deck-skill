@@ -360,9 +360,10 @@ def cards(slide: dict, ctx) -> list[dict]:
     return out
 
 
-def kids_of(card: dict, slide: dict, eps: float = 0.01, any_z: bool = False) -> list[dict]:
+def kids_of(card: dict, slide: dict, eps: float = 0.01, any_z: bool = False, full_width: bool = False) -> list[dict]:
     """Drawn leaves wholly inside a card and painted above it, narrower than the card itself. any_z=True takes
-    every drawn leaf the card's box contains, whatever its z-order (an outline card drawn over its own text)."""
+    every drawn leaf the card's box contains, whatever its z-order (an outline card drawn over its own text).
+    full_width=True keeps a leaf as wide as the card (a header bar across its top) instead of leaving it out."""
     C = card["L"]
     l, t, r, b = card["box"]
     out = []
@@ -370,7 +371,8 @@ def kids_of(card: dict, slide: dict, eps: float = 0.01, any_z: bool = False) -> 
         if L is C or (not any_z and L.get("z", 0) <= C.get("z", 0)) or not is_drawn(L) or L.get("line_like"):
             continue
         x0, y0, x1, y1 = bx(L)
-        if x0 >= l - eps and x1 <= r + eps and y0 >= t - eps and y1 <= b + eps and (x1 - x0) < 0.99 * (r - l):
+        if x0 >= l - eps and x1 <= r + eps and y0 >= t - eps and y1 <= b + eps and \
+                (full_width or (x1 - x0) < 0.99 * (r - l)):
             out.append(L)
     return out
 
