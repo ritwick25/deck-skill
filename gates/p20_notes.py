@@ -17,6 +17,8 @@ from deckkit.read.textmetrics import para_text
 
 GATE, TITLE = "P20", "notes-alt"
 MAX_ALT = 120
+from deckkit.icons import VENDOR_ALT  # noqa: E402  (the one home for the vendor record)
+
 GENERIC = re.compile(r"(?i)^(?:picture|image|graphic|icon|logo|photo|img|screenshot|untitled|placeholder)[\s_-]*\d*$")
 FILEISH = re.compile(r"(?i)[\\/]|\.(?:png|jpe?g|gif|svg|emf|wmf|bmp|tiff?|webp)\b")
 
@@ -52,8 +54,10 @@ def run(deck, ctx):
                 out.append(Finding(GATE, FAIL, i, name, "picture without alt text"))
             elif len(alt) > MAX_ALT:
                 out.append(Finding(GATE, FAIL, i, name, "alt text is %d characters (max %d)" % (len(alt), MAX_ALT)))
-            elif GENERIC.match(alt) or FILEISH.search(alt) or alt == name:
-                out.append(Finding(GATE, FAIL, i, name, "alt text is not semantic: %r" % alt[:60]))
+            else:
+                label = VENDOR_ALT.sub("", alt).strip()     # a vendor mark's '(vendor mark <key>)' is P22's record
+                if not label or GENERIC.match(label) or FILEISH.search(label) or alt == name:
+                    out.append(Finding(GATE, FAIL, i, name, "alt text is not semantic: %r" % alt[:60]))
     return out
 
 

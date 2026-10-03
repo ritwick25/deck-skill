@@ -240,3 +240,14 @@ to its archetype's measured range. The showcase gains a technical section, "How 
 with official service marks: cloud reference architecture, agent runtime, data architecture, release pipeline and
 environments, security and access controls, and a signal-to-field API sequence. Device glyph slots take `vendor:`
 keys.
+
+## 2026-10-03 · Ruling 17 applied to the showcase
+- 56 slides, six sections. A new "How it is built" section has 7 slides on the AWS house stack with official marks
+  (reference architecture, agent runtime, data architecture, release pipeline, security controls, signal-to-field
+  sequence). 47 content slides, median 162 words (was 135). Passes all 25 implemented gates.
+- **P20 judges a vendor mark's label**, the alt text before its `(vendor mark <key>)` record, so "Amazon Bedrock"
+  is semantic alt text.
+- Six slides stay under their exemplar p25: from-to-shift DL14 (100 of 121; the device has no free zone left),
+  both layered-architecture slides (185 and 234 of 259), both swimlanes (224 and 160 of 234) and decision-logic
+  (169 of 183). The floor is advisory; they read full in the renders.
+- Token cost: about 1.6M (quoted 1.3M).
