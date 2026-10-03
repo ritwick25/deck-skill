@@ -63,7 +63,7 @@ Word budget 190, the upper quartile of the top exemplars capped at 250. Content 
 | flat-fill | Gradient top rules on stat cards and a gradient foot band, on 2 top exemplars. | Flat hairlines | None on geometry. |
 | glyphs | En dashes in figure ranges and bullet characters in cells, on 3 top exemplars. | The word to in ranges and hairline-split lines in place of bullets | None on geometry. |
 | left-accent | A colored top rule on every stat card and a gradient left edge bar, on 2 top exemplars. | A hairline above the figure, and no edge bar since neither encodes a state | Cells and title start at the shared left margin. |
-| light-bg | A dark rounded theme band under the cards, on 1 top exemplar. | A light gray band with a hairline, the numbered tiles kept | None on geometry. |
+| light-bg | A dark rounded theme band under the cards, on 1 top exemplar. | The theme band stays a solid near-black (ink-strong) band with paper text, the numbered tiles kept. | None on geometry. The band still reads as the floor the cards stand on. |
 | no-footer | Confidentiality lines, page numbers, logo lockups and a foot takeaway strip, on 4 top exemplars. | No footer, page number, confidentiality line or foot strip, and takeaways move to the notes | The foot band or the outcome row sits on the bottom margin. |
 | no-subtitle | A sentence under the title restating the case count, on 1 top exemplar. | The count folds into the title claim | The case headers move up into the freed band. |
 | other | Tool names and the vendor named in cells, photos carrying the cards, a navigation roundel and link pills, on 5 top exemplars. | Capability categories and role words, one sector icon per case, plain text links | Photos give way to icons, freeing height for the outcome row. |
@@ -98,7 +98,7 @@ Word budget 190, the upper quartile of the top exemplars capped at 250. Content 
 dv06, dv08, dv17, dv42, dv58
 
 ## Provenance
-- Source: cards/src/a11.json sha256 3c7364d6dadb00a9b8348e4af2b4b9d33b205dce694d2d2e278089248d4548d3
+- Source: cards/src/a11.json sha256 7a8fe41747eaf7cf9d905eeacf4e74a6c7cd8b2cffaba13282ed38fe442dbf1e
 - Measures: measures/a11.json sha256 59de5ab5459f512a286a362212fc68d6c113d1522a9321c08c93a640ce19732c
 - Final ranking: rankings/a11.final.json sha256 afef18a15656878fba643ab7232c8b062b698f3043705483e94c2078ae480c00
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

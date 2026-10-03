@@ -146,6 +146,8 @@ for i, (n, lead, rest) in enumerate(RISKS, 1):
                                            txt.Run(rest, "ink", size=11)),)], th, size=11,
          anchor="middle", background="paper")
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL05", th, archetype="process-flow", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

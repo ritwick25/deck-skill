@@ -38,70 +38,70 @@
    "kind": "text",
    "role": "reason-card",
    "max_words": 20,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.card.2",
    "kind": "text",
    "role": "reason-card",
    "max_words": 20,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.card.3",
    "kind": "text",
    "role": "reason-card",
    "max_words": 20,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.card.4",
    "kind": "text",
    "role": "reason-card",
    "max_words": 20,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.card.5",
    "kind": "text",
    "role": "reason-card",
    "max_words": 20,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.card.6",
    "kind": "text",
    "role": "reason-card",
    "max_words": 20,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.proof.1.top",
    "kind": "text",
    "role": "proof-box",
    "max_words": 4,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.proof.1.base",
    "kind": "text",
    "role": "proof-box",
    "max_words": 4,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.proof.1.engine.1",
    "kind": "text",
    "role": "proof-box",
    "max_words": 2,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.proof.1.engine.2",
    "kind": "text",
    "role": "proof-box",
    "max_words": 2,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.proof.1.policy",
@@ -150,7 +150,7 @@
    "kind": "text",
    "role": "step",
    "max_words": 2,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.proof.2.caption",
@@ -272,5 +272,10 @@
   "Users rank the backlog after each release, and the top item ships next.",
   "Weekly feedback",
   "Working views before scale"
- ]
+ ],
+ "capacity_words": 193,
+ "archetype_floors": {
+  "principles": 120
+ },
+ "short_of_floor": []
 }

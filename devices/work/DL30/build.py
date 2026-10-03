@@ -285,6 +285,8 @@ for j, (n, word) in enumerate((("dev.100", "Access rules"), ("dev.101", "Data qu
     zero_ins(slot)
     text(s, slot, [P((R(word, "ink", size=10),), align="center")], th, size=10, anchor="middle")
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL30", th, archetype="convergence-hub", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

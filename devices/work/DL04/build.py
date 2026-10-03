@@ -245,6 +245,8 @@ for k, (who, when) in enumerate(STEPS):
     text(s, "slot.step.%d.when" % i, [txt.Para((txt.Run(when, "on-accent", bold=True, size=11),), align="center")],
          th, size=11, background="accent", anchor="middle")
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL04", th, archetype="governance-model", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

@@ -1,0 +1,313 @@
+{
+ "id": "DL39",
+ "name": "Question matrix beside wiring arithmetic",
+ "archetypes": [
+  "options-comparison"
+ ],
+ "family": "Split",
+ "variant": "matrix-and-wiring-arithmetic",
+ "mechanism": "Two options judged twice on one slide: a question-by-option dot matrix with a count per option and a near-black verdict panel on the left, and on the right the wiring each option implies, a grey point-to-point mesh with its link count above the same apps and systems wired once through a solid hub, so the cheaper option is also the one that answers more.",
+ "canvas": "wide",
+ "source": "d18-s005",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.left.head",
+   "kind": "text",
+   "purpose": "section-label",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.right.head",
+   "kind": "text",
+   "purpose": "section-label",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.option.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.option.1.name",
+   "kind": "text",
+   "purpose": "option-name",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.option.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.option.2.name",
+   "kind": "text",
+   "purpose": "option-name",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.option.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.option.3.name",
+   "kind": "text",
+   "purpose": "option-name",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.question.1",
+   "kind": "text",
+   "purpose": "question",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.question.2",
+   "kind": "text",
+   "purpose": "question",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.question.3",
+   "kind": "text",
+   "purpose": "question",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.question.4",
+   "kind": "text",
+   "purpose": "question",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.question.5",
+   "kind": "text",
+   "purpose": "question",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.total.label",
+   "kind": "text",
+   "purpose": "row-label",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.total.1",
+   "kind": "text",
+   "purpose": "count",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.total.2",
+   "kind": "text",
+   "purpose": "count",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.total.3",
+   "kind": "text",
+   "purpose": "count",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.verdict.head",
+   "kind": "text",
+   "purpose": "verdict",
+   "max_words": 8,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.verdict.body",
+   "kind": "text",
+   "purpose": "rationale",
+   "max_words": 16,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.wiring.1.label",
+   "kind": "text",
+   "purpose": "option-name",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.wiring.1.sub",
+   "kind": "text",
+   "purpose": "scale",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.wiring.1.system.1",
+   "kind": "text",
+   "purpose": "system-name",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.wiring.1.system.2",
+   "kind": "text",
+   "purpose": "system-name",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.wiring.1.system.3",
+   "kind": "text",
+   "purpose": "system-name",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.wiring.1.system.4",
+   "kind": "text",
+   "purpose": "system-name",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.wiring.1.system.5",
+   "kind": "text",
+   "purpose": "system-name",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.wiring.1.system.6",
+   "kind": "text",
+   "purpose": "system-name",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.wiring.1.stat",
+   "kind": "text",
+   "purpose": "figure-and-label",
+   "max_words": 12,
+   "background": "paper"
+  },
+  {
+   "name": "slot.wiring.2.label",
+   "kind": "text",
+   "purpose": "option-name",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.wiring.2.sub",
+   "kind": "text",
+   "purpose": "scale",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.hub",
+   "kind": "text",
+   "purpose": "hub-name",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.wiring.2.system.1",
+   "kind": "text",
+   "purpose": "system-name",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.wiring.2.system.2",
+   "kind": "text",
+   "purpose": "system-name",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.wiring.2.system.3",
+   "kind": "text",
+   "purpose": "system-name",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.wiring.2.system.4",
+   "kind": "text",
+   "purpose": "system-name",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.wiring.2.system.5",
+   "kind": "text",
+   "purpose": "system-name",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.wiring.2.system.6",
+   "kind": "text",
+   "purpose": "system-name",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.wiring.2.stat",
+   "kind": "text",
+   "purpose": "figure-and-label",
+   "max_words": 12,
+   "background": "paper"
+  },
+  {
+   "name": "slot.basis",
+   "kind": "text",
+   "purpose": "basis-label",
+   "max_words": 2,
+   "background": "paper"
+  }
+ ],
+ "samples": [
+  "One shared hub answers every service question with 14 links, not 48",
+  "Which option answers each question",
+  "What each option takes to wire up",
+  "Shared hub",
+  "Open tickets for one customer",
+  "Invoices disputed this month",
+  "Refund time by product line",
+  "Customers with a ticket and a dispute",
+  "Repeat callers after a credit note",
+  "1 of 5",
+  "2 of 5",
+  "5 of 5",
+  "Only the shared hub answers all five",
+  "Each system answers its own questions, and neither sees one customer across both",
+  "Point to point",
+  "8 apps, 6 systems",
+  "links to build and secure, 8 apps times 6 systems",
+  "Through a shared hub",
+  "The same 8 apps and 6 systems",
+  "links, one per app and one per system, each secured once"
+ ],
+ "capacity_words": 165,
+ "archetype_floors": {
+  "options-comparison": 80
+ },
+ "short_of_floor": []
+}

@@ -224,5 +224,13 @@
   "Two thirds from analyst time, a third from discounts",
   "Vendor queries resolved per analyst",
   "five months"
+ ],
+ "capacity_words": 150,
+ "archetype_floors": {
+  "headline-figures": 110,
+  "case-study": 160
+ },
+ "short_of_floor": [
+  "case-study"
  ]
 }

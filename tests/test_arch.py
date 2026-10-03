@@ -575,5 +575,219 @@ class GateP26(unittest.TestCase):
         self.assertFalse([m for m in msgs if "product marks" in m], msgs)
 
 
+class Topology(unittest.TestCase):
+    """Track E1: spans, pins, edge kinds, routes and buses, group ends, facts, hero paths, measured label fit."""
+
+    def _az(self, gutter=0.4):
+        """A Region with two AZ columns of two subnet tiers; one task per app subnet."""
+        d = arch.Diagram("aws", grid=(1, 1), icon=0.38)
+        d.group("reg", "aws-region", "Region probe", fact="2 AZs", at=(0, 0, 1, 1), grid=(3, 1),
+                weights=[1, 0.2, 1], align_rows=True)
+        for az, col in (("a", 0), ("b", 2)):
+            d.group("az" + az, "aws-az", "AZ " + az, parent="reg", at=(col, 0, 1, 1), grid=(1, 2))
+            d.group("app" + az, "aws-private-subnet", "App", parent="az" + az, at=(0, 0, 1, 1), grid=(2, 1))
+            d.group("dat" + az, "aws-private-subnet", "Data", parent="az" + az, at=(0, 1, 1, 1), grid=(2, 1))
+            d.node("task" + az, "vendor:aws/compute/fargate", "Tasks", group="app" + az, at=(0, 0))
+            d.node("db" + az, "vendor:aws/database/aurora", "Aurora", group="dat" + az, at=(1, 0))
+        return d
+
+    def test_span_crosses_columns_as_state_lines(self):
+        prs, s = slide()
+        d = self._az()
+        d.span("svc", "ECS service", ["appa", "appb"])
+        d.flow("taska", "dba", "5432 TLS", enter="t")
+        d.flow("taskb", "dbb", "5432 TLS", enter="t")
+        m = d.render(s, AREA, TH)
+        self.assertEqual(m["spans"], 1)
+        sp = d.spans["svc"]
+        for g in ("appa", "appb"):
+            fr = d.groups[g].frame
+            self.assertTrue(sp.box.x < fr.r and fr.x < sp.box.r, "the band crosses %s" % g)
+        names = [sh.name for sh in s.shapes]
+        self.assertEqual(sum(1 for n in names if n.startswith("state.arch.span.svc.")), 4)
+        self.assertFalse(any(n.endswith(".span.svc.frame") for n in names), "never a box that overlaps its columns")
+        ta, tb = d.groups["appa"].frame, d.groups["appb"].frame
+        self.assertAlmostEqual(ta.y, tb.y, places=6, msg="align_rows: identical tiers share one y")
+
+    def test_span_end_and_flow_kinds_draw_their_dash_and_heads(self):
+        prs, s = slide()
+        d = self._az()
+        d.span("svc", "ECS service", ["appa", "appb"])
+        d.flow("svc", "dba", "5432", kind="async")
+        d.flow("dba", "dbb", "replica", kind="reply" if False else "data")
+        d.flow("dbb", "dba", "ack", kind="reply")
+        d.render(s, AREA, TH, draft=True)
+        sh = shapes(s)
+        self.assertEqual(sh["arch.f.1"]._element.find(".//" + A + "prstDash").get("val"), "dash")
+        self.assertEqual(sh["arch.f.3"]._element.find(".//" + A + "prstDash").get("val"), "sysDash")
+        req, rep = d.flows[1].points, d.flows[2].points
+        self.assertAlmostEqual(abs(req[0][1] - rep[-1][1]), arch.REPLY_GAP, places=4, msg="a reply runs 0.08in beside")
+        self.assertEqual(len({v for v in arch.FLOW_KINDS.values()}), len(arch.FLOW_KINDS), "one dash per kind")
+
+    def test_peering_needs_a_label_and_keeps_both_heads(self):
+        d = self._az()
+        with self.assertRaises(GeometryError):
+            d.flow("appa", "appb", kind="peering")
+        prs, s = slide()
+        d.flow("appa", "appb", "peering", kind="peering")
+        d.render(s, AREA, TH, draft=True)
+        ln = shapes(s)["arch.f.1"]._element.find(".//" + A + "ln")
+        self.assertIsNotNone(ln.find(A + "headEnd"))
+        self.assertIsNotNone(ln.find(A + "tailEnd"))
+        self.assertEqual(ln.find(A + "prstDash").get("val"), "lgDashDot")
+
+    def test_blocked_draws_a_ban_before_its_target_and_keys_it(self):
+        prs, s = slide()
+        d = arch.Diagram("house", grid=(3, 1))
+        d.node("a", "vendor:" + KEYS[0], "Source", at=(0, 0))
+        d.node("b", "glyph:globe", "Internet", at=(2, 0))
+        d.node("c", "vendor:" + KEYS[1], "Sink", at=(1, 0))
+        d.align("c", "a")
+        d.flow("a", "c", "files")
+        d.flow("c", "b", "no route", kind="blocked")
+        d.render(s, AREA, TH)
+        f = d.flows[1]
+        end = f.points[-1]
+        self.assertAlmostEqual(end[0] - f.ban.cx, arch.BAN_BEFORE + arch.BAN / 2, places=4)
+        names = [x.name for x in s.shapes]
+        self.assertIn("arch.f.2.blocked.icon", names)
+        self.assertTrue(any(n.startswith("state.arch.legend.key.blocked") for n in names), names)
+
+    def test_pin_sits_in_a_corner_and_refuses_the_label_corner(self):
+        prs, s = slide()
+        d = self._az()
+        d.pin("nacl", "vendor:aws/network/nacl", "data", corner="br", label="NACL")
+        with self.assertRaises(GeometryError):
+            d.pin("x", "vendor:aws/network/nacl", "data", corner="tl")
+        d.flow("taska", "dba", "5432", enter="t")
+        d.flow("taskb", "dbb", "5432", enter="t")
+        m = d.render(s, AREA, TH)
+        fr, ic = d.groups["data"].frame, d.pins["nacl"].icon
+        self.assertAlmostEqual(fr.r - ic.r, 0.05, places=4)
+        self.assertAlmostEqual(fr.b - ic.b, 0.05, places=4)
+        self.assertEqual((m["pins"], m["marks"]), (1, 4), "a pin is notation, not a product mark")
+
+    def test_bus_fans_out_with_one_stem_and_tree_indents(self):
+        prs, s = slide()
+        d = arch.Diagram("aws", grid=(3, 4), weights=[0.45, 0.45, 2.5])
+        d.group("org", "generic", "Org", fact="probe", at=(0, 0, 3, 4), grid=(3, 4), weights=[0.45, 0.45, 2.5])
+        d.node("root", "vendor:aws/management/organizations", "Root", group="org", at=(0, 0), caption="right",
+               anchor="left", cols=3)
+        for r in range(1, 4):
+            d.node("a%d" % r, "vendor:aws/management/organizations-account", "Account %d" % r, group="org",
+                   at=(1, r), caption="right", anchor="left", cols=2)
+        d.bus("t", ["root"], ["a1", "a2", "a3"], tree=True)
+        m = d.render(s, AREA, TH)
+        stems = {f.points[0] for f in d.flows}
+        self.assertEqual(len(stems), 1, "every leg leaves the one port")
+        for f in d.flows:
+            self.assertEqual(len(f.points), 3, "down the trunk, then right into the child")
+            self.assertAlmostEqual(f.points[-1][0], d.nodes[f.dst].icon.x, places=4)
+        self.assertEqual(m["flows"], 3)
+
+    def test_group_end_meets_its_partner_level(self):
+        prs, s = slide()
+        d = arch.Diagram("azure", grid=(2, 1), weights=[1, 1], gutter=1.0)
+        d.group("hub", "azure-vnet", "Hub", at=(0, 0, 1, 1), grid=(1, 1))
+        d.node("fw", "vendor:azure/networking/firewalls", "Firewall", group="hub", at=(0, 0))
+        d.group("spoke", "azure-vnet", "Spoke", at=(1, 0, 1, 1), grid=(1, 1))
+        d.node("app", "vendor:azure/compute/container-apps", "App", group="spoke", at=(0, 0))
+        d.flow("hub", "spoke", "VNet peering", kind="peering")
+        d.render(s, AREA, TH, draft=True)
+        pts = d.flows[0].points
+        self.assertEqual(len(pts), 2, "straight across the gutter")
+        self.assertAlmostEqual(pts[0][0], d.groups["hub"].frame.r, places=4)
+        self.assertAlmostEqual(pts[1][0], d.groups["spoke"].frame.x, places=4)
+        self.assertNotIn("hub", d.nodes, "group ends are routing aids, never drawn nodes")
+
+    def test_fact_is_drawn_and_a_bare_dashed_outer_boundary_is_listed(self):
+        d = arch.Diagram("house", grid=(1, 1))
+        d.group("z", "zone", "Agent zone", fact="private subnets", at=(0, 0, 1, 1), grid=(2, 1))
+        self.assertEqual(d.groups["z"].label, "Agent zone · private subnets")
+        d.node("a", "vendor:" + KEYS[0], "One", group="z", at=(0, 0))
+        d.node("b", "vendor:" + KEYS[1], "Two", group="z", at=(1, 0))
+        prs, s = slide()
+        self.assertEqual(d.render(s, AREA, TH)["advisories"], [])
+        d2 = arch.Diagram("house", grid=(1, 1))
+        d2.group("z", "zone", "Agent zone", at=(0, 0, 1, 1), grid=(1, 1))
+        d2.node("a", "vendor:" + KEYS[0], "One", group="z", at=(0, 0))
+        prs, s = slide()
+        self.assertTrue(d2.render(s, AREA, TH)["advisories"])
+
+    def test_hero_must_be_one_chain(self):
+        d = arch.Diagram("house", grid=(4, 1))
+        for k in range(4):
+            d.node("n%d" % k, "vendor:" + KEYS[k], "N %d" % k, at=(k, 0))
+        d.flow("n0", "n1", "a", hero=True)
+        d.flow("n2", "n3", "b", hero=True)
+        prs, s = slide()
+        with self.assertRaises(GeometryError):
+            d.render(s, AREA, TH)
+        with self.assertRaises(GeometryError):
+            d.flow("n1", "n2", kind="async", hero=True)
+
+    def test_label_fit_is_measured_and_refused(self):
+        d = arch.Diagram("house", grid=(2, 1), weights=[1, 1])
+        d.node("a", "vendor:" + KEYS[0], "One", at=(0, 0), anchor="right")
+        d.node("b", "vendor:" + KEYS[1], "Two", at=(1, 0), anchor="left")
+        d.flow("a", "b", "a much wider label here")
+        prs, s = slide()
+        with self.assertRaises(Overflows):
+            d.render(s, Box(0.5, 0.9, 1.6, 1.5), TH)
+
+    def test_lift_and_offset(self):
+        d = arch.Diagram("house", grid=(2, 1))
+        d.group("g", "region", "Region", at=(0, 0, 1, 1), grid=(1, 1), lift=0.3)
+        d.node("a", "vendor:" + KEYS[0], "One", group="g", at=(0, 0))
+        d.node("b", "vendor:" + KEYS[1], "Two", at=(1, 0))
+        d.align("b", "a", offset=0.2)
+        prs, s = slide()
+        d.render(s, AREA, TH)
+        self.assertAlmostEqual(d.nodes["b"].icon.cy - d.nodes["a"].icon.cy, 0.2, places=4)
+        self.assertAlmostEqual(AREA.b - d.groups["g"].frame.b, 0.3 + arch.MARGIN, places=3)
+
+    def test_change_markers_and_key(self):
+        prs, s = slide()
+        d = arch.Diagram("house", grid=(2, 1))
+        d.node("a", "vendor:" + KEYS[0], "Old", at=(0, 0))
+        d.node("b", "vendor:" + KEYS[1], "New", at=(1, 0))
+        d.change("a", "A")
+        d.change("b", "A")
+        with self.assertRaises(GeometryError):
+            d.change("a", "ab")
+        d.render(s, Box(0.5, 0.9, 9.0, 5.9), TH)
+        h = arch.change_key(s, Box(10.0, 1.0, 2.6, 2.0), [("A", "cron on a VM", "scheduled collectors")], TH,
+                            name="k", head="Changes")
+        names = [x.name for x in s.shapes]
+        self.assertEqual(sum(1 for n in names if n.endswith(".change.A")), 2)
+        self.assertIn("k.changekey.A", names)
+        self.assertLess(h, 2.0)
+
+
+class P26Types(unittest.TestCase):
+    def test_variant_words_pick_the_type(self):
+        import p26_architecture as g
+        for v, t in (("arch-deploy-aws", "deploy"), ("arch-deploy-azure", "deploy"), ("arch-cicd", "cicd"),
+                     ("arch-dfd-threat", "dfd"), ("arch-seq", "seq"), ("arch-current-target", "ct"),
+                     ("arch-dr-aws", "dr"), ("arch-hub", "hub"), ("arch-lineage", "lineage"),
+                     ("aws-reference", "aws"), ("l0-house", "l0"), ("house-deep-dive", "deep")):
+            self.assertEqual(g.diagram_type("solution-architecture", v), t, v)
+        self.assertIsNone(g.diagram_type("solution-architecture", "arch-unheard-of"))
+        self.assertTrue(set(g.TYPES) >= {"deploy", "cicd", "mlops", "dfd", "dataflow", "seq", "event", "hub"})
+
+    def test_topology_example_passes_p26(self):
+        import subprocess
+        import p26_architecture
+        from _shared import Ctx, run_gate
+        d = tempfile.mkdtemp(prefix="topo-")
+        self.addCleanup(shutil.rmtree, d, True)
+        out = os.path.join(d, "topology.pptx")
+        r = subprocess.run([sys.executable, os.path.join(SKILL, "scripts", "example_arch_topology.py"), "--out", out],
+                           capture_output=True, text=True, timeout=600)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        code, found = run_gate(p26_architecture, out, Ctx(out, theme=SIGMOID))
+        self.assertEqual(code, 0, [f.msg for f in found if f.level == "fail"])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -63,7 +63,7 @@ Budget 250 words normalized and 250 on the w13 canvas, advisory floor 220 on the
 | word-budget | Content words run over the budget on 4 top exemplars, with inset detail and rail prose as the excess. | Per-archetype word budget under the ceiling of 250. | Keep the literal values and cut the descriptive prose around them before shrinking type. |
 | left-accent | Colored edge bars or ticks mark the title or rail headings as decoration on 3 top exemplars. | A colored left or top accent bar only where it encodes a changeable state. | Remove the bars and carry a heading with a hairline above its label. |
 | flat-fill | Discs, chips and edge bars carry gradients on 1 top exemplar. | Flat fills, no gradients. | Flat fills on discs and chips, and gradient edge bars removed since they carry no content. |
-| light-bg | A dark comparison band closes the slide on 1 top exemplar. | Light slide grounds. | The band becomes a light surface with dark ink, separated from the trace by a hairline. |
+| light-bg | A dark comparison band closes the slide on 1 top exemplar. | Light slide ground. The comparison band stays a solid near-black panel with paper text. | The band keeps its weight. As a full-width band at the foot it counts against the foot band rule, so on a deck at that limit the comparison becomes a solid panel beside the trace. |
 | glyphs | Arrow glyphs, dashes and smart quotes appear in formulas and captions on 3 top exemplars. | No em dash, en dash or arrow glyph in text. | Write the word to in place of an arrow, commas in place of dashes, and drawn connectors between hops. |
 | shadow | Soft outer shadows sit under cards and wells on 1 top exemplar. | Hairlines with at most a 1 px shadow. | Outline every card and well with a hairline and drop the shadow. |
 | first-person | A rail heading speaks in the first person on 2 top exemplars. | No first or second person. | Rename the heading as a neutral noun, a quoted input keeps its own voice as a quotation. |
@@ -92,7 +92,7 @@ None.
 dv01, dv03, dv14, dv50, dv52, dv57
 
 ## Provenance
-- Source: cards/src/a18.json sha256 be8879ff29607847611129c779bac38177e10e5b159d52ed1c60aa7e0a819084
+- Source: cards/src/a18.json sha256 d3403b2cceaa6bbce5e014e90df998875fe47db1239adc5e277726c770525782
 - Measures: measures/a18.json sha256 254e98695e53df853fd42684e7d73816e9dd8eca6967453abc402fe5653ac8cf
 - Final ranking: rankings/a18.final.json sha256 cbd9e49049d97baceb9d5e725c2272494a5bc6847c76fb50a38d6d4d0126fd50
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

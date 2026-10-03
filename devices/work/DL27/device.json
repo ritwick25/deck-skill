@@ -308,5 +308,13 @@
   "Warranty claim screening",
   "Customer churn model",
   "Autonomous purchasing"
+ ],
+ "capacity_words": 131,
+ "archetype_floors": {
+  "prioritization-matrix": 180,
+  "use-case-map": 100
+ },
+ "short_of_floor": [
+  "prioritization-matrix"
  ]
 }

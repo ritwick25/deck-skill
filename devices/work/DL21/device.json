@@ -496,5 +496,14 @@
   "Self-service views",
   "Access policies",
   "Usage audit"
+ ],
+ "capacity_words": 214,
+ "archetype_floors": {
+  "layered-architecture": 250,
+  "solution-architecture": 140,
+  "process-flow": 210
+ },
+ "short_of_floor": [
+  "layered-architecture"
  ]
 }

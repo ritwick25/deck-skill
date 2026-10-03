@@ -4,25 +4,29 @@
   $PY gates/run_all.py --deck out/x.pptx              every registered gate on one deck
   $PY gates/run_all.py --deck x.pptx --only P01,P17    named gates only
   $PY gates/run_all.py --deck x.pptx --static          the pptx gates only (no render, no twin)
+  $PY gates/run_all.py --deck x.pptx --theme T.json    a deck with no deck.json beside it (REVIEW mode)
   $PY gates/run_all.py --list                          the registry, each gate's state and its planters
   $PY gates/run_all.py --negatives                     prove every gate can fail (see below)
 
 The registry (gates/registry.json) lists every gate with its kind (pptx, render, html) and what it needs. A
 pptx gate whose module is missing is MISSING and fails the run, so a gate that has not been written can
 never be mistaken for one that passed. Render and html gates belong to a later phase: until their module
-lands they report PENDING, which is not a pass and not a failure. A gate that cannot read an input exits 2
-and counts as FAIL.
+lands they report PENDING, which is not a pass and not a failure; their rows show with -v or when named in
+--only, and the summary counts the implemented gates. A gate that cannot read an input exits 2 and counts as FAIL.
+A gate that passes with advisories (P13's thin slides under the measured floor) shows their count and the first
+one in the detail column, so a thin slide is visible without -v.
 
 --negatives (the fable runner's design, on copies instead of patched sources):
   1. build the golden fixture (tests/build_golden.py) into .cache/golden.pptx;
   2. assert the golden passes EVERY implemented gate, or the negatives prove nothing;
-  3. for each planter in gates/negatives.py: copy the golden with its manifest and deck.json into a scratch
+  3. for each planter in gates/negatives.py and every gates/negatives_*.py module it discovers: copy the golden with its manifest and deck.json into a scratch
      folder, plant one breakage, run the planter's gate, and require exit 1;
   4. fail the run when any implemented gate has no planter.
 Rows report: failed as expected, DID NOT FAIL, FAILED ON ANOTHER RULE (the gate went red, but no finding names
 the rule the planter targets, so that rule is still unproven), FAILED ON INPUT (exit 2, so the plant broke the
 input rather than tripping the check), PLANT ERROR (the planter raised, or changed nothing), GATE MISSING,
-NO PLANTER.
+NO PLANTER, DISCOVERY ERROR (a negatives_*.py module that did not import: its planters are unproven, never
+skipped).
 No source file is ever edited, so an interrupted run cannot leave a dirty tree.
 """
 from __future__ import annotations
@@ -96,8 +100,10 @@ def run_deck(args, reg) -> int:
             print("no gate named %s; gates are %s" % (", ".join(sorted(unknown)), ", ".join(g["id"] for g in reg)))
             return 1
         sel = [g for g in sel if g["id"] in want]
+    theme = getattr(args, "theme", None)
+    theme = str(Path(theme).resolve()) if isinstance(theme, str) and theme else None    # relative to the cwd
     try:
-        ctx = Ctx(deck, refs_dir=args.refs, fingerprints=args.fingerprints, extra={"twin": args.twin})
+        ctx = Ctx(deck, refs_dir=args.refs, fingerprints=args.fingerprints, theme=theme, extra={"twin": args.twin})
     except InputMissing as e:
         print("FAIL  %s" % e)
         return 2
@@ -126,15 +132,26 @@ def run_deck(args, reg) -> int:
                 print(f.line())
             if len(shown) > 25:
                 print("  ... and %d more" % (len(shown) - 25))
-        detail = first_fail(found) if code else (skipped[0].msg if skipped else
-                                                 next((f.msg for f in found if f.level == "note"), ""))
+        adv = [f for f in found if f.level == "advisory"]
+        if code:
+            detail = first_fail(found)
+        elif skipped:
+            detail = skipped[0].msg
+        elif adv:
+            f = adv[0]
+            detail = "%d advisory: %s%s" % (len(adv), ("s%d " % f.slide) if f.slide is not None else "", f.msg)
+        else:
+            detail = next((f.msg for f in found if f.level == "note"), "")
         if code == 2:
             detail = "missing input: " + detail
         rows.append((g, state, detail, dt))
     ctx.close()
     print("\n%-5s %-14s %-8s %6s  %s" % ("gate", "", "result", "secs", "detail"))
     print("-" * 92)
+    named = {x.strip().upper() for x in (args.only or "").split(",") if x.strip()}
     for g, state, detail, dt in rows:
+        if state == "PENDING" and not (args.verbose or g["id"] in named):
+            continue
         print("%-5s %-14s %-8s %6.2f  %s" % (g["id"], g["title"][:14], state, dt, detail[:58]))
     print("-" * 92)
     n_fail = sum(1 for _, s, _, _ in rows if s in ("FAIL", "MISSING"))
@@ -143,8 +160,9 @@ def run_deck(args, reg) -> int:
     n_miss = sum(1 for _, s, _, _ in rows if s == "MISSING")
     n_part = sum(1 for _, s, _, _ in rows if s == "partial")
     part = (", %d partial (a sub-check SKIPPED)" % n_part) if n_part else ""
-    print("%d gates: %d pass%s, %d fail (%d missing), %d pending (later phase)\n"
-          % (len(rows), n_pass, part, n_fail, n_miss, n_pend))
+    pend = (", %d later-phase gate(s) pending%s" % (n_pend, "" if args.verbose else " (shown with -v)")) if n_pend else ""
+    print("%d gates: %d pass%s, %d fail (%d missing)%s\n"
+          % (len(rows) - n_pend, n_pass, part, n_fail, n_miss, pend))
     return 1 if n_fail else 0
 
 
@@ -161,7 +179,7 @@ def sidecars(deck: Path) -> list[Path]:
 
 
 def run_negatives(args, reg) -> int:
-    from negatives import PLANTERS
+    from negatives import DISCOVERY_ERRORS, PLANTERS
     t0 = time.time()
     ok, out = build_golden()
     if not ok:
@@ -258,10 +276,14 @@ def run_negatives(args, reg) -> int:
     for g in missing_planters:
         print("%-24s %-5s %-20s %s" % ("-", g["id"], "NO PLANTER", "a gate never seen to fail is unproven"))
         bad += 1
+    for mod, err in DISCOVERY_ERRORS:
+        print("%-24s %-5s %-20s %s" % (mod, "-", "DISCOVERY ERROR", err[:62]))
+        bad += 1
     print("-" * 110)
     n_impl = len(gates)
     print("%d negatives, %d behaved as expected, %d did not; %d/%d implemented gates covered; %d pending (later "
-          "phase); %.0fs\n" % (len(rows), good, bad - len(missing_planters), n_impl - len(missing_planters), n_impl,
+          "phase); %.0fs\n" % (len(rows), good, bad - len(missing_planters) - len(DISCOVERY_ERRORS),
+                               n_impl - len(missing_planters), n_impl,
                                sum(1 for g in reg if g.get("phase") == "later" and not module_path(g).is_file()),
                                time.time() - t0))
     return 1 if bad else 0
@@ -294,6 +316,7 @@ def main(argv=None) -> int:
     ap.add_argument("--negatives", action="store_true")
     ap.add_argument("--refs", help="leak references folder for P18 (default devices/refs)")
     ap.add_argument("--fingerprints", help="fingerprints.json for P17")
+    ap.add_argument("--theme", help="theme JSON, for a deck with no deck.json beside it (REVIEW mode)")
     ap.add_argument("--keep", action="store_true", help="keep each negative's scratch folder")
     ap.add_argument("-v", "--verbose", action="store_true")
     a = ap.parse_args(argv)

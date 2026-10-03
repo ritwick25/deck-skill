@@ -1,0 +1,81 @@
+{
+ "slide": "d20-s012",
+ "device": "DL43",
+ "scale": 1.3333,
+ "counts": {
+  "gradients": 1,
+  "effects": 6,
+  "colours": 536,
+  "runs": 39,
+  "scaled": 1.3333
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    0.983,
+    2.263,
+    0.297,
+    0.297
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    0.983,
+    3.307,
+    0.297,
+    0.297
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    0.983,
+    4.352,
+    0.297,
+    0.297
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    0.983,
+    5.397,
+    0.297,
+    0.297
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    0.983,
+    6.443,
+    0.297,
+    0.297
+   ],
+   "kind": "icon"
+  }
+ ],
+ "colour_map": {
+  "000000->ink-deep": 229,
+  "FFFFFF->hairline": 69,
+  "00E47C->accent": 31,
+  "4266F5->accent": 25,
+  "7C5CFC->accent": 24,
+  "00C97A->accent": 23,
+  "121212->ink-deep": 22,
+  "E0622E->accent": 22,
+  "E2E2E2->hairline": 21,
+  "9CA3AF->hairline": 18,
+  "6B7280->ink-muted": 14,
+  "00E47C->accent-ink": 7,
+  "F2F2F2->card": 5,
+  "4266F5->accent-ink": 5,
+  "7C5CFC->accent-ink": 5,
+  "E0622E->accent-ink": 5,
+  "00C97A->accent-ink": 5,
+  "FFFFFF->on-accent": 3,
+  "9CA3AF->ink-muted": 2,
+  "D9E0FB->accent-wash": 1
+ }
+}

@@ -60,6 +60,7 @@ FIGS = [("62%", "Invoices posted with no manual touch", "Up from 18% at the base
         ("91%", "First-pass match rate on payments", "Exceptions routed to one shared queue", "circle-check"),
         ("5 mo", "To recover the full pilot cost", "Against a twelve-month business case", "hourglass")]
 NUMBERS = {}
+COL0, PITCH = 0.50 + 0.95, (12.90 - 0.95 - 0.50 - 0.95) / 5      # six 1.9in columns centred inside 0.50 to 12.90in
 STAT_Y = 2.98
 STAT_H = max(prims.stat_height(s, 1.9, f[0], f[1], kind="measured", pt=42, label_pt=13, theme=th) for f in FIGS)
 RINGS = ["dev.%d" % i for i in range(3, 9)]
@@ -70,7 +71,10 @@ for i, (fig, lab, basis, g) in enumerate(FIGS, 1):
     rename(s, RINGS[i - 1], "struct.fig.%d.ring" % i)
     rename(s, DISCS[i - 1], "struct.fig.%d.disc" % i)
     d = find(s, "struct.fig.%d.disc" % i)
-    cx, cy = (d.left + d.width / 2) / EMU, (d.top + d.height / 2) / EMU
+    cx, cy = COL0 + (i - 1) * PITCH, (d.top + d.height / 2) / EMU     # columns spread across the content band
+    for part in ("ring", "disc"):
+        sh = find(s, "struct.fig.%d.%s" % (i, part))
+        sh.left = int((cx - sh.width / EMU / 2) * EMU)
     icon(s, "slot.fig.%d.icon" % i, g, cx - 0.21, cy - 0.21, 0.42, th, role="accent")
     x = cx - 0.95
     delete(s, NUMS[i - 1])
@@ -88,7 +92,7 @@ for i, (fig, lab, basis, g) in enumerate(FIGS, 1):
 for k, n in enumerate(("dev.30", "dev.31", "dev.32", "dev.33", "dev.34"), 1):
     rename(s, n, "struct.rule.%d" % k)
     sh = find(s, "struct.rule.%d" % k)
-    move(s, "struct.rule.%d" % k, sh.left / EMU, 3.05, 0, 1.85)
+    move(s, "struct.rule.%d" % k, COL0 + (k - 0.5) * PITCH, 3.05, 0, 1.85)
     prims.set_line(sh, "ink-muted", 0.75, theme=th)
 
 # the card row, shortened to its content
@@ -100,39 +104,42 @@ CARDS = [("dev.84", "dev.87", "dev.88", "Controls held",
          ("dev.86", "dev.91", "dev.92", "Team roles",
           "Analysts moved from keying invoices to exceptions", "user-check")]
 for i, (fr, hd, bd, h, b, g) in enumerate(CARDS, 1):
-    rename(s, fr, "struct.card.%d" % i)
-    f = find(s, "struct.card.%d" % i)
+    rename(s, fr, "bleed.card.%d" % i)              # the card row bleeds with the band above it
+    f = find(s, "bleed.card.%d" % i)
     fx, fw = f.left / EMU, f.width / EMU
     fw -= 0.08                                           # sibling cards never touch
     prims.set_fill(f, "card", theme=th)
-    move(s, "struct.card.%d" % i, fx, CARD_TOP, fw, CARD_H)
+    move(s, "bleed.card.%d" % i, fx, CARD_TOP, fw, CARD_H)
     bg = "card"
     rename(s, hd, "slot.card.%d.head" % i)
-    move(s, "slot.card.%d.head" % i, fx + 0.30, CARD_TOP + 0.42, fw - 1.05, 0.46)
-    text(s, "slot.card.%d.head" % i, [P(h, "ink-deep", 18, True, align="left")], th, size=18, background=bg,
+    lx = max(fx + 0.30, 0.50)                            # text keeps to the content band inside a bleeding card
+    move(s, "slot.card.%d.head" % i, lx, CARD_TOP + 0.42, fx + fw - 0.75 - lx, 0.46)
+    text(s, "slot.card.%d.head" % i, [P(h, "ink-deep", 16, True, align="left")], th, size=16, background=bg,
          anchor="middle")
     icon(s, "slot.card.%d.icon" % i, g, fx + fw - 0.74, CARD_TOP + 0.42, 0.46, th, role="accent")
     rename(s, bd, "slot.card.%d.body" % i)
-    move(s, "slot.card.%d.body" % i, fx + 0.30, CARD_TOP + 0.98, fw - 0.55, 0.70)
+    move(s, "slot.card.%d.body" % i, lx, CARD_TOP + 0.98, fx + fw - 0.25 - lx, 0.70)
     text(s, "slot.card.%d.body" % i, [P(b, "ink", 13, align="left")], th, size=13, background=bg)
 
 # the solid panel: the decision the figures support
-rename(s, "dev.2", "struct.panel")
-move(s, "struct.panel", 9.25, CARD_TOP, 13.333 - 9.25, CARD_H)
+rename(s, "dev.2", "bleed.panel")
+move(s, "bleed.panel", 9.25, CARD_TOP, 13.333 - 9.25, CARD_H)
 rename(s, "dev.103", "slot.panel.head")
-move(s, "slot.panel.head", 9.55, CARD_TOP + 0.42, 3.48, 0.46)
-text(s, "slot.panel.head", [P("Recommended next step", "on-accent", 18, True, align="left")], th, size=18,
+move(s, "slot.panel.head", 9.50, CARD_TOP + 0.42, 12.88 - 9.50, 0.46)
+text(s, "slot.panel.head", [P("Recommended next step", "on-accent", 16, True, align="left")], th, size=16,
      background="accent", anchor="middle")
 el = __import__("copy").deepcopy(find(s, "slot.panel.head")._element)
 find(s, "slot.panel.head")._element.addnext(el)
 nv = el.find(".//" + qn("p:cNvPr"))
 nv.set("name", "slot.panel.body")
 nv.set("id", "5020")
-move(s, "slot.panel.body", 9.55, CARD_TOP + 0.98, 3.48, 0.70)
+move(s, "slot.panel.body", 9.50, CARD_TOP + 0.98, 12.88 - 9.50, 0.70)
 text(s, "slot.panel.body", [P("Extend to two more regional centers next quarter",
                               "on-accent", 13, align="left")], th, size=13, background="accent")
 
 from deckkit import package, tag  # noqa: E402
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 tag.tag(prs.slides[0], "headline-figures", VARIANT)
 for sh in prs.slides[0].shapes:
     ooxml.finish(sh)

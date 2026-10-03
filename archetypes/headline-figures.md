@@ -65,7 +65,7 @@ Budget 240 words normalized, 250 on the w13 canvas and 140 on the w10 canvas, ad
 | no-subtitle | An italic line or a period bar acts as a subtitle under the title on 2 top exemplars. | No subtitle under the title, which is one claim of 14 words or fewer. | The period or the basis folds into the title claim and the figure row moves up. |
 | left-accent | A short title edge bar or thick foot bars under driver cards mark no state on 2 top exemplars. | An accent bar only where it encodes a state that can change. | The bars go, and a hairline above each card label groups the figures as a data sheet. |
 | glyphs | Em dashes in stat captions and panel bodies on 1 top exemplar. | No em dash, en dash, arrow glyph or smart quote in text. | Captions break on commas or full stops, so each caption needs room for a slightly longer line. |
-| light-bg | A photo band under a dark overlay carries the stat row on 1 top exemplar. | Light slide grounds. | The stat band becomes a flat light surface, numerals turn to the ink color and the roundels keep the brand disc. |
+| light-bg | A photo band under a dark overlay carries the stat row on 1 top exemplar. | Light slide ground. The photo goes and the stat row sits on a solid near-black (ink-deep) band with paper labels. | The band keeps its weight, numerals take accent-bright on the dark fill, and the roundels keep the brand disc. |
 | other | Changes outside the named rules appear on 5 top exemplars, among them kickers above the title, titles of up to 15 words, raster hub pictures and equal rounded tile walls. | The title is one claim of 14 words or fewer, every label is live text and figures read as a data sheet. | The kicker goes, the hub is redrawn natively, and tile fills give way to a hairline above each label. |
 
 ## Exemplars
@@ -91,7 +91,7 @@ None.
 dv05, dv34, dv35, dv36, dv38
 
 ## Provenance
-- Source: cards/src/a41.json sha256 a6bba0f044cf2dbf748a2f0202a09daba7da2f00e20327cbccb5621332062122
+- Source: cards/src/a41.json sha256 441c790663f59b177be4d93881808886a38f6f61f548e79942c07a4442f4233c
 - Measures: measures/a41.json sha256 4656d30ec3027e1187b953e6e76924f21857ef9c17736ff0e531a4d31712a58c
 - Final ranking: rankings/a41.final.json sha256 f7d353d6914fa1801227ff4209031710be85a8ff3487fbb89706d214e575877d
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

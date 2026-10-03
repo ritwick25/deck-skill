@@ -3,7 +3,7 @@
     theme check THEME.json      contrast table, derived roles, colour-vision report; exit 1 on a failing pair
     theme solve THEME.json ROLE AGAINST [AGAINST ...] [--min 4.5]
                                 lower ROLE's lumMod until it clears the minimum; prints the expression
-    theme apply THEME.json DECK.pptx [--out OUT.pptx]
+    theme apply THEME.json DECK.pptx [--out OUT.pptx] [--from-theme BUILT_UNDER.json]
                                 swap clrScheme, fontScheme and fmtScheme in every theme part
 
 Exit codes: 0 pass, 1 a gated failure, 2 bad input (a missing file or a refused theme counts as failure).
@@ -39,7 +39,11 @@ def _theme(args) -> int:
         print("%s = %s  (worst %.2f against %s, min %.1f)" % (args.role, expr, ratio, ", ".join(args.against), args.min))
         return 0
     if args.action == "apply":
-        parts = apply_theme(args.deck, t, args.out)
+        src = None
+        if getattr(args, "from_theme", None):
+            from .theme import Theme as _T
+            src = _T.load(args.from_theme)
+        parts = apply_theme(args.deck, t, args.out, from_theme=src)
         print("%s: %d theme part(s) set to %s: %s" % (args.out or args.deck, len(parts), t.name, ", ".join(parts)))
         return 0
     return 2
@@ -61,6 +65,7 @@ def main(argv=None) -> int:
     a.add_argument("theme")
     a.add_argument("deck")
     a.add_argument("--out")
+    a.add_argument("--from-theme", dest="from_theme", help="the theme the deck was built under: remaps its solved roles")
     args = ap.parse_args(argv)
     if args.cmd == "theme":
         return _theme(args)

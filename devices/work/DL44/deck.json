@@ -1,0 +1,1 @@
+{"type": "device", "canvas": "wide", "theme": "/Users/Nikunj/.claude/skills/deck/themes/sigmoid.json", "client": null, "spelling": "US", "overrides": {}, "series": [], "deliverable": "device.pptx", "build": ["{python}", "/Users/Nikunj/.claude/skills/deck/devices/work/DL44/build.py", "--out", "{out}"]}

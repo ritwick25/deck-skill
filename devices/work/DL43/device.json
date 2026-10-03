@@ -1,0 +1,282 @@
+{
+ "id": "DL43",
+ "name": "Coded reference rows beside a cluster map",
+ "archetypes": [
+  "reference-table"
+ ],
+ "family": "Two-dimensional field",
+ "variant": "coded-rows-cluster-map",
+ "mechanism": "Five glyph-coded rows define each dimension and its source under solid header pills, and a cluster map beside them repeats the five glyphs as near-black nodes, each dropping one arrow into the bubble of items it flags, with unflagged items loose around them.",
+ "canvas": "wide",
+ "source": "d20-s012",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.row.1.head",
+   "kind": "text",
+   "purpose": "dimension",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.1.body",
+   "kind": "text",
+   "purpose": "definition",
+   "max_words": 12,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.1.source",
+   "kind": "text",
+   "purpose": "source-and-flag-rule",
+   "max_words": 9,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.2.head",
+   "kind": "text",
+   "purpose": "dimension",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.2.body",
+   "kind": "text",
+   "purpose": "definition",
+   "max_words": 12,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.2.source",
+   "kind": "text",
+   "purpose": "source-and-flag-rule",
+   "max_words": 9,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.3.head",
+   "kind": "text",
+   "purpose": "dimension",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.3.body",
+   "kind": "text",
+   "purpose": "definition",
+   "max_words": 12,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.3.source",
+   "kind": "text",
+   "purpose": "source-and-flag-rule",
+   "max_words": 9,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.4.head",
+   "kind": "text",
+   "purpose": "dimension",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.4.body",
+   "kind": "text",
+   "purpose": "definition",
+   "max_words": 12,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.4.source",
+   "kind": "text",
+   "purpose": "source-and-flag-rule",
+   "max_words": 9,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.5.head",
+   "kind": "text",
+   "purpose": "dimension",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.5.body",
+   "kind": "text",
+   "purpose": "definition",
+   "max_words": 12,
+   "background": "card"
+  },
+  {
+   "name": "slot.row.5.source",
+   "kind": "text",
+   "purpose": "source-and-flag-rule",
+   "max_words": 9,
+   "background": "card"
+  },
+  {
+   "name": "slot.head.dimension",
+   "kind": "text",
+   "purpose": "column-header",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.head.source",
+   "kind": "text",
+   "purpose": "column-header",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.head.map",
+   "kind": "text",
+   "purpose": "column-header",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.row.1.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.row.2.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.row.3.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.row.4.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.row.5.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.node.1.label",
+   "kind": "text",
+   "purpose": "node-name",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.node.1.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.node.2.label",
+   "kind": "text",
+   "purpose": "node-name",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.node.2.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.node.3.label",
+   "kind": "text",
+   "purpose": "node-name",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.node.3.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.node.4.label",
+   "kind": "text",
+   "purpose": "node-name",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.node.4.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.node.5.label",
+   "kind": "text",
+   "purpose": "node-name",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.node.5.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.legend.flagged",
+   "kind": "text",
+   "purpose": "legend",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.legend.clear",
+   "kind": "text",
+   "purpose": "legend",
+   "max_words": 4,
+   "background": "paper"
+  }
+ ],
+ "samples": [
+  "Five scored dimensions make every supplier's risk comparable at a glance",
+  "Delivery reliability",
+  "Order lines that arrive complete and inside the agreed delivery window",
+  "Goods receipts",
+  "Two late months in a row",
+  "Quality conformance",
+  "Lots rejected or reworked at inspection against all lots received",
+  "Inspection results",
+  "Any lot rejected twice",
+  "Financial health",
+  "Credit and payment signals that warn of supplier distress months early",
+  "Payment records",
+  "Any credit downgrade",
+  "Compliance standing",
+  "Open audit findings, lapsed certificates and overdue corrective actions",
+  "Audit register",
+  "Findings past due date",
+  "Capacity headroom",
+  "Committed volume against the plant capacity each supplier has declared",
+  "Capacity plans",
+  "Commitments over capacity",
+  "Dimension and definition",
+  "Source and flag rule",
+  "Suppliers grouped by their weakest dimension",
+  "Delivery",
+  "Quality",
+  "Finance",
+  "Compliance",
+  "Capacity",
+  "Supplier below threshold",
+  "Clear on all five"
+ ],
+ "capacity_words": 165,
+ "archetype_floors": {
+  "reference-table": 160
+ },
+ "short_of_floor": []
+}

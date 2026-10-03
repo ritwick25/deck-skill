@@ -36,7 +36,12 @@ from deckkit.read import open_deck, read_slide  # noqa: E402
 from deckkit.read.ns import NS, A, P, qn  # noqa: E402
 from deckkit.read.xform import group_child_to_parent, read_xfrm  # noqa: E402
 
-D01 = os.path.expanduser("~/Codes/Decks-For-Visuals/library/_work/src/d01.pptx")
+LIB = os.environ.get("DECK_LIBRARY", os.path.expanduser("~/Codes/Decks-For-Visuals/library"))
+D01 = os.path.join(LIB, "_work", "src", "d01.pptx")
+# The flagship copy lives in the library, outside the skill (ruling 23). Without it the reference tests skip and the
+# synthetic geometry and clone tests still run.
+HAVE_D01 = os.path.isfile(D01)
+needs_d01 = unittest.skipUnless(HAVE_D01, "reference copy absent (%s); reference fixtures skipped" % D01)
 R_NS = "{%s}" % NS["r"]
 PY = sys.executable
 _SHA0 = None
@@ -53,12 +58,12 @@ def sha256(path):
 
 def setUpModule():
     global _SHA0
-    _SHA0 = sha256(D01)
+    _SHA0 = sha256(D01) if HAVE_D01 else None
 
 
 def tearDownModule():
     try:
-        assert sha256(D01) == _SHA0, "the read-only source changed during the suite"
+        assert _SHA0 is None or sha256(D01) == _SHA0, "the read-only source changed during the suite"
     finally:
         _TMP.cleanup()
 
@@ -182,6 +187,7 @@ def xsd_validate(path):
 
 # ======================================================================== geometry on the reference
 
+@needs_d01
 class GeomOnReference(unittest.TestCase):
     """abs_box and iter_abs agree with deckkit.read on the flagship, group children included."""
 
@@ -247,6 +253,7 @@ class GeomOnReference(unittest.TestCase):
               file=sys.stderr)
 
 
+@needs_d01
 class BakeOnReference(unittest.TestCase):
     """bake_groups on every slide of the flagship, in memory: same painted points, identity groups, sizes kept."""
 
@@ -406,6 +413,7 @@ class GeomSynthetic(unittest.TestCase):
 
 # ======================================================================== clone
 
+@needs_d01
 class CloneAcrossPackages(unittest.TestCase):
     """d01 slide 15 (11 pictures, one SVG-only icon, four glued connectors) into python-pptx's default template."""
 
@@ -561,22 +569,22 @@ class CloneAcrossPackages(unittest.TestCase):
 
 class CloneRefusalsAndStrips(unittest.TestCase):
 
-    def test_chart_refused_before_writing(self):
+    def test_chart_carried_with_its_workbook(self):
+        """Charts clone across packages with their embedded workbook (ruling 22 charts); SmartArt is still refused."""
         src = blank_prs()
         s = blank_slide(src)
         data = CategoryChartData()
         data.categories = ["a", "b"]
         data.add_series("s", (1, 2))
         s.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(1), Inches(1), Inches(4), Inches(3), data)
-        s.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(1), Inches(1))
         dst = blank_prs()
         d = blank_slide(dst)
-        before = etree.tostring(d.shapes._spTree)
-        with self.assertRaises(UnsupportedPart) as cm:
-            clone.copy_shapes(s, d)
-        self.assertIn("chart", str(cm.exception))
-        self.assertEqual(before, etree.tostring(d.shapes._spTree))
+        clone.copy_shapes(s, d)
+        frames = [sh for sh in d.shapes if sh.has_chart]
+        self.assertEqual(len(frames), 1)
+        self.assertEqual(list(frames[0].chart.plots[0].categories), ["a", "b"])
 
+    @needs_d01
     def test_hdphoto_layers_stripped(self):
         """d01 slide 14 carries four a14:imgProps layers with .wdp parts: none survive the copy."""
         src = Presentation(D01)

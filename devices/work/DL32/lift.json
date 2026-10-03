@@ -1,0 +1,51 @@
+{
+ "slide": "d18-s001",
+ "device": "DL32",
+ "scale": 1.0,
+ "counts": {
+  "effects": 8,
+  "colours": 13,
+  "runs": 10,
+  "autofit": 5
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    -0.02,
+    1.075,
+    13.36,
+    6.42
+   ],
+   "kind": "screenshot"
+  },
+  {
+   "box_in": [
+    10.35,
+    0.52,
+    1.18,
+    0.52
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    11.82,
+    0.56,
+    0.865,
+    0.46
+   ],
+   "kind": "logo"
+  }
+ ],
+ "colour_map": {
+  "000000->ink-deep": 3,
+  "1A1A1A->ink-deep": 2,
+  "323F4F->ink-deep": 2,
+  "FFFFFF->paper": 1,
+  "D9E0E8->hairline-soft": 1,
+  "0057B8->accent": 1,
+  "0057B8->accent-ink": 1,
+  "002F6C->accent-ink": 1,
+  "5A6B7E->ink": 1
+ }
+}

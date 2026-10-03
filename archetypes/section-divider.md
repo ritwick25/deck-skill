@@ -49,7 +49,7 @@ Word budget 10 with an advisory floor of 0, under the hard ceiling of 250. The t
 ## Translation under the house rules
 | Rule | Reference | House | Consequence |
 |---|---|---|---|
-| light-bg | A dark photo ground under a scrim, and a dark patterned ground, on 2 top exemplars. | Light ground with the title in dark ink. | The anchor has to work as ink on white, so a pale numeral or a flat bar pictogram replaces the photo. |
+| light-bg | A dark photo ground under a scrim, and a dark patterned ground, on 2 top exemplars. | Light slide ground with the title in dark ink. A solid brand or near-black block may hold the part numeral, set in that fill's ON_FILL role. | The photo goes, so the anchor is a pale numeral, a solid numeral block or a flat bar pictogram on the light ground. |
 | flat-fill | Gradient tiles and a gradient quarter disc on 2 top exemplars. | One flat brand fill for the lit tile or disc, flat gray for the rest. | The lit state is carried by fill alone, so the tiles keep one type treatment. |
 | shadow | A soft shadow under the lit tile on 1 top exemplar. | No soft shadow, at most 1 px. | The lit tile sits level with the grayed ones. |
 | glyphs | Curly apostrophes and bullet markers on 2 top exemplars. | Straight apostrophes and plain stacked lines. | No layout change. |
@@ -79,7 +79,7 @@ None.
 dv01, dv02, dv03, dv04
 
 ## Provenance
-- Source: cards/src/a03.json sha256 9ee1e1ee3df81eb8b21db090e424badfe8e105c2387c30ad21e50eb69f1b087a
+- Source: cards/src/a03.json sha256 30955c7ad907378ab550bf7470548bf56685afdaf8368e21ec468645054b348a
 - Measures: measures/a03.json sha256 e1ad3f7d1c854c3a345d7164f40b64a1fe6bfda91bc112ddfe8264700f82e47e
 - Final ranking: rankings/a03.final.json sha256 e6a5ac1e1c256303f586bcd7e10bffa863e0e00824047d5e269c7d10559ae0bd
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

@@ -1,0 +1,106 @@
+{
+ "id": "DL32",
+ "name": "Cover stack beside a brand field motif",
+ "archetypes": [
+  "cover"
+ ],
+ "family": "Frame",
+ "variant": "stack-brand-field-motif",
+ "mechanism": "A flush-left title stack (kicker, a two-line title, one label line, the date) on a light ground, balanced by one solid brand field whose curved shoulder carries a small native motif: three inputs feeding one hub, so the right side states the deck's thesis.",
+ "canvas": "wide",
+ "source": "d18-s001",
+ "slots": [
+  {
+   "name": "slot.kicker",
+   "kind": "text",
+   "purpose": "kicker",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.headline",
+   "kind": "text",
+   "purpose": "cover-title",
+   "max_words": 10,
+   "background": "paper",
+   "note": "the hero title, set large in its own box; not slot.title, which the kit snaps to the content title band; pass kit Paras (txt.title_runs) for two-tone keywords"
+  },
+  {
+   "name": "slot.label",
+   "kind": "text",
+   "purpose": "parties-and-engagement",
+   "max_words": 10,
+   "background": "paper"
+  },
+  {
+   "name": "slot.date",
+   "kind": "text",
+   "purpose": "date",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.motif.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.motif.1.label",
+   "kind": "text",
+   "purpose": "input",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.motif.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.motif.2.label",
+   "kind": "text",
+   "purpose": "input",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.motif.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.motif.3.label",
+   "kind": "text",
+   "purpose": "input",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.motif.hub.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.motif.hub.label",
+   "kind": "text",
+   "purpose": "outcome",
+   "max_words": 3,
+   "background": "accent"
+  }
+ ],
+ "samples": [
+  "PROPOSAL",
+  "One demand forecast for every planning region",
+  "Prepared for the group supply planning office",
+  "October 2026",
+  "Orders",
+  "Shipments",
+  "Promotions",
+  "One forecast"
+ ],
+ "capacity_words": 35,
+ "archetype_floors": {
+  "cover": 10
+ },
+ "short_of_floor": []
+}

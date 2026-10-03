@@ -173,6 +173,8 @@ for k, (dot, lab, l_txt) in enumerate(CLOCK, 1):
     R(lab, "slot.clock.%d.text" % k, lx, LY + 0.20, lw, 0.24)
     T("slot.clock.%d.text" % k, l_txt, "ink-deep", 10, align="right" if lx < cx - lw / 2 else "center")
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL18", th, archetype="decision-logic", variant=VARIANT)
 if args.out and Path(args.out).resolve() != out.resolve():
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)

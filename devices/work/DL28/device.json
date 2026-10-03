@@ -632,12 +632,12 @@
   }
  ],
  "samples": [
-  "30 people serve eight areas",
+  "30 people, eight areas",
   "Analyst training plan",
   "Brief summaries",
   "Campaign drafts",
   "Campaign variants",
-  "Competitor news digest",
+  "Competitor digest",
   "Contract clause review",
   "Data quality alerts",
   "Demand sensing",
@@ -658,8 +658,14 @@
   "Service chat assistant",
   "Shared prompt library",
   "Supplier risk alerts",
-  "Survey verbatim coding",
+  "Verbatim coding",
   "Usage and cost tracking",
   "Weekly sales forecast"
- ]
+ ],
+ "capacity_words": 173,
+ "archetype_floors": {
+  "value-horizons": 150,
+  "phased-roadmap": 130
+ },
+ "short_of_floor": []
 }

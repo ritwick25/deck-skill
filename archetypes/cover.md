@@ -53,7 +53,7 @@ Word budget 40 with an advisory floor of 10, under the hard ceiling of 250. The 
 |---|---|---|---|
 | flat-fill | Gradient waves, washes and panels behind the visual, on 3 top exemplars. | One flat brand-tint shape of the same silhouette, or the plain light ground. | The right side reads as a single flat field, so the visual must carry content rather than mood. |
 | left-accent | A tall brand bar binds the title stack on 2 top exemplars. | No bar. Shared left alignment alone groups kicker, title, label and date. | The stack needs a strict type ladder and even spacing, since no rule holds it together. |
-| light-bg | Raster photo fields behind or beside the stack, or a dark navy ground under the whole cover, on 2 top exemplars. | Light ground, with any visual held to the right side and drawn as vector. | The title zone keeps full contrast and the visual zone shrinks toward the right side. |
+| light-bg | Raster photo fields behind or beside the stack, or a dark navy ground under the whole cover, on 2 top exemplars. | Light slide ground, with any visual held to the right side and drawn as vector. A brand or near-black block inside the cover stays a solid fill, its text in that fill's ON_FILL role. | The title zone keeps full contrast and the visual zone shrinks toward the right side. Pastel only as a full-bleed ground, never as a panel. |
 | no-subtitle | An italic promise or proposal line under the title on 4 top exemplars. | The promise folds into the title as its one claim, or it goes. | The title carries the claim, so the stack loses a line and the date moves up. |
 | no-footer | A web address line under the date on 2 top exemplars. | No web line, no footer, no page number. | The stack ends on the date. |
 | shadow | A soft shadow under the diagonal band on 1 top exemplar. | Hairlines plus at most a 1 px shadow. | Any band reads flat and sits behind the visual without lift. |
@@ -86,7 +86,7 @@ Word budget 40 with an advisory floor of 10, under the hard ceiling of 250. The 
 dv53, dv56
 
 ## Provenance
-- Source: cards/src/a01.json sha256 d69385134b4e20851c255a7798b406a05e12abe758943b4df9fe64e4a4bcca2b
+- Source: cards/src/a01.json sha256 1cf5fd0ae3590b20e5f58b7ba72a756ba61636b5d31395f04334b442be8bc62b
 - Measures: measures/a01.json sha256 40fe06d80dc764f14bab906bb3944c4a708545050360654bdbbe2052fea63d52
 - Final ranking: rankings/a01.final.json sha256 4edb81fd00ed4400fbd96633b21c3b439a58dfa7052205d6d52e04bce5d35bc9
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

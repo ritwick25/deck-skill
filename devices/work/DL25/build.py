@@ -157,10 +157,10 @@ zone("method.proof.2", Box(7.58, 3.22, 1.37, 1.14), "chart-line", "Baseline fore
 zone("method.proof.3", Box(7.58, 4.53, 1.37, 1.14), "file-text", "Change notes")
 
 # handoff discs on the two panel gaps
-for k, (n, gx) in enumerate((("dev.59", 4.06), ("dev.60", 9.29)), 1):
-    put(n, "struct.handoff.%d.disc" % k)
-    frame("struct.handoff.%d.disc" % k, "accent-tint")
-    icon(s, "struct.handoff.%d.mark" % k, "chevron-right", gx, 3.48, 0.16, th, role="accent")
+for k, (n, cx) in enumerate((("dev.59", 4.18), ("dev.60", 9.40)), 1):   # each sits in its gap, clear of both panels
+    put(n, "struct.handoff.%d.disc" % k, cx - 0.13, 3.43, 0.26, 0.26)
+    frame("struct.handoff.%d.disc" % k, "card")
+    icon(s, "struct.handoff.%d.mark" % k, "chevron-right", cx - 0.08, 3.48, 0.16, th, role="accent")
 
 # output panel: three typed outputs, each with format tags, one line and a proof zone
 OUTS = [("dev.61", ("dev.63", "dev.62"), "dev.64", "Demand plan", ("Weekly", "Table"),
@@ -228,6 +228,8 @@ for k, (n, t, gl, gx) in enumerate(USES, 1):
     text(s, "slot.uses.%d" % k, [P(t, "ink", 10)], th, size=10, anchor="middle")
     icon(s, "slot.uses.%d.icon" % k, gl, gx, 6.48, 0.14, th, role="accent")
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL25", th, archetype="input-process-output", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

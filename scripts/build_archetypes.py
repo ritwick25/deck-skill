@@ -93,14 +93,41 @@ def budgets(src: dict) -> dict:
     return out
 
 
+DENY_MIN = 200                      # the library list holds 210 terms and 51 aliases; fewer means a broken read
+DENY_CANARY = ("Co" + "ke", "T" + "CCC")       # aliases, not terms: the probe proves aliases are compiled
+
+
+def _term_rx(term: str) -> re.Pattern:
+    """The library's matcher (library_gates._term_rx): a term of 3 characters or fewer matches case-sensitively
+    (a two-letter ticker is not the lower-case word); every term is bounded by non-alphanumerics, so an ampersand
+    name and a phone number match where a word boundary would not."""
+    return re.compile(r"(?<![A-Za-z0-9])" + re.escape(term) + r"(?![A-Za-z0-9])", 0 if len(term) <= 3 else re.I)
+
+
 def denylist() -> list[re.Pattern]:
+    """Every term and every alias in the library's leak list, compiled. Raises when the list is missing, short, or
+    the alias canary does not fire: a scan with zero patterns passes everything, so it must never run."""
     p = LIB / "leak" / "denylist.json"
     if not p.is_file():
-        return []
+        raise RuntimeError("leak list %s is missing; the name scan cannot run" % p)
     d = json.loads(p.read_text())
-    terms = d["terms"] if isinstance(d, dict) and "terms" in d else d
-    return [re.compile(r"\b%s\b" % re.escape(t if isinstance(t, str) else t.get("term", "")), re.I)
-            for t in terms if (t if isinstance(t, str) else t.get("term"))]
+    entries = d["terms"] if isinstance(d, dict) and "terms" in d else d
+    terms: set[str] = set()
+    for e in entries:
+        if isinstance(e, str):
+            terms.add(e.strip())
+        elif isinstance(e, dict):
+            terms.update(x.strip() for x in [e.get("term") or ""] + list(e.get("aliases") or []))
+    terms.discard("")
+    pats = [_term_rx(t) for t in sorted(terms)]
+    if len(pats) < DENY_MIN:
+        raise RuntimeError("leak list %s yields %d patterns, under %d" % (p, len(pats), DENY_MIN))
+    for probe in DENY_CANARY:
+        if not any(rx.search("The %s brief ran twice." % probe) for rx in pats):
+            raise RuntimeError("leak canary: the alias %r did not match" % probe)
+    if any(rx.search("A ko and an ul list.") for rx in pats):
+        raise RuntimeError("leak canary: a short alias matched a lower-case word")
+    return pats
 
 
 def build() -> dict[Path, str]:

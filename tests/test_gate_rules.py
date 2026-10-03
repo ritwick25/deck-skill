@@ -19,7 +19,11 @@ Run: cd ~/.claude/skills/deck && $PY -m unittest tests.test_gate_rules -v
     main mass bridges a one-cell gutter and stops at an empty band row; an untagged slide 1 is a frame;
   * P25: text under an opaque shape drawn over it is noted, never measured;
   * P07: fitted frames agree on tops or on centres; a centre-anchored frame with room compares its centre;
-  * P09: page labels count only in a page-number position.
+  * P09: page labels count only in a page-number position;
+  * the ruling-22 shared contracts: a bleed.* shape may pass the content margin; a native chart is the slide's
+    device; a closing title stacks on three lines; one foot band in five content slides passes; a small tint named
+    state.* and a large tint pass; a P22-verified mark is exempt from P18's media check, its bytes renamed are not;
+    one shared 'Illustrative figures' label covers a chipless stat; run_all shows the P13 advisory count.
 """
 from __future__ import annotations
 
@@ -520,6 +524,136 @@ class TestFillGrid(unittest.TestCase):
         extent, share, _n = p24_fill.measures(cells)
         self.assertEqual(extent, 1.0)
         self.assertAlmostEqual(share, 0.5)
+
+
+class TestContracts(Golden):
+    """The pass side of the ruling-22 shared contracts (P03, P10, P14, P15, P16, P18, P23, run_all)."""
+
+    def _fails(self, gid, d):
+        code, found = run(gid, d)
+        return code, [f.line() for f in found if f.level == "fail"]
+
+    def test_bleed_and_tolerance_pass_the_content_margin(self):
+        d = self.copy("bleed")
+
+        def fn(r):
+            sh = negatives.shape(r, "pilot.card")
+            x, _y, bw, _bh = negatives.box_in(sh)
+            negatives.move(sh, dx_in=13.10 - (x + bw))
+            sh.find(".//" + negatives.P + "cNvPr").set("name", "bleed.pilot.card")
+        negatives.edit_slide(d, 5, fn)
+        self.assertEqual(self._fails("P03", d), (0, []))
+        d2 = self.copy("margin-tol")
+
+        def fn2(r):
+            sh = negatives.shape(r, "pilot.card")
+            x, _y, bw, _bh = negatives.box_in(sh)
+            negatives.move(sh, dx_in=12.98 - (x + bw))                   # 0.08in past: inside the 0.10in tolerance
+        negatives.edit_slide(d2, 5, fn2)
+        self.assertEqual(self._fails("P03", d2), (0, []))
+
+    def test_a_chart_frame_is_the_slide_device(self):
+        from pptx.chart.data import CategoryChartData
+        from pptx.enum.chart import XL_CHART_TYPE
+        from pptx.util import Inches
+        d = self.copy("chart")
+        negatives.p10_no_device(d, None)
+
+        def fn(prs):
+            data = CategoryChartData()
+            data.categories = ["North", "Coastal", "Inland"]
+            data.add_series("Cycle days", (5, 7, 9))
+            prs.slides[1].shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(9.0), Inches(5.0), Inches(3.5),
+                                           Inches(1.8), data)
+        negatives.with_prs(d, fn)
+        code, found = run("P10", d)
+        self.assertFalse(any("nothing drawn" in f.msg for f in found), [f.line() for f in found])
+
+    def test_a_closing_title_stacks_on_three_lines(self):
+        d = self.copy("closing3")
+
+        def fn(r):
+            _off, ext = negatives.xfrm(negatives.shape(r, "title"))
+            ext.set("cx", str(int(3.5 * negatives.EMU)))                 # three lines at 24pt, measured
+        negatives.edit_slide(d, 7, fn)
+        self.assertEqual(self._fails("P14", d), (0, []))
+
+    def test_one_foot_band_in_five_content_slides_passes(self):
+        d = self.copy("one-band")
+        negatives.foot_band(d, (3,))
+        self.assertEqual(self._fails("P15", d), (0, []))
+        import p15_variety
+        ctx = _shared.Ctx(d)
+        try:
+            self.assertEqual(p15_variety.foot_band(ctx, 3)["name"], "foot.3.band")
+            self.assertIsNone(p15_variety.foot_band(ctx, 2))
+        finally:
+            ctx.close()
+
+    def test_state_tints_and_large_tints_pass(self):
+        from deckkit import prims
+        from deckkit.canvas import Box
+        th = negatives.theme()
+        d = self.copy("tints")
+
+        def fn(prs):
+            with prims.use(th):
+                prims.card(prs.slides[6], Box(1.0, 5.4, 1.6, 1.0), fill="accent-tint", line=None, name="state.held")
+                prims.card(prs.slides[6], Box(4.0, 4.6, 3.0, 2.0), fill="accent-tint", line=None, name="tint.ground")
+        negatives.with_prs(d, fn)
+        self.assertEqual(self._fails("P16", d), (0, []))
+
+    def test_a_verified_mark_is_exempt_from_the_media_check(self):
+        """The kit's own vendor mark passes P18 even when the refs register its bytes (the reference decks embed the
+        same official artwork); the same bytes under a plain picture name still fail."""
+        import hashlib
+        from deckkit import icons
+        from deckkit.canvas import Box
+        key = next(k for k in icons.vendor_keys() if k.startswith("aws/"))
+        blob = icons.vendor_path(key).read_bytes()
+        item = {"sha256": hashlib.sha256(blob).hexdigest(), "dhash": None, "bytes": len(blob), "format": "PNG",
+                "px": [0, 0], "decks": 1, "test": "registered by the pass-side test"}
+        for name, want in (("vendor", 0), ("plain", 1)):
+            d = self.copy("mark-" + name)
+            (d.parent / "work").mkdir()
+            refs = negatives._refs_copy(d.parent / "work", media_extra=[item])
+
+            def fn(prs, name=name):
+                pic = icons.vendor(prs.slides[6], key, Box(11.0, 5.5, 0.5, 0.5))
+                if name == "plain":
+                    pic._element.find(".//" + negatives.P + "cNvPr").set("name", "picture.mark")
+            negatives.with_prs(d, fn)
+            code, found = run("P18", d, refs_dir=refs)
+            self.assertEqual(code, want, (name, [f.line() for f in found if f.level == "fail"]))
+
+    def test_one_shared_label_covers_a_chipless_stat(self):
+        d = self.copy("shared-label")
+        negatives.p23_chip(d, None)
+        negatives.with_prs(d, lambda prs: negatives._add_text(prs, 4, (7.1, 6.55, 2.4, 0.22), "Illustrative figures",
+                                                              9.0, "basis.label", role="ink-muted"))
+        self.assertEqual(self._fails("P23", d), (0, []))
+
+    def test_run_all_shows_the_p13_advisory_count(self):
+        import contextlib
+        import io
+        d = self.copy("thin")
+
+        def fn(r):
+            for t in r.iter(negatives.A + "t"):
+                if t.text and t.text.strip():
+                    t.text = "Plan"
+            negatives.first_run(negatives.shape(r, "title")).find(negatives.A + "t").text = "A thin slide"
+        negatives.edit_slide(d, 6, fn)
+        args = mock.Mock(deck=str(d), only="P13", static=True, refs=None, fingerprints=None, twin=None, verbose=False,
+                         theme=None)
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            code = run_all.run_deck(args, run_all.registry())
+        self.assertEqual(code, 0, buf.getvalue())
+        _code, found = run("P13", d)
+        adv = [f for f in found if f.level == "advisory"]
+        self.assertTrue(any(f.slide == 6 for f in adv), [f.line() for f in found])
+        self.assertRegex(buf.getvalue(), r"P13 .*pass .* %d advisory: s\d+ \d+ words, under the advisory floor" % len(adv))
 
 
 class TestPageLabels(unittest.TestCase):

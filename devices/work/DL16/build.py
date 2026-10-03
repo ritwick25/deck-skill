@@ -149,6 +149,18 @@ for p in LIFT["pictures_removed"]:
     side = max(w, h)
     icon(s, nm, g, x + (w - side) / 2, y + (h - side) / 2, side, th, role="accent")
 
+# every bent link on the route PowerPoint draws (LibreOffice re-routes them); on that route the rollback loop
+# runs under its label, so the label knocks the line out in the zone's own fill
+from assemble_devices import bake_bent  # noqa: E402
+bake_bent(s)
+from deckkit import prims  # noqa: E402
+prims.set_fill(find(s, "slot.proof.3.loop"), "card", theme=th)
+_el = find(s, "slot.proof.3.loop")._element
+_el.getparent().remove(_el)
+s.shapes._spTree.append(_el)
+
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL16", th, archetype="principles", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

@@ -218,6 +218,8 @@ for n in ["struct.source.bar", "struct.source.frame", "struct.platform.bar", "st
         + ["struct.enabler.%d.card" % i for i in range(1, 4)]:
     radius(n)
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL21", th, archetype="layered-architecture", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

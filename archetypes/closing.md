@@ -51,7 +51,7 @@ Word budget 60 with an advisory floor of 40, under the hard ceiling of 250. The 
 ## Translation under the house rules
 | Rule | Reference | House | Consequence |
 |---|---|---|---|
-| light-bg | A saturated full-height brand block with white text on 1 top exemplar. | A pale brand tint panel with ink text, so the ground stays light. | The panel separates by tint and edge, so its statement needs ink weight rather than reversed type. |
+| light-bg | A saturated full-height brand block with white text on 1 top exemplar. | The block stays a solid brand panel at full height with text in the on-accent role. Only the slide ground is light. | No change to geometry. The statement keeps reversed type, and nothing on the panel turns to a tint. |
 | left-accent | A tall edge bar beside the contact column on 1 top exemplar. | No bar. The column aligns to the margin. | The sign-off and contact lines group by alignment and spacing alone. |
 | shadow | A blurred shadow on the panel edge on 1 top exemplar. | The flat fill boundary is the divider, with at most a 1 px shadow. | No layout change. |
 | glyphs | A leading hyphen used as a dash before the attribution on 1 top exemplar. | The attribution sits on its own line with no dash. | The attribution needs its own type step to read as a source. |
@@ -80,7 +80,7 @@ Word budget 60 with an advisory floor of 40, under the hard ceiling of 250. The 
 dv55
 
 ## Provenance
-- Source: cards/src/a04.json sha256 1f770e699a793508cc5f775a2b30472c1ce6d3e53006cecaaecdd016c60c1cd2
+- Source: cards/src/a04.json sha256 b217164416e19067c1c7a91c9a96599c4b2c5c3b85697e8b77264d376e589e57
 - Measures: measures/a04.json sha256 2db617c27fd514aea68b7e5ea3bc9953900b8cf48e307de924a9b3a1ad810d17
 - Final ranking: rankings/a04.final.json sha256 b6b932b3c44398a9bcd3490482024b64eb62a0b83d32a4f6895e60ec731d2fb2
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

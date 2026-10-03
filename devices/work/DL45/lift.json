@@ -1,0 +1,35 @@
+{
+ "slide": "d15-s033",
+ "device": "DL45",
+ "scale": 1.0,
+ "counts": {
+  "colours": 128,
+  "raised_to_floor": 43,
+  "runs": 61
+ },
+ "pictures_removed": [],
+ "colour_map": {
+  "8B93B3->ink-muted": 17,
+  "DDE4F6->accent-wash": 17,
+  "F3F6FE->card": 10,
+  "3A4368->ink": 9,
+  "FFFFFF->on-accent": 9,
+  "001A70->accent-deep": 8,
+  "0B1233->accent-ink": 7,
+  "5D6789->ink-muted": 7,
+  "FFFFFF->paper": 6,
+  "7B61C7->accent": 6,
+  "001A70->accent-ink": 6,
+  "2456E6->accent": 4,
+  "C9861F->accent": 4,
+  "00857C->accent-deep": 4,
+  "2E8BFF->accent": 4,
+  "C9D9F8->accent-wash": 3,
+  "2456E6->accent-ink": 2,
+  "7B61C7->accent-ink": 1,
+  "C9861F->accent-ink": 1,
+  "00857C->accent-ink": 1,
+  "2E8BFF->accent-ink": 1,
+  "E8EEFC->card": 1
+ }
+}

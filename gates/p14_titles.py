@@ -3,7 +3,9 @@
   * the title is the one deckkit.read picks (walk.pick_title, every tier: placeholder, cover on a cover-like slide,
     top-band, few-words, dominant, top-largest), else the shape named "title" (the kit's name) when no tier finds
     one;
-  * it wraps to no more than the canvas's title_max_lines at SLACK 1.15, and has at most 14 words;
+  * it wraps to no more than the canvas's title_max_lines at SLACK 1.15, and has at most 14 words. A slide tagged
+    cover, closing or section-divider sets its title large as a stack and may wrap to COVER_LINES (3): the closing
+    title states the next step at cover size (the closing card's 35 to 48pt), and a divider's statement does too;
   * no more than two titles share their opening two words;
   * two-tone keywords (runs in the accent-ink role) are one to three spans, and only in titles: a body
     paragraph mixing accent-ink runs with other runs is a two-tone keyword outside a title.
@@ -24,7 +26,8 @@ from deckkit.read.refnorm import shingle_tokens
 from deckkit.read.walk import cover_like, pick_title
 
 GATE, TITLE = "P14", "titles"
-COVER_LINES = 3          # a slide tagged cover may stack its title on up to three lines
+COVER_LINES = 3          # a slide tagged cover, closing or section-divider may stack its title on up to three lines
+STACKED = ("cover", "closing", "section-divider")
 MAX_WORDS, MAX_KEYWORDS, MAX_SHARE = 14, 3, 2
 
 
@@ -96,8 +99,8 @@ def _slide(ctx, i, ink, openers, out):
         for f in unknown:
             out.append(Finding(GATE, FAIL, i, T["name"], "face %r has no metrics; wrapped as %s (a labelled "
                                "fallback)" % (f, FALLBACK_FACE)))
-        cap = max(ctx.canvas.title_max_lines, COVER_LINES) if ctx.tags()[i - 1]["archetype"] == "cover" \
-            else ctx.canvas.title_max_lines                      # a cover's title is a stack set large
+        cap = max(ctx.canvas.title_max_lines, COVER_LINES) if ctx.tags()[i - 1]["archetype"] in STACKED \
+            else ctx.canvas.title_max_lines                      # a frame slide's title is a stack set large
         if lines > cap:
             out.append(Finding(GATE, FAIL, i, T["name"], "title wraps to %d lines (the %s canvas holds %d)"
                                % (lines, ctx.canvas.name, cap)))

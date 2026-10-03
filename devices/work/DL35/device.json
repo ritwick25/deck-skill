@@ -1,0 +1,91 @@
+{
+ "id": "DL35",
+ "name": "Promise panel close",
+ "archetypes": [
+  "closing"
+ ],
+ "family": "Frame",
+ "variant": "promise-panel-close",
+ "mechanism": "The next step is stated at cover size flush left over a role-level contact block, and one full-height solid brand panel on the right restates the deck's one-line promise under a single glyph, so the last frame carries the argument once more.",
+ "canvas": "wide",
+ "source": "d18-s025",
+ "slots": [
+  {
+   "name": "slot.headline",
+   "kind": "text",
+   "purpose": "closing-title",
+   "max_words": 12,
+   "background": "paper",
+   "note": "the hero title, set large in its own box; not slot.title, which the kit snaps to the content title band; pass kit Paras (txt.title_runs) for two-tone keywords"
+  },
+  {
+   "name": "slot.contact.1.label",
+   "kind": "text",
+   "purpose": "contact-role",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.contact.1.line",
+   "kind": "text",
+   "purpose": "contact-line",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.contact.2.label",
+   "kind": "text",
+   "purpose": "contact-role",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.contact.2.line.1",
+   "kind": "text",
+   "purpose": "contact-line",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.contact.2.line.2",
+   "kind": "text",
+   "purpose": "contact-line",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.contact.2.line.3",
+   "kind": "text",
+   "purpose": "contact-line",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.promise.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.promise",
+   "kind": "text",
+   "purpose": "restated-promise",
+   "max_words": 16,
+   "background": "accent"
+  }
+ ],
+ "samples": [
+  "Approve the pilot scope and forecasts reach planners in fourteen weeks",
+  "Engagement lead",
+  "Director, data and AI platforms",
+  "Pilot team",
+  "Planning analytics lead, accuracy and targets",
+  "Forecast engineering lead, models and runs",
+  "Data integration lead, order history feeds",
+  "One weekly forecast that every planner trusts, owned by the planning office from week fourteen"
+ ],
+ "capacity_words": 62,
+ "archetype_floors": {
+  "closing": 40
+ },
+ "short_of_floor": []
+}

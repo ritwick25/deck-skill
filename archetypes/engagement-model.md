@@ -65,7 +65,7 @@ Budget 160 words normalized and 180 on the w13 canvas, advisory floor 140, under
 | shadow | Blurred shadows sit under step discs or the base layer on 2 top exemplars. | Hairlines with at most a 1 px shadow. | Use a hairline ring or a flat light fill on each disc and drop the shadow. |
 | flat-fill | Takeaway bands and edge bars carry gradients or partial transparency on 2 top exemplars. | Flat fills, no gradients. | Flat fills only, and gradient bars removed since they carry no content. |
 | left-accent | A colored edge bar marks the title as decoration on 1 top exemplar. | A colored left or top accent bar only where it encodes a changeable state. | Remove the bar, the title stands on the light ground alone. |
-| light-bg | A dark summary band closes the slide on 1 top exemplar. | Light slide grounds. | Cut the band with the foot band rule, or set any surviving summary on a light tint with a hairline. |
+| light-bg | A dark summary band closes the slide on 1 top exemplar. | Light slide ground. A surviving summary band stays a solid near-black band with paper text. | Cut the band under the foot band rule, or keep it solid and dark. Never a pale tint band in its place. |
 | other | A label title in place of a claim, a navigation roundel, a review tag pill or clip art outcome images appear on 4 top exemplars. | A title of one claim, no navigation or review chrome, one icon style. | Hold the title to 14 words with up to 3 keywords in the brand color, drop navigation and review chrome, and use one consistent line icon per outcome. |
 
 ## Exemplars
@@ -91,7 +91,7 @@ None.
 dv01, dv05, dv06, dv16, dv27
 
 ## Provenance
-- Source: cards/src/a19.json sha256 73a9ce43144ce8f2afebc55307d26e5b3aa78d66de81a81b2a4ae88639597c90
+- Source: cards/src/a19.json sha256 d40ca152f0315389d4062b4cadab169342cd584ea045d94f76fd4f662e0e9490
 - Measures: measures/a19.json sha256 9eec3906862e91f9f80ca0d65de36e8c14387081df59340b139cd5566e701d07
 - Final ranking: rankings/a19.final.json sha256 30599ee69ac4f25ae57a6a9e8b63c97cdfcbef655ca0ba186b832ba410e7d4b7
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

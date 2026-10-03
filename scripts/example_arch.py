@@ -392,7 +392,7 @@ def deep(prs, th):
     d.flow("s3", "scan", "new files", step=3)
     d.flow("scan", "search", "claims", step=4, over=True)
     d.flow("writer", "bedrock", step=5, bend=0.2)
-    d.flow("bedrock", "claude", "model call")
+    d.flow("bedrock", "claude", "invoke")
     d.flow("writer", "rds")
     d.flow("rds", "api", "for review", step=6)
     d.flow("api", "ui", "queue")

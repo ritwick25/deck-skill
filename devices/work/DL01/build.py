@@ -105,6 +105,8 @@ for i, (n, (d, line)) in enumerate(zip(("dev.8", "dev.9", "dev.10", "dev.11"), M
         txt.Para((txt.Run(d, "ink-deep" if i == 1 else "accent-ink", bold=True, size=14),), align="center"),
         txt.Para((txt.Run(line, "ink", size=12),), align="center", space_before=3)], th, size=12, background="card")
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL01", th, archetype="the-ask", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

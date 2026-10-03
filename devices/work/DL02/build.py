@@ -210,6 +210,8 @@ text(s, "slot.brief.decision", [P((R("Decision supported", "accent-ink", bold=Tr
                                 P((R("Fund a twelve-week pilot on one ledger", "ink", size=12),), align="center",
                                   space_before=2)], th, size=12, anchor="middle")
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL02", th, archetype="deep-dive", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

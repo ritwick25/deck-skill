@@ -112,8 +112,8 @@ CARDS = [
          rows=["dev.%d" % i for i in range(138, 144)], dots=["dev.%d" % i for i in range(144, 150)],
          discs=["dev.155", "dev.153", "dev.151"], glyphs=["megaphone", "search", "chart-column"],
          stars=[1.238, 1.495, 1.752, 2.009, 2.266], sx=8.343,
-         items=["Campaign variants", "Survey verbatim coding", "Weekly sales forecast",
-                "Competitor news digest", "Field call summaries", "Brief summaries"]),
+         items=["Campaign variants", "Verbatim coding", "Weekly sales forecast",
+                "Competitor digest", "Field call summaries", "Brief summaries"]),
     dict(body="dev.157", panel="dev.158", count="dev.173", cbox=(10.00, 1.30, 0.40), team="14",
          people=(9.512, 1.239), rows=["dev.%d" % i for i in range(159, 166)],
          dots=["dev.%d" % i for i in range(166, 173)],
@@ -128,7 +128,7 @@ CARDS = [
          stars=[4.502, 4.759, 5.273, 5.53, 6.558], sx=2.533,
          items=["Demand sensing", "Supplier risk alerts", "Price scenario testing",
                 "Order status assistant", "Inventory rebalancing", "Weekly sales forecast",
-                "Survey verbatim coding", "Campaign variants", "Data quality alerts"]),
+                "Verbatim coding", "Campaign variants", "Data quality alerts"]),
     dict(body="dev.98", panel="dev.99", count="dev.118", cbox=(9.93, 3.73, 0.46), team="30", people=(9.512, 3.666),
          rows=["dev.%d" % i for i in range(100, 109)], dots=["dev.%d" % i for i in range(109, 118)],
          discs=["dev.124", "dev.122", "dev.120", "dev.126", "dev.128", "dev.130", "dev.132", "dev.134"],
@@ -198,7 +198,7 @@ for c, C in enumerate(CARDS, 1):
 rename(s, "dev.212", "slot.callout")
 move(s, "slot.callout", 5.74, 5.56, 2.68, 0.42)
 insets("slot.callout", 0.08, 0.03, 0.08, 0.03)
-text(s, "slot.callout", [para("30 people serve eight areas", "ink-deep", 12, True, "center")], th,
+text(s, "slot.callout", [para("30 people, eight areas", "ink-deep", 12, True, "center")], th,
      size=12, background="card", anchor="middle")
 
 # ---- key: the new-item star -------------------------------------------------------------------------------------
@@ -260,6 +260,8 @@ def walk_all(shapes):
 left = [sh.name for sh in walk_all(s.shapes) if sh.name.startswith("dev.")]
 assert not left, left
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL28", th, archetype="value-horizons", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

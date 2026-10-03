@@ -1,0 +1,27 @@
+{
+ "slide": "d01-s039",
+ "device": "DL37",
+ "scale": 1.0,
+ "counts": {
+  "effects": 1,
+  "colours": 164,
+  "autofit": 10,
+  "runs": 56,
+  "raised_to_floor": 3
+ },
+ "pictures_removed": [],
+ "colour_map": {
+  "000000->ink-deep": 78,
+  "1B1B1B->ink-deep": 16,
+  "FFFFFF->on-accent": 15,
+  "F30009->accent": 13,
+  "E5813E->accent": 9,
+  "BFBFBF->hairline": 8,
+  "FFFFFF->paper": 6,
+  "FAE6D8->accent-wash": 6,
+  "000000->ink-muted": 5,
+  "F30009->accent-ink": 4,
+  "808080->ink-muted": 3,
+  "E6F3FF->on-accent": 1
+ }
+}

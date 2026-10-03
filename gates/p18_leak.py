@@ -12,7 +12,10 @@ without its canary is a FAIL.
             1-4-gram name keys (names.sha1), shared 6-word shingles (ngrams6.sha1), distinctive numeric
             phrases (numphrases.sha1). deck.json "client" allows that client's own name on its own deck.
   pictures  every media part: sha256 in media.json fails unless deck.json "media_allow" names it with a
-            reason; a dHash within Hamming distance 5 of any corpus raster fails.
+            reason; a dHash within Hamming distance 5 of any corpus raster fails. A part whose bytes P22 verifies
+            as an official mark is exempt: a picture named vendor.<key> whose blob is the diagrams resource for
+            that key, or mark.<key> whose SVG and PNG are the mark registry's files (the reference decks embed
+            the same official artwork; the name alone never exempts, the bytes do).
   vectors   every custGeom signature (refnorm.custgeom_sig) against vectors.sha1.
   alt text  no file paths, no scrape tails.
   package   no notes text, comments, comment authors, customXml, tags, custData, embedded fonts, thumbnail,
@@ -29,6 +32,7 @@ import json
 import re
 import sys
 import zipfile
+from pathlib import Path
 
 from _shared import ADVISORY, FAIL, NOTE, SKILL, Finding, InputMissing, cli, text_of
 from deckkit.read import refnorm as rn
@@ -36,6 +40,7 @@ from deckkit.read.ns import local
 from deckkit.read.textmetrics import para_text
 
 GATE, TITLE = "P18", "leak"
+APPROVED = tuple(json.loads((Path(__file__).resolve().parent / "approved_claims.json").read_text())["claims"])
 FILES = ("names.sha1", "ngrams6.sha1", "numphrases.sha1", "vectors.sha1", "media.json", "canary.json")
 DHASH_MIN = 6
 ALT_PATH = re.compile(r"(?:^|\s)(?:/[\w.~-]+){2,}|[A-Za-z]:\\|\b[\w-]+\.(?:png|jpe?g|gif|svg|emf|wmf|bmp|tiff?|webp|wdp)\b",
@@ -79,8 +84,12 @@ class Refs:
         for k in rn.name_keys(text):
             if k not in allow and rn.sha1(k) in self.names:
                 out.append(("name", k))
+        approved = set()
+        for c in APPROVED:                           # a 6-gram inside an approved firm claim is not a leak
+            if c.lower() in text.lower():
+                approved |= rn.shingles(c)
         for sh in rn.shingles(text):
-            if rn.sha1(sh) in self.ngrams:
+            if rn.sha1(sh) in self.ngrams and sh not in approved:
                 out.append(("6-gram", sh))
         for n in rn.num_phrases(text):
             if rn.sha1(n) in self.nums:
@@ -191,6 +200,43 @@ def _texts(ctx):
     return out
 
 
+def verified_marks(ctx) -> dict:
+    """{media part: 'vendor.<key>' | 'mark.<key>'} for every part behind a picture whose bytes P22 verifies as an
+    official mark: the same checks P22 runs (name and alt text agree on the key, the key resolves, the blob is the
+    registered resource), so a picture renamed as a mark is never exempt."""
+    from p22_icons import _blob_finding
+    from deckkit.icons import MARK_PREFIX, VENDOR_PREFIX, mark_blob_refusal, mark_key_of, vendor_key_of, vendor_resolves
+    rid = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed"
+    dr = ctx.dr
+    out = {}
+    for i in range(1, ctx.n + 1):
+        rels = dr.rels(dr.slide_part(i))
+        for pic in ctx.slide_root(i).iter("{*}pic"):
+            c = pic.find(".//{*}cNvPr")
+            blip = pic.find(".//{*}blip")
+            if c is None or blip is None:
+                continue
+            name, alt = c.get("name", ""), c.get("descr", "")
+            target = rels.get(blip.get(rid), (None, None, None))[1] if blip.get(rid) else None
+            svgs = [e for e in blip.iter() if isinstance(e.tag, str) and local(e) == "svgBlip"]
+            st = rels.get(svgs[0].get(rid), (None, None, None))[1] if svgs and svgs[0].get(rid) else None
+            parts = [t.lstrip("/") for t in (target, st) if t and dr.has(t.lstrip("/"))]
+            try:
+                if name.startswith(VENDOR_PREFIX):
+                    key = vendor_key_of(name, alt)
+                    if key and target and vendor_resolves(key, ctx.theme) and _blob_finding(dr, target, key) is None:
+                        out[target.lstrip("/")] = "vendor.%s" % key       # the verified raster only, never an svg
+                elif name.startswith(MARK_PREFIX):
+                    key = mark_key_of(name, alt)
+                    sv = dr.blob(st.lstrip("/")) if st and dr.has(st.lstrip("/")) else None
+                    pv = dr.blob(target.lstrip("/")) if target and dr.has(target.lstrip("/")) else None
+                    if key and mark_blob_refusal(key, sv, pv, ctx.extra.get("marks_dir")) is None:
+                        out.update({p: "mark.%s" % key for p in parts})
+            except Exception:       # an unverifiable mark is not exempt; P22 reports why
+                continue
+    return out
+
+
 def _base_c14n(ctx):
     from lxml import etree
     base = SKILL / "kit" / "assets" / ("base-%s.pptx" % ctx.canvas.name)
@@ -224,10 +270,14 @@ def run(deck, ctx):
     # pictures
     media_allow = dj.get("media_allow") or {}
     dr = ctx.dr
+    marks = verified_marks(ctx)
+    if marks:
+        out.append(Finding(GATE, NOTE, None, "marks", "%d media part(s) exempt as P22-verified official marks"
+                           % len(marks)))
     with zipfile.ZipFile(ctx.deck_path) as z:
         names = sorted(z.namelist())
         for n in names:
-            if not n.startswith("ppt/media/"):
+            if not n.startswith("ppt/media/") or n in marks:
                 continue
             blob = z.read(n)
             sha = hashlib.sha256(blob).hexdigest()

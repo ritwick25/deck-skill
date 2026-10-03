@@ -62,7 +62,7 @@ for n in ("dev.4", "dev.71", "dev.73", "dev.75", "dev.86", "dev.88", "dev.90", "
 for n in ("dev.7", "dev.30", "dev.57", "dev.60", "dev.114"):
     delete(s, n)
 
-rename(s, "dev.2", "struct.page")
+delete(s, "dev.2")                      # a frame round the whole slide is chrome
 rename(s, "dev.3", "slot.title")
 move(s, "slot.title", 0.13, 0.10, 13.07, 0.50)
 text(s, "slot.title", [P(tuple(txt.title_runs(
@@ -87,9 +87,9 @@ rename(s, "dev.45", "struct.access.frame")
 rename(s, "dev.46", "slot.access.tab")
 text(s, "slot.access.tab", one("Access layer", size=12, role="paper"), th,
      size=12, background="ink-deep", anchor="middle")
-ACCESS = [("dev.47", "dev.48", "Agent gateway", "Routes every request", "network"),
+ACCESS = [("dev.47", "dev.48", "Agent gateway", "Routes requests", "network"),
           ("dev.49", "dev.50", "Identity", "Single sign-on, roles", "key-round"),
-          ("dev.51", "dev.52", "Orchestrator", "Plans multi-step tasks", "workflow"),
+          ("dev.51", "dev.52", "Orchestrator", "Plans each task", "workflow"),
           ("dev.53", "dev.54", "Guardrails", "Checks every output", "shield-check")]
 for i, (card, body, head, line, g) in enumerate(ACCESS, 1):
     rename(s, card, "struct.access.%d.card" % i)
@@ -136,11 +136,11 @@ for j, (cn, tn) in enumerate((("dev.39", "dev.40"), ("dev.41", "dev.42")), 1):
 CON = [("dev.31", "Channels", [("dev.32", "dev.33", "Sales", "CRM copilot", "briefcase"),
                                ("dev.34", "dev.35", "Service", "Case replies", "headphones"),
                                ("dev.36", "dev.37", "Finance", "Close checks", "calculator")]),
-       ("dev.38", "Integrations", [("dev.39", "dev.40", "APIs", "Partner apps", "plug"),
+       ("dev.38", "Integrations", [("dev.39", "dev.40", "APIs", "Partners", "plug"),
                                    ("dev.41", "dev.42", "Reports", "BI views", "chart-column"),
                                    ("dev.43", "dev.44", "Alerts", "Team chat", "bell")]),
        ("dev.G3", "People", [("dev.G3c1", "dev.G3t1", "Analysts", "Self-serve", "users"),
-                             ("dev.G3c2", "dev.G3t2", "Leads", "Final sign-off", "user-check")])]
+                             ("dev.G3c2", "dev.G3t2", "Leads", "Sign-off", "user-check")])]
 k, y = 0, 1.10
 CCH, CGAP = 0.60, 0.08
 for g, (lab, glabel, items) in enumerate(CON, 1):
@@ -216,14 +216,14 @@ tall("slot.services.label")
 text(s, "slot.services.label", one("Shared services", size=10, role="ink-muted"), th, size=10, anchor="middle")
 SVC = [("dev.95", "dev.96", "Memory", "Session context", "brain"),
        ("dev.97", "dev.98", "Retrieval", "Indexed documents", "search"),
-       ("dev.99", "dev.100", "Evaluation", "Scores each answer", "chart-line")]
+       ("dev.99", "dev.100", "Scoring", "Scores each answer", "chart-line")]
 for i, (card, body, head, line, gl) in enumerate(SVC, 1):
     rename(s, card, "struct.service.%d.card" % i)
     rename(s, body, "slot.service.%d.text" % i)
     c = find(s, "struct.service.%d.card" % i)
     radius("struct.service.%d.card" % i)
     icon(s, "slot.service.%d.icon" % i, gl, c.left / EMU + 0.10, c.top / EMU + (c.height / EMU - 0.36) / 2, 0.36, th)
-    move(s, "slot.service.%d.text" % i, c.left / EMU + 0.50, c.top / EMU + 0.04, c.width / EMU - 0.54,
+    move(s, "slot.service.%d.text" % i, c.left / EMU + 0.50, c.top / EMU + 0.04, c.width / EMU - 0.56,
          c.height / EMU - 0.08)
     text(s, "slot.service.%d.text" % i, two(head, line, hs=10, bs=9), th, size=10, anchor="middle")
 
@@ -231,7 +231,7 @@ rename(s, "dev.101", "slot.tools.label")
 tall("slot.tools.label")
 text(s, "slot.tools.label", one("Agent tools", size=10, role="ink-muted"), th, size=10, anchor="middle")
 TOOLS = [("dev.102", "dev.103", "Search", "Catalog and files", "file-search"),
-         ("dev.104", "dev.105", "Compute", "Governed metrics", "calculator"),
+         ("dev.104", "dev.105", "Metrics", "Governed figures", "calculator"),
          ("dev.106", "dev.107", "Draft", "Replies for review", "file-text"),
          ("dev.108", "dev.109", "Escalate", "Hand off to a person", "route"),
          ("dev.110", "dev.111", "Act", "Gated writes", "check")]
@@ -279,6 +279,8 @@ rename(s, "dev.131", "struct.flow.in")
 rename(s, "dev.135", "struct.flow.across")
 rename(s, "dev.133", "struct.flow.out")
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL31", th, archetype="solution-architecture", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

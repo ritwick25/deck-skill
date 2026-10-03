@@ -27,9 +27,13 @@ from deckkit.read.ns import NS  # noqa: E402
 from deckkit.read.walk import rect_path  # noqa: E402
 from deckkit.read.zones import MAX_ZONES, read_zones, slide_zones, zones  # noqa: E402
 
-LIB = "/Users/Nikunj/Codes/Decks-For-Visuals/library"
-MANIFEST = json.load(open(os.path.join(LIB, "manifest.json")))
+LIB = os.environ.get("DECK_LIBRARY", os.path.expanduser("~/Codes/Decks-For-Visuals/library"))
+_MANIFEST = os.path.join(LIB, "manifest.json")
+MANIFEST = json.load(open(_MANIFEST)) if os.path.isfile(_MANIFEST) else {"decks": {}}
 DECKS = MANIFEST["decks"]
+# The reference library lives outside the skill (ruling 23). Without it the reference tests skip; synthetic ones run.
+HAVE_LIB = os.path.isfile(_MANIFEST) and os.path.isdir(os.path.join(LIB, "shapes"))
+needs_lib = unittest.skipUnless(HAVE_LIB, "reference library absent (%s); reference fixtures skipped" % LIB)
 W, H = 13.333, 7.5
 
 _SLIDES: dict = {}
@@ -377,6 +381,7 @@ def text_leaf(s, needle):
     raise AssertionError("no leaf with text %r" % needle)
 
 
+@needs_lib
 class TestReferenceSlides(unittest.TestCase):
     def test_d08_s007_regions(self):
         """Data sources, the Fabric panel, integration, agent plane, the external column, the legend and the
@@ -425,6 +430,7 @@ class TestReferenceSlides(unittest.TestCase):
         self.assertEqual(fb[0]["kinds"], {"pic": 1})
 
 
+@needs_lib
 class TestReferenceFixes(unittest.TestCase):
     def test_d03_s033_shadow_cards(self):
         zs = zones(live("d03-s033"))
@@ -466,6 +472,7 @@ class TestReferenceFixes(unittest.TestCase):
             self.assertEqual(zs.truncated["kept"], zs.truncated["total"], sid)
 
 
+@needs_lib
 class TestCorpus(unittest.TestCase):
     def test_corpus(self):
         """Every extracted slide (shapes/dNN/sNNN.json): no zone outside the canvas, at most 36 zones, a zone

@@ -261,6 +261,8 @@ def main():
     ap.add_argument("--out")
     a = ap.parse_args()
     prs, th = build()
+    from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+    finish(prs.slides[0], th)
     out = save(prs, "DL12", th, archetype="governance-model", variant=VARIANT)
     if a.out and Path(a.out).resolve() != out.resolve():
         Path(a.out).parent.mkdir(parents=True, exist_ok=True)

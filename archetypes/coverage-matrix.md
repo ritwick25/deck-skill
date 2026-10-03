@@ -59,7 +59,7 @@ Word budget 250 pooled, held at the 250 ceiling because the densest exemplars ru
 |---|---|---|---|
 | no-footer | Confidentiality lines, folios, wordmarks, gradient foot bands and a dark foot summary band, 4 flagged in the top set. | No foot chrome. A shared control becomes a spanning row of the grid, not a foot band. | The spanning band moves up to sit directly under the last row of cells. |
 | no-subtitle | A sentence line under the title and an axis strip beside it, 3 flagged. | Delete the subtitle, the header row carries the frame. | The header row and grid move up into the freed band. |
-| light-bg | A black title band, near black row blocks and a dark discipline band, 2 flagged. | White ground, brand tint row headers with navy ink, a light strip with a hairline for any shared band. | Row labels keep their width, only fill and ink change. |
+| light-bg | A black title band, near black row blocks and a dark discipline band, 2 flagged. | White ground. Row headers stay solid near-black (ink-strong) blocks with paper text, the title stands on the ground with no band, and a shared discipline band stays a solid near-black or brand fill. | Row labels keep their width and their weight, so the eye still reads across a row from its dark block. |
 | word-budget | Cells holding method lines, capability lists and a measure column, far over the ceiling, 2 flagged. | A header plus one line per cell within the word budget, detail moved to notes. | Cells shorten, so row height drops and the grid can carry more rows. |
 | 8pt-floor | Cell text near half the floor, italic member lists and legend definitions under it, 2 flagged. | Every run at 8 pt or larger. | Widen the row label column or cut cell text to fit at the floor. |
 | left-accent | Lane hue left bars encoding fixed identity and a gradient left edge bar, 2 flagged. | Remove the bars, the filled cells carry the lane. | Row cards run clean to the margin. |
@@ -93,7 +93,7 @@ None.
 dv41, dv06, dv27, dv08, dv57, dv17
 
 ## Provenance
-- Source: cards/src/a31.json sha256 fa637bcbce90b3a2d883bf199679e76e91162fb094975ea006f5bd02aeea5b76
+- Source: cards/src/a31.json sha256 86a7677939863424455a3d0a72a2da47cf3cd8ec6ec08b45d23d80d198f7366a
 - Measures: measures/a31.json sha256 081313dbff44db2b25ed67ced3d084086622cea7b40fdb00e5652ce340330b46
 - Final ranking: rankings/a31.final.json sha256 aff043dd85342d8898df41e59922e9c8d9702da77cee283142648cdac245c275
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

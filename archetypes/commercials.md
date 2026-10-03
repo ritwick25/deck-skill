@@ -62,7 +62,7 @@ Budget 110 words normalized and 110 on the w10 canvas, advisory floor 40 and 40,
 | emoji | A decorative star glyph reads as an emoji in a band label on 1 top exemplar. | No emoji. | Band labels carry words only. |
 | word-budget | Repeated layer labels in an itemised table push words past the budget on 1 top exemplar. | A per-archetype word budget under the ceiling of 250. | Repeated labels merge into one spanning cell per group, which shortens the table. |
 | first-person | Terms text speaks as we on 1 top exemplar. | No first or second person. | Terms name the vendor and the client by role. |
-| light-bg | Saturated brand panels carry the price and term text on 1 top exemplar. | Light slide grounds. | Panels become white cards with a brand hairline and ink text, brand fill kept to the disc and the price pill. |
+| light-bg | Saturated brand panels carry the price and term text on 1 top exemplar. | Light slide ground. The price and term panels stay solid brand fills with text in the on-accent role. | No change to geometry. Price and term keep reversed type on the solid panel. |
 | other | Changes outside the named rules appear on 4 top exemplars, among them label titles, a brace typed as a character and cards nested in cards. | The title is one claim of 14 words or fewer, brackets are drawn and touch what they join, and no card sits inside another. | Titles tie the price to its outcome, the outer backing panel goes and the brace is redrawn as a shape. |
 
 ## Exemplars
@@ -86,7 +86,7 @@ None.
 dv05, dv30, dv33
 
 ## Provenance
-- Source: cards/src/a42.json sha256 494f6972676768917dfc80c186d7aa6958ea6662740c27d94e5d99ae8438537c
+- Source: cards/src/a42.json sha256 a6373a25eabeef1b04248c115e58a8a2cfb9442da58199e4b997f8497f37458c
 - Measures: measures/a42.json sha256 aa19d348dd4dd505106e306c0e25cf1fd93a7cece1951ba97793650d7d0173e8
 - Final ranking: rankings/a42.final.json sha256 25d06856da78d1f5c6a288ff5a5c4269c33ffe2c869305614afed4db26f8629a
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

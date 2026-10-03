@@ -1,12 +1,12 @@
 {
  "id": "DL08",
- "name": "Agent mesh under domain tabs",
+ "name": "Agent columns under domain tabs",
  "archetypes": [
   "use-case-map"
  ],
  "family": "Two-dimensional field",
  "variant": "domain-tabs-agent-mesh",
- "mechanism": "Domain tabs divide a mesh of linked agent discs into columns, a tinted wedge spotlights the starting domain inside the full landscape, a status key decodes live, planned and shared agents, and a platform panel underneath shows the services every domain draws on.",
+ "mechanism": "Domain tabs head one column of named agents each, every agent a status disc decoded by the key (live, planned, shared) with its task beside it; the spotlit starting domain feeds every other domain through one arrowed bus along the foot, and a platform panel underneath shows the services every domain draws on.",
  "canvas": "wide",
  "source": "d01-s065",
  "slots": [
@@ -179,151 +179,6 @@
    "max_words": 4
   },
   {
-   "name": "slot.agent.6.name",
-   "kind": "text",
-   "role": "agent-name",
-   "max_words": 3
-  },
-  {
-   "name": "slot.agent.6.task.1",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 3,
-   "background": "accent-wash"
-  },
-  {
-   "name": "slot.agent.2.name",
-   "kind": "text",
-   "role": "agent-name",
-   "max_words": 3
-  },
-  {
-   "name": "slot.agent.2.task.1",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 3,
-   "background": "accent-wash"
-  },
-  {
-   "name": "slot.agent.2.task.2",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 3,
-   "background": "accent-wash"
-  },
-  {
-   "name": "slot.agent.3.name",
-   "kind": "text",
-   "role": "agent-name",
-   "max_words": 3
-  },
-  {
-   "name": "slot.agent.3.task.1",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 3,
-   "background": "accent-wash"
-  },
-  {
-   "name": "slot.agent.3.task.2",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 3,
-   "background": "accent-wash"
-  },
-  {
-   "name": "slot.agent.7.name",
-   "kind": "text",
-   "role": "agent-name",
-   "max_words": 3
-  },
-  {
-   "name": "slot.agent.7.task.1",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 4,
-   "background": "paper"
-  },
-  {
-   "name": "slot.agent.8.name",
-   "kind": "text",
-   "role": "agent-name",
-   "max_words": 3
-  },
-  {
-   "name": "slot.agent.8.task.1",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 3,
-   "background": "paper"
-  },
-  {
-   "name": "slot.agent.9.name",
-   "kind": "text",
-   "role": "agent-name",
-   "max_words": 3
-  },
-  {
-   "name": "slot.agent.9.task.1",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 3,
-   "background": "accent-wash"
-  },
-  {
-   "name": "slot.agent.4.name",
-   "kind": "text",
-   "role": "agent-name",
-   "max_words": 3
-  },
-  {
-   "name": "slot.agent.4.task.1",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 3,
-   "background": "accent-wash"
-  },
-  {
-   "name": "slot.agent.4.task.2",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 3,
-   "background": "accent-wash"
-  },
-  {
-   "name": "slot.agent.5.name",
-   "kind": "text",
-   "role": "agent-name",
-   "max_words": 3
-  },
-  {
-   "name": "slot.agent.5.task.1",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 3,
-   "background": "accent-wash"
-  },
-  {
-   "name": "slot.agent.1.name",
-   "kind": "text",
-   "role": "agent-name",
-   "max_words": 3
-  },
-  {
-   "name": "slot.agent.1.task.1",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 3,
-   "background": "accent-wash"
-  },
-  {
-   "name": "slot.agent.1.task.2",
-   "kind": "text",
-   "role": "agent-task",
-   "max_words": 3,
-   "background": "accent-wash"
-  },
-  {
    "name": "slot.title",
    "kind": "title",
    "max_words": 14
@@ -345,178 +200,448 @@
    "kind": "glyph"
   },
   {
-   "name": "slot.agent.disc.2.icon",
-   "kind": "glyph"
+   "name": "slot.agent.1.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
   },
   {
-   "name": "slot.agent.disc.4.icon",
-   "kind": "glyph"
+   "name": "slot.agent.1.name",
+   "kind": "text",
+   "role": "agent-name",
+   "max_words": 3
   },
   {
-   "name": "slot.agent.disc.5.icon",
-   "kind": "glyph"
+   "name": "slot.agent.1.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
   },
   {
-   "name": "slot.agent.disc.8.icon",
-   "kind": "glyph"
+   "name": "slot.agent.2.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
   },
   {
-   "name": "slot.agent.disc.9.icon",
-   "kind": "glyph"
+   "name": "slot.agent.2.name",
+   "kind": "text",
+   "role": "agent-name",
+   "max_words": 3
   },
   {
-   "name": "slot.agent.disc.10.icon",
-   "kind": "glyph"
+   "name": "slot.agent.2.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
   },
   {
-   "name": "slot.agent.disc.11.icon",
-   "kind": "glyph"
+   "name": "slot.agent.3.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
   },
   {
-   "name": "slot.agent.disc.12.icon",
-   "kind": "glyph"
+   "name": "slot.agent.3.name",
+   "kind": "text",
+   "role": "agent-name",
+   "max_words": 3
   },
   {
-   "name": "slot.agent.disc.13.icon",
-   "kind": "glyph"
+   "name": "slot.agent.3.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
   },
   {
-   "name": "slot.agent.disc.14.icon",
-   "kind": "glyph"
+   "name": "slot.agent.4.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
   },
   {
-   "name": "slot.agent.disc.15.icon",
-   "kind": "glyph"
+   "name": "slot.agent.4.name",
+   "kind": "text",
+   "role": "agent-name",
+   "max_words": 3
   },
   {
-   "name": "slot.agent.disc.16.icon",
-   "kind": "glyph"
+   "name": "slot.agent.4.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
   },
   {
-   "name": "slot.agent.disc.17.icon",
-   "kind": "glyph"
+   "name": "slot.agent.5.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
   },
   {
-   "name": "slot.agent.disc.18.icon",
-   "kind": "glyph"
+   "name": "slot.agent.5.name",
+   "kind": "text",
+   "role": "agent-name",
+   "max_words": 3
   },
   {
-   "name": "slot.agent.disc.20.icon",
-   "kind": "glyph"
+   "name": "slot.agent.5.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
   },
   {
-   "name": "slot.agent.disc.21.icon",
-   "kind": "glyph"
+   "name": "slot.agent.6.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
   },
   {
-   "name": "slot.agent.disc.22.icon",
-   "kind": "glyph"
+   "name": "slot.agent.6.name",
+   "kind": "text",
+   "role": "agent-name",
+   "max_words": 3
   },
   {
-   "name": "slot.agent.disc.23.icon",
-   "kind": "glyph"
+   "name": "slot.agent.6.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
   },
   {
-   "name": "slot.agent.disc.24.icon",
-   "kind": "glyph"
+   "name": "slot.agent.7.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
   },
   {
-   "name": "slot.agent.disc.25.icon",
-   "kind": "glyph"
+   "name": "slot.agent.7.name",
+   "kind": "text",
+   "role": "agent-name",
+   "max_words": 3
   },
   {
-   "name": "slot.agent.disc.26.icon",
-   "kind": "glyph"
+   "name": "slot.agent.7.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
   },
   {
-   "name": "slot.agent.disc.27.icon",
-   "kind": "glyph"
+   "name": "slot.agent.8.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
   },
   {
-   "name": "slot.agent.disc.29.icon",
-   "kind": "glyph"
+   "name": "slot.agent.8.name",
+   "kind": "text",
+   "role": "agent-name",
+   "max_words": 3
   },
   {
-   "name": "slot.agent.disc.30.icon",
-   "kind": "glyph"
+   "name": "slot.agent.8.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
   },
   {
-   "name": "slot.agent.disc.31.icon",
-   "kind": "glyph"
+   "name": "slot.agent.9.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
   },
   {
-   "name": "slot.agent.disc.32.icon",
-   "kind": "glyph"
+   "name": "slot.agent.9.name",
+   "kind": "text",
+   "role": "agent-name",
+   "max_words": 3
   },
   {
-   "name": "slot.agent.disc.6.icon",
-   "kind": "glyph"
+   "name": "slot.agent.9.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "accent-wash"
   },
   {
-   "name": "slot.agent.disc.28.icon",
-   "kind": "glyph"
+   "name": "slot.agent.10.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
   },
   {
-   "name": "slot.agent.disc.1.icon",
-   "kind": "glyph"
+   "name": "slot.agent.10.name",
+   "kind": "text",
+   "purpose": "agent-name",
+   "max_words": 3,
+   "background": "accent-wash"
   },
   {
-   "name": "slot.agent.disc.3.icon",
-   "kind": "glyph"
+   "name": "slot.agent.10.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "accent-wash"
   },
   {
-   "name": "slot.agent.disc.19.icon",
-   "kind": "glyph"
+   "name": "slot.agent.11.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
   },
   {
-   "name": "slot.agent.disc.7.icon",
-   "kind": "glyph"
+   "name": "slot.agent.11.name",
+   "kind": "text",
+   "purpose": "agent-name",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.agent.11.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.agent.12.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
+  },
+  {
+   "name": "slot.agent.12.name",
+   "kind": "text",
+   "purpose": "agent-name",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.agent.12.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.agent.13.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
+  },
+  {
+   "name": "slot.agent.13.name",
+   "kind": "text",
+   "purpose": "agent-name",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.13.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.14.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
+  },
+  {
+   "name": "slot.agent.14.name",
+   "kind": "text",
+   "purpose": "agent-name",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.14.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.15.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
+  },
+  {
+   "name": "slot.agent.15.name",
+   "kind": "text",
+   "purpose": "agent-name",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.15.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.16.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
+  },
+  {
+   "name": "slot.agent.16.name",
+   "kind": "text",
+   "purpose": "agent-name",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.16.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.17.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
+  },
+  {
+   "name": "slot.agent.17.name",
+   "kind": "text",
+   "purpose": "agent-name",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.17.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.18.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
+  },
+  {
+   "name": "slot.agent.18.name",
+   "kind": "text",
+   "purpose": "agent-name",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.18.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.19.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
+  },
+  {
+   "name": "slot.agent.19.name",
+   "kind": "text",
+   "purpose": "agent-name",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.19.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.20.icon",
+   "kind": "glyph",
+   "purpose": "agent-mark"
+  },
+  {
+   "name": "slot.agent.20.name",
+   "kind": "text",
+   "purpose": "agent-name",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.agent.20.task",
+   "kind": "text",
+   "purpose": "agent-task",
+   "max_words": 3,
+   "background": "card"
   }
  ],
  "samples": [
-  "Agent registry",
-  "Agent status",
-  "Call notes agent",
-  "Claim intake",
-  "Commercial agent network",
-  "Credit note drafts",
-  "Customer master",
-  "Customer service",
-  "Daily store route",
-  "Deal desk triage",
-  "Delay notices",
-  "Demand planning",
-  "Demand signal",
-  "Discount floors",
-  "Evaluation runs",
-  "Forecast agent",
-  "Governed data products for every domain",
-  "Identity, access and audit trail on every call",
-  "One agent runtime with shared evaluation",
-  "Order capture agent",
-  "Order history",
-  "Order status agent",
-  "Price book",
-  "Price guardrail agent",
   "Product master",
-  "Promo calendar",
-  "Promo check agent",
-  "Regional bias alerts",
-  "Returns agent",
-  "Sales execution",
-  "Sales execution goes first, since its six agents feed the other four domains",
-  "Serves reps and planners",
-  "Shared platform services",
-  "Shelf gap alerts",
-  "Start where data and owners are ready",
-  "Stock risk agent",
-  "Stock-out watch",
   "Store visits",
-  "Trade promotion",
-  "Uplift readout",
+  "Agent registry",
+  "Customer master",
+  "Order history",
+  "Evaluation runs",
+  "Price book",
+  "Promo calendar",
   "Usage logs",
-  "Visit notes",
-  "Visit planner agent",
-  "Voice and email orders"
- ]
+  "Governed data products for every domain",
+  "One agent runtime with shared evaluation",
+  "Identity, access and audit trail on every call",
+  "Commercial agent network",
+  "Demand planning",
+  "Sales execution",
+  "Trade promotion",
+  "Customer service",
+  "Pricing",
+  "Serves reps and planners",
+  "Agent status",
+  "Live",
+  "Shared",
+  "Planned",
+  "Start where data and owners are ready",
+  "Shared platform services",
+  "Sales execution goes first, since its agents feed the other four domains",
+  "Forecast",
+  "Demand signal",
+  "Stock risk",
+  "Stock-out watch",
+  "Bias check",
+  "Regional alerts",
+  "Supply plan",
+  "Weekly build plan",
+  "Price guardrail",
+  "Discount floors",
+  "Deal desk",
+  "Triage requests",
+  "Price watch",
+  "Competitor moves",
+  "Rebate check",
+  "Accrual review",
+  "Visit planner",
+  "Daily store route",
+  "Shelf scan",
+  "Gap alerts",
+  "Order capture",
+  "Voice and email",
+  "Call notes",
+  "Visit summaries",
+  "Promo check",
+  "Uplift readout",
+  "Claim audit",
+  "Deduction review",
+  "Event plan",
+  "Calendar fit",
+  "Display check",
+  "In-store proof",
+  "Order status",
+  "Delay notices",
+  "Returns",
+  "Credit notes",
+  "Claims",
+  "Intake and routing",
+  "Case summary",
+  "Handover notes"
+ ],
+ "capacity_words": 218,
+ "archetype_floors": {
+  "use-case-map": 100
+ },
+ "short_of_floor": []
 }

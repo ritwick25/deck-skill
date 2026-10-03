@@ -8,6 +8,11 @@ leave behind: it fails unless its shape is named state.* or identity.*, even whe
 the same hex. Scoped to what renders: shape fills and outlines,
 run colours, table-cell fills and borders, the slide background. Bullet colours (buClr) and end-of-paragraph
 run properties (endParaRPr) never paint a glyph and are ignored. phClr, sysClr and prstClr on a slide fail.
+
+Small tint (ruling 12: pastel tints are for large backgrounds only, never the default container): a shape filled
+in accent-tint or accent-wash whose box is under 4 sq in (x k squared) fails unless it, or a group around it, is
+named state.* (a tint that encodes a state the legend keys). Read from the resolved fill, so a raw hex equal to a
+tint role's is caught too. Remap a small tinted container to card with a hairline.
 """
 from __future__ import annotations
 
@@ -17,6 +22,8 @@ from _shared import FAIL, Finding, cli
 from deckkit.read.ns import local
 
 GATE, TITLE = "P16", "colour"
+TINTS = ("accent-tint", "accent-wash")
+SMALL_TINT_SQIN = 4.0
 COLOURS = ("srgbClr", "schemeClr", "sysClr", "prstClr", "scrgbClr", "hslClr")
 SKIP = ("buClr", "endParaRPr", "defRPr", "lstStyle", "extLst")
 VISIBLE = ("spPr", "grpSpPr", "rPr", "tcPr", "bgPr", "ln", "lnL", "lnR", "lnT", "lnB", "highlight")
@@ -73,6 +80,36 @@ def run(deck, ctx):
                                        % hx))
             else:
                 out.append(Finding(GATE, FAIL, i, _owner(el), "%s %s on glass" % (kind, el.get("val") or "")))
+        out += _small_tints(ctx, i)
+    return out
+
+
+def _small_tints(ctx, i) -> list[Finding]:
+    """Shapes under SMALL_TINT_SQIN filled in a tint role, not named state.* (nor inside a state.* group)."""
+    th = ctx.theme
+    tint = {}
+    for r in TINTS:
+        try:
+            tint.setdefault(th.hex(r).upper(), r)
+        except Exception:        # a theme without the role has nothing to match
+            continue
+    if not tint:
+        return []
+    names = {int(c.get("id", "0")): c.get("name") or "" for c in ctx.slide_root(i).iter("{*}cNvPr")}
+    limit = SMALL_TINT_SQIN * ctx.k ** 2
+    out = []
+    for L in ctx.slide(i)["shapes"]:
+        f = L.get("fill") or {}
+        hx = (f.get("hex") or "").upper()
+        if L["kind"] != "sp" or f.get("type") != "solid" or hx not in tint:
+            continue
+        if (L["name"] or "").startswith("state.") or any(names.get(g, "").startswith("state.") for g in L["group_path"]):
+            continue
+        area = L["bbox"]["w_in"] * L["bbox"]["h_in"]
+        if area < limit:
+            out.append(Finding(GATE, FAIL, i, L["name"] or "id %d" % L["id"], "%s fill on a %.2f sq in shape (under %.0f): "
+                               "a small tinted container; fill it card with a hairline, or name it state.* when the "
+                               "tint encodes a state" % (tint[hx], area, limit)))
     return out
 
 

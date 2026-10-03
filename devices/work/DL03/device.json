@@ -91,7 +91,7 @@
    "kind": "text",
    "role": "scope-line",
    "max_words": 14,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.step.1.icon",
@@ -308,5 +308,11 @@
   "Measured at item and week level",
   "Planning cycle time fell from five days to two",
   "plan lag"
- ]
+ ],
+ "capacity_words": 198,
+ "archetype_floors": {
+  "case-study": 160,
+  "deep-dive": 120
+ },
+ "short_of_floor": []
 }

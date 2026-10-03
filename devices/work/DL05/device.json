@@ -308,5 +308,10 @@
   "Gate criteria",
   "Owners and actions",
   "Open risks"
- ]
+ ],
+ "capacity_words": 218,
+ "archetype_floors": {
+  "process-flow": 210
+ },
+ "short_of_floor": []
 }

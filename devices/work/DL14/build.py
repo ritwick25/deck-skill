@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
 from devwork import *  # noqa: E402,F403
-from deckkit import text as txt  # noqa: E402
+from deckkit import prims, text as txt  # noqa: E402
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--out")
@@ -126,7 +126,7 @@ for i, (disc, lab) in enumerate(zip(("dev.64", "dev.65", "dev.66", "dev.67"), ("
     rename(s, disc, "struct.from.role.%d.disc" % i)
     glyph_in("struct.from.role.%d.disc" % i, "slot.from.role.%d.icon" % i, "user", 0.26, "paper")
     sh = find(s, lab)
-    label(lab, "slot.from.role.%d" % i, ROLES[i - 1], (0.54, sh.top / EMU, 0.98, 0.22), size=8.5, bold=True,
+    label(lab, "slot.from.role.%d" % i, ROLES[i - 1], (0.55, sh.top / EMU - 0.02, 1.04, 0.24), size=9.5, bold=True,
           role="ink-deep")
 
 CHANNELS = (("dev.13", "Email", "mail"), ("dev.7", "Phone", "phone"), ("dev.8", "Ticket form", "file-text"),
@@ -153,7 +153,7 @@ for i, (disc, lab, word, g) in enumerate((("dev.134", "dev.72", "Distributors", 
     rename(s, disc, "struct.from.customer.%d.disc" % i)
     glyph_in("struct.from.customer.%d.disc" % i, "slot.from.customer.%d.icon" % i, g, 0.26, "on-accent")
     sh = find(s, lab)
-    label(lab, "slot.from.customer.%d" % i, word, (5.06, sh.top / EMU, 0.92, 0.20), size=9, bold=True,
+    label(lab, "slot.from.customer.%d" % i, word, (5.00, sh.top / EMU - 0.02, 1.04, 0.24), size=10, bold=True,
           role="ink-deep")
 
 # the from-state body spreads to the panel height the foot band gave up: centres scale, sizes hold, links stretch
@@ -175,22 +175,22 @@ for i, (disc, lab) in enumerate(zip(("dev.159", "dev.172", "dev.186", "dev.199")
     rename(s, disc, "struct.to.role.%d.disc" % i)
     glyph_in("struct.to.role.%d.disc" % i, "slot.to.role.%d.icon" % i, "user", 0.26, "paper")
     d = find(s, "struct.to.role.%d.disc" % i)
-    label(lab, "slot.to.role.%d" % i, ROLES[i - 1], (7.26, d.top / EMU + 0.49, 1.00, 0.20), size=8.5, bold=True,
+    label(lab, "slot.to.role.%d" % i, ROLES[i - 1], (7.26, d.top / EMU + 0.48, 1.04, 0.24), size=9.5, bold=True,
           role="ink-deep")
 
-AGENTS = (("dev.211", "dev.246", "Intake", (9.65, 2.75, 0.48, 0.18)),
-          ("dev.213", "dev.248", "Triage", (8.31, 4.04, 0.70, 0.18)),
-          ("dev.214", "dev.249", "Quote", (10.82, 4.04, 0.76, 0.18)),
-          ("dev.212", "dev.287", "Scheduling", (9.51, 6.36, 0.84, 0.18)))
+AGENTS = (("dev.211", "dev.246", "Intake", (9.49, 2.74, 0.80, 0.21)),
+          ("dev.213", "dev.248", "Triage", (8.26, 4.03, 0.80, 0.21)),
+          ("dev.214", "dev.249", "Quote", (10.85, 4.03, 0.70, 0.21)),
+          ("dev.212", "dev.287", "Scheduling", (9.43, 6.35, 1.00, 0.21)))
 for i, (disc, lab, word, box) in enumerate(AGENTS, 1):
     rename(s, disc, "struct.to.agent.%d.disc" % i)
     glyph_in("struct.to.agent.%d.disc" % i, "slot.to.agent.%d.icon" % i, "bot", 0.27, "on-accent")
-    label(lab, "slot.to.agent.%d" % i, word, box, size=8, bold=True, role="ink-deep")
+    label(lab, "slot.to.agent.%d" % i, word, box, size=9.5, bold=True, role="ink-deep")
 
 rename(s, "dev.215", "struct.to.hub")
 label("dev.266", "slot.to.hub.head", "Agent hub", (9.46, 3.46, 0.94, 0.22), size=10, bold=True, role="on-accent",
       background="accent-deep")
-label("dev.267", "slot.to.hub.body", ["Shared case", "record"], (9.46, 3.70, 0.94, 0.36), size=8.5, role="on-accent",
+label("dev.267", "slot.to.hub.body", ["Shared case", "record"], (9.40, 3.69, 1.06, 0.38), size=9, role="on-accent",
       background="accent-deep")
 
 for i, (ell, lab, word) in enumerate((("dev.216", "dev.276", ["Partner", "agent"]),
@@ -199,7 +199,7 @@ for i, (ell, lab, word) in enumerate((("dev.216", "dev.276", ["Partner", "agent"
     e = find(s, "struct.to.partner.%d.disc" % i)
     ex, ey = e.left / EMU, e.top / EMU
     icon(s, "slot.to.partner.%d.icon" % i, "bot", ex + 0.29, ey + 0.10, 0.22, th, role="accent-ink")
-    label(lab, "slot.to.partner.%d" % i, word, (ex + 0.12, ey + 0.34, 0.56, 0.32), size=8, bold=True,
+    label(lab, "slot.to.partner.%d" % i, word, (ex + 0.07, ey + 0.33, 0.66, 0.34), size=9, bold=True,
           role="ink-deep", background="accent-wash")
 
 for i, (disc, lab, word, g) in enumerate((("dev.230", "dev.278", "Dealers", "building"),
@@ -207,12 +207,12 @@ for i, (disc, lab, word, g) in enumerate((("dev.230", "dev.278", "Dealers", "bui
     rename(s, disc, "struct.to.customer.%d.disc" % i)
     glyph_in("struct.to.customer.%d.disc" % i, "slot.to.customer.%d.icon" % i, g, 0.17, "on-accent")
     d = find(s, "struct.to.customer.%d.disc" % i)
-    label(lab, "slot.to.customer.%d" % i, word, (d.left / EMU - 0.15, d.top / EMU - 0.20, 0.56, 0.17), size=8,
+    label(lab, "slot.to.customer.%d" % i, word, (d.left / EMU - 0.17, d.top / EMU - 0.22, 0.60, 0.19), size=9,
           role="ink")
 
-label("dev.272", "slot.to.flow.1", ["Order status", "sync"], (11.82, 2.74, 0.84, 0.32), size=8, role="ink")
-label("dev.274", "slot.to.flow.2", "Stock view", (11.86, 4.52, 0.74, 0.16), size=8, role="ink")
-label("dev.264", "slot.to.exception", "Exceptions", None, size=8, bold=True, role="ink-deep")
+label("dev.272", "slot.to.flow.1", ["Order status", "sync"], (11.78, 2.72, 0.92, 0.34), size=9, role="ink")
+label("dev.274", "slot.to.flow.2", "Stock view", (11.80, 4.51, 0.86, 0.18), size=9, role="ink")
+label("dev.264", "slot.to.exception", "Exceptions", None, size=9, bold=True, role="ink-deep")
 
 # links of the target network
 LINKS = [242, 243, 244, 245, 247, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 265, 268,
@@ -223,11 +223,16 @@ for k, n in enumerate(LINKS, 1):
 # snap every link end onto a box, drop the ones that float
 for n in ("struct.to.link.10", "struct.to.link.13", "struct.to.link.23", "struct.to.link.24"):
     delete(s, n)
-move(s, "struct.to.link.9", 7.97, 4.22, 3.22, 0.86)          # field tech to the quote agent label
+delete(s, "struct.to.link.9")    # field tech to quote: its rotated L ran through the hub and the role label
 move(s, "struct.to.link.11", 9.73, 4.65, 1.88, 1.02)         # scheduling agent to the quote agent label (rot 90)
 move(s, "struct.to.link.21", 11.44, 3.77, 0.40, 0.0)          # quote agent to partner agent rim
 move(s, "struct.to.link.22", 11.44, 3.89, 0.43, 0.0)
 move(s, "struct.to.link.28", 11.40, 4.21, 0.54, 0.63)        # quote agent to store agent rim
+# triage escalates to the service desk disc itself, a straight dashed run under the request flow, never into the
+# role label beneath it
+_l16 = find(s, "struct.to.link.16")._element
+_l16.find(".//" + qn("a:prstGeom")).set("prst", "straightConnector1")
+move(s, "struct.to.link.16", 7.93, 3.90, 0.47, 0.0)
 
 # key
 rename(s, "dev.153", "struct.key")
@@ -235,13 +240,38 @@ for i, (line, lab, word) in enumerate((("dev.284", "dev.283", "Request flow"), (
                                        ("dev.155", "dev.154", "Staff escalation")), 1):
     rename(s, line, "struct.key.line.%d" % i)
     ln = find(s, "struct.key.line.%d" % i)
-    label(lab, "slot.key.%d" % i, word, (12.06, ln.top / EMU - 0.09, 1.00, 0.18), size=8, role="ink", align="left")
+    label(lab, "slot.key.%d" % i, word, (12.00, ln.top / EMU - 0.10, 1.07, 0.20), size=9, role="ink", align="left")
 
 # remaining grounds
 for sh in list(s.shapes):
     if sh.name.startswith("dev."):
         sh.name = "struct.ground.%s" % sh.name.split(".")[1]
 
+# ---- every bent link drawn on the route PowerPoint gives it (LibreOffice re-routes rotated bent connectors)
+# on PowerPoint's route the sales-rep escalation runs through the panel label: it goes
+delete(s, "struct.to.link.14")
+from assemble_devices import bake_bent  # noqa: E402
+bake_bent(s)
+# the two flow labels sit on their lines as knock-out labels, painted over the line they name
+for nm in ("slot.to.flow.1", "slot.to.flow.2"):
+    prims.set_fill(find(s, nm), "paper", theme=th)
+    el = find(s, nm)._element
+    tree = el.getparent()
+    tree.remove(el)
+    tree.append(el)
+
+# ---- inside the content band (P03): the target half moves left, the wedge half as far, the target header
+# runs to the band's right edge
+for sh in s.shapes:
+    if sh.name == "struct.shift.wedge":
+        sh.left = int(sh.left - 0.15 * EMU)
+    elif sh.left / EMU >= 6.9 and sh.name != "slot.title":
+        sh.left = int(sh.left - 0.30 * EMU)
+hd = find(s, "slot.to.header")
+hd.width = int(12.90 * EMU) - hd.left
+
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL14", th, archetype="from-to-shift", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

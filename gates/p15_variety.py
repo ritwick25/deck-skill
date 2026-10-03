@@ -7,7 +7,13 @@
   * two adjacent slides whose 12 x 7 occupancy grids (each cell marked strong mass or other drawn content) have a
     Jaccard of 0.85 or more look alike;
   * no family carries more than 40% of the content slides (every family but Frame); one slide of a family is
-    always allowed, so a two-slide deck is not failed for its arithmetic.
+    always allowed, so a two-slide deck is not failed for its arithmetic;
+  * foot bands: at most 1 in 5 content slides (one always allowed) end on a full-width labelled band, and no two
+    adjacent slides do. A foot band is a solid-filled shape (any fill but paper or near-white) at least 85% of the
+    content band's width and under 1.3in (x k) tall, whose bottom sits in the lower quarter of the content band,
+    that carries text (its own, or a text block painted on it), with nothing drawn below it but a short source
+    line (12 words or fewer). A band along the foot as a cadence makes every slide look alike; the alternatives
+    are a side rail, a header strip, or the shared items folded into the device.
 Sections are PowerPoint's own (p14:sectionLst), else a section-divider slide opens one, else the deck is one
 section. An untagged slide fails: the gate cannot see its family.
 """
@@ -16,7 +22,7 @@ from __future__ import annotations
 import sys
 from collections import Counter, defaultdict
 
-from _shared import FAIL, Finding, bx, cli, full_bleed, is_drawn
+from _shared import FAIL, Finding, bx, cli, full_bleed, has_text, is_drawn, words
 from deckkit.read.deckinfo import status_ranges
 
 GATE, TITLE = "P15", "variety"
@@ -24,6 +30,11 @@ COLS, ROWS, COVER = 12, 7, 0.30
 JACCARD = 0.85
 MAX_TABLES = 2
 MAX_FAMILY_SHARE = 0.40
+FOOT_SHARE = 0.20       # at most 1 in 5 content slides end on a foot band
+FOOT_W = 0.85           # of the content band's width
+FOOT_H = 1.3            # in, x k: taller is a panel, not a band
+FOOT_LOW = 0.75         # the band's bottom sits below this share of the content band
+SOURCE_WORDS = 12       # a text line under the band this short is a source line, not content
 
 
 def sections(ctx) -> list[tuple[str, list[int]]]:
@@ -78,6 +89,73 @@ def occupancy(ctx, i) -> set:
     cells = {k for k, v in cover.items() if v >= COVER}
     strong = {(c, r) for c, r, k in cells if k == "strong"}
     return {(c, r, "strong") for c, r in strong} | {(c, r, "drawn") for c, r, k in cells if (c, r) not in strong}
+
+
+def _near_white(hx: str) -> bool:
+    try:
+        r, g, b = (int(hx[k:k + 2], 16) / 255 for k in (0, 2, 4))
+    except (TypeError, ValueError):
+        return False
+    return min(r, g, b) >= 0.97
+
+
+def foot_band(ctx, i):
+    """The leaf a content slide ends on when it is a full-width labelled foot band, else None."""
+    band = ctx.canvas.content
+    k = ctx.k
+    shapes = ctx.slide(i)["shapes"]
+    paper = (ctx.theme.hex("paper") or "").upper()
+    for L in shapes:
+        f = L.get("fill") or {}
+        hx = (f.get("hex") or "").upper()
+        if L["kind"] != "sp" or L.get("line_like") or f.get("type") != "solid" or hx == paper or _near_white(hx):
+            continue
+        x0, y0, x1, y1 = bx(L)
+        if x1 - x0 < FOOT_W * band.w or not (0 < y1 - y0 < FOOT_H * k) or y1 < band.y + FOOT_LOW * band.h:
+            continue
+        labelled = has_text(L) or any(
+            M is not L and has_text(M) and M.get("z", 0) > L.get("z", 0) and bx(M)[0] >= x0 - 0.02 and
+            bx(M)[2] <= x1 + 0.02 and bx(M)[1] >= y0 - 0.02 and bx(M)[3] <= y1 + 0.02 for M in shapes)
+        if not labelled:
+            continue
+        below = [M for M in shapes if M is not L and is_drawn(M) and bx(M)[1] >= y1 - 0.02 and
+                 not (has_text(M) and not is_drawn_box(M) and words(M["text"]["text"]) <= SOURCE_WORDS)]
+        if not below:
+            return L
+    return None
+
+
+def is_drawn_box(L) -> bool:
+    """A leaf that paints something other than words: a fill, an outline or a picture."""
+    return (L.get("fill") or {}).get("type", "none") not in ("none", None) or \
+        (L.get("line") or {}).get("type", "none") not in ("none", None) or L["kind"] == "pic"
+
+
+def _content(ctx, i, fam) -> bool:
+    if ctx.tags()[i - 1]["archetype"]:
+        return fam.get(i) not in (None, "Frame")
+    return ctx.slide(i)["text"]["words_content"] > 20
+
+
+def foot_bands(ctx, fam) -> list[Finding]:
+    out = []
+    content = [i for i in range(1, ctx.n + 1) if _content(ctx, i, fam)]
+    bands = {}
+    for i in content:
+        L = foot_band(ctx, i)
+        if L is not None:
+            bands[i] = L
+    cap = max(1, int(FOOT_SHARE * len(content)))
+    if len(bands) > cap:
+        first = min(bands)
+        out.append(Finding(GATE, FAIL, first, bands[first]["name"], "%d of %d content slides end on a full-width "
+                           "labelled foot band (max %d, 1 in 5): slides %s" % (len(bands), len(content), cap,
+                                                                               ", ".join(map(str, sorted(bands))))))
+    for a in sorted(bands):
+        if a + 1 in bands:
+            out.append(Finding(GATE, FAIL, a + 1, bands[a + 1]["name"], "slides %d and %d both end on a full-width "
+                               "labelled foot band" % (a, a + 1)))
+    return out
 
 
 def run(deck, ctx):
@@ -143,6 +221,7 @@ def run(deck, ctx):
         run_ = run_ + [i] if has_table and i not in appendix else []
         if len(run_) == MAX_TABLES + 1:
             out.append(Finding(GATE, FAIL, run_[0], "", "%d table slides in a row (%s)" % (len(run_), ", ".join(map(str, run_)))))
+    out += foot_bands(ctx, fam)
     occ = {i: occupancy(ctx, i) for i in idx}
     for a, b in zip(idx, idx[1:]):
         u = occ[a] | occ[b]

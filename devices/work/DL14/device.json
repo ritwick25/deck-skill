@@ -91,7 +91,7 @@
    "kind": "text",
    "role": "channel",
    "max_words": 2,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.from.channel.1.icon",
@@ -103,7 +103,7 @@
    "kind": "text",
    "role": "channel",
    "max_words": 2,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.from.channel.2.icon",
@@ -115,7 +115,7 @@
    "kind": "text",
    "role": "channel",
    "max_words": 2,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.from.channel.3.icon",
@@ -127,7 +127,7 @@
    "kind": "text",
    "role": "channel",
    "max_words": 2,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.from.channel.4.icon",
@@ -321,7 +321,7 @@
    "kind": "text",
    "role": "exception-tag",
    "max_words": 1,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.key.1",
@@ -364,5 +364,14 @@
   "Request flow",
   "Data sync",
   "Staff escalation"
+ ],
+ "capacity_words": 89,
+ "archetype_floors": {
+  "from-to-shift": 120,
+  "hub-and-spoke": 90
+ },
+ "short_of_floor": [
+  "from-to-shift",
+  "hub-and-spoke"
  ]
 }

@@ -183,6 +183,8 @@ for i in (1, 2, 3):
     tree.remove(el)
     tree.append(el)
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL13", th, archetype="gantt", variant=VARIANT)
 if args.out:
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)

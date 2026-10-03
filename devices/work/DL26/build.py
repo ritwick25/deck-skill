@@ -134,7 +134,7 @@ for i, (head, cond, route) in enumerate(rules, 1):
     put(n(c + 5), "slot.rule.%d.route" % i, route, role="accent-ink", bold=True, size=9)
 
 # Column 4: the two dispositions.
-outs = [("Expedite now", "Carrier booked same day, cost charged to promo"),
+outs = [("Expedite now", "Booked same day, cost to the promo"),
         ("Hold and transfer", "Like item moved in, planner alerted")]
 for i, (head, body) in enumerate(outs, 1):
     c = 119 + 3 * (i - 1)
@@ -166,6 +166,8 @@ put(n(130), "slot.example.body",
     [P((R(k + "  ", "ink-muted", size=10), R(v, "ink-deep", bold=True, size=10)), space_before=0 if j == 0 else 3)
      for j, (k, v) in enumerate(rows)], size=10, background="card")
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL26", th, archetype="decision-logic", variant=VARIANT)
 if args.out and Path(args.out).resolve() != out.resolve():
     shutil.copyfile(out, args.out)

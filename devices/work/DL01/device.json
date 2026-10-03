@@ -171,5 +171,14 @@
   "First forecasts run beside the current plan",
   "Accuracy checked against the gate thresholds",
   "Planners act on pilot forecasts each month"
+ ],
+ "capacity_words": 106,
+ "archetype_floors": {
+  "the-ask": 200,
+  "phased-roadmap": 130
+ },
+ "short_of_floor": [
+  "phased-roadmap",
+  "the-ask"
  ]
 }

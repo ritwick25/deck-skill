@@ -1,0 +1,36 @@
+{
+ "slide": "d12-s003",
+ "device": "DL34",
+ "scale": 1.3333,
+ "counts": {
+  "colours": 7,
+  "runs": 2,
+  "scaled": 1.3333
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    10.012,
+    0.327,
+    0.807,
+    0.959
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    11.468,
+    0.436,
+    1.399,
+    0.741
+   ],
+   "kind": "logo"
+  }
+ ],
+ "colour_map": {
+  "000000->ink-deep": 2,
+  "1F36C7->accent-ink": 2,
+  "BFBFBF->ink-muted": 2,
+  "BFBFBF->hairline": 1
+ }
+}

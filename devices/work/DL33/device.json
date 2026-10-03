@@ -1,0 +1,128 @@
+{
+ "id": "DL33",
+ "name": "Lit quadrant agenda",
+ "archetypes": [
+  "agenda",
+  "section-divider"
+ ],
+ "family": "Frame",
+ "variant": "lit-quadrant-grid",
+ "mechanism": "Four parts in a two-by-two grid, each led by a giant numeral beside its name, a rule and three short scope lines; one part is lit in solid brand, so the same grid opens the session and returns as each section's divider with the next part lit.",
+ "canvas": "wide",
+ "source": "d16-s003",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 10
+  },
+  {
+   "name": "slot.part.1.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "accent"
+  },
+  {
+   "name": "slot.part.1.head",
+   "kind": "text",
+   "role": "part-name",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.part.1.scope",
+   "kind": "text",
+   "role": "scope-lines",
+   "max_words": 10,
+   "background": "accent"
+  },
+  {
+   "name": "slot.part.2.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.part.2.head",
+   "kind": "text",
+   "role": "part-name",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.part.2.scope",
+   "kind": "text",
+   "role": "scope-lines",
+   "max_words": 10,
+   "background": "card"
+  },
+  {
+   "name": "slot.part.3.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.part.3.head",
+   "kind": "text",
+   "role": "part-name",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.part.3.scope",
+   "kind": "text",
+   "role": "scope-lines",
+   "max_words": 10,
+   "background": "card"
+  },
+  {
+   "name": "slot.part.4.num",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1,
+   "background": "card"
+  },
+  {
+   "name": "slot.part.4.head",
+   "kind": "text",
+   "role": "part-name",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.part.4.scope",
+   "kind": "text",
+   "role": "scope-lines",
+   "max_words": 10,
+   "background": "card"
+  }
+ ],
+ "samples": [
+  "Four parts from planning baseline to gated pilot",
+  "Planning today",
+  "Accuracy by region",
+  "Hours per monthly cycle",
+  "Where overrides cluster",
+  "The forecasting approach",
+  "One model, every region",
+  "Planner review and override",
+  "Data needed first",
+  "Pilot plan and gates",
+  "Wave one: three regions",
+  "Accuracy gate before rollout",
+  "Owners and weekly review",
+  "Commercials and next steps",
+  "Fee phased by gate",
+  "Decisions this month",
+  "The first ninety days"
+ ],
+ "capacity_words": 70,
+ "archetype_floors": {
+  "agenda": 40
+ },
+ "short_of_floor": []
+}

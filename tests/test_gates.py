@@ -274,13 +274,49 @@ class TestRunner(unittest.TestCase):
         self.assertEqual(r.returncode, 0, r.stdout[-3000:] + r.stderr[-2000:])
         n = len(negatives.PLANTERS)
         self.assertIn("%d negatives, %d behaved as expected, 0 did not" % (n, n), r.stdout)
-        self.assertIn("26/26 implemented gates covered", r.stdout)
+        k = len(run_all.implemented(run_all.registry()))           # the registry is the count, never a literal
+        self.assertIn("%d/%d implemented gates covered" % (k, k), r.stdout)
+
+    def test_sibling_planters_are_discovered_and_a_broken_sibling_is_reported(self):
+        """negatives_*.py modules other tracks own: their PLANTERS join the list (a same-named planter replaces the
+        earlier one), and a module that does not import is a DISCOVERY ERROR, never a silent skip."""
+        d = Path(tempfile.mkdtemp(prefix="k5-discover-"))
+        try:
+            (d / "negatives_zzgood.py").write_text(
+                "from negatives import Planter, p01_75\n"
+                "PLANTERS = [Planter('zz-floor', 'P01', 'a 7.5pt run', p01_75, '7.50pt run'),\n"
+                "            Planter('run-7.5pt', 'P01', 'the same name, the sibling wins', p01_75, '7.50pt run')]\n",
+                encoding="utf-8")
+            (d / "negatives_zzbroken.py").write_text("raise RuntimeError('half-written')\n", encoding="utf-8")
+            sys.path.insert(0, str(d))
+            errs = []
+            try:
+                with mock.patch.object(negatives, "GATES_DIR", d), mock.patch.object(negatives, "DISCOVERY_ERRORS",
+                                                                                      errs):
+                    out = negatives._discover([negatives.Planter("run-7.5pt", "P01", "own", negatives.p01_75)])
+            finally:
+                sys.path.remove(str(d))
+                for m in ("negatives_zzgood", "negatives_zzbroken"):
+                    sys.modules.pop(m, None)
+            self.assertEqual([pl.name for pl in out], ["zz-floor", "run-7.5pt"])
+            self.assertEqual(out[-1].plants, "the same name, the sibling wins")
+            self.assertEqual([e[0] for e in errs], ["negatives_zzbroken.py"])
+            self.assertIn("half-written", errs[0][1])
+            buf = io.StringIO()
+            with mock.patch.object(negatives, "DISCOVERY_ERRORS", errs), mock.patch.object(
+                    negatives, "PLANTERS", [negatives.Planter("x", "P01", "7.5pt", negatives.p01_75, "7.50pt run")]), \
+                    contextlib.redirect_stdout(buf):
+                code = run_all.run_negatives(mock.Mock(only="P01", keep=False), run_all.registry())
+            self.assertEqual(code, 1)
+            self.assertIn("DISCOVERY ERROR", buf.getvalue())
+        finally:
+            shutil.rmtree(d, ignore_errors=True)
 
     def test_missing_pptx_gate_is_missing_not_pending(self):
         reg = run_all.registry() + [{"id": "P99", "module": "p99_absent", "title": "absent", "kind": "pptx",
                                      "needs": ["deck"]}]
         args = mock.Mock(deck=str(run_all.GOLDEN), only="P99,R01", static=False, refs=None, fingerprints=None,
-                         twin=None, verbose=False)
+                         twin=None, verbose=False, theme=None)
         if not run_all.GOLDEN.is_file():
             build_golden.build(run_all.GOLDEN)
         buf = io.StringIO()

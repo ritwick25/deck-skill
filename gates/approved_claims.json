@@ -1,0 +1,14 @@
+{
+ "_about": "The firm's approved public claims (~/.claude/CLAUDE.md \u00a75). The reference decks carry them too, so P18's shingle matcher would refuse them; a 6-gram that lies wholly inside one of these phrases is not a leak. Add a claim here only when CLAUDE.md \u00a75 approves it. The pulled and unverified claims are deliberately absent.",
+ "claims": [
+  "100+ AI products delivered",
+  "20+ production-ready agents",
+  "Claude Partner Network",
+  "Emerging Tech: AI Vendor Race",
+  "Rising Star in Generative AI Services",
+  "Founded 2013",
+  "SF HQ",
+  "~1,700 people",
+  "Series B"
+ ]
+}

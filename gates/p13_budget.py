@@ -3,11 +3,17 @@
 The budget comes from archetypes/archetypes.json for the slide's tagged archetype and the deck's canvas
 when the library has published it; a project's deck.json "budgets" ({archetype: words}) wins inside its
 folder (the authority ladder: projects keep their own budgets). Everything else, untagged slides included,
-is held to the 250-word ceiling. The advisory floor (half the budget, or the published floor) is reported,
-never failed.
+is held to the 250-word ceiling.
+
+The advisory floor is the published floor: the measured p25 of the archetype's top exemplars' content words
+(ruling 2, restored by ruling 17; the half-budget cap is withdrawn). A content slide under it is reported as an
+advisory, never failed; run_all shows the advisory count in its detail column, so a thin slide is visible without
+-v. A slide tagged with an archetype that neither the taxonomy nor the deck.json budgets hold fails, with the
+nearest slugs, because no budget can be looked up for it.
 """
 from __future__ import annotations
 
+import difflib
 import sys
 
 from _shared import ADVISORY, CEILING, FAIL, Finding, cli
@@ -34,6 +40,11 @@ def run(deck, ctx):
     for i in range(1, ctx.n + 1):
         t = ctx.tags()[i - 1]
         n = ctx.slide(i)["text"]["words_content"]
+        if t["archetype"] and t["archetype"] not in ctx.archetypes and \
+                t["archetype"] not in (ctx.deck_json.get("budgets") or {}):
+            near = difflib.get_close_matches(t["archetype"], list(ctx.archetypes), n=3, cutoff=0.6)
+            out.append(Finding(GATE, FAIL, i, t["tag"], "archetype %r is not in the taxonomy, so it has no budget%s"
+                               % (t["archetype"], ("; did you mean %s?" % ", ".join(near)) if near else "")))
         budget, floor, src = _budget(ctx, t["archetype"])
         if n > budget:
             out.append(Finding(GATE, FAIL, i, t["tag"] or "untagged", "%d words on glass, budget %d (%s)" % (n, budget, src)))

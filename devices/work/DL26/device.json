@@ -5,7 +5,7 @@
   "decision-logic",
   "process-flow"
  ],
- "family": "Stage lanes",
+ "family": "Directed sequence",
  "variant": "staged-rule-lanes",
  "mechanism": "Inputs feed yes-or-no checks, ordered rules route each case to one of two outcomes, and a logged record with one routed sample proves the path.",
  "canvas": "wide",
@@ -529,7 +529,7 @@
   "No rule matched",
   "All other late orders",
   "Expedite now",
-  "Carrier booked same day, cost charged to promo",
+  "Booked same day, cost to the promo",
   "Like item moved in, planner alerted",
   "Each decision logs",
   "Rule that fired",
@@ -543,5 +543,11 @@
   "Route  expedite by air",
   "Owner  store planner",
   "Cover  2 days / Promo  in 5 days / Rule fired  1 / Route  expedite by air / Owner  store planner"
- ]
+ ],
+ "capacity_words": 315,
+ "archetype_floors": {
+  "decision-logic": 180,
+  "process-flow": 210
+ },
+ "short_of_floor": []
 }

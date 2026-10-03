@@ -1,8 +1,8 @@
 {
   "date": "2026-10-03T00:00:00Z",
   "pptx": "devices.pptx",
-  "sha256": "3469b844879e5fbd7949c0ba61b02ea5504403c5714aaaa6151e676aab38442d",
-  "slides": 31,
+  "sha256": "d712472bfbe1aa4de0f5d78e9db456825a97353dc66f06e3397dff9d206634ed",
+  "slides": 44,
   "theme": "sigmoid",
   "title": "Device library"
 }

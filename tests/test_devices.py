@@ -41,7 +41,7 @@ class TestPlace(unittest.TestCase):
         return " ".join(sh.text_frame.text for sh in s.shapes if sh.has_text_frame)
 
     def test_filled_device_carries_no_sample(self):
-        s = devices.place(self.prs, "DL01", self._fill(), theme=self.th)
+        s = devices.place(self.prs, "DL01", self._fill(), theme=self.th, archetype=self.e["archetypes"][0])
         text = self._text(s)
         left = [x for x in self.e["samples"] if len(x) >= 8 and x in text]
         self.assertEqual(left, [])
@@ -50,7 +50,7 @@ class TestPlace(unittest.TestCase):
         fill = self._fill()
         name = next(s["name"] for s in self.e["slots"] if s["kind"] == "text" and (s.get("max_words") or 0) >= 4)
         fill.pop(name)
-        s = devices.place(self.prs, "DL01", fill, theme=self.th)
+        s = devices.place(self.prs, "DL01", fill, theme=self.th, archetype=self.e["archetypes"][0])
         self.assertTrue(any(x in self._text(s) for x in self.e["samples"] if len(x) >= 8))
 
     def test_every_device_places_with_plain_fills(self):
@@ -83,14 +83,20 @@ class TestPlace(unittest.TestCase):
                     fill[sl["name"]] = "1" if (sl.get("max_words") or 2) <= 1 else "Ab"
             prs = Presentation(str(SKILL / "kit" / "assets" / "base-wide.pptx"))
             try:
-                devices.place(prs, e["id"], fill, theme=self.th)
+                devices.place(prs, e["id"], fill, theme=self.th, archetype=e["archetypes"][0])
             except Exception as x:
                 bad.append("%s %s: %s" % (e["id"], type(x).__name__, str(x)[:120]))
         self.assertEqual(bad, [])
 
+    def test_ambiguous_device_needs_archetype(self):
+        """A device serving several archetypes refuses to guess which one the slide is (the tag drives the gates)."""
+        multi = next(d for d in devices.catalogue() if len(d["archetypes"]) > 1)
+        with self.assertRaises(GeometryError):
+            devices.place(self.prs, multi["id"], {}, theme=self.th)
+
     def test_unknown_slot_refused(self):
         with self.assertRaises(GeometryError):
-            devices.place(self.prs, "DL01", {"slot.nope": "x"}, theme=self.th)
+            devices.place(self.prs, "DL01", {"slot.nope": "x"}, theme=self.th, archetype=self.e["archetypes"][0])
 
 
 if __name__ == "__main__":

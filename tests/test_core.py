@@ -316,8 +316,7 @@ class TestThemeRoles(unittest.TestCase):
 
     def test_cvd_report(self):
         self.assertEqual(Theme.load(NEUTRAL).cvd(), [])
-        col = Theme.load(SIGMOID).cvd()
-        self.assertTrue(any(c["kind"] == "protan" and {c["a_hex"], c["b_hex"]} == {"F38B1F", "4EA347"} for c in col))
+        self.assertEqual(Theme.load(SIGMOID).cvd(), [])          # series slots no longer collide (ruling 22, charts)
         grey = Theme(theme_dict(accent2="595959", accent3="5A5A5A"))
         self.assertTrue(any(c["kind"] == "normal" for c in grey.cvd(["series-1", "series-2"])))
 

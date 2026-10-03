@@ -1,0 +1,370 @@
+{
+ "id": "DL40",
+ "name": "Scale band over workforce ring and footprint",
+ "archetypes": [
+  "credentials",
+  "headline-figures"
+ ],
+ "family": "Numbers-led",
+ "variant": "scale-band-ring-footprint",
+ "mechanism": "A solid brand band of five glyph-led scale figures states the firm in one look; beneath it a workforce ring split by discipline beside a near-black panel of delivery figures, a three-column delivery footprint, and a strip of partner platform slots that take vendor marks.",
+ "canvas": "wide",
+ "source": "d01-s005",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.basis",
+   "kind": "text",
+   "role": "basis-label",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.band.1.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.band.1",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.band.2.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.band.2",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.band.3.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.band.3",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.band.4.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.band.4",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.band.5.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.band.5",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.left.head",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.ring.1",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.ring.2",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.ring.3",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.ring.4",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.ring.total",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 5,
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.1",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.panel.2",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.panel.3",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.panel.4",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 4,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.right.head",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.foot.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.foot.1.head",
+   "kind": "text",
+   "role": "column-head",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.foot.1",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 6,
+   "background": "paper"
+  },
+  {
+   "name": "slot.foot.1.body",
+   "kind": "text",
+   "role": "column-line",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.foot.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.foot.2.head",
+   "kind": "text",
+   "role": "column-head",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.foot.2",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 6,
+   "background": "paper"
+  },
+  {
+   "name": "slot.foot.2.body",
+   "kind": "text",
+   "role": "column-line",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.foot.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.foot.3.head",
+   "kind": "text",
+   "role": "column-head",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.foot.3",
+   "kind": "text",
+   "role": "figure-and-label",
+   "max_words": 6,
+   "background": "paper"
+  },
+  {
+   "name": "slot.foot.3.body",
+   "kind": "text",
+   "role": "column-line",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.partners.head",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 5,
+   "background": "paper"
+  },
+  {
+   "name": "slot.partner.1.icon",
+   "kind": "glyph",
+   "background": "paper",
+   "alt": "partner platform; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.partner.1.label",
+   "kind": "text",
+   "role": "platform-label",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.partner.2.icon",
+   "kind": "glyph",
+   "background": "paper",
+   "alt": "partner platform; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.partner.2.label",
+   "kind": "text",
+   "role": "platform-label",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.partner.3.icon",
+   "kind": "glyph",
+   "background": "paper",
+   "alt": "partner platform; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.partner.3.label",
+   "kind": "text",
+   "role": "platform-label",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.partner.4.icon",
+   "kind": "glyph",
+   "background": "paper",
+   "alt": "partner platform; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.partner.4.label",
+   "kind": "text",
+   "role": "platform-label",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.partner.5.icon",
+   "kind": "glyph",
+   "background": "paper",
+   "alt": "partner platform; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.partner.5.label",
+   "kind": "text",
+   "role": "platform-label",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.partner.6.icon",
+   "kind": "glyph",
+   "background": "paper",
+   "alt": "partner platform; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.partner.6.label",
+   "kind": "text",
+   "role": "platform-label",
+   "max_words": 2,
+   "background": "paper"
+  }
+ ],
+ "samples": [
+  "A data and AI engineering partner with twelve years of enterprise delivery",
+  "Illustrative figures",
+  "Enterprise clients",
+  "Repeat business",
+  "Client satisfaction",
+  "Annual revenue",
+  "Growth in five years",
+  "Depth by discipline",
+  "Data engineers",
+  "Strategy consultants",
+  "AI engineers",
+  "Data scientists",
+  "Data and AI specialists",
+  "Always-on support",
+  "AI products live",
+  "Data platforms built",
+  "Revenue influenced",
+  "Delivery footprint",
+  "Onsite",
+  "Nearshore",
+  "Offshore",
+  "Leads and architects",
+  "Engineers in shared hours",
+  "Engineers in two centers",
+  "Discovery, design authority and adoption",
+  "Daily overlap with product owners",
+  "Build, test and run around the clock",
+  "Technology partners",
+  "Six certified platforms",
+  "Cloud platforms",
+  "Lakehouse",
+  "Cloud warehouse",
+  "Model providers",
+  "Data modeling",
+  "Streaming"
+ ],
+ "capacity_words": 138,
+ "archetype_floors": {
+  "credentials": 90,
+  "headline-figures": 110
+ },
+ "short_of_floor": []
+}

@@ -1,0 +1,293 @@
+{
+ "id": "DL36",
+ "name": "Wedge ring between panels",
+ "archetypes": [
+  "lifecycle-loop"
+ ],
+ "family": "Radial hub",
+ "variant": "wedge-ring-panels",
+ "mechanism": "Six equal wedges ring a solid brand hub with clockwise arrows drawn on the outer rim, so the cycle reads without reading order; each stage carries a glyph in its wedge and a heading and one line outside it, and four flanking panels list the capabilities that sustain the loop.",
+ "canvas": "wide",
+ "source": "d01-s044",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 12
+  },
+  {
+   "name": "slot.stage.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.1.label",
+   "kind": "text",
+   "purpose": "stage-name-and-line",
+   "max_words": 6,
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.2.label",
+   "kind": "text",
+   "purpose": "stage-name-and-line",
+   "max_words": 6,
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.3.label",
+   "kind": "text",
+   "purpose": "stage-name-and-line",
+   "max_words": 6,
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.4.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.4.label",
+   "kind": "text",
+   "purpose": "stage-name-and-line",
+   "max_words": 6,
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.5.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.5.label",
+   "kind": "text",
+   "purpose": "stage-name-and-line",
+   "max_words": 6,
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.6.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.6.label",
+   "kind": "text",
+   "purpose": "stage-name-and-line",
+   "max_words": 6,
+   "background": "paper"
+  },
+  {
+   "name": "slot.hub",
+   "kind": "text",
+   "purpose": "what-the-loop-serves",
+   "max_words": 7,
+   "background": "accent"
+  },
+  {
+   "name": "slot.panel.1.head",
+   "kind": "text",
+   "purpose": "panel-heading",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.1.item.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.1.item.1",
+   "kind": "text",
+   "purpose": "capability",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.1.item.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.1.item.2",
+   "kind": "text",
+   "purpose": "capability",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.1.item.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.1.item.3",
+   "kind": "text",
+   "purpose": "capability",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.2.head",
+   "kind": "text",
+   "purpose": "panel-heading",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.2.item.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.2.item.1",
+   "kind": "text",
+   "purpose": "capability",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.2.item.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.2.item.2",
+   "kind": "text",
+   "purpose": "capability",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.2.item.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.2.item.3",
+   "kind": "text",
+   "purpose": "capability",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.3.head",
+   "kind": "text",
+   "purpose": "panel-heading",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.3.item.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.3.item.1",
+   "kind": "text",
+   "purpose": "capability",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.3.item.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.3.item.2",
+   "kind": "text",
+   "purpose": "capability",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.3.item.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.3.item.3",
+   "kind": "text",
+   "purpose": "capability",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.4.head",
+   "kind": "text",
+   "purpose": "panel-heading",
+   "max_words": 3,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.4.item.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.4.item.1",
+   "kind": "text",
+   "purpose": "capability",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.4.item.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.4.item.2",
+   "kind": "text",
+   "purpose": "capability",
+   "max_words": 4,
+   "background": "card"
+  },
+  {
+   "name": "slot.panel.4.item.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.panel.4.item.3",
+   "kind": "text",
+   "purpose": "capability",
+   "max_words": 4,
+   "background": "card"
+  }
+ ],
+ "samples": [
+  "Six controls keep every production model accurate, safe and affordable",
+  "Readiness, standards and gaps",
+  "Automated release and scaling",
+  "Drift, health and spend",
+  "Accuracy against agreed tests",
+  "Policy, access and audit trail",
+  "Retrain and tune on evidence",
+  "Decisions the business runs on",
+  "Prompt and config versions",
+  "Controlled experiments",
+  "Source data contracts",
+  "Lineage and catalog",
+  "Data quality checks",
+  "Policy and compliance",
+  "Monitoring and alerts",
+  "Cost and performance"
+ ],
+ "capacity_words": 115,
+ "archetype_floors": {
+  "lifecycle-loop": 80
+ },
+ "short_of_floor": []
+}

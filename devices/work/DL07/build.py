@@ -180,6 +180,15 @@ STEPS = (("Read", "Scan to text"), ("Extract", "Header and lines"), ("Match", "O
          ("Code", "Ledger and tax"), ("Route", "Approver by value"))
 LX = (5.81, 6.69, 7.58, 8.47, 9.36)
 LW = 0.80
+INSET = 0.06                                  # text ink clears the dashed dividers either side
+
+
+def zero_insets(name):
+    bp = find(s, name)._element.find(".//" + qn("a:bodyPr"))
+    for att in ("lIns", "rIns"):
+        bp.set(att, "0")
+
+
 for k, (disc, lab, desc, (w, d)) in enumerate(zip(range(77, 82), range(63, 68), range(68, 73), STEPS), 1):
     cxk = LX[k - 1] + LW / 2
     rename(s, "dev.%d" % disc, "slot.card.3.step.%d.num" % k)
@@ -196,7 +205,8 @@ for k, (disc, lab, desc, (w, d)) in enumerate(zip(range(77, 82), range(63, 68), 
     text(s, "slot.card.3.step.%d.label" % k, [txt.Para((txt.Run(w, "ink-deep", bold=True, size=11),),
                                                        align="center")], th, size=11, background="card")
     rename(s, "dev.%d" % desc, "slot.card.3.step.%d.desc" % k)
-    move(s, "slot.card.3.step.%d.desc" % k, LX[k - 1], 4.96, LW, 0.44)
+    move(s, "slot.card.3.step.%d.desc" % k, LX[k - 1] + INSET, 4.96, LW - 2 * INSET, 0.52)
+    zero_insets("slot.card.3.step.%d.desc" % k)       # the inset is in the box: clear of both dividers
     text(s, "slot.card.3.step.%d.desc" % k, [txt.Para((txt.Run(d, "ink", size=10),), align="center")], th,
          size=10, background="card")
 for k, n in enumerate(range(82, 86), 1):     # arrows run disc edge to disc edge
@@ -206,7 +216,7 @@ for k, n in enumerate(range(82, 86), 1):     # arrows run disc edge to disc edge
     move(s, "struct.card.3.arrow.%d" % k, x0, 4.33, x1 - x0, 0.12)
 for k, n in enumerate(range(73, 77), 1):     # column rules between the steps
     rename(s, "dev.%d" % n, "struct.card.3.rule.%d" % k)
-    move(s, "struct.card.3.rule.%d" % k, LX[k] - 0.045, 4.70, 0, 0.70)
+    move(s, "struct.card.3.rule.%d" % k, LX[k] - 0.045, 4.70, 0, 0.80)
 
 # ---- enabler rail ---------------------------------------------------------------------------------------------
 rename(s, "dev.3", "struct.rail")
@@ -250,6 +260,8 @@ for n in ("struct.card.1", "struct.card.2", "struct.card.3", "struct.card.4", "s
           "struct.flow.input", "struct.flow.output", "slot.flow.stage.1", "slot.flow.stage.2", "slot.flow.stage.3"):
     radius(n)
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL07", th, archetype="process-flow", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

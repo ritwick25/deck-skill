@@ -621,5 +621,10 @@
   "Switch over, then hypercare",
   "Exit gate",
   "Next wave starts after four stable weeks"
- ]
+ ],
+ "capacity_words": 198,
+ "archetype_floors": {
+  "phased-roadmap": 130
+ },
+ "short_of_floor": []
 }

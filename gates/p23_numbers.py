@@ -2,7 +2,10 @@
 
 A stat is a group the kit wrote with alt text "stat kind <kind>" (deckkit.prims.stat). Its kind is one of
 measured, delivered, illustrative, target, benchmark; the last three print a basis chip ("Illustrative")
-so a planning figure never reads as delivered. A figure set large outside any stat has no kind and fails:
+so a planning figure never reads as delivered. A stat drawn without its chip (prims.stat(..., basis=False)) is
+covered by one shared basis label on the same slide: a text whose whole content is the chip plus " figures"
+("Illustrative figures", "Target figures", "Benchmark figures"; compose.stat_band draws it once for the band), so
+the label is stated once, never as a pill on every figure. A shared label of another kind covers nothing. A figure set large outside any stat has no kind and fails:
 any text leaf whose whole text is a quantity or a range ("42%", "$4.2M", "3x", "5 to 10%") set at 1.4x the
 slide's median text size or larger (deckkit.read.figures, whatever role the read layer guessed). Ordinals
 ("01", "03"), years, a single digit in a disc or step marker, and bare numbers on a Frame slide (a section
@@ -22,6 +25,7 @@ from deckkit.read.figures import large_figures
 GATE, TITLE = "P23", "numbers"
 KIND = re.compile(r"^stat kind ([a-z]+)$")
 FEW_WORDS = 12          # an untagged slide this sparse is a divider or a cover
+SHARED = " figures"     # a shared basis label is the chip plus this: "Illustrative figures"
 
 
 def run(deck, ctx):
@@ -43,14 +47,17 @@ def run(deck, ctx):
             for gid in L["group_path"]:
                 if gid in stats:
                     members.setdefault(gid, []).append(L)
+        labels = {" ".join(text_of(L).split()).lower() for L in s["shapes"] if text_of(L).strip()}
         for gid, (name, kind) in stats.items():
             if kind not in STAT_KINDS:
                 out.append(Finding(GATE, FAIL, i, name, "stat kind %r is not one of %s" % (kind, ", ".join(STAT_KINDS))))
                 continue
             texts = {L["name"]: " ".join(text_of(L).split()) for L in members.get(gid, [])}
             chip = STAT_KINDS[kind]
-            if chip and not any(t.lower() == chip.lower() for t in texts.values()):
-                out.append(Finding(GATE, FAIL, i, name, "%s figure without its %r chip" % (kind, chip)))
+            if chip and not any(t.lower() == chip.lower() for t in texts.values()) and \
+                    (chip + SHARED).lower() not in labels:
+                out.append(Finding(GATE, FAIL, i, name, "%s figure without its %r chip or a shared %r label on the "
+                                   "slide" % (kind, chip, chip + SHARED)))
             value = texts.get(name + ".value")
             on_glass[name] = (i, value, kind)
         arch = ctx.tags()[i - 1]["archetype"]

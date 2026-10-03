@@ -328,6 +328,8 @@ for sh in walk(s.shapes):                                         # one card rad
     if kind(sh) == "roundRect" and min(sh.width, sh.height) > 0.2 * EMU:
         radius(sh)
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL15", th, archetype="value-horizons", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

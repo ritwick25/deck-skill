@@ -433,5 +433,13 @@
   "Misses refine the rules",
   "recovered per quarter",
   "Illustrative"
+ ],
+ "capacity_words": 180,
+ "archetype_floors": {
+  "process-flow": 210,
+  "input-process-output": 100
+ },
+ "short_of_floor": [
+  "process-flow"
  ]
 }

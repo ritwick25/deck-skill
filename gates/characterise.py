@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Characteriser: every pptx gate over real decks, measured and reported. It cannot fail.
 
-    $PY gates/characterise.py                         the reference-deck copies in .cache (d01, d15, d18)
+    $PY gates/characterise.py                         the library's reference-deck copies (d01, d15, d18)
     $PY gates/characterise.py --decks a.pptx b.pptx   any decks (each needs its own deck.json and theme)
     $PY gates/characterise.py --per-gate 3 --seed 7   the sample size and its seed
 
@@ -9,12 +9,14 @@ A gate tests machinery and fails; a characteriser measures the world and cannot.
 kit builds, so on a deck built by hand every finding is either a defect the gate is right about or a false positive,
 and only a person looking at the slide can say which. This script does the counting and picks what to look at:
 
-  1. stages each deck in its own folder, .cache/characterise/<stem>/ (a hard link, a copy where linking fails),
-     beside a review deck.json (the sigmoid theme, no build command, no notes deck), so no deck borrows the
-     deck.json the golden build writes into .cache; then runs every implemented pptx gate in gates/registry.json
+  1. stages each deck in its own folder, library/_work/characterise/<stem>/ (a hard link, a copy where linking
+     fails), beside a review deck.json (the sigmoid theme, no build command, no notes deck), so no deck borrows the
+     deck.json the golden build writes into .cache. Client decks never enter the skill folder (ruling 23, CLAUDE.md
+     section 5): the inputs, the staging and the report all live in the library, and without the library the
+     characteriser says so and exits 0. Then it runs every implemented pptx gate in gates/registry.json
      over it, in-process, with the same Ctx the runner uses (a gate that crashes or cannot read its input is
      recorded with its exit code, never raised);
-  2. writes .cache/fp_report.json: per gate, per deck, the exit code, the FAIL / advisory / note counts, the slides
+  2. writes library/_work/characterise/fp_report.json (it quotes client text, so it stays in the library): per gate, per deck, the exit code, the FAIL / advisory / note counts, the slides
      hit, the share of slides hit, the seconds taken and every finding;
   3. lists a stratified sample of PER_GATE findings per gate for human review: FAIL findings first (advisories only
      when a gate has no FAIL), spread round-robin across the decks that have any, one slide never sampled twice for
@@ -46,19 +48,31 @@ sys.path.insert(0, str(SKILL / "kit"))
 
 from _shared import ADVISORY, FAIL, NOTE, Ctx, InputMissing, run_gate  # noqa: E402
 
-CACHE = SKILL / ".cache"
-DEFAULT_DECKS = [CACHE / ("%s.pptx" % d) for d in ("d01", "d15", "d18")]
-DEFAULT_OUT = CACHE / "fp_report.json"
-DEFAULT_RENDERS = Path.home() / "Codes" / "Decks-For-Visuals" / "library" / "renders"
+LIBRARY = Path(os.environ.get("DECK_LIBRARY", Path.home() / "Codes" / "Decks-For-Visuals" / "library"))
+WORK = LIBRARY / "_work"
+DEFAULT_DECKS = [WORK / "src" / ("%s.pptx" % d) for d in ("d01", "d15", "d18")]
+STAGE = WORK / "characterise"
+DEFAULT_OUT = STAGE / "fp_report.json"
+DEFAULT_RENDERS = LIBRARY / "renders"
 PER_GATE = 3
 SEED = 20261003
-STAGE = CACHE / "characterise"
 REVIEW_JSON = {"type": "review", "theme": str(SKILL / "themes" / "sigmoid.json"), "client": None, "spelling": "US",
                "overrides": {}, "budgets": {}, "series": [], "notes_deck": False}
 
 
+def inside_skill(p: Path) -> bool:
+    try:
+        Path(p).resolve().relative_to(SKILL.resolve())
+        return True
+    except ValueError:
+        return False
+
+
 def stage(path: Path) -> Path:
-    """The deck hard-linked (or copied) into its own folder beside a review deck.json; returns the staged path."""
+    """The deck hard-linked (or copied) into its own folder beside a review deck.json; returns the staged path. The
+    staging folder is in the library, never in the skill."""
+    if inside_skill(STAGE):
+        raise RuntimeError("the staging folder %s is inside the skill; client decks never stage there" % STAGE)
     d = STAGE / path.stem
     d.mkdir(parents=True, exist_ok=True)
     dst = d / path.name
@@ -179,13 +193,20 @@ def sample(report: dict, per_gate: int, seed: int, renders: Path) -> dict:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--decks", nargs="*", help="decks to characterise (default: the d01, d15, d18 copies in .cache)")
+    ap.add_argument("--decks", nargs="*", help="decks to characterise (default: the library's d01, d15, d18 copies)")
     ap.add_argument("--out", default=str(DEFAULT_OUT))
     ap.add_argument("--renders", default=str(DEFAULT_RENDERS), help="library renders root (dNN/sNNN.png)")
     ap.add_argument("--per-gate", type=int, default=PER_GATE)
     ap.add_argument("--seed", type=int, default=SEED)
     ap.add_argument("--only", default="", help="comma-separated gate ids")
     a = ap.parse_args(argv)
+    if not a.decks and not WORK.is_dir():
+        print("no reference library at %s (set DECK_LIBRARY); nothing to characterise. A characteriser: exit 0."
+              % LIBRARY)
+        return 0
+    if inside_skill(Path(a.out)):
+        print("refused: --out %s is inside the skill; the report quotes client text and stays in the library" % a.out)
+        return 0
     decks = [Path(p).resolve() for p in (a.decks or DEFAULT_DECKS)]
     gates = pptx_gates()
     if a.only:

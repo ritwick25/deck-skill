@@ -160,6 +160,8 @@ move(s, "slot.results.close", 10.87, 5.40, 1.94, 0.62)
 text(s, "slot.results.close", [P("Planning cycle time fell from five days to two", "on-accent", 11, True)], th,
      size=11, background="accent")
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL03", th, archetype="case-study", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

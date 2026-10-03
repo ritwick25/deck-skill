@@ -22,7 +22,7 @@ sys.path.insert(0, str(SKILL / "kit"))
 
 from deckkit import glyphs  # noqa: E402
 
-LUCIDE = Path("/Users/Nikunj/Codes/design-systems/design-system-aperture/node_modules/lucide-react")
+LUCIDE = Path("~/Codes/design-systems/design-system-aperture/node_modules/lucide-react").expanduser()
 
 # Consulting-deck vocabulary, grouped by what a slide talks about. Canonical Lucide names.
 CURATED = """

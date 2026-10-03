@@ -64,7 +64,7 @@ Budget 220 words normalized and 200 on the w10 canvas, advisory floor 80 and 190
 | left-accent | A gradient edge bar or short bars beside row labels mark no state on 2 top exemplars. | An accent bar only where it encodes a state that can change. | The bars go, and the icon tile or row header heads each row alone. |
 | word-budget | Principle cards, enabler strips and foot paragraphs push words past the budget on 2 top exemplars. | A per-archetype word budget under the ceiling of 250. | The device and its markers stay, and the support band moves to its own slide or the notes. |
 | shadow | Blurred shadows on principle cards on 1 top exemplar. | Hairlines with at most a 1 px shadow. | Cards take a hairline outline only. |
-| light-bg | A dark photo band under a navy overlay closes the slide on 1 top exemplar. | Light slide grounds. | The band becomes a light panel or is dropped under the foot band rule. |
+| light-bg | A dark photo band under a navy overlay closes the slide on 1 top exemplar. | Light slide ground. The photo goes and a surviving band is a solid near-black band with paper text. | The band keeps its weight, or is dropped under the foot band rule. Never a pale tint band in its place. |
 | other | Changes outside the named rules appear on 5 top exemplars, among them titles of up to 11 (5 to 30) words and a second introduced accent color. | The title is one claim of 14 words or fewer, and accents stay to the brand color plus neutrals. | Titles are cut to one line, and row headers use the brand color and one neutral. |
 
 ## Exemplars
@@ -90,7 +90,7 @@ None.
 dv22, dv25, dv27, dv32, dv43
 
 ## Provenance
-- Source: cards/src/a40.json sha256 99dce59b6797fcd74f8b00750d47da85d17148fdf8f47c97e812336a6238c441
+- Source: cards/src/a40.json sha256 940bc356508a18dbf7365020e2ef9a26a03cc019d66d6843b89362652ff66797
 - Measures: measures/a40.json sha256 d3a35717330adea4dd0605596945021ce5ce0014d6434072dc4375bab2b10b07
 - Final ranking: rankings/a40.final.json sha256 225c4ac38f1965c70e1f6e5c928fe30351be2516242a51ecdd0543ebbc69753c
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

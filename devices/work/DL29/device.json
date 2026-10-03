@@ -326,5 +326,14 @@
   "Accounts",
   "Forecasts",
   "Scenarios"
+ ],
+ "capacity_words": 64,
+ "archetype_floors": {
+  "hub-and-spoke": 90,
+  "layered-architecture": 250
+ },
+ "short_of_floor": [
+  "hub-and-spoke",
+  "layered-architecture"
  ]
 }

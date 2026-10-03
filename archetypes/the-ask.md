@@ -57,7 +57,7 @@ Word budget 210, the upper quartile of the top exemplars capped at 250. Content 
 | flat-fill | Multi-stop gradient edge and foot bars, on 1 top exemplar. | Removed rather than flattened | The freed foot returns to the commit band. |
 | glyphs | A dash after the title keyword, typed arrows and bullet characters, on 2 top exemplars. | A colon after the keyword, drawn arrows and plain indents | None on geometry. |
 | left-accent | A gradient left edge bar, colored top bars on every panel and a multicolour top stripe, on 2 top exemplars. | No accent bar, and the kicker carries phase identity | Title and cards start at the shared left margin and top margin. |
-| light-bg | A dark navy slide ground, on 1 top exemplar. | A white ground, panels in a hairline with a pale brand tint | None on geometry. |
+| light-bg | A dark navy slide ground, on 1 top exemplar. | A white ground. Panels that sat reversed on the navy ground become solid near-black or brand panels with text in the fill's ON_FILL role, or white cards with a hairline, never pale tint panels. | None on geometry. The ask takes its weight from one solid panel rather than from the ground. |
 | no-footer | Confidentiality lines, client wordmarks, page numbers and a foot strip, on 2 top exemplars. | No footer, page number, confidentiality line or foot strip | The commit band becomes the lowest element and sits on the bottom margin. |
 | no-subtitle | A lead sentence under the title, on 2 top exemplars. | Its claim folds into the title | The cards move up into the freed band. |
 | other | A client name in the top corner, on 1 top exemplar. | Removed, the audience is named by role only | None on geometry. |
@@ -80,7 +80,7 @@ None.
 dv08, dv24
 
 ## Provenance
-- Source: cards/src/a12.json sha256 6ef696ddf209b480b0295335c5193007decd5b639fce2df609055349c2016fb0
+- Source: cards/src/a12.json sha256 817087765e61e0f2d604361e31d48921708e4f9293ef7e1637c7ec83157835e4
 - Measures: measures/a12.json sha256 fd67b0eca5642dfa8c4a96dd718c1e5a6efd0cd9475c9934f093b456b663d7e2
 - Final ranking: rankings/a12.final.json sha256 27dea75a02f620d3f70f3b7645a94df729e1dafc4b38c24aad968fa529cd539a
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

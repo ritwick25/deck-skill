@@ -105,6 +105,13 @@ ZONE_FILLS = ("accent-tint", "accent-wash", "card")
 STRIP_ROLES = rules.STRIP_ROLES
 STAT_KINDS = {"measured": None, "delivered": None, "illustrative": "Illustrative", "target": "Target",
               "benchmark": "Benchmark"}
+
+
+def basis_label(kind: str) -> str | None:
+    """The one label a group of stats of this kind carries in place of a chip per stat ("Illustrative figures"),
+    or None for a kind that needs no basis (measured, delivered). Gate P23 matches the text exactly."""
+    chip = STAT_KINDS.get(kind)
+    return "%s figures" % chip if chip else None
 DASHES = ("dash", "sysDash", "sysDot", "lgDash", "dashDot")
 HEADS = (None, "none", "end", "start", "both")
 BAR_MAX_IN = rules.BAR_THIN  # a strip this thin (and longer than 0.18in and 2x its thickness) is a bar
@@ -759,8 +766,9 @@ def caps_label(slide, box: Box, text: str, *, role="ink-muted", pt=None, align="
 
 
 def stat_height(slide, w: float, value: str, label: str, *, kind: str, pt=None, label_pt=None, numerals=False,
-                theme=None) -> float:
-    """Inches a stat() of width w needs: the numeral, the rule, the label and the basis chip. Size before drawing."""
+                basis=True, theme=None) -> float:
+    """Inches a stat() of width w needs: the numeral, the rule, the label and (basis=True) the basis chip. Size before
+    drawing."""
     th = theme_of(theme)
     cv = canvas_for(slide)
     pt = cv.ramp["numeral"] if pt is None else pt
@@ -771,17 +779,20 @@ def stat_height(slide, w: float, value: str, label: str, *, kind: str, pt=None, 
         family = "%s %s" % (nf.get("face", "Montserrat"), nf.get("weight", "SemiBold"))
     vh = measure.line_in(pt, measure.face_for(family, not numerals)) * 1.02
     lh = _height(_label(label, label_pt, "ink-muted", what="stat label", bold=False), w, th)
-    chip = STAT_KINDS.get(kind)
+    chip = STAT_KINDS.get(kind) if basis else None
     ch = (measure.line_in(cv.ramp["small"], measure.face_for(_face(th))) + 0.08) if chip else 0.0
     return vh + 0.05 * cv.k + 0.06 * cv.k + lh + ((0.06 * cv.k + ch) if chip else 0.0)
 
 
 @ooxml.transactional
 def stat(slide, box: Box, value: str, label: str, *, kind: str, role="accent-ink", pt=None, label_pt=None,
-         numerals=False, background="paper", label_role="ink-muted", name: str, theme=None):
+         numerals=False, background="paper", label_role="ink-muted", basis=True, name: str, theme=None):
     """A stat: the numeral, a hairline, then the label under it (the hairline sits above the label, a data
     sheet reading, never a coloured left border). kind is required: measured, delivered, illustrative,
     target or benchmark; the last three carry a basis chip so a planning figure never reads as delivered.
+    basis=False draws no chip: the stat sits in a group that states its basis once (compose.stat_band draws one
+    "Illustrative figures" label for the band; gate P23 accepts that label on the slide in place of a chip per
+    stat). A chip under every figure is the "pill everything" tell; one basis label per group is the house reading.
 
     Returns a group named `name` (name.value, name.rule, name.label, name.basis); the group's alt text
     records the kind for gate P23. The whole stat is measured, and its value and label checked for contrast
@@ -811,7 +822,7 @@ def stat(slide, box: Box, value: str, label: str, *, kind: str, role="accent-ink
     lh = _height(lparas, box.w, th)
     txt.check_contrast("stat %s numeral" % name, vparas, th, background)
     txt.check_contrast("stat %s label" % name, lparas, th, background)
-    chip = STAT_KINDS[kind]
+    chip = STAT_KINDS[kind] if basis else None
     cpt = cv.ramp["small"]
     ch = (measure.line_in(cpt, measure.face_for(_face(th))) + 0.08) if chip else 0.0
     rule_y = box.y + vh + 0.05 * cv.k
@@ -905,4 +916,4 @@ def zone(slide, box: Box, *, fill="accent-tint", label=None, radius_in=None, nam
 
 __all__ = ["use", "bind", "theme_of", "canvas_for", "set_fill", "set_line", "check_pt", "rect", "card", "tab", "pill",
            "step_header", "disc", "person", "hairline", "stat", "quote", "caps_label", "connect", "elbow", "zone",
-           "ON_FILL", "STRIP_ROLES", "STAT_KINDS", "CHEVRON_DEPTH"]
+           "ON_FILL", "STRIP_ROLES", "STAT_KINDS", "CHEVRON_DEPTH", "basis_label", "stat_height"]

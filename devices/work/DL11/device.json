@@ -2,8 +2,7 @@
  "id": "DL11",
  "name": "Phase lane gantt with gated milestones",
  "archetypes": [
-  "gantt",
-  "phased-roadmap"
+  "gantt"
  ],
  "family": "Axis of time or maturity",
  "variant": "phase-lane-milestone-axis-stat-row",
@@ -317,5 +316,10 @@
   "Pilot extended",
   "Scale wave one",
   "Full rollout"
- ]
+ ],
+ "capacity_words": 128,
+ "archetype_floors": {
+  "gantt": 110
+ },
+ "short_of_floor": []
 }

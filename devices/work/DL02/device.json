@@ -305,5 +305,11 @@
   "One ledger, three entities and twelve weeks",
   "Decision supported",
   "Fund a twelve-week pilot on one ledger"
- ]
+ ],
+ "capacity_words": 163,
+ "archetype_floors": {
+  "deep-dive": 120,
+  "input-process-output": 100
+ },
+ "short_of_floor": []
 }

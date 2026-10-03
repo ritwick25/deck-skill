@@ -2,8 +2,7 @@
  "id": "DL23",
  "name": "Gated phase rail with loop",
  "archetypes": [
-  "phased-roadmap",
-  "lifecycle-loop"
+  "phased-roadmap"
  ],
  "family": "Axis of time or maturity",
  "variant": "gated-rail-phase-columns-loop",
@@ -473,7 +472,7 @@
   "One platform for every team",
   "Built once, reused by each team",
   "Adoption tied to the value case",
-  "Owned by the business after handover",
+  "Owned by the business",
   "Rollout by region over three waves",
   "Data source inventory",
   "Process maps for top flows",
@@ -498,5 +497,10 @@
   "Integrate",
   "Automate",
   "Diagnose"
- ]
+ ],
+ "capacity_words": 200,
+ "archetype_floors": {
+  "phased-roadmap": 130
+ },
+ "short_of_floor": []
 }

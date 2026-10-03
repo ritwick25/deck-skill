@@ -431,5 +431,14 @@
   "Access rules",
   "Data quality",
   "Cost tracking"
+ ],
+ "capacity_words": 120,
+ "archetype_floors": {
+  "convergence-hub": 140,
+  "solution-architecture": 140
+ },
+ "short_of_floor": [
+  "convergence-hub",
+  "solution-architecture"
  ]
 }

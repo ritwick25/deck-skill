@@ -1,0 +1,42 @@
+{
+ "slide": "d18-s025",
+ "device": "DL35",
+ "scale": 1.0,
+ "counts": {
+  "effects": 15,
+  "colours": 15,
+  "autofit": 11,
+  "runs": 11
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    7.2,
+    0.54,
+    0.865,
+    0.46
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    5.73,
+    0.5,
+    1.18,
+    0.52
+   ],
+   "kind": "illustration"
+  }
+ ],
+ "colour_map": {
+  "002F6C->accent-ink": 4,
+  "0057B8->accent": 2,
+  "0057B8->accent-ink": 2,
+  "5A6B7E->ink": 2,
+  "FFFFFF->paper": 1,
+  "1A1A1A->ink-deep": 1,
+  "323F4F->ink-deep": 1,
+  "FFFFFF->on-accent": 1,
+  "6FC7F0->accent": 1
+ }
+}

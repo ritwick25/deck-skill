@@ -151,6 +151,8 @@ for i, (card, num, lab, n, words) in enumerate(STATS, 1):
     text(s, "slot.stat.%d.label" % i, [P((R(words, "paper" if target else "ink", size=10.5),), align="center")],
          th, size=10.5, anchor="top", background=bg)
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL11", th, archetype="gantt", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

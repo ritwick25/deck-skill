@@ -1,9 +1,10 @@
 """P10 density: every content slide argues with a device; no unearned tile grid; no accent bar; few caps kickers.
 
   * a content slide (any family but Frame, or an untagged slide over 20 words) carries at least one icon
-    (the read layer's icon units: pictures, icon-sized vector groups, lone vector glyphs) or at least two
-    connectors: headed arrows, plus undirected connectors that link two distinct tiles (both ends land on drawn
-    shapes, deckkit.read.connect's touch), which is how a node-and-edge graph argues;
+    (the read layer's icon units: pictures, icon-sized vector groups, lone vector glyphs), or a native chart (a
+    graphicFrame whose graphicData uri is a chart or chartex part: the chart is the slide's device), or at least
+    two connectors: headed arrows, plus undirected connectors that link two distinct tiles (both ends land on
+    drawn shapes, deckkit.read.connect's touch), which is how a node-and-edge graph argues;
   * more than six identical tiles needs six icons or six connectors (the same count) to earn it;
   * the left or top accent bar, judged by colour on any deck (deckkit.rules.is_accent_strip by='colour'):
       - a filled strip (deckkit.rules.is_strip: at most 0.10in thick, longer than 0.18in and 2x its thickness,
@@ -37,6 +38,18 @@ LINE_SPAN = 1.5         # a line longer than this many times the block's height 
 AXIS_EPS = 0.02         # a line whose box is this thin across is vertical or horizontal
 PT_IN = 1.0 / 72.0
 TILE_MIN_AREA = 0.04  # sq in: a link joins boxes, not a chart's 0.14in dots
+CHART_URIS = ("http://schemas.openxmlformats.org/drawingml/2006/chart",
+              "http://schemas.microsoft.com/office/drawing/2014/chartex")
+
+
+def _charts(root) -> int:
+    """Native charts on the slide: graphicFrames (in groups too) whose graphicData names a chart or chartex part."""
+    n = 0
+    for gf in root.iter("{*}graphicFrame"):
+        gd = gf.find(".//{*}graphicData")
+        if gd is not None and (gd.get("uri") or "").rstrip("/") in CHART_URIS:
+            n += 1
+    return n
 
 
 def _headed(L) -> bool:
@@ -207,9 +220,9 @@ def run(deck, ctx):
         content = fam is not None and fam != "Frame" if ctx.tags()[i - 1]["archetype"] else \
             s["text"]["words_content"] > 20
         icons, arrows = len(s["icons"]), _arrows(shapes) + _links(shapes)
-        if content and icons < 1 and arrows < 2:
-            out.append(Finding(GATE, FAIL, i, "", "no icon and fewer than two arrows or links: nothing drawn argues "
-                                                  "the slide"))
+        if content and icons < 1 and arrows < 2 and not _charts(ctx.slide_root(i)):
+            out.append(Finding(GATE, FAIL, i, "", "no icon, no chart and fewer than two arrows or links: nothing "
+                                                  "drawn argues the slide"))
         sizes = Counter((round(L["bbox"]["w_in"], 2), round(L["bbox"]["h_in"], 2)) for L in shapes
                         if L["kind"] == "sp" and L["bbox"]["w_in"] > 0.7 * ctx.k and L["bbox"]["h_in"] > 0.35 * ctx.k
                         and not L.get("line_like"))

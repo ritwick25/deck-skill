@@ -50,7 +50,7 @@
    "kind": "text",
    "role": "frequency",
    "max_words": 3,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.forum.1.row.1.label",
@@ -111,7 +111,7 @@
    "kind": "text",
    "role": "frequency",
    "max_words": 3,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.forum.2.row.1.label",
@@ -172,7 +172,7 @@
    "kind": "text",
    "role": "frequency",
    "max_words": 3,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.forum.3.row.1.label",
@@ -233,7 +233,7 @@
    "kind": "text",
    "role": "frequency",
    "max_words": 3,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.forum.4.row.1.label",
@@ -459,5 +459,10 @@
   "Quorum needs both parties present",
   "One shared risk and action log",
   "Workstream lead"
- ]
+ ],
+ "capacity_words": 155,
+ "archetype_floors": {
+  "governance-model": 120
+ },
+ "short_of_floor": []
 }

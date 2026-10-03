@@ -1,39 +1,282 @@
-{"id": "DL12", "name": "Role hub, workflow and escalation", "archetypes": ["governance-model"], "family": "Stacked layers", "variant": "role-hub-workflow-escalation", "mechanism": "Three panels read left to right, from who holds which role around a central office, through the gated stages that roll up into forums with their cadence, to the severity ladder that routes an issue to the forum that decides it and how fast.", "canvas": "wide",
+{
+ "id": "DL12",
+ "name": "Role hub, workflow and escalation",
+ "archetypes": [
+  "governance-model"
+ ],
+ "family": "Stacked layers",
+ "variant": "role-hub-workflow-escalation",
+ "mechanism": "Three panels read left to right, from who holds which role around a central office, through the gated stages that roll up into forums with their cadence, to the severity ladder that routes an issue to the forum that decides it and how fast.",
+ "canvas": "wide",
  "source": "d01-s094",
  "slots": [
-  {"name": "slot.title", "kind": "title", "max_words": 14},
-  {"name": "slot.column.1.head", "kind": "text", "role": "panel header", "max_words": 4, "background": "accent"},
-  {"name": "slot.column.2.head", "kind": "text", "role": "panel header", "max_words": 4, "background": "accent"},
-  {"name": "slot.column.3.head", "kind": "text", "role": "panel header", "max_words": 3, "background": "accent"},
-  {"name": "slot.hub.core.icon", "kind": "glyph", "role": "central office glyph", "max_words": 0, "background": "accent"},
-  {"name": "slot.hub.core.text", "kind": "text", "role": "central office, name then remit", "max_words": 7, "background": "accent"},
-  {"name": "slot.hub.node.1.icon", "kind": "glyph", "role": "role glyph", "max_words": 0, "background": "accent-tint"},
-  {"name": "slot.hub.node.1.text", "kind": "text", "role": "role name then duty", "max_words": 7},
-  {"name": "slot.hub.node.2.icon", "kind": "glyph", "role": "role glyph", "max_words": 0, "background": "accent-tint"},
-  {"name": "slot.hub.node.2.text", "kind": "text", "role": "role name then duty", "max_words": 5},
-  {"name": "slot.hub.node.3.icon", "kind": "glyph", "role": "role glyph", "max_words": 0, "background": "accent-tint"},
-  {"name": "slot.hub.node.3.text", "kind": "text", "role": "role name then duty", "max_words": 7},
-  {"name": "slot.hub.node.4.icon", "kind": "glyph", "role": "role glyph", "max_words": 0, "background": "accent-tint"},
-  {"name": "slot.hub.node.4.text", "kind": "text", "role": "role name then duty", "max_words": 5},
-  {"name": "slot.stage.1.icon", "kind": "glyph", "role": "stage glyph", "max_words": 0, "background": "accent-tint"},
-  {"name": "slot.stage.1.text", "kind": "text", "role": "stage then owner", "max_words": 3, "background": "accent-tint"},
-  {"name": "slot.stage.2.icon", "kind": "glyph", "role": "stage glyph", "max_words": 0, "background": "accent-tint"},
-  {"name": "slot.stage.2.text", "kind": "text", "role": "stage then owner", "max_words": 3, "background": "accent-tint"},
-  {"name": "slot.stage.3.icon", "kind": "glyph", "role": "stage glyph", "max_words": 0, "background": "accent-tint"},
-  {"name": "slot.stage.3.text", "kind": "text", "role": "stage then owner", "max_words": 3, "background": "accent-tint"},
-  {"name": "slot.stage.4.icon", "kind": "glyph", "role": "stage glyph", "max_words": 0, "background": "accent-tint"},
-  {"name": "slot.stage.4.text", "kind": "text", "role": "stage then owner", "max_words": 3, "background": "accent-tint"},
-  {"name": "slot.forum.1.head", "kind": "text", "role": "forum name", "max_words": 2, "background": "accent"},
-  {"name": "slot.forum.1.body", "kind": "text", "role": "cadence then decision right", "max_words": 6, "background": "card"},
-  {"name": "slot.forum.2.head", "kind": "text", "role": "forum name", "max_words": 2, "background": "accent"},
-  {"name": "slot.forum.2.body", "kind": "text", "role": "cadence then decision right", "max_words": 6, "background": "card"},
-  {"name": "slot.forum.3.head", "kind": "text", "role": "forum name", "max_words": 2, "background": "accent"},
-  {"name": "slot.forum.3.body", "kind": "text", "role": "cadence then decision right", "max_words": 6, "background": "card"},
-  {"name": "slot.card.1.icon", "kind": "glyph", "role": "severity mark", "max_words": 0, "background": "ink-strong"},
-  {"name": "slot.card.1.text", "kind": "text", "role": "trigger then who decides and how fast", "max_words": 12, "background": "accent-wash"},
-  {"name": "slot.card.2.icon", "kind": "glyph", "role": "severity mark", "max_words": 0, "background": "accent"},
-  {"name": "slot.card.2.text", "kind": "text", "role": "trigger then who decides and how fast", "max_words": 12, "background": "accent-tint"},
-  {"name": "slot.card.3.icon", "kind": "glyph", "role": "severity mark", "max_words": 0, "background": "accent-deep"},
-  {"name": "slot.card.3.text", "kind": "text", "role": "trigger then who decides and how fast", "max_words": 12, "background": "accent-wash"}
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.column.1.head",
+   "kind": "text",
+   "role": "panel header",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.column.2.head",
+   "kind": "text",
+   "role": "panel header",
+   "max_words": 4,
+   "background": "accent"
+  },
+  {
+   "name": "slot.column.3.head",
+   "kind": "text",
+   "role": "panel header",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.hub.core.icon",
+   "kind": "glyph",
+   "role": "central office glyph",
+   "max_words": 0,
+   "background": "accent"
+  },
+  {
+   "name": "slot.hub.core.text",
+   "kind": "text",
+   "role": "central office, name then remit",
+   "max_words": 7,
+   "background": "accent"
+  },
+  {
+   "name": "slot.hub.node.1.icon",
+   "kind": "glyph",
+   "role": "role glyph",
+   "max_words": 0,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.hub.node.1.text",
+   "kind": "text",
+   "role": "role name then duty",
+   "max_words": 7
+  },
+  {
+   "name": "slot.hub.node.2.icon",
+   "kind": "glyph",
+   "role": "role glyph",
+   "max_words": 0,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.hub.node.2.text",
+   "kind": "text",
+   "role": "role name then duty",
+   "max_words": 5
+  },
+  {
+   "name": "slot.hub.node.3.icon",
+   "kind": "glyph",
+   "role": "role glyph",
+   "max_words": 0,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.hub.node.3.text",
+   "kind": "text",
+   "role": "role name then duty",
+   "max_words": 7
+  },
+  {
+   "name": "slot.hub.node.4.icon",
+   "kind": "glyph",
+   "role": "role glyph",
+   "max_words": 0,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.hub.node.4.text",
+   "kind": "text",
+   "role": "role name then duty",
+   "max_words": 5
+  },
+  {
+   "name": "slot.stage.1.icon",
+   "kind": "glyph",
+   "role": "stage glyph",
+   "max_words": 0,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.stage.1.text",
+   "kind": "text",
+   "role": "stage then owner",
+   "max_words": 3,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.stage.2.icon",
+   "kind": "glyph",
+   "role": "stage glyph",
+   "max_words": 0,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.stage.2.text",
+   "kind": "text",
+   "role": "stage then owner",
+   "max_words": 3,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.stage.3.icon",
+   "kind": "glyph",
+   "role": "stage glyph",
+   "max_words": 0,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.stage.3.text",
+   "kind": "text",
+   "role": "stage then owner",
+   "max_words": 3,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.stage.4.icon",
+   "kind": "glyph",
+   "role": "stage glyph",
+   "max_words": 0,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.stage.4.text",
+   "kind": "text",
+   "role": "stage then owner",
+   "max_words": 3,
+   "background": "accent-tint"
+  },
+  {
+   "name": "slot.forum.1.head",
+   "kind": "text",
+   "role": "forum name",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.forum.1.body",
+   "kind": "text",
+   "role": "cadence then decision right",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.forum.2.head",
+   "kind": "text",
+   "role": "forum name",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.forum.2.body",
+   "kind": "text",
+   "role": "cadence then decision right",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.forum.3.head",
+   "kind": "text",
+   "role": "forum name",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.forum.3.body",
+   "kind": "text",
+   "role": "cadence then decision right",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.1.icon",
+   "kind": "glyph",
+   "role": "severity mark",
+   "max_words": 0,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.card.1.text",
+   "kind": "text",
+   "role": "trigger then who decides and how fast",
+   "max_words": 12,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.2.icon",
+   "kind": "glyph",
+   "role": "severity mark",
+   "max_words": 0,
+   "background": "accent"
+  },
+  {
+   "name": "slot.card.2.text",
+   "kind": "text",
+   "role": "trigger then who decides and how fast",
+   "max_words": 12,
+   "background": "card"
+  },
+  {
+   "name": "slot.card.3.icon",
+   "kind": "glyph",
+   "role": "severity mark",
+   "max_words": 0,
+   "background": "accent-deep"
+  },
+  {
+   "name": "slot.card.3.text",
+   "kind": "text",
+   "role": "trigger then who decides and how fast",
+   "max_words": 12,
+   "background": "card"
+  }
  ],
- "samples": ["Three governance layers settle every delivery decision within ten days", "Operating model", "Decision workflow", "Escalation guardrails", "Program office", "Runs the weekly steering", "Product owner", "Sets scope and priorities", "Analytics lead", "Owns the baselines", "Risk partner", "Reviews controls each month", "Squad leads", "Ship each sprint", "Scoping", "Release", "Squad review", "Steering forum", "Executive board", "Clears blockers within five days", "Approves budget shifts", "Quarterly", "Sets direction and funding", "Within tolerance", "Squads decide and record it in the sprint log", "Date or budget at risk", "Steering decides in five days", "Scope or control breach", "Board decides in ten days"]}
+ "samples": [
+  "Three governance layers settle every delivery decision within ten days",
+  "Operating model",
+  "Decision workflow",
+  "Escalation guardrails",
+  "Program office",
+  "Runs the weekly steering",
+  "Product owner",
+  "Sets scope and priorities",
+  "Analytics lead",
+  "Owns the baselines",
+  "Risk partner",
+  "Reviews controls each month",
+  "Squad leads",
+  "Ship each sprint",
+  "Scoping",
+  "Release",
+  "Squad review",
+  "Steering forum",
+  "Executive board",
+  "Clears blockers within five days",
+  "Approves budget shifts",
+  "Quarterly",
+  "Sets direction and funding",
+  "Within tolerance",
+  "Squads decide and record it in the sprint log",
+  "Date or budget at risk",
+  "Steering decides in five days",
+  "Scope or control breach",
+  "Board decides in ten days"
+ ],
+ "capacity_words": 128,
+ "archetype_floors": {
+  "governance-model": 120
+ },
+ "short_of_floor": []
+}

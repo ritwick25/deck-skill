@@ -67,7 +67,7 @@ Budget 220 words normalized and 220 on the w10 canvas, advisory floor 150 and 21
 | word-budget | Curve callouts, bar labels and strip text run past the budget on 3 top exemplars. | A per-archetype word budget under the ceiling of 250. | One value encoding stays, curve callouts or the bar row, and callouts drop to one line each. |
 | 8pt-floor | Item rows inside the phase cards run below the floor on 1 top exemplar. | Every run at 8 pt or above. | Cards keep item names only and descriptions move to the notes. |
 | first-person | The title and a step heading speak as we or our on 1 top exemplar. | No first or second person. | The title becomes one third-person claim about the climb. |
-| light-bg | A photo under a dark overlay carries the enabler rail on 1 top exemplar. | Light slide grounds. | The side rail becomes a light tint panel with dark ink. |
+| light-bg | A photo under a dark overlay carries the enabler rail on 1 top exemplar. | Light slide ground. The photo goes and the enabler rail stays a solid near-black panel with paper text. | The rail keeps its width and its weight as a flat fill. |
 | other | Changes outside the named rules appear on 5 top exemplars, among them two-line titles of up to 22 (6 to 22) words and placeholder figures. | The title is one claim of 14 words or fewer with at most 3 brand keywords. | The title shrinks to one line, which lifts the horizon header and gives the climb more height. |
 
 ## Exemplars
@@ -92,7 +92,7 @@ None.
 dv07, dv25, dv26, dv27, dv39, dv44
 
 ## Provenance
-- Source: cards/src/a39.json sha256 2ff0646bac1daac307a7ee0b8fe193e096e4694517037fc509b8c114d02045d2
+- Source: cards/src/a39.json sha256 c806a2f31a9f49f2bda96eb8d135077dd44083781a24be9cc70fb0aa6b7e5219
 - Measures: measures/a39.json sha256 63b7cee1ddfc81651dc31085abca2f10ab08ad2eef441b2e7520b823d92702bd
 - Final ranking: rankings/a39.final.json sha256 74cd80532103b0129c3bc8047cb923d25234b7bef1bea7cc1b66489c099ade7f
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

@@ -1,0 +1,582 @@
+{
+ "id": "DL42",
+ "name": "Numbered reason mosaic over platform strip",
+ "archetypes": [
+  "why-us"
+ ],
+ "family": "Parallel columns",
+ "variant": "reason-mosaic-platform-strip",
+ "mechanism": "Five numbered reason panels of unequal shape (two stacked proof lists, a proof list, a four-practice grid and a run list) argue why to choose the vendor, a dark controls band under the middle panels backs every reason, and a foot strip of eighteen platform mark slots in two labelled groups, each filled with a vendor: key, names the platforms the team builds on.",
+ "canvas": "wide",
+ "source": "d04-s006",
+ "slots": [
+  {
+   "name": "slot.reason.1.head",
+   "kind": "text",
+   "role": "reason",
+   "max_words": 5,
+   "background": "accent"
+  },
+  {
+   "name": "slot.reason.3.head",
+   "kind": "text",
+   "role": "reason",
+   "max_words": 5,
+   "background": "accent"
+  },
+  {
+   "name": "slot.controls.head",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 5,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.reason.2.head",
+   "kind": "text",
+   "role": "reason",
+   "max_words": 5,
+   "background": "accent"
+  },
+  {
+   "name": "slot.reason.5.row.1",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.5.row.2",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.5.row.3",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.5.row.4",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.1.head",
+   "kind": "text",
+   "role": "column-heading",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.2.head",
+   "kind": "text",
+   "role": "column-heading",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.3.head",
+   "kind": "text",
+   "role": "column-heading",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.4.head",
+   "kind": "text",
+   "role": "column-heading",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.1.cell.1",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.2.cell.1",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.3.cell.1",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.4.cell.1",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.1.cell.2",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.2.cell.2",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.3.cell.2",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.4.cell.2",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.1.cell.3",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.2.cell.3",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.3.cell.3",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.practice.4.cell.3",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.2.row.1",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.2.row.2",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.2.row.3",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.2.row.4",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.platforms.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.reason.4.row.1",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.4.row.2",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.4.row.3",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.4.row.4",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.4.row.5",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.platforms.group.1",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.platforms.group.2",
+   "kind": "text",
+   "role": "group-label",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.1.row.2",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.1.row.3",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.5.head",
+   "kind": "text",
+   "role": "reason",
+   "max_words": 5,
+   "background": "accent"
+  },
+  {
+   "name": "slot.reason.4.head",
+   "kind": "text",
+   "role": "reason",
+   "max_words": 5,
+   "background": "accent"
+  },
+  {
+   "name": "slot.reason.1.row.1",
+   "kind": "text",
+   "role": "proof",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.controls.1",
+   "kind": "text",
+   "role": "enabler",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.controls.2",
+   "kind": "text",
+   "role": "enabler",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.controls.3",
+   "kind": "text",
+   "role": "enabler",
+   "max_words": 7,
+   "background": "paper"
+  },
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.reason.1.row.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.1.row.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.1.row.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.5.row.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.5.row.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.5.row.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.5.row.4.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.2.row.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.2.row.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.2.row.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.2.row.4.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.4.row.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.4.row.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.4.row.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.4.row.4.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.reason.4.row.5.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.controls.1.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.controls.2.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.controls.3.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.platforms.mark.1",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.2",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.3",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.4",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.5",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.6",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.7",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.8",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.9",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.10",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.11",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.12",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.13",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.14",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.15",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.16",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.17",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  },
+  {
+   "name": "slot.platforms.mark.18",
+   "kind": "glyph",
+   "background": "card",
+   "alt": "platform the team builds on; takes a vendor: mark key"
+  }
+ ],
+ "samples": [
+  "01  Advice that ships",
+  "03  Engineering across four practices",
+  "Controls built into every engagement",
+  "02  Models in use",
+  "Data vision tied to budget",
+  "Revenue cases for data",
+  "One data and tech roadmap",
+  "Owners and policy set early",
+  "Pipelines",
+  "Models",
+  "Cloud",
+  "Reporting",
+  "Legacy loads migrated",
+  "Models moved to production",
+  "Data stores moved",
+  "Lakes with named owners",
+  "Jobs tuned for cost",
+  "Shared feature stores",
+  "Apps rebuilt as services",
+  "Data products with targets",
+  "Batch and stream ingest",
+  "Retraining on a schedule",
+  "Spend tracked and cut",
+  "Dashboards teams open daily",
+  "Supply forecasts planners act on",
+  "Marketing mix read every quarter",
+  "Operations alerts ahead of failure",
+  "Online sales models tuned weekly",
+  "Platforms the team builds on",
+  "Data labs for fast trials",
+  "Cloud estate run around the clock",
+  "Release and security operations",
+  "Pipeline health watched daily",
+  "Data apps kept on support",
+  "Cloud and warehouse",
+  "Engineering and analytics",
+  "Roadmaps ranked by value and effort",
+  "Process fixes landed in weeks",
+  "05  Strategy that pays",
+  "04  One run team",
+  "Process maps tied to a build plan",
+  "Catalog and lineage from day one",
+  "One trusted record per customer",
+  "Quality and security checks on every load",
+  "Five reasons data leaders keep one partner from strategy to daily run"
+ ],
+ "capacity_words": 240,
+ "archetype_floors": {
+  "why-us": 160
+ },
+ "short_of_floor": []
+}

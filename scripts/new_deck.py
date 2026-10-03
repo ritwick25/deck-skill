@@ -2,8 +2,10 @@
 
     $PY scripts/new_deck.py FOLDER --name "Deck name" [--theme sigmoid|neutral|path/to/theme.json] [--client NAME]
 
-build.py starts as a copy of scripts/example_build.py pointed at the skill's kit, writing FOLDER/<name>.pptx;
-replace its two slide functions with the storyline's slides. --theme takes a house theme name or a client
+build.py starts as a copy of scripts/template_build.py pointed at the skill's kit, writing FOLDER/<name>.pptx: three
+slides in the epic layer (a composed executive summary with a near-black stat band, an engine-drawn L0 architecture,
+the decision-cards device), every visible word in its COPY block as a {{placeholder}} that gate P19 refuses until it
+is replaced. Replace the slides with the storyline's own. --theme takes a house theme name or a client
 theme.json from scripts/brand.py; the theme must load, and a client theme's brand block (client, logo) is recorded
 in deck.json. CLAUDE.md tells a later session in this folder to load /deck before any change, how to build, gate
 and render, and which theme is in use, so the skill governs every iteration (ruling 23).
@@ -15,6 +17,7 @@ manifest are written only by build.py, never by hand.
 from __future__ import annotations
 
 import argparse
+import datetime as _dt
 import json
 import re
 import sys
@@ -38,6 +41,29 @@ def load_theme(path: Path) -> dict:
     from deckkit.theme import Theme
     Theme.load(path)
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+TEMPLATE = SKILL / "scripts" / "template_build.py"
+
+
+def scaffold(name: str, out: Path, theme: Path, date: str | None = None) -> str:
+    """build.py: scripts/template_build.py pointed at the installed skill, with the deck's name, deliverable, theme
+    and today's date (the package date that keeps rebuilds byte-identical) written in."""
+    src = TEMPLATE.read_text(encoding="utf-8")
+    date = date or _dt.date.today().isoformat()
+    swaps = [
+        ('SKILL = Path(__file__).resolve().parent.parent', 'SKILL = Path("~/.claude/skills/deck").expanduser()'),
+        ('DECK_TITLE = "__NAME__"', "DECK_TITLE = %r" % name),
+        ('DATE = "2026-10-04"', 'DATE = "%s"' % date),
+        ('default=str(SKILL / ".cache" / "template" / "template.pptx")', "default=%r" % str(out)),
+        ('default=str(SKILL / "themes" / "sigmoid.json")', "default=%r" % str(theme)),
+        ("__NAME__", name.replace("\\", "").replace('"""', "")), ("__OUT__", out.name), ("__THEME__", str(theme)),
+    ]
+    for old, new in swaps:
+        if old not in src:
+            raise SystemExit("template_build.py has no %r: the scaffold and the template disagree" % old)
+        src = src.replace(old, new)
+    return src
 
 
 def claude_md(name: str, out: Path, theme: Path, data: dict) -> str:
@@ -91,13 +117,7 @@ def main() -> int:
     client = a.client or (data.get("brand") or {}).get("client")
     stem = re.sub(r"[^\w .-]", "", a.name).strip() or "deck"
     out = folder / (stem + ".pptx")
-    src = (SKILL / "scripts" / "example_build.py").read_text()
-    src = src.replace('SKILL = Path(__file__).resolve().parent.parent',
-                      'SKILL = Path("~/.claude/skills/deck").expanduser()')
-    src = src.replace('default=str(SKILL / ".cache" / "example" / "example.pptx")', 'default=%r' % str(out))
-    src = src.replace('default=str(SKILL / "themes" / "sigmoid.json")', 'default=%r' % str(theme))
-    src = src.replace('title="Example deck"', 'title=%r' % a.name)
-    (folder / "build.py").write_text(src)
+    (folder / "build.py").write_text(scaffold(a.name, out, theme))
     (folder / "deck.json").write_text(json.dumps({
         "type": "deck", "canvas": "wide", "theme": str(theme), "client": client, "spelling": "US", "overrides": {},
         "budgets": {}, "series": [], "deliverable": out.name,

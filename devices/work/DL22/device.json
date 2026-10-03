@@ -344,5 +344,10 @@
   "Analysts trained for each level",
   "Foundations",
   "for every level"
- ]
+ ],
+ "capacity_words": 165,
+ "archetype_floors": {
+  "maturity-model": 80
+ },
+ "short_of_floor": []
 }

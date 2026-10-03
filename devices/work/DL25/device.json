@@ -745,5 +745,13 @@
   "Change notes",
   "Plan view",
   "Flag queue"
+ ],
+ "capacity_words": 198,
+ "archetype_floors": {
+  "input-process-output": 100,
+  "process-flow": 210
+ },
+ "short_of_floor": [
+  "process-flow"
  ]
 }

@@ -1,0 +1,25 @@
+{
+ "slide": "d16-s003",
+ "device": "DL33",
+ "scale": 1.3333,
+ "counts": {
+  "gradients": 4,
+  "effects": 1,
+  "colours": 59,
+  "autofit": 5,
+  "runs": 20,
+  "scaled": 1.3333
+ },
+ "pictures_removed": [],
+ "colour_map": {
+  "7F7F7F->ink-muted": 32,
+  "FFFFFF->on-accent": 8,
+  "595959->ink": 6,
+  "FFFFFF->hairline": 4,
+  "F2F2F2->card": 3,
+  "000000->ink-deep": 2,
+  "2B00BD->accent-ink": 2,
+  "FFFFFF->paper": 1,
+  "0C5ADB->accent": 1
+ }
+}

@@ -171,8 +171,20 @@ def insets_of(shape):
 
 def place(prs, device_id: str, fill: dict, *, theme, keywords=(), archetype: str | None = None,
           variant: str | None = None):
-    """A new slide carrying device `device_id` with its slots filled from `fill` {slot name: value}."""
+    """A new slide carrying device `device_id` with its slots filled from `fill` {slot name: value}.
+
+    archetype= names the archetype the slide serves; it is required when the device serves more than one (the tag
+    decides which budget, variety, fill and architecture rules judge the slide), and optional otherwise. variant=
+    overrides the variant slug, for a declared series. A filled title slot is set in the kit's title geometry
+    (canvas.title_box, title_pt, one line, two-tone keywords), so titles never jump between placed and composed
+    slides; it is narrowed only to clear a device mark beside it (a legend at the top right)."""
     e = _entry(device_id)
+    if archetype is None and len(e.get("archetypes") or []) > 1:
+        raise GeometryError("device %s archetype" % device_id, need="archetype= one of " + " / ".join(e["archetypes"]),
+                            have="none",
+                            hint="the device serves %d archetypes; the tag decides which budget, variety, fill and "
+                                 "architecture rules judge the slide, so name the one this slide is"
+                                 % len(e["archetypes"]))
     lib = Presentation(str(PPTX))
     src = lib.slides[e["index"] - 1]
     s = prs.slides.add_slide(prs.slide_layouts[0])
@@ -231,16 +243,60 @@ def place(prs, device_id: str, fill: dict, *, theme, keywords=(), archetype: str
     return s
 
 
+def _title_box(s, shape, canvas) -> Box:
+    """The kit's title box for a device slide, narrowed to stop 0.20in short of any device shape beside it (a shape
+    that overlaps the title band, starts right of its first inch and does not cover the whole box, like a page ground)."""
+    from .geom import abs_box
+    tb = canvas.title_box
+    right = tb.r
+    for sh in _walk(s.shapes):
+        if sh.shape_id == shape.shape_id or sh.shape_type == 6:
+            continue
+        b = abs_box(sh)
+        if b.w <= 0 or b.h <= 0:
+            continue
+        covers = b.x <= tb.x and b.y <= tb.y and b.x + b.w >= tb.r and b.y + b.h >= tb.b
+        if covers or b.y >= tb.b + 0.05 or b.y + b.h <= tb.y or b.x < tb.x + 1.0:
+            continue
+        right = min(right, b.x - 0.20)
+    return Box(tb.x, tb.y, right - tb.x, tb.h)
+
+
+def _fill_title(s, shape, value, theme, device_id, name, keywords):
+    """Set the title slot as text.title() sets a composed slide's title: the canvas title box, title_pt, the theme's
+    major face, two-tone keywords, one line (canvas.title_max_lines). Raises Overflows when it wraps."""
+    from . import measure
+    from .canvas import EMU_PER_IN, canvas_of
+    from .errors import OverBudget, Overflows
+    from .read.textmetrics import words
+    cv = canvas_of(s.part.package.presentation_part.presentation)
+    text_, kws = value if isinstance(value, tuple) else (value, keywords)
+    text_ = str(text_ or "")
+    if words(text_) > txt.TITLE_MAX_WORDS:
+        raise OverBudget("device %s slot %s" % (device_id, name), need=words(text_), have=txt.TITLE_MAX_WORDS,
+                         hint="an action title is one claim; cut %d words" % (words(text_) - txt.TITLE_MAX_WORDS))
+    box = _title_box(s, shape, cv)
+    paras = [txt.Para(txt.title_runs(text_, kws))]
+    major = txt._default_face(theme, "major")
+    prepped = txt._prepare(paras, theme, cv.title_pt, major)
+    fit = measure.fits([prepped[0][2]], (box.w, 1e9))
+    if fit.n_lines > cv.title_max_lines or fit.need_in > box.h + 1e-9:
+        raise Overflows("device %s slot %s" % (device_id, name), need=fit.n_lines, have=cv.title_max_lines,
+                        unit="lines", hint="the %s title holds %d line at %gpt in %.2fin; cut words" % (
+                            cv.name, cv.title_max_lines, cv.title_pt, box.w))
+    shape.left, shape.top = int(round(box.x * EMU_PER_IN)), int(round(box.y * EMU_PER_IN))
+    shape.width, shape.height = int(round(box.w * EMU_PER_IN)), int(round(box.h * EMU_PER_IN))
+    txt.write(shape.text_frame, paras, theme, measure.ZERO, size=cv.title_pt, face=major, anchor="top",
+              background=_backdrop(s, shape, theme))
+
+
 def _fill_text(s, shape, value, spec, theme, device_id, name, keywords=()):
+        if spec.get("kind") == "title":
+            return _fill_title(s, shape, value, theme, device_id, name, keywords)
         styles = _para_styles(shape, theme)
         size = styles[0][0]
-        if spec.get("kind") == "title":
-            styles = [(st[0], st[1], st[2], "left", st[4]) for st in styles]
         bg = spec.get("background") if spec.get("background") in ROLES_OK else _backdrop(s, shape, theme)
-        if spec.get("kind") == "title":
-            text_, kws = value if isinstance(value, tuple) else (value, keywords)
-            paras = [txt.Para(txt.title_runs(text_, kws))]
-        elif isinstance(value, str) or (value and isinstance(value[0], str)):
+        if isinstance(value, str) or (value and isinstance(value[0], str)):
             vals = [value] if isinstance(value, str) else list(value)
             paras = []
             for i, v in enumerate(vals):

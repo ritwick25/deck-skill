@@ -201,13 +201,13 @@ OUTS = [("dev.24", "circle-check", "Lines 1 to 3 posted", "$28,420 paid on day 3
 for i, (n, g, hd, v) in enumerate(OUTS, 1):
     y = 1.90 + (i - 1) * 0.71
     rename(s, n, "slot.outcome.%d" % i)
-    move(s, "slot.outcome.%d" % i, 11.00, y, 2.00, 0.60)
+    move(s, "slot.outcome.%d" % i, 10.97, y, 1.85, 0.60)
     text(s, "slot.outcome.%d" % i, [P(hd, "ink-deep", 10, True, align="left"),
                                     P(v, "ink", 10, before=1, align="left")], th, size=10, anchor="middle")
-    icon(s, "slot.outcome.%d.icon" % i, g, 10.628, y + 0.17, 0.26, th, role="accent")
+    icon(s, "slot.outcome.%d.icon" % i, g, 10.630, y + 0.17, 0.26, th, role="accent")
 for k, n in enumerate(("dev.29", "dev.30", "dev.31", "dev.32"), 1):
     rename(s, n, "struct.outcome.rule.%d" % k)
-    move(s, "struct.outcome.rule.%d" % k, 10.75, 1.90 + k * 0.71 - 0.055, 2.14, 0)
+    move(s, "struct.outcome.rule.%d" % k, 10.73, 1.90 + k * 0.71 - 0.055, 2.02, 0)
 
 # the strip: the manual path against the traced one, on a light card
 rename(s, "dev.2", "struct.paths.frame")
@@ -250,6 +250,14 @@ for side, hn, ht, bn, bh, bb, c1, c2 in SIDES:
         text(s, "slot.%s.stat.%d" % (side, k), [P(ct, "accent-ink", 10, True)], th, size=10,
              background="paper", anchor="middle")
 
+# inside the content band (P03): stage 4 and the strip's right end give up the 0.15in they ran past 12.90in
+for nm in ("slot.stage.4.head", "struct.stage.4.frame", "struct.paths.frame"):
+    find(s, nm).width = int(find(s, nm).width - 0.15 * EMU)
+for nm in ("slot.after.head", "slot.after.stat.1", "slot.after.stat.2"):
+    find(s, nm).left = int(find(s, nm).left - 0.15 * EMU)
+
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL10", th, archetype="worked-example", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

@@ -1,0 +1,376 @@
+{
+ "id": "DL41",
+ "name": "Ask rail answered by three response columns",
+ "archetypes": [
+  "executive-summary"
+ ],
+ "family": "Split",
+ "variant": "ask-rail-response",
+ "mechanism": "The brief's asks run down a left rail of glyph rows under a solid header; the response answers them in three near-black headed columns, each a lead claim, one figure and two proof tiles, with the offer column in the brand fill; beneath, a five-stage maturity chevron row carries the commercial terms each stage brings.",
+ "canvas": "wide",
+ "source": "d16-s002",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.brief.head",
+   "kind": "text",
+   "purpose": "section-label",
+   "max_words": 5,
+   "background": "accent"
+  },
+  {
+   "name": "slot.response.head",
+   "kind": "text",
+   "purpose": "section-label",
+   "max_words": 6,
+   "background": "accent"
+  },
+  {
+   "name": "slot.brief.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.1.label",
+   "kind": "text",
+   "purpose": "ask-label",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.1.body",
+   "kind": "text",
+   "purpose": "ask-detail",
+   "max_words": 11,
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.2.label",
+   "kind": "text",
+   "purpose": "ask-label",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.2.body",
+   "kind": "text",
+   "purpose": "ask-detail",
+   "max_words": 9,
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.3.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.3.label",
+   "kind": "text",
+   "purpose": "ask-label",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.3.body",
+   "kind": "text",
+   "purpose": "ask-detail",
+   "max_words": 11,
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.4.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.4.label",
+   "kind": "text",
+   "purpose": "ask-label",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.4.body",
+   "kind": "text",
+   "purpose": "ask-detail",
+   "max_words": 10,
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.5.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.5.label",
+   "kind": "text",
+   "purpose": "ask-label",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.5.body",
+   "kind": "text",
+   "purpose": "ask-detail",
+   "max_words": 11,
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.6.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.6.label",
+   "kind": "text",
+   "purpose": "ask-label",
+   "max_words": 2,
+   "background": "card"
+  },
+  {
+   "name": "slot.brief.6.body",
+   "kind": "text",
+   "purpose": "ask-detail",
+   "max_words": 10,
+   "background": "card"
+  },
+  {
+   "name": "slot.col.1.head",
+   "kind": "text",
+   "purpose": "section-label",
+   "max_words": 2,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.col.1.lead",
+   "kind": "text",
+   "purpose": "answer-claim",
+   "max_words": 12,
+   "background": "paper"
+  },
+  {
+   "name": "slot.col.1.stat",
+   "kind": "group",
+   "purpose": "figure",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.col.1.tile.2",
+   "kind": "text",
+   "purpose": "proof-line",
+   "max_words": 8,
+   "background": "card"
+  },
+  {
+   "name": "slot.col.1.tile.3",
+   "kind": "text",
+   "purpose": "proof-line",
+   "max_words": 11,
+   "background": "card"
+  },
+  {
+   "name": "slot.col.2.head",
+   "kind": "text",
+   "purpose": "section-label",
+   "max_words": 3,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.col.2.lead",
+   "kind": "text",
+   "purpose": "answer-claim",
+   "max_words": 11,
+   "background": "paper"
+  },
+  {
+   "name": "slot.col.2.stat",
+   "kind": "group",
+   "purpose": "figure",
+   "max_words": 8,
+   "background": "accent"
+  },
+  {
+   "name": "slot.col.2.tile.2",
+   "kind": "text",
+   "purpose": "proof-line",
+   "max_words": 9,
+   "background": "accent"
+  },
+  {
+   "name": "slot.col.2.tile.3",
+   "kind": "text",
+   "purpose": "proof-line",
+   "max_words": 9,
+   "background": "accent"
+  },
+  {
+   "name": "slot.col.3.head",
+   "kind": "text",
+   "purpose": "section-label",
+   "max_words": 3,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.col.3.lead",
+   "kind": "text",
+   "purpose": "answer-claim",
+   "max_words": 12,
+   "background": "paper"
+  },
+  {
+   "name": "slot.col.3.stat",
+   "kind": "group",
+   "purpose": "figure",
+   "max_words": 10,
+   "background": "card"
+  },
+  {
+   "name": "slot.col.3.tile.2",
+   "kind": "text",
+   "purpose": "proof-line",
+   "max_words": 9,
+   "background": "card"
+  },
+  {
+   "name": "slot.col.3.tile.3",
+   "kind": "text",
+   "purpose": "proof-line",
+   "max_words": 10,
+   "background": "card"
+  },
+  {
+   "name": "slot.basis",
+   "kind": "text",
+   "purpose": "basis-label",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.stages",
+   "kind": "group",
+   "purpose": "maturity-stages",
+   "max_words": 9,
+   "background": "ink-strong"
+  },
+  {
+   "name": "slot.stage.1.sub",
+   "kind": "text",
+   "purpose": "stage-detail",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.2.sub",
+   "kind": "text",
+   "purpose": "stage-detail",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.3.sub",
+   "kind": "text",
+   "purpose": "stage-detail",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.4.sub",
+   "kind": "text",
+   "purpose": "stage-detail",
+   "max_words": 2,
+   "background": "paper"
+  },
+  {
+   "name": "slot.stage.5.sub",
+   "kind": "text",
+   "purpose": "stage-detail",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.term.1",
+   "kind": "text",
+   "purpose": "commercial-terms",
+   "max_words": 9,
+   "background": "card"
+  },
+  {
+   "name": "slot.term.2",
+   "kind": "text",
+   "purpose": "commercial-terms",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.term.3",
+   "kind": "text",
+   "purpose": "commercial-terms",
+   "max_words": 11,
+   "background": "card"
+  }
+ ],
+ "samples": [
+  "Every ask in the brief meets a named answer, from concept to full rollout",
+  "What the brief asks",
+  "How the response answers it",
+  "Objective",
+  "Agents that take routine analysis work off the planning teams",
+  "Scope",
+  "Planning, pricing, marketing and finance across four regions",
+  "Capabilities",
+  "Research, analysis, reporting and test automation, each as an agent",
+  "Maturity range",
+  "From early concepts to agents running in daily work",
+  "Delivery models",
+  "A hosted service, an API, or tools inside current systems",
+  "Governance",
+  "Audit trails and human sign-off in a regulated setting",
+  "Who delivers",
+  "A data and AI engineering firm with delivery at enterprise scale",
+  "1,200+",
+  "engineers in data and AI delivery",
+  "Teams spanning data, engineering and domain consulting",
+  "Reusable assets carried from one value chain to the next",
+  "What is offered",
+  "A modular set of agents built to run in production",
+  "20+",
+  "agents covering the full planning cycle",
+  "Orchestration that lets several agents share one task",
+  "One framework, reused and adapted for each team",
+  "Why it holds",
+  "A partner already fluent in the data and ways of working",
+  "60+",
+  "people trained on the same data and processes",
+  "A record of scaling agents across business units",
+  "Domain consulting that turns each agent into daily use",
+  "Illustrative figures",
+  "Full release",
+  "Limited release",
+  "Pilot",
+  "Early build",
+  "Concept",
+  "Enterprise scale",
+  "Controlled rollout",
+  "Real workflow tests",
+  "Concept validated",
+  "Scope and roadmap",
+  "Configured on day one, with fixed commercial levers",
+  "Limited tailoring, with differentiated levers",
+  "A roadmap shaped to the client's needs, with upfront investment"
+ ],
+ "capacity_words": 238,
+ "archetype_floors": {
+  "executive-summary": 160
+ },
+ "short_of_floor": []
+}

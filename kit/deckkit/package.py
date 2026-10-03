@@ -312,28 +312,36 @@ def save(prs, path, *, title: str, theme: Theme, manifest: dict | None = None, o
 # ------------------------------------------------------------------ validation
 
 def find_validator() -> Path:
-    hits = sorted(glob.glob(VALIDATOR_GLOB))
+    """The synced pptx skill's validator; with more than one synced copy, the most recently modified wins (never
+    the first by directory uuid)."""
+    hits = sorted(glob.glob(VALIDATOR_GLOB), key=lambda h: (os.path.getmtime(h), h))
     if not hits:
         raise ValidatorMissing("XSD validator", need=VALIDATOR_GLOB, have="no match",
                                hint="the synced pptx skill is missing; validation fails until it is back")
-    return Path(hits[0])
+    return Path(hits[-1])
 
 
 _PML = {}
 _MC = "http://schemas.openxmlformats.org/markup-compatibility/2006"
 _PART_XSD = re.compile(r"ppt/(slides|slideLayouts|slideMasters|notesSlides|notesMasters|handoutMasters)/[^/]+\.xml$")
+_CHART_XSD = re.compile(r"ppt/charts/chart[^/]*\.xml$")
+
+
+def _bundle_schema(validator: Path, name: str = "pml.xsd"):
+    """One of the validator bundle's own schemas (pml.xsd, dml-chart.xsd), loaded in place (never copied)."""
+    key = (str(validator), name)
+    if key not in _PML:
+        xsd = validator.parent / "schemas" / "ISO-IEC29500-4_2016" / name
+        if not xsd.is_file():
+            raise ValidatorMissing(name, need=str(xsd), have="missing",
+                                   hint="the validator's schema bundle moved; those parts cannot be checked")
+        _PML[key] = etree.XMLSchema(etree.parse(str(xsd)))
+    return _PML[key]
 
 
 def _pml_schema(validator: Path):
     """The validator bundle's own pml.xsd, loaded in place (never copied)."""
-    key = str(validator)
-    if key not in _PML:
-        xsd = validator.parent / "schemas" / "ISO-IEC29500-4_2016" / "pml.xsd"
-        if not xsd.is_file():
-            raise ValidatorMissing("pml.xsd", need=str(xsd), have="missing",
-                                   hint="the validator's schema bundle moved; slide parts cannot be checked")
-        _PML[key] = etree.XMLSchema(etree.parse(str(xsd)))
-    return _PML[key]
+    return _bundle_schema(validator, "pml.xsd")
 
 
 def _strip_mc(root):
@@ -356,30 +364,43 @@ def _strip_mc(root):
 # only accepts "25%".."400%". Within that range it is a known PowerPoint value, reported, never an error.
 _KNOWN = (re.compile(r"buSzPct', attribute 'val': .*The value '(\d+)' is not accepted"),)
 _KNOWN_RANGE = (25000, 400000)
+# python-pptx writes its chart templates' axis ids as signed ints (-2068027336); the schema says unsignedInt, and
+# PowerPoint and LibreOffice read them. A known value, never an error; the kit's own charts write positive ids.
+_KNOWN_AXID = re.compile(r"\}(?:axId|crossAx)', attribute 'val': '(-\d+)' is not a valid value of the atomic type 'xs:unsignedInt'")
 
 
 def known_value(message: str) -> str | None:
-    """A short label when a schema message is a value PowerPoint writes itself (see _KNOWN), else None."""
+    """A short label when a schema message is a value PowerPoint or python-pptx writes itself (see _KNOWN), else
+    None."""
     for rx in _KNOWN:
         m = rx.search(message)
         if m and _KNOWN_RANGE[0] <= int(m.group(1)) <= _KNOWN_RANGE[1]:
             return "buSzPct %s (PowerPoint's transitional percent)" % m.group(1)
+    m = _KNOWN_AXID.search(message)
+    if m:
+        return "chart axId %s (python-pptx's signed id)" % m.group(1)
     return None
 
 
 def part_xsd(path, validator: Path | None = None, known: list | None = None) -> list[str]:
-    """Schema errors in slide, layout, master and notes parts.
+    """Schema errors in slide, layout, master and notes parts, and in chart parts.
 
     The referenced validator maps a schema only for parts directly under ppt/, so every slide, layout
     and master is reported "Skipped (no schema)" and a foreign element in a master passes (measured
-    2026-10-03 with a planted <p:bogus/>). This pass closes that gap with the bundle's own pml.xsd. A known
-    PowerPoint value (known_value) is appended to `known` when given, never reported as an error.
+    2026-10-03 with a planted <p:bogus/>). This pass closes that gap with the bundle's own pml.xsd, and
+    validates every ppt/charts/chart*.xml against the bundle's dml-chart.xsd (a <c:bogus/> or a misordered
+    roundedCorners in a chart part passed before; PowerPoint offers to repair both). A known PowerPoint value
+    (known_value) is appended to `known` when given, never reported as an error.
     """
-    schema = _pml_schema(validator or find_validator())
+    v = validator or find_validator()
     errs = []
     with zipfile.ZipFile(path) as z:
         for n in sorted(z.namelist()):
-            if not _PART_XSD.match(n):
+            if _PART_XSD.match(n):
+                schema = _pml_schema(v)
+            elif _CHART_XSD.match(n):
+                schema = _bundle_schema(v, "dml-chart.xsd")
+            else:
                 continue
             root = _strip_mc(_xml(z.read(n)))
             if not schema.validate(root):
@@ -463,7 +484,7 @@ def validate_xsd(path, report: dict | None = None) -> tuple[bool, str]:
     ok = not vfail and not parts
     detail = [out.splitlines()[-1] if (ok and out) else out] if vfail or ok else []
     if parts:
-        detail.append("slide-level parts against pml.xsd:")
+        detail.append("slide-level parts against pml.xsd, chart parts against dml-chart.xsd:")
         detail += ["  " + e for e in parts]
     if report is not None:
         report["skipped"] = skipped

@@ -1,0 +1,35 @@
+{
+ "id": "DL34",
+ "name": "Ghost numeral divider",
+ "archetypes": [
+  "section-divider"
+ ],
+ "family": "Frame",
+ "variant": "ghost-numeral",
+ "mechanism": "The part name stacks large on the left and an oversized grey part numeral counterweights it on the right, so the numeral alone carries the position in the deck on an otherwise empty light ground.",
+ "canvas": "wide",
+ "source": "d12-s003",
+ "slots": [
+  {
+   "name": "slot.headline",
+   "kind": "text",
+   "max_words": 6,
+   "purpose": "section-title",
+   "background": "paper",
+   "note": "the hero title, set large in its own box; not slot.title, which the kit snaps to the content title band; pass kit Paras (txt.title_runs) for two-tone keywords"
+  },
+  {
+   "name": "slot.numeral",
+   "kind": "text",
+   "role": "ordinal",
+   "max_words": 1
+  }
+ ],
+ "samples": [
+  "Where demand planning stands today",
+  "01"
+ ],
+ "capacity_words": 7,
+ "archetype_floors": {},
+ "short_of_floor": []
+}

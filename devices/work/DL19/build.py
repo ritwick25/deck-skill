@@ -257,6 +257,8 @@ for i, (c, l, g, lt) in enumerate(CTRLS, 1):
 
 from deckkit import ooxml, package, tag  # noqa: E402
 NUMBERS = {"slot.result": {"value": "$2.4M", "kind": "illustrative"}}
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 tag.tag(prs.slides[0], "process-flow", VARIANT)
 for sh in prs.slides[0].shapes:
     ooxml.finish(sh)

@@ -194,6 +194,8 @@ for i, (sh, bx, head, chips) in enumerate(BASES, 1):
     prims.rect(s, Box(fx - 0.14, CARD_Y + CARD_H + 0.30, 0.28, BASE_Y - CARD_Y - CARD_H - 0.30), fill="accent",
                name="struct.funnel.%d.stem" % i, theme=th)
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL29", th, archetype="hub-and-spoke", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

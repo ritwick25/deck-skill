@@ -8,7 +8,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
 from devwork import *  # noqa: E402,F403
-from deckkit import text as txt  # noqa: E402
+from deckkit import prims, text as txt  # noqa: E402
+from deckkit.canvas import Box  # noqa: E402
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--out")
@@ -38,7 +39,7 @@ def tight(name, v=0.02, side=0.06):
 # title: one claim, two-tone
 rename(s, "dev.165", "slot.title")
 text(s, "slot.title", [txt.Para(tuple(txt.title_runs(
-    "Sales execution goes first, since its six agents feed the other four domains",
+    "Sales execution goes first, since its agents feed the other four domains",
     ("Sales execution",))))], th, size=22, bold=True, anchor="middle")
 
 # header bar over the device
@@ -86,41 +87,6 @@ rename(s, "dev.32", "struct.spotlight")
 for k, n in enumerate(range(2, 16), 1):
     rename(s, "dev.%d" % n, "struct.dropline.%d" % k)
 
-# agent names and task pills
-AGENTS = [  # (name shape, name, [(pill shape, task)])
-    ("dev.158", "Forecast agent", [("dev.159", "Demand signal"), ("dev.160", "Regional bias alerts")]),
-    ("dev.140", "Price guardrail agent", [("dev.141", "Discount floors"), ("dev.143", "Deal desk triage")]),
-    ("dev.144", "Visit planner agent", [("dev.145", "Daily store route"), ("dev.146", "Shelf gap alerts")]),
-    ("dev.153", "Order status agent", [("dev.154", "Delay notices"), ("dev.155", "Claim intake")]),
-    ("dev.156", "Returns agent", [("dev.157", "Credit note drafts")]),
-    ("dev.138", "Stock risk agent", [("dev.139", "Stock-out watch")]),
-    ("dev.147", "Order capture agent", [("dev.148", "Voice and email orders")]),
-    ("dev.149", "Call notes agent", [("dev.150", "Visit notes")]),
-    ("dev.151", "Promo check agent", [("dev.152", "Uplift readout")]),
-]
-# labels and pills sit wholly inside or wholly outside the spotlight wedge
-FIT = {"dev.140": (3.40, 1.75), "dev.144": (6.83, 1.25), "dev.145": (6.83, 1.25), "dev.146": (6.83, 1.25),
-       "dev.147": (5.22, 1.60), "dev.148": (5.22, 1.60), "dev.149": (6.95, 1.10), "dev.150": (7.01, 1.05)}
-for n, (x, w) in FIT.items():
-    sh = find(s, n)
-    move(s, n, x, sh.top / EMU, w, sh.height / EMU)
-for n in ("dev.148", "dev.150"):                              # pills inside the wedge go to paper so they read
-    sf = find(s, n)._element.find(qn("p:spPr") + "/" + qn("a:solidFill"))
-    for c in list(sf):
-        sf.remove(c)
-    sf.append(sf.makeelement(qn("a:schemeClr"), {"val": "bg1"}))
-INSIDE = {"dev.148", "dev.150"}
-for k, (nm, name, pills) in enumerate(AGENTS, 1):
-    rename(s, nm, "slot.agent.%d.name" % k)
-    tight("slot.agent.%d.name" % k, 0.01, 0.03)
-    text(s, "slot.agent.%d.name" % k, [txt.Para((txt.Run(name, "ink-deep", bold=True, size=8),), align="center")],
-         th, size=8, anchor="middle")
-    for j, (pn, task) in enumerate(pills, 1):
-        rename(s, pn, "slot.agent.%d.task.%d" % (k, j))
-        tight("slot.agent.%d.task.%d" % (k, j), 0.01, 0.05)
-        text(s, "slot.agent.%d.task.%d" % (k, j), [txt.Para((txt.Run(task, "ink", size=8),), align="center")],
-             th, size=8, background="paper" if pn in INSIDE else "accent-wash", anchor="middle")
-
 # platform panel and its chips
 rename(s, "dev.16", "struct.platform")
 move(s, "struct.platform", 0.60, 5.51, 12.11, 1.45)
@@ -147,71 +113,22 @@ for i, (n, label) in enumerate(SERVICES, 1):
     text(s, "slot.platform.service.%d" % i, [txt.Para((txt.Run(label, "ink", size=9.5),), align="center")],
          th, size=9.5, background="card", anchor="middle")
 
-# mesh links
-LINKS = list(range(45, 87)) + [162, 164]
-for k, n in enumerate(LINKS, 1):
-    rename(s, "dev.%d" % n, "struct.link.%d" % k)
 
-# agent discs: groups and ellipses, numbered by row then x
-discs, groups = [], []
-for n in [87, 88] + list(range(89, 138)) + [142, 161, 163]:
-    sh = find(s, "dev.%d" % n)
-    (groups if sh.shape_type == 6 else discs).append(sh)
-for k, g in enumerate(sorted(groups, key=lambda g: (round(g.top / EMU, 1), g.left)), 1):
-    g.name = "struct.agent.group.%d" % k
+# ---- the agent field: the lifted mesh (27 unlabelled discs, about 40 undirected links) gives way to named agents
+# in one column per domain, and directed feeds from the spotlit column into every other domain
+for sh in list(s.shapes):
+    if sh.name.startswith(("dev.", "struct.dropline.")) or sh.name == "struct.spotlight":
+        delete(s, sh.name)
 
-
-def abs_box(sh):
-    """Slide-space box of a shape, walking up through group transforms."""
-    x, y, w, h = sh.left, sh.top, sh.width, sh.height
-    el = sh._element.getparent()
-    while el.tag == qn("p:grpSp"):
-        xf = el.find(qn("p:grpSpPr") + "/" + qn("a:xfrm"))
-        off, ext = xf.find(qn("a:off")), xf.find(qn("a:ext"))
-        cho, che = xf.find(qn("a:chOff")), xf.find(qn("a:chExt"))
-        sx = int(ext.get("cx")) / max(int(che.get("cx")), 1)
-        sy = int(ext.get("cy")) / max(int(che.get("cy")), 1)
-        x = int(off.get("x")) + (x - int(cho.get("x"))) * sx
-        y = int(off.get("y")) + (y - int(cho.get("y"))) * sy
-        w, h = w * sx, h * sy
-        el = el.getparent()
-    return x / EMU, y / EMU, w / EMU, h / EMU
-
-
-placed = []
-for d in discs:
-    bx = abs_box(d)
-    placed.append((round(bx[1], 1), bx[0], d, bx))
-placed.sort(key=lambda t: (t[0], t[1]))
-for k, (_, _, d, bx) in enumerate(placed, 1):
-    d.name = "struct.agent.%d" % k
-
-
-def disc_role(d):
-    fill = d._element.find(qn("p:spPr") + "/" + qn("a:solidFill") + "/" + qn("a:schemeClr"))
-    if fill.get("val") == "accent1":
-        return "on-accent"
-    if fill.find(qn("a:lumMod")) is not None:
-        return "paper"
-    return "accent"
-
-
-# glyphs: the four strip icons, then one bot mark in every agent disc
+# key strip glyphs (the lifted bot pictures inside the mesh are not redrawn: every agent below carries its own)
 STRIP = {(1.729, 1.827): ("slot.key.1.icon.2", "store"), (1.201, 1.816): ("slot.key.1.icon.1", "users"),
          (3.605, 1.829): ("slot.key.2.icon", "scale"), (9.848, 1.809): ("slot.key.3.icon", "target")}
 for p in LIFT["pictures_removed"]:
-    x, y, w, h = p["box_in"]
-    key = (round(x, 3), round(y, 3))
+    key = (round(p["box_in"][0], 3), round(p["box_in"][1], 3))
     if key in STRIP:
+        x, y, w, h = p["box_in"]
         nm, g = STRIP[key]
         icon(s, nm, g, x, y + (h - 0.36) / 2, 0.36, th, role="accent-ink")
-        continue
-    cx, cy = x + w / 2, y + h / 2
-    k, d, bx = min(((k, d, bx) for k, (_, _, d, bx) in enumerate(placed, 1)),
-                   key=lambda t: (t[2][0] + t[2][2] / 2 - cx) ** 2 + (t[2][1] + t[2][3] / 2 - cy) ** 2)
-    side = 0.17
-    icon(s, "slot.agent.disc.%d.icon" % k, "bot", bx[0] + (bx[2] - side) / 2, bx[1] + (bx[3] - side) / 2, side, th,
-         role=disc_role(d))
 
 # lift the whole device into the air under the title, clear of the foot line
 DY = 0.25
@@ -219,6 +136,78 @@ for sh in s.shapes:
     if sh.name != "slot.title":
         sh.top = int(sh.top - DY * EMU)
 
+LIVE, PLANNED, SHARED = 1, 2, 3              # the legend's own discs, cloned so status reads from the key
+AGENTS = {  # domain: [(name, task, status)], four per domain so every column holds the same rows
+    1: [("Forecast", "Demand signal", LIVE), ("Stock risk", "Stock-out watch", PLANNED),
+        ("Bias check", "Regional alerts", PLANNED), ("Supply plan", "Weekly build plan", SHARED)],
+    2: [("Price guardrail", "Discount floors", SHARED), ("Deal desk", "Triage requests", PLANNED),
+        ("Price watch", "Competitor moves", PLANNED), ("Rebate check", "Accrual review", PLANNED)],
+    3: [("Visit planner", "Daily store route", LIVE), ("Shelf scan", "Gap alerts", LIVE),
+        ("Order capture", "Voice and email", LIVE), ("Call notes", "Visit summaries", PLANNED)],
+    4: [("Promo check", "Uplift readout", PLANNED), ("Claim audit", "Deduction review", PLANNED),
+        ("Event plan", "Calendar fit", PLANNED), ("Display check", "In-store proof", SHARED)],
+    5: [("Order status", "Delay notices", LIVE), ("Returns", "Credit notes", PLANNED),
+        ("Claims", "Intake and routing", SHARED), ("Case summary", "Handover notes", PLANNED)],
+}
+LIT = 3
+PANEL_TOP, PANEL_BOT, LANE = 2.71, 4.73, 4.99
+ROW0, PITCH, DISC = 2.80, 0.48, 0.36
+
+
+def box(name):
+    sh = find(s, name)
+    return sh.left / EMU, sh.top / EMU, sh.width / EMU, sh.height / EMU
+
+
+def glyph_role(el):
+    """The bot mark's role on a cloned legend disc: on-accent on the live fill, paper on the shared grey, accent
+    on the planned outline."""
+    fill = el.find(qn("p:spPr") + "/" + qn("a:solidFill") + "/" + qn("a:schemeClr"))
+    if fill.get("val") == "accent1" and fill.find(qn("a:lumMod")) is None:
+        return "on-accent"
+    return "paper" if fill.find(qn("a:lumMod")) is not None else "accent"
+
+
+tree = s.shapes._spTree
+k = 0
+panels = []
+for d in range(1, 6):
+    tx, _, tw, _ = box("slot.domain.%d" % d)
+    pn = ("state.spotlight" if d == LIT else "struct.domain.%d.panel" % d)
+    prims.rect(s, Box(tx, PANEL_TOP, tw, PANEL_BOT - PANEL_TOP), fill="accent-wash" if d == LIT else "card",
+               line=None if d == LIT else "hairline-soft", name=pn, theme=th)
+    panels.append(pn)
+    for r, (name, task, status) in enumerate(AGENTS[d]):
+        k += 1
+        y = ROW0 + r * PITCH
+        dn = "struct.agent.%d.disc" % k
+        clone("struct.legend.disc.%d" % status, dn, tx + 0.10, y + 0.03, DISC, DISC, after="struct.key")
+        el = find(s, dn)._element
+        tree.remove(el)
+        tree.append(el)                       # above its panel
+        icon(s, "slot.agent.%d.icon" % k, "bot", tx + 0.10 + (DISC - 0.22) / 2, y + 0.03 + (DISC - 0.22) / 2,
+             0.22, th, role=glyph_role(el))
+        bg = "accent-wash" if d == LIT else "card"
+        txt.textbox(s, Box(tx + 0.54, y, tw - 0.60, 0.22),
+                    [txt.Para((txt.Run(name, "ink-deep", bold=True, size=10.5),))], "slot.agent.%d.name" % k, th,
+                    background=bg)
+        txt.textbox(s, Box(tx + 0.54, y + 0.22, tw - 0.60, 0.20), [txt.Para((txt.Run(task, "ink", size=10),))],
+                    "slot.agent.%d.task" % k, th, background=bg)
+for pn in reversed(panels):                   # every panel behind the agents it holds
+    el = find(s, pn)._element
+    tree.remove(el)
+    tree.insert(2, el)
+
+# feeds: one bus out of the spotlit column's foot into the foot of every other domain
+lx, _, lw, _ = box("state.spotlight")
+src = lx + lw / 2
+for d in (1, 2, 4, 5):
+    tx, _, tw, _ = box("struct.domain.%d.panel" % d)
+    prims.elbow(s, [(src, PANEL_BOT), (src, LANE), (tx + tw / 2, LANE), (tx + tw / 2, PANEL_BOT)], role="accent",
+                weight_pt=1.5, name="struct.feed.%d" % d, theme=th)
+
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL08", th, archetype="use-case-map", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

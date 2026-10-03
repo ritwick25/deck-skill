@@ -56,7 +56,7 @@ Word budget 250, the upper quartile of the top exemplars capped at 250. Content 
 ## Translation under the house rules
 | Rule | Reference | House | Consequence |
 |---|---|---|---|
-| light-bg | Dark stat bands, a dark takeaway band, dark end-state and figure panels, and a faded photo behind the map, on 4 top exemplars. | The band becomes a light row with a hairline above each label, and the end-state panel becomes a flat light or brand-tint surface with navy text. | The band no longer anchors the slide by weight, so its figures must carry it by size and the band keeps its full width. |
+| light-bg | Dark stat bands, a dark takeaway band, dark end-state and figure panels, and a faded photo behind the map, on 4 top exemplars. | Stat bands and figure panels stay solid near-black (ink-deep) with paper labels and numerals in accent-bright. The end-state panel takes a solid brand fill. The photo goes and the map sits on the light ground. | The bands keep anchoring the slide by weight and keep their full width. A takeaway band at the foot falls under the foot band rule. |
 | flat-fill | Gradient edge and foot strips and a gradient dependencies band, on 3 top exemplars. | Flat fills only, the dependencies band becomes a flat brand tint. | No layout change beyond deleting the edge and foot strips, which returns their height to the columns. |
 | shadow | Soft blurred shadows under the numbered markers, on 1 top exemplar. | Hairlines plus at most a 1 px shadow. | Markers read flat, so their fill and numeral carry the index. |
 | 8pt-floor | Source lines and captions set at 7.5 pt (7 to 8), on 3 top exemplars. | Every run at or above 8 pt, with each source cut to the publisher name. | Shorter source lines fit the larger size inside the band without adding a row. |
@@ -94,7 +94,7 @@ Word budget 250, the upper quartile of the top exemplars capped at 250. Content 
 dv06, dv01, dv34, dv35, dv44, dv08, dv57, dv14
 
 ## Provenance
-- Source: cards/src/a05.json sha256 1f91466710fd9039ca0ecfb468232e2acd9500bf52cb24c28a5a3879f3a91941
+- Source: cards/src/a05.json sha256 a0a242f1c065d7b7a4844baae28acbaecf258f22dc09420f30f0cfbe6796cdf7
 - Measures: measures/a05.json sha256 7dc9478b9f2a4542d6aa6e4f93fd88a2292b0aa8950e8e15b7d42229b45e024a
 - Final ranking: rankings/a05.final.json sha256 f6d940e991a24f043ecf3a5a89b0b87c85309bcfa5481a46d3a96fb916fc5549
 - Rule constants: tools/rules_constants.json sha256 ad8e658546248e054701a7e56d27db5f9f6b32a742931081abf114290f153227

@@ -455,5 +455,13 @@
   "Order and receipt",
   "Ledger and tax",
   "Approver by value"
+ ],
+ "capacity_words": 182,
+ "archetype_floors": {
+  "process-flow": 210,
+  "input-process-output": 100
+ },
+ "short_of_floor": [
+  "process-flow"
  ]
 }

@@ -77,13 +77,13 @@ for k, n in enumerate(("dev.14", "dev.15", "dev.16", "dev.17"), 1):
 
 rename(s, "dev.7", "slot.axis.y.label")
 mid = (Y(1.46) + N1) / 2
-move(s, "slot.axis.y.label", 0.55 - 1.30, mid - 0.17, 2.60, 0.34)
+move(s, "slot.axis.y.label", 0.63 - 1.30, mid - 0.17, 2.60, 0.34)
 text(s, "slot.axis.y.label", [para("Value to the business", "ink-strong", 10.5, True, "center")], th, size=10.5,
      anchor="middle")
 for k, (n, yc, w) in enumerate((("dev.11", 1.835, "Highest"), ("dev.10", 2.865, "High"),
                                 ("dev.9", 3.895, "Medium"), ("dev.8", 4.925, "Low")), 1):
     rename(s, n, "slot.axis.y.tick.%d" % k)
-    move(s, "slot.axis.y.tick.%d" % k, 0.74, Yc(yc) - 0.13, 0.66, 0.26)
+    move(s, "slot.axis.y.tick.%d" % k, 0.82, Yc(yc) - 0.13, 0.58, 0.26)
     text(s, "slot.axis.y.tick.%d" % k, [para(w, "ink-muted", 9, False, "right")], th, size=9, anchor="middle")
 
 # ---- five levels on the curve ----------------------------------------------------------------------------------
@@ -141,7 +141,7 @@ text(s, "slot.marker", [para("Most teams today", "accent-ink", 10.5, True, "cent
 # ---- foundations rail ------------------------------------------------------------------------------------------
 rename(s, "dev.12", "struct.rail")
 RT, RB = Y(1.46), N1
-move(s, "struct.rail", 10.96, RT, 2.00, RB - RT)
+move(s, "struct.rail", 10.96, RT, 1.94, RB - RT)
 icon(s, "slot.rail.icon", "layers", 11.10, RT + 0.17, 0.40, th, role="accent")
 txt.textbox(s, Box(11.58, RT + 0.10, 1.30, 0.56), [para("Foundations", "ink-deep", 10.5, True),
                                                    para("for every level", "ink-deep", 10.5, True)],
@@ -156,17 +156,19 @@ h = (RB - 0.12 - top - gap * 4) / 5
 for k, (n, g, hd, bd) in enumerate(RAIL, 1):
     y = top + (k - 1) * (h + gap)
     rename(s, n, "slot.rail.item.%d" % k)
-    move(s, "slot.rail.item.%d" % k, 11.06, y, 1.80, h)
-    insets("slot.rail.item.%d" % k, 0.48, 0.06, 0.06, 0.06)
+    move(s, "slot.rail.item.%d" % k, 11.04, y, 1.80, h)
+    insets("slot.rail.item.%d" % k, 0.48, 0.06, 0.04, 0.06)
     text(s, "slot.rail.item.%d" % k, [para(hd, "ink-deep", 11, True), para(bd, "ink", 10.5, False, sb=2)], th,
          size=11, anchor="middle")
-    icon(s, "slot.rail.item.%d.icon" % k, g, 11.15, y + h / 2 - 0.16, 0.32, th, role="accent")
+    icon(s, "slot.rail.item.%d.icon" % k, g, 11.13, y + h / 2 - 0.16, 0.32, th, role="accent")
 
 for k in range(1, 6):                      # rail cards keep the house corner radius
     sh = find(s, "slot.rail.item.%d" % k)
     gd = sh._element.find(".//" + qn("a:prstGeom") + "/" + qn("a:avLst") + "/" + qn("a:gd"))
     gd.set("fmla", "val %d" % round(0.05 / (min(sh.width, sh.height) / EMU) * 100000))
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL22", th, archetype="maturity-model", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

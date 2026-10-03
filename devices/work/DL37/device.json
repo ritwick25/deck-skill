@@ -1,0 +1,258 @@
+{
+ "id": "DL37",
+ "name": "Queue, gated dual track, compounding stack",
+ "archetypes": [
+  "engagement-model"
+ ],
+ "family": "Directed sequence",
+ "variant": "queue-gated-tracks-stack",
+ "mechanism": "A ranked intake queue, live requests solid and queued ones dashed, feeds one squad running a discovery track and a delivery track joined by a value gate; each release lands on a stack of shared assets that widens toward its base, so the model shows how work enters, is decided and compounds.",
+ "canvas": "wide",
+ "source": "d01-s039",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.queue.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.queue.live.1",
+   "kind": "text",
+   "role": "live-request",
+   "max_words": 10,
+   "background": "accent"
+  },
+  {
+   "name": "slot.queue.live.2",
+   "kind": "text",
+   "role": "live-request",
+   "max_words": 10,
+   "background": "accent"
+  },
+  {
+   "name": "slot.queue.next.1",
+   "kind": "text",
+   "role": "queued-request",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.queue.next.2",
+   "kind": "text",
+   "role": "queued-request",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.queue.next.3",
+   "kind": "text",
+   "role": "queued-request",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.queue.next.4",
+   "kind": "text",
+   "role": "queued-request",
+   "max_words": 4,
+   "background": "paper"
+  },
+  {
+   "name": "slot.pull.label",
+   "kind": "text",
+   "role": "connector-label",
+   "max_words": 1,
+   "background": "paper"
+  },
+  {
+   "name": "slot.track.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.track.1.head",
+   "kind": "text",
+   "role": "track-and-duration",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.track.1.step.1",
+   "kind": "text",
+   "role": "step-and-time-box",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.track.1.step.2",
+   "kind": "text",
+   "role": "step-and-time-box",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.track.1.step.3",
+   "kind": "text",
+   "role": "step-and-time-box",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.track.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.track.2.head",
+   "kind": "text",
+   "role": "track-and-duration",
+   "max_words": 5,
+   "background": "card"
+  },
+  {
+   "name": "slot.track.2.step.1",
+   "kind": "text",
+   "role": "step-and-time-box",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.track.2.step.2",
+   "kind": "text",
+   "role": "step-and-time-box",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.track.2.step.3",
+   "kind": "text",
+   "role": "step-and-time-box",
+   "max_words": 6,
+   "background": "card"
+  },
+  {
+   "name": "slot.gate.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.gate.label",
+   "kind": "text",
+   "role": "gate",
+   "max_words": 5,
+   "background": "paper"
+  },
+  {
+   "name": "slot.squad.note",
+   "kind": "text",
+   "role": "operating-note",
+   "max_words": 14,
+   "background": "paper"
+  },
+  {
+   "name": "slot.stack.icon",
+   "kind": "glyph",
+   "background": "paper"
+  },
+  {
+   "name": "slot.stack.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 3,
+   "background": "paper"
+  },
+  {
+   "name": "slot.stack.layer.1",
+   "kind": "text",
+   "role": "reusable-asset",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.stack.layer.2",
+   "kind": "text",
+   "role": "reusable-asset",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.stack.layer.3",
+   "kind": "text",
+   "role": "reusable-asset",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.stack.layer.4",
+   "kind": "text",
+   "role": "reusable-asset",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.stack.layer.5",
+   "kind": "text",
+   "role": "reusable-asset",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.stack.layer.6",
+   "kind": "text",
+   "role": "reusable-asset",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.stack.note",
+   "kind": "text",
+   "role": "compounding-note",
+   "max_words": 13,
+   "background": "paper"
+  }
+ ],
+ "samples": [
+  "Requests enter one queue, pass a value gate and build a shared base",
+  "Intake queue, by rank",
+  "In discovery",
+  "Weekly forecast by region for the planning office",
+  "In delivery",
+  "Planner override log with reasons captured",
+  "Promotion uplift model",
+  "Supplier lead-time feed",
+  "Stock-out early warning",
+  "New-region onboarding",
+  "Discovery track, two weeks",
+  "Frame the question",
+  "Test on history",
+  "Size the value",
+  "Delivery track, four weeks",
+  "Build and wire",
+  "Run beside plan",
+  "Hand to planners",
+  "Value gate, go or stop",
+  "One squad runs both tracks",
+  "Discovery on the next request while delivery ships",
+  "Shared base grows",
+  "Tested forecast models",
+  "Shared feature store",
+  "Clean order history",
+  "Accuracy monitors",
+  "Review screens",
+  "Faster starts",
+  "Each release adds a layer",
+  "The next request starts higher up the stack"
+ ],
+ "capacity_words": 154,
+ "archetype_floors": {
+  "engagement-model": 140
+ },
+ "short_of_floor": []
+}

@@ -4,7 +4,8 @@
   "source_notes": [
     "The template's clrScheme carries dk2 4B5960, lt2 E7E6E6 and six accents. Its red D91E18 sits at accent2 there and moves to accent1 here, so the brand colour is the slot every accent role reads.",
     "The template's neutrals are Office theme derivations of bg1 and tx1 (F2F2F2 bg1 darker 5%, BFBFBF darker 25%, 595959 tx1 lighter 35%), which the roles reproduce exactly.",
-    "hlink and folHlink are set to the navy and slate already in the palette."
+    "hlink and folHlink are set to the navy and slate already in the palette.",
+    "accent4 and accent5 (series-3 and series-4) are the template's greys A6A6A6 and D9D9D9 (bg1 darker 35% and 15%), not its amber F38B1F and green 4EA347: those two are the rag-amber and rag-green identity hexes, and a series that reads as a status misleads. Navy, the deck blue and grey carry the series; every series clears CIEDE2000 10 against each RAG identity under normal vision and the three Machado simulations (worst 10.8, series-2 against rag-green)."
   ],
   "slots": {
     "dk2": "4B5960",
@@ -12,8 +13,8 @@
     "accent1": "D91E18",
     "accent2": "1E3C7D",
     "accent3": "00A0E9",
-    "accent4": "F38B1F",
-    "accent5": "4EA347",
+    "accent4": "A6A6A6",
+    "accent5": "D9D9D9",
     "accent6": "6B7983",
     "hlink": "1E3C7D",
     "folHlink": "6B7983"
@@ -59,8 +60,8 @@
   },
   "fill_only": {
     "accent3": "00A0E9 is 2.92:1 on white, a fill or mark, never text",
-    "accent4": "F38B1F is 2.46:1 on white, a fill or mark, never text",
-    "accent5": "4EA347 is 3.16:1 on white, a fill or mark, never text"
+    "accent4": "A6A6A6 is 2.43:1 on white, a fill or mark, never text",
+    "accent5": "D9D9D9 is 1.41:1 on white, a fill or mark, never text"
   },
   "vendors": {
     "aws": {

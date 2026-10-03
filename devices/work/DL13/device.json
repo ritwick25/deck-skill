@@ -5,7 +5,7 @@
   "gantt",
   "phased-roadmap"
  ],
- "family": "timeline",
+ "family": "Axis of time or maturity",
  "variant": "milestone-axis-phase-cards",
  "mechanism": "Staggered phase bars on a dated axis close on exit rings, and dashed gate lines drop through matching phase cards to the decision boxes that hold the end date.",
  "canvas": "wide",
@@ -83,7 +83,7 @@
    "kind": "text",
    "role": "bar",
    "max_words": 2,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.bar.4",
@@ -97,7 +97,7 @@
    "kind": "text",
    "role": "bar",
    "max_words": 4,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.bar.6",
@@ -266,5 +266,11 @@
   "Defect backlog under the agreed limit",
   "Gate 3 · Week 30",
   "Go-live call, legacy set to read-only"
- ]
+ ],
+ "capacity_words": 155,
+ "archetype_floors": {
+  "gantt": 110,
+  "phased-roadmap": 130
+ },
+ "short_of_floor": []
 }

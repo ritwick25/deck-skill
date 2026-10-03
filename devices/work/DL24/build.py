@@ -72,32 +72,31 @@ for i, n in enumerate(RULES, 1):
     prims.set_fill(find(s, "struct.step.rule.%d" % i), "hairline", theme=th)
 
 # feeders: six source cards on the left, an arrow from each landing on the foundation ring
-FEEDERS = [("dev.8", "dev.9", "dev.10", "dev.42", "Sales and order history", "Daily orders from three regions",
+FEEDERS = [("dev.8", "dev.9", "dev.10", "dev.42", "Sales history", "Daily orders, three regions",
             "layout-dashboard"),
-           ("dev.11", "dev.12", "dev.13", "dev.43", "Quality and audit records", "Inspections and corrective actions",
-            "award"),
-           ("dev.14", "dev.15", "dev.16", "dev.44", "Product reference data", "Specifications, packs and pricing",
-            "book-open"),
-           ("dev.17", "dev.18", "dev.19", "dev.45", "Customer master records", "Accounts, contacts and service tiers",
-            "user-check"),
-           ("dev.20", "dev.21", "dev.22", "dev.46", "Partner and supplier feeds", "Weekly files from outside partners",
-            "link"),
-           ("dev.23", "dev.24", "dev.25", "dev.47", "Field service logs", "Visit notes and parts used per job",
-            "list-checks")]
+           ("dev.11", "dev.12", "dev.13", "dev.43", "Audit records", "Inspections and fixes", "award"),
+           ("dev.14", "dev.15", "dev.16", "dev.44", "Product data", "Specs, packs and prices", "book-open"),
+           ("dev.17", "dev.18", "dev.19", "dev.45", "Customer master", "Accounts and service tiers", "user-check"),
+           ("dev.20", "dev.21", "dev.22", "dev.46", "Partner feeds", "Weekly files from partners", "link"),
+           ("dev.23", "dev.24", "dev.25", "dev.47", "Field service logs", "Visit notes, parts used", "list-checks")]
+FW = 3.00                                    # feeder card width: the freed gap carries the fan-in
+HUB_L, HUB_R = 4.51, 8.83
+TRUNK_IN, TRUNK_OUT = 4.00, 9.15
+OUT_X = 9.48
+ENTRY = {1: 2, 2: 2, 3: 2, 4: 5, 5: 5, 6: 5}  # feeders 1-3 meet at feeder 2's height, 4-6 at feeder 5's
 for i, (card, bar, tile, tx, h, b, g) in enumerate(FEEDERS, 1):
     y = 1.07 + (i - 1) * 0.95
     rename(s, card, "struct.feeder.%d" % i)
+    move(s, "struct.feeder.%d" % i, 0.50, y, FW, find(s, "struct.feeder.%d" % i).height / EMU)
     rename(s, tile, "struct.feeder.%d.tile" % i)
     prims.set_fill(find(s, "struct.feeder.%d.tile" % i), "paper", theme=th)
     icon(s, "slot.feeder.%d.icon" % i, g, 0.719, y + 0.226, 0.375, th)
     rename(s, tx, "slot.feeder.%d.text" % i)
-    move(s, "slot.feeder.%d.text" % i, 1.27, y + 0.06, 2.60, 0.71)
+    move(s, "slot.feeder.%d.text" % i, 1.27, y + 0.06, FW + 0.50 - 1.27 - 0.08, 0.71)
     text(s, "slot.feeder.%d.text" % i, [P((R(h, "accent-ink", bold=True, size=12),)),
                                         P((R(b, "ink", size=10),), space_before=2)], th, size=12,
          background="card", anchor="middle")
-    rename(s, bar, "struct.feeder.%d.arrow" % i)
-    move(s, "struct.feeder.%d.arrow" % i, 3.92, y + 0.415, 0.59, 0)
-    prims.set_line(find(s, "struct.feeder.%d.arrow" % i), "accent", 1.25, theme=th, head="end")
+    delete(s, bar)                           # the lifted parallel bar: feeders fan in instead (below)
 
 # outcomes: five equal cards on the right, an arrow from the ring landing on each
 OUTCOMES = [("dev.26", "dev.27", "dev.60", "dev.61", "Faster market reports", "New reports ship in days instead of quarters",
@@ -114,20 +113,43 @@ CH, GAP = 0.974, 0.18
 for i, (card, bar, head, body, h, b, g) in enumerate(OUTCOMES, 1):
     y = 1.07 + (i - 1) * (CH + GAP)
     rename(s, card, "struct.outcome.%d" % i)
-    move(s, "struct.outcome.%d" % i, 9.42, y, 3.42, CH)
+    move(s, "struct.outcome.%d" % i, OUT_X, y, 12.90 - OUT_X, CH)
     rename(s, head, "slot.outcome.%d.head" % i)
     rename(s, body, "slot.outcome.%d.body" % i)
-    icon(s, "slot.outcome.%d.icon" % i, g, 9.573, y + 0.165, 0.292, th)
-    move(s, "slot.outcome.%d.head" % i, 10.00, y + 0.15, 2.74, 0.32)
-    move(s, "slot.outcome.%d.body" % i, 9.56, y + 0.48, 3.18, 0.34)
+    icon(s, "slot.outcome.%d.icon" % i, g, OUT_X + 0.153, y + 0.165, 0.292, th)
+    move(s, "slot.outcome.%d.head" % i, OUT_X + 0.58, y + 0.15, 2.74, 0.32)
+    move(s, "slot.outcome.%d.body" % i, OUT_X + 0.14, y + 0.48, 3.18, 0.34)
     text(s, "slot.outcome.%d.head" % i, [P((R(h, "accent-ink", bold=True, size=12),))], th, size=12,
          background="card", anchor="middle")
     text(s, "slot.outcome.%d.body" % i, [P((R(b, "ink", size=10),))], th, size=10, background="card",
          anchor="middle")
-    rename(s, bar, "struct.outcome.%d.arrow" % i)
-    move(s, "struct.outcome.%d.arrow" % i, 8.83, y + CH / 2, 0.59, 0)
-    prims.set_line(find(s, "struct.outcome.%d.arrow" % i), "accent", 1.25, theme=th, head="end")
+    delete(s, bar)                           # outcomes fan out of one exit point instead (below)
 
+
+def fy(i):
+    sh = find(s, "struct.feeder.%d" % i)
+    return (sh.top + sh.height / 2) / EMU
+
+
+# fan in: each feeder runs to a trunk beside the hub, the trunk carries three feeders to one entry point; the
+# three arrowheads of an entry coincide, so the eye reads three sources becoming one stream
+for i in range(1, 7):
+    y0, y1 = fy(i), fy(ENTRY[i])
+    pts = [(0.50 + FW, y0), (HUB_L, y1)] if abs(y0 - y1) < 1e-6 else \
+        [(0.50 + FW, y0), (TRUNK_IN, y0), (TRUNK_IN, y1), (HUB_L, y1)]
+    prims.elbow(s, pts, role="accent", weight_pt=1.25, name="struct.feeder.%d.arrow" % i, theme=th)
+# fan out: one exit point on the hub's right edge branches to every outcome
+core = find(s, "struct.hub.outer")
+EXIT = (core.top + core.height / 2) / EMU
+for i in range(1, 6):
+    sh = find(s, "struct.outcome.%d" % i)
+    yo = (sh.top + sh.height / 2) / EMU
+    pts = [(HUB_R, EXIT), (OUT_X, yo)] if abs(yo - EXIT) < 1e-6 else \
+        [(HUB_R, EXIT), (TRUNK_OUT, EXIT), (TRUNK_OUT, yo), (OUT_X, yo)]
+    prims.elbow(s, pts, role="accent", weight_pt=1.25, name="struct.outcome.%d.arrow" % i, theme=th)
+
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL24", th, archetype="convergence-hub", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

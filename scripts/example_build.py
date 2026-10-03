@@ -1,9 +1,12 @@
-"""A two-slide deck built only from the kit: the pattern every new deck's build.py follows.
+"""A two-slide deck built only from the plain kit primitives (no compose layer, no devices, no engine). A new deck
+starts from scripts/template_build.py instead (new_deck.py scaffolds it: the epic layer); read this file for the
+primitives underneath.
 
     $PY scripts/example_build.py [--out .cache/example/example.pptx] [--theme themes/sigmoid.json]
     $PY gates/run_all.py --deck .cache/example/example.pptx --static
 
-Slide 1 is offering-pillars (Parallel columns): three cards, a foundation band, a stat row. Slide 2 is
+Slide 1 is offering-pillars (Parallel columns): three cards, a near-black foundation band, a stat row that states
+its basis once ("Illustrative figures"), never a chip under every figure. Slide 2 is
 process-flow (Directed sequence) in a different structure: numbered rows down the left, one decision panel on
 the right. Both fill the content band (P24) and do not look alike (P15). Stats are declared in the manifest
 (P23); deck.json beside the deck carries the build command (P21). Every figure is fictional.
@@ -66,15 +69,18 @@ def pillars(prs, th):
                       space_before=0 if j == 0 else 3) for j, (k, v) in enumerate(facts)],
                 f"pillar.{i}.facts", th, background="card")
     band = Box(C.x, C.y + card_h + 0.2, C.w, 0.7)
-    prims.zone(s, band, fill="accent-tint", label=None, name="foundation.zone", theme=th)
+    prims.block(s, band, fill="ink-strong", name="foundation.band", theme=th)
     textbox(s, Box(band.x + 0.3, band.y + 0.1, band.w - 0.6, band.h - 0.2),
-            [Para((Run("Governed data foundation", "ink-deep", bold=True, size=14),
-                   Run("   one semantic layer, one access policy, one audit trail", "ink", size=12)))],
-            "foundation.text", th, background="accent-tint", anchor="middle")
+            [Para((Run("Governed data foundation", "paper", bold=True, size=14),
+                   Run("   one semantic layer, one access policy, one audit trail", "paper", size=12)))],
+            "foundation.text", th, background="ink-strong", anchor="middle")
+    basis = prims.basis_label("illustrative")
+    lp = [Para((Run(basis, "ink-muted", size=9),), align="right")]
+    textbox(s, Box(C.x, band.b + 0.08, C.w, 0.2), lp, "stat.basis", th)
     for i, c in enumerate(cols, 1):
         v, lbl = STATS[f"stat.{i}"]
-        prims.stat(s, Box(c.x, band.b + 0.2, c.w, C.b - band.b - 0.2), v, lbl, kind="illustrative", pt=44,
-                   label_pt=12, name=f"stat.{i}", theme=th)
+        prims.stat(s, Box(c.x, band.b + 0.3, c.w, C.b - band.b - 0.3), v, lbl, kind="illustrative", pt=44,
+                   label_pt=12, basis=False, name=f"stat.{i}", theme=th)
     return s
 
 

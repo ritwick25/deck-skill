@@ -56,6 +56,7 @@ ROLE_DEFAULTS = {
     "accent-wash": "accent1 lumMod 10000 lumOff 90000",
     "accent-deep": "accent1 lumMod 75000",
     "accent-ink": "accent1",          # solved per theme: lumMod lowered until text clears 4.5
+    "accent-bright": "accent1",       # solved per theme: lightened toward white until it clears 3:1 on the dark fills
     "on-accent": "bg1",               # solved per theme: bg1 or tx1, whichever contrasts more
     "navy": "tx2",
     "series-1": "accent2",
@@ -65,7 +66,13 @@ ROLE_DEFAULTS = {
     "series-5": "accent6",
 }
 ROLES = tuple(ROLE_DEFAULTS)
-TEXT_ROLES = ("ink-deep", "ink", "ink-strong", "ink-muted", "accent-ink", "on-accent", "navy")
+TEXT_ROLES = ("ink-deep", "ink", "ink-strong", "ink-muted", "accent-ink", "accent-bright", "on-accent", "navy")
+# accent-bright: the brand for large numerals and marks on a near-black or navy fill (compose.stat_band). Every theme
+# solves it at load, unless the theme JSON gives it: accent1 itself when that clears BRIGHT_MIN against every
+# BRIGHT_AGAINST fill, else accent1 mixed toward white (lumMod v lumOff 100000-v, the hue kept) by the least step that
+# does. 3:1 is the large-text line (18pt and larger, or 14pt bold), so it never carries body copy on a dark fill.
+BRIGHT_AGAINST = ("ink-deep", "ink-strong", "navy")
+BRIGHT_MIN = 3.0
 SERIES = tuple("series-%d" % i for i in range(1, 6))
 
 HAIRLINE_EXEMPT = ("decorative: card borders and dividers on spaced or filled cards. WCAG 1.4.11 scopes 3:1 "
@@ -85,6 +92,9 @@ CONTRAST_PAIRS = (
     ("accent-ink", "card", 4.5, "brand-colour labels on a filled card"),
     ("ink", "accent-tint", 4.5, "copy inside a grouping container"),
     ("ink", "accent-wash", 4.5, "copy inside a tinted zone"),
+    ("accent-bright", "ink-deep", 3.0, "brand numerals on the near-black band (large text only)"),
+    ("accent-bright", "ink-strong", 3.0, "brand numerals on a strong ink panel (large text only)"),
+    ("accent-bright", "navy", 3.0, "brand numerals on a navy panel (large text only)"),
     ("on-accent", "accent", 4.5, "text on accent fills (discs, tabs)"),
     ("on-accent", "accent-deep", 4.5, "text on emphasis fills"),
     ("paper", "ink-strong", 4.5, "white caps text on a header pill"),
@@ -328,6 +338,11 @@ class Theme:
                 raise ThemeInvariant("role %s record" % name, need=str(expr), have=rec,
                                      hint="the slots changed since the record was written; re-run theme check "
                                           "and update the record")
+        if "accent-bright" not in given:
+            expr, ratio = self._lighten_expr("accent-bright", parse_expr("accent1"), list(BRIGHT_AGAINST), BRIGHT_MIN)
+            self.roles["accent-bright"] = expr
+            self.solved["accent-bright"] = {"method": "lighten", "against": list(BRIGHT_AGAINST), "min": BRIGHT_MIN,
+                                            "expr": str(expr), "ratio": ratio}
 
     @staticmethod
     def _no_derived(name, against, derived):
@@ -486,6 +501,25 @@ class Theme:
         raise ThemeInvariant("solve %s" % what, need=minimum, have=r,
                              hint="no lumMod reaches the minimum against %s; pick another slot" % ", ".join(against))
 
+    def _lighten_expr(self, what, start: Expr, against, minimum: float, step: int = 500):
+        """The start colour mixed toward white (lumMod v, lumOff 100000 - v) by the least step that clears `minimum`
+        against every role in `against`: the hue is kept, only its lightness moves. When no step clears (a light dk2
+        under navy), the best one is returned and theme check reports the failing pair: the theme still loads, as it
+        does for every other gated pair."""
+        best = (self._ratio_all(self.expr_hex(start), against), start)
+        if best[0] >= minimum:
+            return start, best[0]
+        v = 100000
+        while v > 0:
+            v -= step
+            e = Expr(start.slot, (("lumMod", v), ("lumOff", 100000 - v)))
+            r = self._ratio_all(self.expr_hex(e), against)
+            if r >= minimum:
+                return e, r
+            if r > best[0]:
+                best = (r, e)
+        return best[1], best[0]
+
     def _pick_expr(self, cands, against):
         scored = [(self._ratio_all(self.expr_hex(c), against), i, c) for i, c in enumerate(cands)]
         r, _, c = max(scored, key=lambda t: (t[0], -t[1]))
@@ -566,9 +600,40 @@ def theme_parts(names, content_types: bytes | None) -> list[str]:
     return sorted(n for n in out if n in set(names))
 
 
-def apply_theme(pptx_path, theme: Theme, out_path=None) -> list[str]:
+SOLVED_ROLES = ("accent-ink", "accent-bright", "on-accent")
+
+
+def _remap_solved(xml: bytes, old: "Theme", new: "Theme") -> bytes:
+    """Rewrite every schemeClr that spells one of old's solved-role expressions as new's expression for that role.
+    A solved role (accent-ink, accent-bright, on-accent) is worked out per theme, so a slide built under one theme
+    carries that theme's recipe; after a swap the recipe must be the new theme's, or the colour is no role at all."""
+    from lxml import etree
+    root = etree.fromstring(xml)
+    key = lambda el: (el.get("val"), tuple((c.tag.split("}")[-1], c.get("val")) for c in el))
+    table = {}
+    for r in SOLVED_ROLES:
+        a, b = old.spec(r), new.spec(r)
+        if key(a) != key(b):
+            table[key(a)] = b
+    if not table:
+        return xml
+    n = 0
+    for el in list(root.iter(_A + "schemeClr")):
+        rep = table.get(key(el))
+        if rep is not None:
+            import copy
+            el.getparent().replace(el, copy.deepcopy(rep))
+            n += 1
+    return etree.tostring(root, xml_declaration=True, encoding="UTF-8", standalone=True) if n else xml
+
+
+def apply_theme(pptx_path, theme: Theme, out_path=None, from_theme: "Theme | None" = None) -> list[str]:
     """Swap clrScheme, fontScheme and fmtScheme in every theme part of a package (slide masters, notes
-    and handout masters alike). Writes atomically, deterministically. Returns the parts swapped."""
+    and handout masters alike). Writes atomically, deterministically. Returns the parts swapped.
+
+    from_theme (the theme the deck was built under) also remaps every solved-role expression on the slides to the
+    new theme's recipe (_remap_solved). Without it, accent-ink, accent-bright and on-accent keep the old recipe and
+    gate P16 fails the cut. A client cut is normally a rebuild with build.py --theme; this is for a hand-edited deck."""
     import zipfile
     from .package import write_members     # package imports theme; import here to stay acyclic
     with zipfile.ZipFile(pptx_path) as z:
@@ -578,9 +643,15 @@ def apply_theme(pptx_path, theme: Theme, out_path=None) -> list[str]:
         raise ThemeInvariant("apply_theme", need="at least one theme part", have=0)
     for n in parts:
         members[n] = theme.retheme_part(members[n])
+    if from_theme is not None:
+        for n in list(members):
+            if n.startswith(("ppt/slides/slide", "ppt/slideLayouts/", "ppt/slideMasters/")) and n.endswith(".xml"):
+                members[n] = _remap_solved(members[n], from_theme, theme)
     write_members(members, out_path or pptx_path)
     return parts
 
 
 __all__ = ["Theme", "Expr", "parse_expr", "ROLES", "ROLE_DEFAULTS", "TEXT_ROLES", "SERIES", "CONTRAST_PAIRS",
-           "FIXED", "OPEN_SLOTS", "CLRMAP", "MACHADO", "CVD_DELTA_E", "delta_e00", "apply_theme", "theme_parts"]
+           "BRIGHT_AGAINST", "BRIGHT_MIN",
+           "FIXED", "OPEN_SLOTS", "CLRMAP", "MACHADO", "CVD_DELTA_E", "delta_e00", "apply_theme", "theme_parts",
+           "SOLVED_ROLES"]

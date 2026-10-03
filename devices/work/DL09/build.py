@@ -337,6 +337,8 @@ for x in s.shapes:
 
 leftover = [x.name for x in s.shapes if x.name.startswith("dev.")]
 assert not leftover, leftover
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL09", th, archetype="value-horizons", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

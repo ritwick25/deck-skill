@@ -126,6 +126,8 @@ for i, ((frame, band, head, body, x, fill, role, h, b), g) in enumerate(zip(CARD
          anchor="middle")
     text(s, "slot.card.%d.body" % i, [P((R(d, "ink", size=11),), space_before=0 if j == 0 else 2) for j, d in enumerate(b)], th, size=11, anchor="middle")
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL20", th, archetype="maturity-model", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

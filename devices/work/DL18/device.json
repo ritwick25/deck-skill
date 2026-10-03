@@ -1,56 +1,366 @@
-{"id": "DL18", "name": "Slanted lanes with routing rules", "archetypes": ["decision-logic", "process-flow"], "family": "Directed sequence", "variant": "slanted-lanes",
- "mechanism": "Two input signals feed five ordered lanes, each lane names its owner and the one rule that sends a case there, with shared controls and an escalation clock beneath.",
- "canvas": "wide", "source": "d03-s017",
- "slots": [
-  {"name": "slot.title", "kind": "title", "max_words": 14},
-  {"name": "slot.signals.label", "kind": "text", "role": "section-label", "max_words": 4},
-  {"name": "slot.signal.1.icon", "kind": "glyph", "background": "card"},
-  {"name": "slot.signal.1.head", "kind": "text", "role": "card-heading", "max_words": 4},
-  {"name": "slot.signal.1.body", "kind": "text", "role": "body", "max_words": 6},
-  {"name": "slot.signal.2.icon", "kind": "glyph", "background": "card"},
-  {"name": "slot.signal.2.head", "kind": "text", "role": "card-heading", "max_words": 4},
-  {"name": "slot.signal.2.body", "kind": "text", "role": "body", "max_words": 6},
-  {"name": "slot.note.body", "kind": "text", "role": "body", "max_words": 16, "background": "accent-wash"},
-  {"name": "slot.lanes.label", "kind": "text", "role": "section-label", "max_words": 6},
-  {"name": "slot.lane.1.icon", "kind": "glyph", "background": "accent"},
-  {"name": "slot.lane.1.head", "kind": "text", "role": "card-heading", "max_words": 3, "background": "accent"},
-  {"name": "slot.lane.1.owner", "kind": "text", "role": "label", "max_words": 1, "background": "ink-deep"},
-  {"name": "slot.lane.2.icon", "kind": "glyph", "background": "accent-wash"},
-  {"name": "slot.lane.2.head", "kind": "text", "role": "card-heading", "max_words": 3, "background": "accent-wash"},
-  {"name": "slot.lane.2.owner", "kind": "text", "role": "label", "max_words": 2, "background": "accent"},
-  {"name": "slot.lane.3.icon", "kind": "glyph", "background": "ink-deep"},
-  {"name": "slot.lane.3.head", "kind": "text", "role": "card-heading", "max_words": 3, "background": "ink-deep"},
-  {"name": "slot.lane.3.owner", "kind": "text", "role": "label", "max_words": 2, "background": "accent"},
-  {"name": "slot.lane.4.icon", "kind": "glyph", "background": "hairline"},
-  {"name": "slot.lane.4.head", "kind": "text", "role": "card-heading", "max_words": 3, "background": "hairline"},
-  {"name": "slot.lane.4.owner", "kind": "text", "role": "label", "max_words": 2, "background": "accent"},
-  {"name": "slot.lane.5.icon", "kind": "glyph", "background": "hairline-soft"},
-  {"name": "slot.lane.5.head", "kind": "text", "role": "card-heading", "max_words": 3, "background": "hairline-soft"},
-  {"name": "slot.lane.5.owner", "kind": "text", "role": "label", "max_words": 2, "background": "accent"},
-  {"name": "slot.rules.label", "kind": "text", "role": "section-label", "max_words": 10},
-  {"name": "slot.rule.1.head", "kind": "text", "role": "card-heading", "max_words": 5},
-  {"name": "slot.rule.1.body", "kind": "text", "role": "body", "max_words": 5},
-  {"name": "slot.rule.2.head", "kind": "text", "role": "card-heading", "max_words": 5},
-  {"name": "slot.rule.2.body", "kind": "text", "role": "body", "max_words": 5},
-  {"name": "slot.rule.3.head", "kind": "text", "role": "card-heading", "max_words": 5},
-  {"name": "slot.rule.3.body", "kind": "text", "role": "body", "max_words": 5},
-  {"name": "slot.rule.4.head", "kind": "text", "role": "card-heading", "max_words": 5},
-  {"name": "slot.rule.4.body", "kind": "text", "role": "body", "max_words": 5},
-  {"name": "slot.rule.5.head", "kind": "text", "role": "card-heading", "max_words": 5},
-  {"name": "slot.rule.5.body", "kind": "text", "role": "body", "max_words": 5},
-  {"name": "slot.controls.label", "kind": "text", "role": "section-label", "max_words": 6, "background": "accent-wash"},
-  {"name": "slot.control.1.icon", "kind": "glyph", "background": "accent-wash"},
-  {"name": "slot.control.1.text", "kind": "text", "role": "label", "max_words": 3, "background": "accent-wash"},
-  {"name": "slot.control.2.icon", "kind": "glyph", "background": "accent-wash"},
-  {"name": "slot.control.2.text", "kind": "text", "role": "label", "max_words": 3, "background": "accent-wash"},
-  {"name": "slot.control.3.icon", "kind": "glyph", "background": "accent-wash"},
-  {"name": "slot.control.3.text", "kind": "text", "role": "label", "max_words": 3, "background": "accent-wash"},
-  {"name": "slot.control.4.icon", "kind": "glyph", "background": "accent-wash"},
-  {"name": "slot.control.4.text", "kind": "text", "role": "label", "max_words": 3, "background": "accent-wash"},
-  {"name": "slot.clock.label", "kind": "text", "role": "section-label", "max_words": 6},
-  {"name": "slot.clock.1.text", "kind": "text", "role": "label", "max_words": 3},
-  {"name": "slot.clock.2.text", "kind": "text", "role": "label", "max_words": 3},
-  {"name": "slot.clock.3.text", "kind": "text", "role": "label", "max_words": 3},
-  {"name": "slot.clock.4.text", "kind": "text", "role": "label", "max_words": 3}
+{
+ "id": "DL18",
+ "name": "Slanted lanes with routing rules",
+ "archetypes": [
+  "decision-logic",
+  "process-flow"
  ],
- "samples": ["Two signals route every supplier invoice to one of five handling lanes", "Signals on arrival", "Match score", "Order, receipt and invoice agree", "Exception flags", "Duplicate, price or tax variance", "Rules run top to bottom", "The first rule that matches sets the lane", "Handling lanes, tested in order", "Straight through", "Auto-post", "Price variance", "Tax mismatch", "Tax desk", "Duplicate risk", "Vendor on hold", "Rule that sends an invoice to the lane", "Score 95 and up", "No open flags", "Price off by over 2%", "Buyer confirms or credits", "Tax code differs", "Tax desk fixes the code", "Same amount and date", "Second copy held", "Vendor on watch list", "Payment held until cleared", "Controls on every lane", "Audit trail kept", "Reason coded", "Owner named", "Spot checked", "Escalation clock for open cases", "Day 0 routed", "Day 2 reminder", "Day 5 escalated", "Day 10 closed"]}
+ "family": "Directed sequence",
+ "variant": "slanted-lanes",
+ "mechanism": "Two input signals feed five ordered lanes, each lane names its owner and the one rule that sends a case there, with shared controls and an escalation clock beneath.",
+ "canvas": "wide",
+ "source": "d03-s017",
+ "slots": [
+  {
+   "name": "slot.title",
+   "kind": "title",
+   "max_words": 14
+  },
+  {
+   "name": "slot.signals.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 4
+  },
+  {
+   "name": "slot.signal.1.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.signal.1.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 4
+  },
+  {
+   "name": "slot.signal.1.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 6
+  },
+  {
+   "name": "slot.signal.2.icon",
+   "kind": "glyph",
+   "background": "card"
+  },
+  {
+   "name": "slot.signal.2.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 4
+  },
+  {
+   "name": "slot.signal.2.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 6
+  },
+  {
+   "name": "slot.note.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 16,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.lanes.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 6
+  },
+  {
+   "name": "slot.lane.1.icon",
+   "kind": "glyph",
+   "background": "accent"
+  },
+  {
+   "name": "slot.lane.1.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 3,
+   "background": "accent"
+  },
+  {
+   "name": "slot.lane.1.owner",
+   "kind": "text",
+   "role": "label",
+   "max_words": 1,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.lane.2.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.lane.2.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.lane.2.owner",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.lane.3.icon",
+   "kind": "glyph",
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.lane.3.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 3,
+   "background": "ink-deep"
+  },
+  {
+   "name": "slot.lane.3.owner",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.lane.4.icon",
+   "kind": "glyph",
+   "background": "hairline"
+  },
+  {
+   "name": "slot.lane.4.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 3,
+   "background": "hairline"
+  },
+  {
+   "name": "slot.lane.4.owner",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.lane.5.icon",
+   "kind": "glyph",
+   "background": "hairline-soft"
+  },
+  {
+   "name": "slot.lane.5.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 3,
+   "background": "hairline-soft"
+  },
+  {
+   "name": "slot.lane.5.owner",
+   "kind": "text",
+   "role": "label",
+   "max_words": 2,
+   "background": "accent"
+  },
+  {
+   "name": "slot.rules.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 10
+  },
+  {
+   "name": "slot.rule.1.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 5
+  },
+  {
+   "name": "slot.rule.1.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 5
+  },
+  {
+   "name": "slot.rule.2.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 5
+  },
+  {
+   "name": "slot.rule.2.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 5
+  },
+  {
+   "name": "slot.rule.3.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 5
+  },
+  {
+   "name": "slot.rule.3.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 5
+  },
+  {
+   "name": "slot.rule.4.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 5
+  },
+  {
+   "name": "slot.rule.4.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 5
+  },
+  {
+   "name": "slot.rule.5.head",
+   "kind": "text",
+   "role": "card-heading",
+   "max_words": 5
+  },
+  {
+   "name": "slot.rule.5.body",
+   "kind": "text",
+   "role": "body",
+   "max_words": 5
+  },
+  {
+   "name": "slot.controls.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 6,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.control.1.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.control.1.text",
+   "kind": "text",
+   "role": "label",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.control.2.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.control.2.text",
+   "kind": "text",
+   "role": "label",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.control.3.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.control.3.text",
+   "kind": "text",
+   "role": "label",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.control.4.icon",
+   "kind": "glyph",
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.control.4.text",
+   "kind": "text",
+   "role": "label",
+   "max_words": 3,
+   "background": "accent-wash"
+  },
+  {
+   "name": "slot.clock.label",
+   "kind": "text",
+   "role": "section-label",
+   "max_words": 6
+  },
+  {
+   "name": "slot.clock.1.text",
+   "kind": "text",
+   "role": "label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.clock.2.text",
+   "kind": "text",
+   "role": "label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.clock.3.text",
+   "kind": "text",
+   "role": "label",
+   "max_words": 3
+  },
+  {
+   "name": "slot.clock.4.text",
+   "kind": "text",
+   "role": "label",
+   "max_words": 3
+  }
+ ],
+ "samples": [
+  "Two signals route every supplier invoice to one of five handling lanes",
+  "Signals on arrival",
+  "Match score",
+  "Order, receipt and invoice agree",
+  "Exception flags",
+  "Duplicate, price or tax variance",
+  "Rules run top to bottom",
+  "The first rule that matches sets the lane",
+  "Handling lanes, tested in order",
+  "Straight through",
+  "Auto-post",
+  "Price variance",
+  "Tax mismatch",
+  "Tax desk",
+  "Duplicate risk",
+  "Vendor on hold",
+  "Rule that sends an invoice to the lane",
+  "Score 95 and up",
+  "No open flags",
+  "Price off by over 2%",
+  "Buyer confirms or credits",
+  "Tax code differs",
+  "Tax desk fixes the code",
+  "Same amount and date",
+  "Second copy held",
+  "Vendor on watch list",
+  "Payment held until cleared",
+  "Controls on every lane",
+  "Audit trail kept",
+  "Reason coded",
+  "Owner named",
+  "Spot checked",
+  "Escalation clock for open cases",
+  "Day 0 routed",
+  "Day 2 reminder",
+  "Day 5 escalated",
+  "Day 10 closed"
+ ],
+ "capacity_words": 180,
+ "archetype_floors": {
+  "decision-logic": 180,
+  "process-flow": 210
+ },
+ "short_of_floor": [
+  "process-flow"
+ ]
+}

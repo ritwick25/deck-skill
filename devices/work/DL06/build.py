@@ -200,6 +200,8 @@ txt.textbox(s, Box(10.84, 6.00, 1.84, 0.50), [txt.Para((txt.Run("Next wave start
             "slot.gate.body", th, background="accent-wash")
 icon(s, "slot.gate.icon", "gauge", 12.32, 5.64, 0.33, th, role="accent")
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL06", th, archetype="phased-roadmap", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

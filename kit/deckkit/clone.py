@@ -11,16 +11,23 @@ PowerPoint calls the result corrupt while LibreOffice renders it anyway. copy_sh
   glue    stCxn/endCxn are remapped to the copy of their target, or stripped when the target was not
           copied (or always, under DEVICE_STRIP)
 
+  charts  a chart frame (c:chart) is carried with its own copy of the chart part, its embedded workbook (Edit Data
+          keeps working) and any chart style or colour parts, renumbered in the destination, even within one
+          package (two slides never share one chart part). Its alt text is kept: the kit's frames end it with
+          "(chart kind <kind>)", which gate P27 reads. A chart whose data is a linked external workbook, or that
+          carries user shapes, is refused.
+
 The strip policy removes what must never travel into client work: hyperlinks, custom data and tags,
-HD Photo (artistic effect) layers, alt text, creation ids, and mc:AlternateContent (the Fallback is
-kept). Charts, OLE objects, SmartArt, ink and media raise UnsupportedPart before anything is written.
-Selection is by shape id or name, never by index.
+HD Photo (artistic effect) layers, alt text (chart frames excepted), creation ids, and mc:AlternateContent (the
+Fallback is kept). Extended charts (cx:chart, which LibreOffice cannot render), OLE objects, SmartArt, ink and
+media raise UnsupportedPart before anything is written. Selection is by shape id or name, never by index.
 """
 from __future__ import annotations
 
 import copy as _copy
 import hashlib
 import io
+import re
 import shutil
 import subprocess
 from dataclasses import dataclass, field
@@ -46,8 +53,12 @@ RASTER_CT = {"png": "image/png", "jpg": "image/jpeg", "jpeg": "image/jpeg", "gif
              "bmp": "image/bmp", "tif": "image/tiff", "tiff": "image/tiff", "emf": "image/x-emf",
              "wmf": "image/x-wmf"}
 SHAPE_TAGS = ("sp", "pic", "cxnSp", "grpSp", "graphicFrame", "contentPart")
-# graphicData URIs a frame may carry across: tables only
-FRAME_OK = ("http://schemas.openxmlformats.org/drawingml/2006/table",)
+# graphicData URIs a frame may carry across: tables, and native charts with their parts
+CHART_URI = "http://schemas.openxmlformats.org/drawingml/2006/chart"
+FRAME_OK = ("http://schemas.openxmlformats.org/drawingml/2006/table", CHART_URI)
+RT_CHART_STYLE = "http://schemas.microsoft.com/office/2011/relationships/chartStyle"
+RT_CHART_COLORS = "http://schemas.microsoft.com/office/2011/relationships/chartColorStyle"
+CHART_COPY_RELS = (RT.PACKAGE, RT.IMAGE, RT.OLE_OBJECT, RT_CHART_STYLE, RT_CHART_COLORS)
 FRAME_KIND = {"chart": "chart", "chartex": "chart", "ole": "OLE object", "diagram": "SmartArt",
               "ink": "ink", "model3d": "3D model"}
 MEDIA_TAGS = ("videoFile", "audioFile", "quickTimeFile", "wavAudioFile", "audioCd", "media")
@@ -222,6 +233,8 @@ def _apply_strip(el, strip: StripPolicy) -> None:
         _drop_ext(el, lambda uri, e: uri == HDPHOTO_EXT_URI or e.find(qn("a14:imgProps")) is not None)
     if strip.alt_text:
         for c in el.iter(P("cNvPr")):
+            if _is_chart_frame(c.getparent().getparent()):
+                continue                                   # a chart's alt text states its kind (gate P27)
             for attr in ("descr", "title"):
                 if attr in c.attrib:
                     del c.attrib[attr]
@@ -230,6 +243,13 @@ def _apply_strip(el, strip: StripPolicy) -> None:
             lst = c.find(A("extLst"))
             if lst is not None:
                 c.remove(lst)
+
+
+def _is_chart_frame(el) -> bool:
+    if el is None or local(el) != "graphicFrame":
+        return False
+    gd = el.find(A("graphic") + "/" + A("graphicData"))
+    return gd is not None and gd.get("uri") == CHART_URI
 
 
 def _unsupported(el, part) -> None:
@@ -241,8 +261,9 @@ def _unsupported(el, part) -> None:
             continue
         kind = FRAME_KIND.get(uri.rstrip("/").rsplit("/", 1)[-1], uri or "unknown graphic")
         raise UnsupportedPart(f"{_sname(gf) or 'graphicFrame'} (id {_sid(gf)}) is a {kind}",
-                              need="a table, shape or picture", have=kind,
-                              hint="redraw it natively or place a rendered PNG; the kit carries no embedded parts")
+                              need="a table, native chart, shape or picture", have=kind,
+                              hint="rebuild it from build.py with the kit (deckkit.charts for a chart); an extended "
+                                   "chart, OLE object or SmartArt does not travel")
     for cp in el.iter(P("contentPart")):
         raise UnsupportedPart(f"content part (id {_sid(cp)})", need="a shape", have="ink content part",
                               hint="redraw the ink as a freeform")
@@ -340,6 +361,9 @@ class _Relinker:
         if rel.is_external:
             return
         rt = rel.reltype
+        if rt == RT.CHART:
+            self._check_chart(rel.target_part, where)
+            return
         if rt == RT.IMAGE:
             ext = rel.target_part.partname.ext.lower()
             if ext != "svg" and ext not in RASTER_CT:
@@ -350,10 +374,46 @@ class _Relinker:
         raise UnsupportedPart(f"{where}: relationship {rt.rsplit('/', 1)[-1]}", need="image, hdphoto or external link",
                               have=rt.rsplit("/", 1)[-1], hint="cross-package copies carry pictures and links only")
 
+    @staticmethod
+    def _check_chart(cp, where: str) -> None:
+        for r in cp.rels.values():
+            if r.is_external:
+                raise UnsupportedPart(f"{where}: chart data", need="an embedded workbook", have="a linked external file",
+                                      hint="embed the data (Edit Data, then save) or rebuild the chart with the kit")
+            if r.reltype not in CHART_COPY_RELS:
+                raise UnsupportedPart(f"{where}: chart relationship {r.reltype.rsplit('/', 1)[-1]}",
+                                      need="workbook, image, style or colour parts", have=r.reltype.rsplit("/", 1)[-1],
+                                      hint="chart user shapes do not travel; draw annotations with the kit")
+
+    def _copy_chart(self, cp) -> str:
+        """A fresh chart part in the destination package with its own workbook and style parts, related to the
+        destination slide part; returns the slide-side relationship id."""
+        from pptx.parts.chart import ChartPart
+        pkg = self.dst.package
+        new = ChartPart.load(pkg.next_partname(ChartPart.partname_template), cp.content_type, pkg, cp.blob)
+        out = self.dst.relate_to(new, RT.CHART)              # reachable now, so the next partname counts it
+        remap = {}
+        for rid, r in sorted(cp.rels.items()):
+            tp = r.target_part
+            if r.reltype == RT.IMAGE:
+                target = _image_part(pkg, tp.blob, tp.partname.ext)
+            else:
+                tmpl = re.sub(r"\d*(\.[A-Za-z0-9]+)$", r"%d\1", str(tp.partname))
+                target = type(tp).load(pkg.next_partname(tmpl), tp.content_type, pkg, tp.blob)
+            remap[rid] = new.relate_to(target, r.reltype)
+        for e, k, v in list(_r_attrs(new._element)):
+            if v in remap:
+                e.set(k, remap[v])
+        return out
+
     def new(self, rid: str) -> str:
         if rid in self.cache:
             return self.cache[rid]
         rel = self.src.rels[rid]
+        if not rel.is_external and rel.reltype == RT.CHART:
+            out = self._copy_chart(rel.target_part)
+            self.cache[rid] = out
+            return out
         if rel.is_external:
             out = self.dst.relate_to(rel.target_ref, rel.reltype, is_external=True)
         elif self.same_pkg and rel.reltype not in (RT.IMAGE,):

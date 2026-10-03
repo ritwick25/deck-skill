@@ -1558,6 +1558,100 @@ def p24_cover_as_content(p, w):
     edit_part(p, "docProps/custom.xml", fn)
 
 
+# ------------------------------------------------------------------ planters for the ruling-22 shared contracts
+
+def p03_margin(p, w):
+    """The pilot card moved so its right edge sits at 13.10in: on the slide, 0.20in past the content band's edge."""
+    def fn(r):
+        sh = shape(r, "pilot.card")
+        x, _y, bw, _bh = box_in(sh)
+        move(sh, dx_in=13.10 - (x + bw))
+    edit_slide(p, 5, fn)
+
+
+def p10_table_frame(p, w):
+    """The pillars slide with its icons removed and a table frame added: only a chart frame is a device."""
+    from pptx.util import Inches
+    p10_no_device(p, w)
+
+    def fn(prs):
+        gf = prs.slides[1].shapes.add_table(2, 2, Inches(9.0), Inches(5.6), Inches(3.0), Inches(0.8))
+        gf.name = "plain.table"
+    with_prs(p, fn)
+
+
+def p13_unknown(p, w):
+    """The process slide tagged with a misspelt archetype: no budget can be looked up for it."""
+    def fn(r):
+        for prop in r:
+            if (prop[0].text or "").startswith("process-flow:"):
+                prop[0].text = prop[0].text.replace("process-flow:", "process-flw:")
+    edit_part(p, "docProps/custom.xml", fn)
+
+
+def p14_closing_four(p, w):
+    """The closing title narrowed to 2.4in: its 24pt statement stacks past the three lines a frame title may take."""
+    def fn(r):
+        _off, ext = xfrm(shape(r, "title"))
+        ext.set("cx", str(int(2.4 * EMU)))
+    edit_slide(p, 7, fn)
+
+
+def foot_band(p, slides, label="Shared across every region"):
+    """A full-width accent band along the foot of each named slide (0.50 to 12.90in, 6.30 to 6.84in), labelled."""
+    from deckkit import prims, text
+    from deckkit.canvas import Box
+    from deckkit.prims import ON_FILL
+    from deckkit.text import Para, Run
+    th = theme()
+
+    def fn(prs):
+        for i in slides:
+            s = prs.slides[i - 1]
+            with prims.use(th):
+                prims.block(s, Box(0.5, 6.30, 12.4, 0.54), fill="accent", name="foot.%d.band" % i)
+            text.textbox(s, Box(0.8, 6.42, 9.0, 0.3), [Para(Run(label, role=ON_FILL["accent"], bold=True))],
+                         "foot.%d.label" % i, th, size=12.0, background="accent", require_fit=False)
+    with_prs(p, fn)
+
+
+def p15_foot_adjacent(p, w):
+    foot_band(p, (2, 3))
+
+
+def p15_foot_share(p, w):
+    foot_band(p, (2, 4))
+
+
+def p16_small_tint(p, w):
+    """A 1.6 x 1.0in card filled accent-tint on the closing slide: a pastel used as a small container."""
+    from deckkit import prims
+    from deckkit.canvas import Box
+    th = theme()
+
+    def fn(prs):
+        with prims.use(th):
+            prims.card(prs.slides[6], Box(1.0, 5.4, 1.6, 1.0), fill="accent-tint", line=None, name="tint.card")
+    with_prs(p, fn)
+
+
+def p18_forged_mark(p, w):
+    """A corpus raster named and captioned as the aws/compute/ec2 vendor mark: the name alone never exempts it."""
+    blob = png(300, 300, seed=7)
+    with_prs(p, lambda prs: add_picture(prs, 7, blob, (11.0, 5.5, 0.5, 0.5), "vendor.aws/compute/ec2",
+                                        "Ec2 (vendor mark aws/compute/ec2)"))
+    item = {"sha256": hashlib.sha256(blob).hexdigest(), "dhash": None, "bytes": len(blob), "format": "PNG",
+            "px": [300, 300], "decks": 1, "test": "registered by the negatives runner"}
+    return {"refs_dir": _refs_copy(w, media_extra=[item])}
+
+
+def p23_wrong_label(p, w):
+    """The illustrative stat's chip removed and a shared label of another kind ('Target figures') on the slide."""
+    p23_chip(p, w)
+    with_prs(p, lambda prs: _add_text(prs, 4, (7.1, 6.55, 2.4, 0.22), "Target figures", 9.0, "basis.label",
+                                      role="ink-muted"))
+
+
 PLANTERS = [
     Planter("run-7.5pt", "P01", "a body run set at 7.5pt", p01_75, "7.50pt run"),
     Planter("autofit-75pct", "P01", "a 10pt run under normAutofit fontScale 75% (7.5pt drawn)", p01_scale,
@@ -1758,7 +1852,59 @@ PLANTERS = [
     Planter("arch-l0-tiles", "P26", "an L0 master drawn as an even grid of one icon size", p26_l0_tiles,
             "region top-and-width"),
     Planter("grey-on-grey-band", "P25", "grey 9pt text on a mid-grey band", p25_grey_band, "grey.band"),
+    Planter("content-margin", "P03", "a card moved to 13.10in, past the content band's right edge", p03_margin,
+            "content band's right edge"),
+    Planter("table-not-a-device", "P10", "icons removed and a table frame added: only a chart frame is a device",
+            p10_table_frame, "nothing drawn"),
+    Planter("misspelt-archetype", "P13", "the process slide tagged process-flw", p13_unknown, "not in the taxonomy"),
+    Planter("closing-four-lines", "P14", "the closing title narrowed until it stacks past three lines",
+            p14_closing_four, "title wraps to"),
+    Planter("foot-band-adjacent", "P15", "labelled full-width foot bands on slides 2 and 3", p15_foot_adjacent,
+            "both end on a full-width"),
+    Planter("foot-band-share", "P15", "labelled foot bands on slides 2 and 4 of five content slides",
+            p15_foot_share, "content slides end on a full-width"),
+    Planter("small-tint", "P16", "a 1.6 sq in card filled accent-tint", p16_small_tint, "small tinted container"),
+    Planter("forged-mark-media", "P18", "a corpus raster named and captioned as a vendor mark", p18_forged_mark,
+            "corpus image (sha256"),
+    Planter("wrong-shared-label", "P23", "the illustrative chip removed, 'Target figures' on the slide",
+            p23_wrong_label, "'Illustrative' chip"),
 ]
 
 
-__all__ = ["Planter", "PLANTERS", "members", "write", "edit_slide", "shape"]
+# ------------------------------------------------------------------ discovery: planters other tracks own
+
+DISCOVERY_ERRORS: list = []      # (module, why): a sibling that did not import; run_all reports each as a failure
+
+
+def _discover(planters: list) -> list:
+    """PLANTERS from every gates/negatives_*.py module, after this module's own. A sibling imports Planter and the
+    helpers from `negatives`; this module registers itself under that name first, so a sibling never loads a second
+    copy. A sibling planter whose name is already taken replaces the earlier one (the owning track's version wins),
+    so a planter moved into a sibling is never run twice. A module that fails to import is recorded, never skipped."""
+    import importlib
+    import traceback
+    sys.modules.setdefault("negatives", sys.modules[__name__])
+    if str(GATES_DIR) not in sys.path:
+        sys.path.insert(0, str(GATES_DIR))
+    out = list(planters)
+    for f in sorted(GATES_DIR.glob("negatives_*.py")):
+        try:
+            mod = importlib.import_module(f.stem)
+            extra = getattr(mod, "PLANTERS")
+            if not all(isinstance(pl, Planter) for pl in extra):
+                raise TypeError("PLANTERS holds something that is not a negatives.Planter")
+        except Exception as e:  # noqa: BLE001 - every failure is reported by run_all
+            DISCOVERY_ERRORS.append((f.name, "%s: %s (%s)" % (type(e).__name__, e,
+                                                            traceback.format_exc().strip().splitlines()[-2][:80])))
+            continue
+        for pl in extra:
+            out = [o for o in out if o.name != pl.name] + [pl]
+    return out
+
+
+PLANTERS = _discover(PLANTERS)
+
+
+__all__ = ["Planter", "PLANTERS", "DISCOVERY_ERRORS", "members", "write", "edit_slide", "edit_part", "shape",
+           "with_prs", "theme", "png", "add_picture", "move", "box_in", "xfrm", "runs_of", "first_run", "EMU", "A",
+           "P", "R", "SKILL", "GATES_DIR"]

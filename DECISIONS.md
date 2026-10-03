@@ -397,3 +397,25 @@ quality. The best reference slides must be used. It must not become a 10-hour jo
   - A one-line step legend on the AWS slide: ten steps in one bottom row wrap to two lines; the rail is shorter.
 - **For the user:** the showcase deck's rejected architecture slides (v2 slides 22, 23, 32, 34) already failed P26
   and now fail more of it; they are rebuilt from the engine in the showcase round, not patched.
+
+## 2026-10-04 · Final build round integrated (ruling 22)
+- **Built:**
+  - kit-core fixes: accent-bright for dark bands, one shared basis label per stat band, cards sized to content,
+    device titles normalised, `archetype=` required for multi-archetype devices, and a project scaffold template;
+  - exhibits: cycle_ring, mark_wall, screen_frame, portrait, cell_grid, a kit table, and capture.py;
+  - gates: P03 content margins, P10 counting charts, P14 closing lines, P15 foot-band cap, P16 small tint,
+    P18 vendor-mark exemption, P23 shared basis;
+  - native charts with gate P27 and chart XSD checks;
+  - 14 new devices, DL32 to DL45, including cover, agenda, divider and closing;
+  - the engine diagram types: AWS and Azure deployment, DR and landing zone, current versus target, CI/CD,
+    MLOps, lineage, events, state machine, sequence, DFD and threat model, C4;
+  - library scrub: ruling-12 card translations, slide 38 excluded, denylist aliases.
+- **Integration fixes:**
+  - `apply_theme(from_theme=)` remaps solved-role recipes on a swap;
+  - P18 allows the CLAUDE.md §5 approved claims (`gates/approved_claims.json`);
+  - the base templates were regenerated for the new series slots;
+  - tests follow the new contracts.
+- **DL31 retired** to `devices/retired/`. The engine supersedes it, and its tile-per-service grammar is the look
+  ruling 18 measured against. The device library holds 44 devices.
+- **Verified:** 539 unit tests OK, every negative behaves, selftest OK, build_archetypes --check OK, and all eight
+  example decks pass all 27 implemented gates.

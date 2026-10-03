@@ -310,5 +310,10 @@
   "Held lines cleared by a named",
   "reviewer within one working day",
   "Payables run at level 2 and rule-based matching is the next rung"
- ]
+ ],
+ "capacity_words": 207,
+ "archetype_floors": {
+  "maturity-model": 80
+ },
+ "short_of_floor": []
 }

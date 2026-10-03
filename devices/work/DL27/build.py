@@ -134,6 +134,8 @@ for w, (dot, head, rows, h, items) in enumerate(KEY, 1):
         n0 += 1
     y += GAP
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL27", th, archetype="prioritization-matrix", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

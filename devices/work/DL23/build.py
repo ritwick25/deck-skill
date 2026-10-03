@@ -58,8 +58,8 @@ for k, n in enumerate(("dev.12", "dev.13", "dev.14", "dev.15"), 1):
 rename(s, "dev.19", "struct.start.arrow")
 put("dev.16", "slot.start.when", "Week 0", x=0.48, y=1.36, w=1.20, h=0.20, role="ink-deep", size=9, bold=True,
     align="left")
-put("dev.17", "slot.start.label", "Scope and sponsor agreed", x=0.645, y=1.675, w=1.74, h=0.19, role="ink",
-    size=8, align="left")
+put("dev.17", "slot.start.label", "Scope and sponsor agreed", x=0.645, y=1.665, w=1.80, h=0.21, role="ink",
+    size=9, align="left")
 # the drawn check marks are custom geometry: replace each with a curated glyph on its white mask
 for i in list(range(20, 23)) + list(range(24, 27)) + list(range(28, 31)) + list(range(32, 35)):
     try:
@@ -81,7 +81,7 @@ PHASES = [
     ("dev.8", "dev.9", "dev.94", "dev.98", "layers", "Week 26", "Scale",
      "One platform for every team", "Built once, reused by each team", "12 weeks"),
     ("dev.10", "dev.11", "dev.95", "dev.99", "trending-up", "Week 40", "Run",
-     "Adoption tied to the value case", "Owned by the business after handover", "14 weeks"),
+     "Adoption tied to the value case", "Owned by the business", "14 weeks"),
 ]
 HEADS = [("dev.100", "dev.101", "dev.139"), ("dev.102", "dev.103", "dev.140"),
          ("dev.104", "dev.105", "dev.141"), ("dev.106", "dev.107", "dev.142")]
@@ -99,7 +99,7 @@ for i, (disc, arrow, pill, ptxt, gl, week, name, head, sub, metric) in enumerate
     hd, sb, mt = HEADS[i - 1]
     hx = find(s, hd).left / EMU
     put(hd, "slot.phase.%d.head" % i, head, x=hx, y=3.25, w=2.60, h=0.22, role="ink-deep", size=10.5, bold=True)
-    put(sb, "slot.phase.%d.body" % i, sub, x=hx, y=3.47, w=2.60, h=0.20, role="ink", size=9)
+    put(sb, "slot.phase.%d.body" % i, sub, x=hx, y=3.47, w=2.60, h=0.20, role="ink", size=9.5)
     put(mt, "slot.phase.%d.metric" % i, metric, x=hx, y=3.67, w=2.60, h=0.21, role="accent-ink", size=10.5,
         bold=True)
 
@@ -109,7 +109,7 @@ for k, (c, t, w) in enumerate((("dev.108", "dev.109", "Data"), ("dev.110", "dev.
     rename(s, c, "struct.lens.%d" % k)
     move(s, "struct.lens.%d" % k, 0.865 + 0.58 * (k - 1), 2.55, 0.66, 0.66)     # touching lenses, overlap kept under 0.1in
     cc = find(s, "struct.lens.%d" % k)
-    put(t, "slot.lens.%d" % k, w, x=cc.left / EMU + 0.07, y=2.79, w=0.52, h=0.18, size=8)
+    put(t, "slot.lens.%d" % k, w, x=cc.left / EMU + 0.07, y=2.79, w=0.52, h=0.19, size=8.5)
 
 # ---- phase 2 mini-device: five-axis scorecard and a build-test-tune track
 for k, n in enumerate(("dev.114", "dev.137", "dev.138"), 1):
@@ -121,7 +121,7 @@ for k, (n, t) in enumerate((("dev.119", "dev.115"), ("dev.120", "dev.116"), ("de
     rename(s, n, "struct.track.node.%d" % k)
     nd = find(s, "struct.track.node.%d" % k)
     ncx = (nd.left + nd.width / 2) / EMU
-    put(t, "slot.track.%d" % k, ("Build", "Test", "Tune")[k - 1], x=ncx - 0.24, y=2.60, w=0.48, h=0.18, size=8)
+    put(t, "slot.track.%d" % k, ("Build", "Test", "Tune")[k - 1], x=ncx - 0.26, y=2.58, w=0.52, h=0.20, size=9)
 
 # ---- phase 3 mini-device: three discs chained by arrows
 for k, (dn, ln, gl, w) in enumerate((("dev.122", "dev.123", "database", "Integrate"),
@@ -131,7 +131,7 @@ for k, (dn, ln, gl, w) in enumerate((("dev.122", "dev.123", "database", "Integra
     d = find(s, "struct.step.%d" % k)
     cx, cy = (d.left + d.width / 2) / EMU, (d.top + d.height / 2) / EMU
     icon(s, "slot.step.%d.icon" % k, gl, cx - 0.14, cy - 0.14, 0.28, th, role="on-accent")
-    put(ln, "slot.step.%d" % k, w, x=cx - 0.40, y=3.09, w=0.80, h=0.17, size=8)
+    put(ln, "slot.step.%d" % k, w, x=cx - 0.42, y=3.07, w=0.84, h=0.19, size=9)
 rename(s, "dev.124", "struct.step.arrow.1")
 rename(s, "dev.127", "struct.step.arrow.2")
 
@@ -142,7 +142,7 @@ for k, (cn, ln) in enumerate((("dev.133", "dev.134"), ("dev.132", "dev.135"), ("
     c = find(s, "struct.wave.%d" % k)
     put(ln, "slot.wave.%d" % k, "Wave %d" % k, x=c.left / EMU + 0.14, y=2.69, w=0.74, h=0.18, role="on-accent",
         size=9, bold=True, bg="ink-deep")
-put("dev.131", "slot.wave.label", "Rollout by region over three waves", y=3.01, h=0.20, size=9)
+put("dev.131", "slot.wave.label", "Rollout by region over three waves", y=3.01, h=0.20, size=9.5)
 
 # ---- deliverables lists: a check glyph per row replaces the drawn marker and its rule
 LISTS = [
@@ -202,6 +202,8 @@ for k, (dn, ln, gl, w) in enumerate(LOOP, 1):
     icon(s, "slot.loop.step.%d.icon" % k, gl, cx - 0.16, cy - 0.16, 0.32, th, role="on-accent")
     put(ln, "slot.loop.step.%d" % k, w, x=cx - 0.50, y=6.55, w=1.00, h=0.24, size=10.5)
 
+from assemble_devices import finish  # noqa: E402  content band (P03), small tints to card (P16)
+finish(prs.slides[0], th)
 out = save(prs, "DL23", th, archetype="phased-roadmap", variant=VARIANT)
 if a.out:
     shutil.copyfile(out, a.out)

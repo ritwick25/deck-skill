@@ -20,21 +20,21 @@
    "kind": "text",
    "role": "horizon label",
    "max_words": 3,
-   "background": "accent-wash"
+   "background": "card"
   },
   {
    "name": "slot.horizon.2",
    "kind": "text",
    "role": "horizon label",
    "max_words": 3,
-   "background": "accent-tint"
+   "background": "card"
   },
   {
    "name": "slot.horizon.3",
    "kind": "text",
    "role": "horizon label",
    "max_words": 3,
-   "background": "accent-tint"
+   "background": "card"
   },
   {
    "name": "slot.horizon.4",
@@ -235,5 +235,10 @@
   "Weekly plan becomes a daily one",
   "Planner time",
   "Shifted to supplier and customer issues"
- ]
+ ],
+ "capacity_words": 160,
+ "archetype_floors": {
+  "value-horizons": 150
+ },
+ "short_of_floor": []
 }

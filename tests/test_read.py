@@ -25,10 +25,15 @@ from deckkit.read.ns import NS, A  # noqa: E402
 from deckkit.read.xform import EMU_IN, IDENT, group_child_to_parent, leaf_geometry, read_xfrm  # noqa: E402
 from deckkit.read.zones import slide_zones  # noqa: E402
 
-LIB = "/Users/Nikunj/Codes/Decks-For-Visuals/library"
-MANIFEST = json.load(open(os.path.join(LIB, "manifest.json")))
+LIB = os.environ.get("DECK_LIBRARY", os.path.expanduser("~/Codes/Decks-For-Visuals/library"))
+_MANIFEST = os.path.join(LIB, "manifest.json")
+MANIFEST = json.load(open(_MANIFEST)) if os.path.isfile(_MANIFEST) else {"decks": {}}
 DECKS = {k: v for k, v in MANIFEST["decks"].items() if k <= "d18"}   # the v1 corpus these counts are pinned on
 REFERENCE = [k for k, v in DECKS.items() if v["tier"] == "reference"]
+# The reference library lives outside the skill (ruling 23: client material never travels with it). Without it the
+# corpus tests skip, loudly, and every synthetic test still runs.
+HAVE_LIB = bool(DECKS) and all(os.path.isfile(v["path"]) for v in DECKS.values())
+needs_lib = unittest.skipUnless(HAVE_LIB, "reference library absent (%s); corpus fixtures skipped" % LIB)
 
 _D01 = {}
 
@@ -83,6 +88,7 @@ class TestColour(unittest.TestCase):
         self.assertAlmostEqual(contrast("000000", "FFFFFF"), 21.0, places=2)
         self.assertAlmostEqual(contrast("FFFFFF", "FFFFFF"), 1.0, places=3)
 
+    @needs_lib
     def test_epic_modifiers(self):
         """pipeline.md 3.7: bg1 lumMod 75000 = BFBFBF; accent1/accent2 at lumMod 20000 lumOff 80000."""
         deck = d01()["deck"]
@@ -228,6 +234,7 @@ class TestSyntheticIcons(unittest.TestCase):
 
 # ---------------------------------------------------------------------------------------------- fixtures
 
+@needs_lib
 class TestCorpusTotals(unittest.TestCase):
     def test_slides_and_hidden(self):
         """583 slides, 79 hidden (d02 21, d09 7, d12 31, d13 20); every deck agrees with the manifest."""
@@ -263,6 +270,7 @@ class TestCorpusTotals(unittest.TestCase):
                     self.assertEqual(len(ids), len(set(ids)), (k, i, "duplicate leaf ids"))
 
 
+@needs_lib
 class TestD01(unittest.TestCase):
     def slide(self, i):
         return d01()["slides"][i - 1]
@@ -403,6 +411,7 @@ class TestD01(unittest.TestCase):
         self.assertEqual(info["origin"]["guess"], "google-export")
 
 
+@needs_lib
 class TestFontWords(unittest.TestCase):
     """Words by requested font. The survey figures (Calibri 9,106; Space Grotesk 5,858 +327 Light +49 Medium)
     were measured over the 14 reference decks with str.split() per a:r run and explicit rPr latin faces only.
@@ -806,6 +815,7 @@ class TestParagraphProps(unittest.TestCase):
 class TestCoverTitle(unittest.TestCase):
     W, H = 13.333, 7.5
 
+    @needs_lib
     def test_cover_tier(self):
         from deckkit.read.walk import cover_like, pick_title
         leaves = [_leaf(1, 1, 4.5, 6, 0.8, text="Programme planning and execution with agents", pt=24),
@@ -843,6 +853,7 @@ def corpus():
     return _CORPUS
 
 
+@needs_lib
 class TestCorpusTitlesLines(unittest.TestCase):
     """Corpus facts for the title rule, the line classes and the ai-image hint (library DECISIONS 2026-10-03)."""
 
@@ -895,6 +906,7 @@ class TestCorpusTitlesLines(unittest.TestCase):
                                 ("d01", 131, "ChatGPT"), ("d08", 5, "ChatGPT"), ("d14", 5, "ChatGPT")])
 
 
+@needs_lib
 class TestZSourcesUntouched(unittest.TestCase):
     """A1: every source sha256 equals the manifest after the suite (runs last by name)."""
 

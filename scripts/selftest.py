@@ -6,11 +6,14 @@
   * every archetype in archetypes.json has a family, a wide budget at or under 250, a card file and 2+ exemplars
   * every slug the chooser in SKILL names exists in archetypes.json, and every archetype is in the chooser
   * archetypes.json is not stale against the library export (build_archetypes --check), when the library exists
-  * no denylisted name (the library's leak list) in any skill text file, tests and caches excepted
+  * no denylisted name (the library's leak list, every term and every alias) in any skill text file, tests and caches
+    excepted; the scan refuses to run on a missing or short list, or when the alias canary does not fire
   * every reference file SKILL names exists
   * the reference pack (ruling 23): every sheet, exemplar view and anti view archetypes.json lists is in refs/, every
     pack file matches its sha256 in refs/catalog.json, no stray file sits beside them, and every image a card cites
     resolves inside the skill
+  * ruling 12: no card's light-bg translation row turns a panel or band pastel (a light surface, row, strip or panel,
+    a pale or tint panel); only the slide ground goes light
   * self-contained: no runtime code names a path under ~/Codes except paths.LIB_DEFAULT, which DECISIONS.md documents;
     archetypes.json carries no absolute path
 """
@@ -38,6 +41,26 @@ MAINTENANCE = {
     "gates/characterise.py": "characteriser over the library's real renders; never part of run_all",
     "scripts/selftest.py": "holds the detector pattern and the documented library home it checks against",
 }
+
+
+# Ruling 12, held on the card text a builder follows: the light-bg row's house and consequence cells may say the
+# ground goes light, never that a band or panel becomes a light or pastel surface. "Never ... tint" phrasing is allowed.
+PASTEL_PANEL = re.compile(r"\b(?:light|pale|tint(?:ed)?)\s+(?:brand\s+tint\s+)?(?:surface|row|strip|panel|band|card|"
+                          r"gr[ae]y\s+band)s?\b|\b(?:light|pale)\s+tint\b|\bbrand[- ]tint\b|\bflat\s+light\b", re.I)
+
+
+def pastel_rows() -> list[str]:
+    fails: list[str] = []
+    for card in sorted((SKILL / "archetypes").glob("*.md")):
+        for n, line in enumerate(card.read_text().splitlines(), 1):
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if len(cells) == 4 and cells[0] == "light-bg":
+                for cell in cells[2:]:
+                    for m in PASTEL_PANEL.finditer(cell):
+                        if not re.search(r"\b(?:never|not|no)\b[^.]*$", cell[:m.start()], re.I):
+                            fails.append("%s:%d light-bg row turns a panel pastel (%r), against ruling 12"
+                                         % (card.name, n, m.group(0)))
+    return fails
 
 
 def pack_failures(arch: dict) -> list[str]:
@@ -120,6 +143,7 @@ def main() -> int:
     for s in sorted(set(arch) - chooser):
         fails.append("archetype %s is missing from the chooser" % s)
     fails += pack_failures(arch)
+    fails += pastel_rows()
     fails += outside_paths()
     for ref in set(re.findall(r"`(references/[a-z-]+\.md)`", text)):
         if not (SKILL / ref).is_file():
@@ -128,7 +152,11 @@ def main() -> int:
         r = subprocess.run([PY, str(SKILL / "scripts" / "build_archetypes.py"), "--check"], capture_output=True, text=True)
         if r.returncode:
             fails.append("archetypes stale or leaking: " + " ".join(r.stdout.split()[:12]))
-        pats = denylist()
+        try:
+            pats = denylist()           # every term and alias; raises rather than scan with nothing
+        except RuntimeError as e:
+            pats = []
+            fails.append("name scan cannot run: %s" % e)
         for p in sorted(SKILL.rglob("*")):
             rel = p.relative_to(SKILL)
             if not p.is_file() or p.suffix not in (".md", ".py", ".json") or rel.parts[0] in (".cache", "tests", ".git"):
@@ -136,9 +164,10 @@ def main() -> int:
             if rel.parts[0] == "devices" or rel.name in ("vendor_hashes.json", "glyphs.json"):
                 continue
             body = p.read_text(errors="ignore")
-            hit = next((rx for rx in pats if rx.search(body)), None)
+            hit = next((m for rx in pats for m in [rx.search(body)] if m), None)
             if hit:
-                fails.append("%s carries a denylisted term" % rel)
+                # the line, never the term: this output is read in sessions the leak list must stay out of
+                fails.append("%s:%d carries a denylisted term" % (rel, body.count("\n", 0, hit.start()) + 1))
     else:
         print("SKIPPED library checks (no library export)")
     for f in fails:

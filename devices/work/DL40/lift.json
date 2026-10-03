@@ -1,0 +1,152 @@
+{
+ "slide": "d01-s005",
+ "device": "DL40",
+ "scale": 1.0,
+ "counts": {
+  "gradients": 1,
+  "colours": 152,
+  "autofit": 25,
+  "runs": 45,
+  "offcanvas_removed": 3
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    7.348,
+    2.6,
+    5.532,
+    3.112
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    12.108,
+    2.117,
+    0.726,
+    0.269
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    2.934,
+    6.413,
+    1.044,
+    0.3
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    4.304,
+    6.414,
+    1.931,
+    0.298
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    6.56,
+    6.35,
+    0.713,
+    0.427
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    7.599,
+    6.41,
+    1.818,
+    0.306
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    9.742,
+    6.477,
+    1.529,
+    0.171
+   ],
+   "kind": "logo"
+  },
+  {
+   "box_in": [
+    11.596,
+    6.366,
+    1.085,
+    0.394
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    8.12,
+    1.297,
+    0.591,
+    0.591
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    3.226,
+    1.297,
+    0.591,
+    0.591
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    0.809,
+    1.297,
+    0.591,
+    0.591
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    5.93,
+    1.297,
+    0.591,
+    0.591
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    10.47,
+    1.297,
+    0.591,
+    0.591
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    0.928,
+    3.108,
+    2.756,
+    2.695
+   ],
+   "kind": "screenshot"
+  }
+ ],
+ "colour_map": {
+  "F30009->accent": 62,
+  "000000->ink-deep": 41,
+  "F30009->accent-ink": 13,
+  "A6A6A6->rule-strong": 10,
+  "FFFFFF->on-accent": 10,
+  "670001->accent-deep": 5,
+  "FFFFFF->paper": 5,
+  "FFFFFF->hairline": 4,
+  "FFCACC->accent-wash": 1,
+  "CC0006->accent": 1
+ }
+}
