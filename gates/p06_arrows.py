@@ -1,10 +1,12 @@
-"""P06 arrows: both ends of every headed connector land on a shape (within 0.09in), and on two different shapes.
+"""P06 arrows: both ends of every headed connector land on a shape (within 0.09in of its edge, or drawn onto
+it), and on two different shapes.
 
-Straight and bent connectors, line presets and block arrows come from the read layer's connector block,
-whose touch() is the house arrow test (nearest non-line shape, full-bleed shapes skipped). A custom-geometry
-path with an arrowhead (deckkit.prims.elbow) is measured at its path's first and last points, mapped
-through the leaf's painted corners with its flips. An arrow whose two ends sit on the same shape points at
-nothing.
+Every end comes from deckkit.read.connect.touch, the house arrow test: the candidates are drawing shapes that do
+not hold the whole connector (an enclosing panel or card is where an arrow is drawn, never what it points at),
+ranked by the distance from the end to their EDGE. Straight and bent connectors, line presets, block arrows and
+open custom-geometry paths (deckkit.prims.elbow) all carry the read layer's connector block. A headed custom path
+the read layer did not classify as a line is measured at its path's first and last points, through the same
+touch(). An arrow whose two ends sit on the same shape points at nothing.
 """
 from __future__ import annotations
 
@@ -70,14 +72,14 @@ def run(deck, ctx):
                 ends = _path_ends(ctx, i, L)
                 if ends is None:
                     continue
-                st = cx.touch(ends[0], leaves, L["id"], area)
-                en = cx.touch(ends[1], leaves, L["id"], area)
+                st = cx.touch(ends[0], leaves, L["id"], area, other=ends[1])
+                en = cx.touch(ends[1], leaves, L["id"], area, other=ends[0])
             else:
                 continue
             for which, tt in (("start", st), ("end", en)):
                 if not tt.get("ok"):
                     gap = tt.get("gap_in")
-                    out.append(Finding(GATE, FAIL, i, L["name"], "%s lands on nothing (%s from the nearest shape)"
+                    out.append(Finding(GATE, FAIL, i, L["name"], "%s lands on nothing (%s from the nearest edge)"
                                        % (which, "%.3fin" % gap if gap is not None else "no shape")))
             if st.get("ok") and en.get("ok") and st.get("id") == en.get("id"):
                 out.append(Finding(GATE, FAIL, i, L["name"], "both ends on the same shape (id %s)" % st.get("id")))

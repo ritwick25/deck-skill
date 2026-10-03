@@ -37,7 +37,7 @@ from .errors import BelowFloor, Overflows, UnknownFace
 from .read.textmetrics import token_spans, words
 
 SLACK = 1.15
-FLOOR = 8.0
+FLOOR = 8.0            # pt, never below, on the effective size. The kit's one floor: every module imports it
 
 KIT = Path(__file__).resolve().parent.parent
 METRICS_JSON = KIT / "assets" / "metrics.json"

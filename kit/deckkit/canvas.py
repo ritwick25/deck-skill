@@ -13,8 +13,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from .errors import BelowFloor, GeometryError
+from .measure import FLOOR
 
-FLOOR = 8.0            # pt, never below, on the effective size
 EMU_PER_IN = 914400
 
 
@@ -140,7 +140,7 @@ class Canvas:
 # 13.333 in is 12192000 EMU exactly (the 16:9 PowerPoint default); 7.5 in is 6858000.
 WIDE = Canvas(
     name="wide", w=12192000 / EMU_PER_IN, h=7.5, margin_l=0.50, margin_r=0.43,
-    title_box=Box(0.50, 0.13, 12.40, 0.35), title_pt=21.0, title_max_lines=1,
+    title_box=Box(0.50, 0.13, 12.40, 0.40), title_pt=21.0, title_max_lines=1,     # 0.40 holds a 21pt bold line
     content=Box(0.50, 0.85, 12192000 / EMU_PER_IN - 0.50 - 0.43, 6.84 - 0.85),
     gutter=0.20, radius_in=0.05, hairline_pt=0.75,
     ramp={"head": 13.0, "body": 11.0, "label": 10.0, "small": 9.0, "numeral_min": 16.0, "numeral": 28.0,

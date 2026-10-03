@@ -10,8 +10,9 @@ import sys
 
 from _shared import FAIL, Finding, cli
 
+from deckkit.measure import FLOOR
+
 GATE, TITLE = "P01", "floor"
-FLOOR = 8.0
 
 
 def run(deck, ctx):

@@ -3,8 +3,10 @@ checks that catch what makes PowerPoint offer a repair while every other reader 
 
 save() lifts the PMR `_normalise` ideas and adds what the kit needs:
   * fixed zip timestamps and member order ([Content_Types].xml first), so a rebuild is byte-identical
-  * docProps rewritten: creator and lastModifiedBy "Sigmoid", fixed dates, no TitlesOfParts, no
-    HeadingPairs (app.xml would otherwise list every slide title), no thumbnail part
+  * docProps rewritten: creator and lastModifiedBy "Sigmoid", created and modified set to the deck's
+    date (deck.json "date", passed by the caller as date=) or 1980-01-01 when none is given, so the
+    save is deterministic either way; no TitlesOfParts, no HeadingPairs (app.xml would otherwise list
+    every slide title), no thumbnail part
   * every theme part carries the Theme's clrScheme, fontScheme and flat fmtScheme
   * the svg Default content type is present (python-pptx drops it, orphaning every icon)
   * embedded workbooks flattened (each chart's xlsx carries its own timestamps)
@@ -18,6 +20,7 @@ be found or cannot run, validate_xsd raises ValidatorMissing: a missing validato
 from __future__ import annotations
 
 import collections
+import datetime as _dt
 import glob
 import hashlib
 import io
@@ -33,13 +36,13 @@ from pathlib import Path
 
 from lxml import etree
 
-from .errors import HandEditDrift, UnsupportedPart, ValidatorMissing
+from .errors import DeckkitError, HandEditDrift, UnsupportedPart, ValidatorMissing
 from .ooxml import once_only_violations
 from .read.ns import NS
 from .theme import Theme, theme_parts
 
-FIXED_TIME = (1980, 1, 1, 0, 0, 0)
-FIXED_DATE = "1980-01-01T00:00:00Z"
+FIXED_TIME = (1980, 1, 1, 0, 0, 0)       # zip member timestamps: always fixed
+FIXED_DATE = "1980-01-01T00:00:00Z"      # docProps created/modified when the caller passes no date
 AUTHOR = "Sigmoid"
 VALIDATOR_GLOB = os.path.expanduser("~/.claude/skills/synced/*/pptx/scripts/office/validate.py")
 
@@ -75,8 +78,33 @@ def _esc(s: str) -> str:
     return (s or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def core_xml(title: str) -> bytes:
-    return CORE_XML.format(title=_esc(title), author=AUTHOR, date=FIXED_DATE).encode("utf-8")
+_W3CDTF = re.compile(r"^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})Z)?$")
+
+
+def w3cdtf(date=None) -> str:
+    """The docProps timestamp for a deck date: None gives FIXED_DATE (1980-01-01T00:00:00Z); a
+    datetime.date, a datetime (naive, or aware and converted to UTC) or a 'YYYY-MM-DD' /
+    'YYYY-MM-DDTHH:MM:SSZ' string gives that moment in UTC. Anything else raises DeckkitError."""
+    if date is None:
+        return FIXED_DATE
+    if isinstance(date, _dt.datetime):
+        d = date.astimezone(_dt.timezone.utc) if date.tzinfo else date
+        return d.strftime("%Y-%m-%dT%H:%M:%SZ")
+    if isinstance(date, _dt.date):
+        return date.strftime("%Y-%m-%dT00:00:00Z")
+    m = _W3CDTF.match(date) if isinstance(date, str) else None
+    if m:
+        y, mo, d, hh, mm, ss = (int(g) if g else 0 for g in m.groups())
+        try:
+            return _dt.datetime(y, mo, d, hh, mm, ss).strftime("%Y-%m-%dT%H:%M:%SZ")
+        except ValueError:
+            pass
+    raise DeckkitError("docProps date", need="YYYY-MM-DD, YYYY-MM-DDTHH:MM:SSZ or a datetime.date",
+                       have=repr(date), hint="pass deck.json's date unchanged, or omit it for the 1980 fallback")
+
+
+def core_xml(title: str, date=None) -> bytes:
+    return CORE_XML.format(title=_esc(title), author=AUTHOR, date=w3cdtf(date)).encode("utf-8")
 
 
 def app_xml(n_slides: int) -> bytes:
@@ -180,8 +208,8 @@ def _ser(root) -> bytes:
     return etree.tostring(root, xml_declaration=True, encoding="UTF-8", standalone=True)
 
 
-def normalise(members: dict, *, title: str, theme: Theme) -> dict:
-    """The normalised member map. Pure: same input, same output."""
+def normalise(members: dict, *, title: str, theme: Theme, date=None) -> dict:
+    """The normalised member map. Pure: same input, same output. date as for w3cdtf()."""
     m = dict(members)
     # thumbnail part and its package relationship
     rels = _xml(m["_rels/.rels"])
@@ -192,7 +220,7 @@ def normalise(members: dict, *, title: str, theme: Theme) -> dict:
     m["_rels/.rels"] = _ser(rels)
     # docProps
     n_slides = sum(1 for n in m if re.fullmatch(r"ppt/slides/slide\d+\.xml", n))
-    m["docProps/core.xml"] = core_xml(title)
+    m["docProps/core.xml"] = core_xml(title, date)
     m["docProps/app.xml"] = app_xml(n_slides)
     # theme parts
     for n in theme_parts(list(m), m.get("[Content_Types].xml")):
@@ -237,9 +265,14 @@ def lock_path(path) -> Path:
     return p.with_name("~$" + p.name)
 
 
-def save(prs, path, *, title: str, theme: Theme, manifest: dict | None = None, overwrite: bool = False) -> str:
-    """Save prs to path, normalised and atomic. Writes <stem>.manifest.json beside it. Returns sha256."""
+def save(prs, path, *, title: str, theme: Theme, manifest: dict | None = None, overwrite: bool = False,
+         date=None) -> str:
+    """Save prs to path, normalised and atomic. Writes <stem>.manifest.json beside it. Returns sha256.
+
+    date is the deck's date for docProps created/modified (pass deck.json "date"); None falls back to
+    1980-01-01. Either way the same inputs give the same bytes. A bad date raises before anything."""
     from pptx import Presentation
+    stamp = w3cdtf(date)
     path = Path(path)
     if lock_path(path).exists():
         raise HandEditDrift(str(path), need="no lock file", have=lock_path(path).name,
@@ -259,7 +292,7 @@ def save(prs, path, *, title: str, theme: Theme, manifest: dict | None = None, o
     prs.save(buf)
     with zipfile.ZipFile(io.BytesIO(buf.getvalue())) as z:
         members = {i.filename: z.read(i.filename) for i in z.infolist() if not i.is_dir()}
-    data = zip_bytes(normalise(members, title=title, theme=theme))
+    data = zip_bytes(normalise(members, title=title, theme=theme, date=stamp))
     back = Presentation(io.BytesIO(data))                      # round-trip before touching disk
     if len(back.slides) != len(prs.slides):
         raise UnsupportedPart("normalised package %s" % path.name, need=len(prs.slides), have=len(back.slides),
@@ -269,6 +302,8 @@ def save(prs, path, *, title: str, theme: Theme, manifest: dict | None = None, o
     man = dict(manifest or {})
     man.update({"pptx": path.name, "sha256": sha, "title": title, "theme": theme.name,
                 "slides": len(prs.slides)})
+    if date is not None:
+        man["date"] = stamp
     _atomic_write((json.dumps(man, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8"),
                   manifest_path(path))
     return sha
@@ -317,12 +352,28 @@ def _strip_mc(root):
     return root
 
 
-def part_xsd(path, validator: Path | None = None) -> list[str]:
+# PowerPoint writes ST_TextBulletSizePercent in its transitional integer form (100000 for 100%); the strict schema
+# only accepts "25%".."400%". Within that range it is a known PowerPoint value, reported, never an error.
+_KNOWN = (re.compile(r"buSzPct', attribute 'val': .*The value '(\d+)' is not accepted"),)
+_KNOWN_RANGE = (25000, 400000)
+
+
+def known_value(message: str) -> str | None:
+    """A short label when a schema message is a value PowerPoint writes itself (see _KNOWN), else None."""
+    for rx in _KNOWN:
+        m = rx.search(message)
+        if m and _KNOWN_RANGE[0] <= int(m.group(1)) <= _KNOWN_RANGE[1]:
+            return "buSzPct %s (PowerPoint's transitional percent)" % m.group(1)
+    return None
+
+
+def part_xsd(path, validator: Path | None = None, known: list | None = None) -> list[str]:
     """Schema errors in slide, layout, master and notes parts.
 
     The referenced validator maps a schema only for parts directly under ppt/, so every slide, layout
     and master is reported "Skipped (no schema)" and a foreign element in a master passes (measured
-    2026-10-03 with a planted <p:bogus/>). This pass closes that gap with the bundle's own pml.xsd.
+    2026-10-03 with a planted <p:bogus/>). This pass closes that gap with the bundle's own pml.xsd. A known
+    PowerPoint value (known_value) is appended to `known` when given, never reported as an error.
     """
     schema = _pml_schema(validator or find_validator())
     errs = []
@@ -332,17 +383,72 @@ def part_xsd(path, validator: Path | None = None) -> list[str]:
                 continue
             root = _strip_mc(_xml(z.read(n)))
             if not schema.validate(root):
-                for e in list(schema.error_log)[:3]:
-                    errs.append("%s:%d: %s" % (n, e.line, e.message[:240]))
+                shown = 0
+                for e in schema.error_log:
+                    k = known_value(e.message)
+                    if k:
+                        if known is not None:
+                            known.append("%s:%d: %s" % (n, e.line, k))
+                        continue
+                    if shown < 3:
+                        errs.append("%s:%d: %s" % (n, e.line, e.message[:240]))
+                    shown += 1
     return errs
 
 
-def validate_xsd(path) -> tuple[bool, str]:
+_NS_COVER = {}
+
+
+def xsd_namespaces(validator: Path) -> set:
+    """Every targetNamespace the validator's schema bundle declares."""
+    key = str(validator)
+    if key not in _NS_COVER:
+        out = set()
+        for x in (validator.parent / "schemas").rglob("*.xsd"):
+            try:
+                tn = etree.parse(str(x)).getroot().get("targetNamespace")
+            except etree.XMLSyntaxError:
+                continue
+            if tn:
+                out.add(tn)
+        if not out:
+            raise ValidatorMissing("schema bundle", need=str(validator.parent / "schemas"), have="no targetNamespace",
+                                   hint="the validator's schema bundle is empty or moved")
+        _NS_COVER[key] = out
+    return _NS_COVER[key]
+
+
+def xsd_scope(path, validator: Path) -> list[tuple[str, str]]:
+    """[(part, root namespace)] for every XML part whose root namespace the bundle does not cover (PowerPoint's
+    own extension parts: authors.xml, revisionInfo.xml, changesInfos/, modern comments, web extensions). Those
+    parts are skipped by the XSD pass; every other part is validated."""
+    cover = xsd_namespaces(validator)
+    out = []
+    with zipfile.ZipFile(path) as z:
+        for n in sorted(z.namelist()):
+            if not n.endswith(".xml") or n == "[Content_Types].xml":
+                continue
+            try:
+                ns = etree.QName(_xml(z.read(n))).namespace or ""
+            except (etree.XMLSyntaxError, ValueError):
+                continue                  # not well-formed: the validator reports it, so it is not skipped
+            if ns not in cover:
+                out.append((n, ns))
+    return out
+
+
+def validate_xsd(path, report: dict | None = None) -> tuple[bool, str]:
     """(ok, detail): the referenced ISO 29500 validator, plus part_xsd over slide-level parts.
 
-    Raises ValidatorMissing when the validator or its schema bundle cannot be found or cannot run.
+    Only parts whose root namespace the validator's bundle covers count (xsd_scope): the validator's errors on the
+    others are dropped and the parts listed in report["skipped"] as (part, namespace). Every other check the
+    validator runs (relationship ids, slide defects) still applies to the whole package. Known PowerPoint values (known_value) are listed in
+    report["known"] and never fail. Raises ValidatorMissing when the validator or its schema bundle cannot be found
+    or cannot run.
     """
     v = find_validator()
+    skipped = xsd_scope(path, v)
+    known: list = []
     r = subprocess.run([sys.executable, str(v), os.path.abspath(str(path))], cwd=str(v.parent),
                        env=dict(os.environ, PYTHONPATH=str(v.parent)), capture_output=True, text=True,
                        timeout=600)
@@ -350,13 +456,57 @@ def validate_xsd(path) -> tuple[bool, str]:
     if r.returncode not in (0, 1) or "Traceback" in out or (r.returncode == 0 and "PASSED" not in out):
         raise ValidatorMissing("XSD validator run", need="exit 0 or 1", have="exit %d" % r.returncode,
                                hint=(out.splitlines() or [""])[-1][:300])
-    parts = part_xsd(path, v)
-    ok = r.returncode == 0 and not parts
-    detail = [out.splitlines()[-1] if (ok and out) else out] if r.returncode != 0 or ok else []
+    vfail = r.returncode != 0
+    if vfail:
+        out, vfail = _drop_known(out, known, {n for n, _ in skipped})
+    parts = part_xsd(path, v, known)
+    ok = not vfail and not parts
+    detail = [out.splitlines()[-1] if (ok and out) else out] if vfail or ok else []
     if parts:
         detail.append("slide-level parts against pml.xsd:")
         detail += ["  " + e for e in parts]
+    if report is not None:
+        report["skipped"] = skipped
+        report["known"] = known
     return ok, "\n".join(d for d in detail if d)
+
+
+def _drop_known(out: str, known: list, skipped: set = frozenset()) -> tuple[str, bool]:
+    """The validator's XSD report without the blocks of skipped parts (no schema for their namespace) and without
+    known PowerPoint values, and whether anything still fails. A block whose every listed error is known is dropped
+    only when the validator listed all of them (it shows three). When nothing was dropped the validator's failure
+    stands unchanged, so a failure this parser does not recognise can never turn into a pass."""
+    lines = out.splitlines()
+    keep, i, dropped = [], 0, 0
+    head = re.compile(r"^  (\S.*): (\d+) new error\(s\)$")
+    while i < len(lines):
+        m = head.match(lines[i])
+        if not m:
+            keep.append(lines[i])
+            i += 1
+            continue
+        j = i + 1
+        errs = []
+        while j < len(lines) and lines[j].startswith("    - "):
+            errs.append(lines[j])
+            j += 1
+        rest = [e for e in errs if not known_value(e)]
+        if m.group(1) in skipped:
+            dropped += 1
+        elif errs and not rest and len(errs) == int(m.group(2)):
+            known.extend("%s: %s" % (m.group(1), known_value(e)) for e in errs)
+            dropped += 1
+        else:
+            keep.append(lines[i])
+            keep.extend(rest if len(errs) == int(m.group(2)) else errs)
+        i = j
+    if not dropped:                       # nothing known was removed: the validator's failure stands as it is
+        return out, True
+    still = any(head.match(ln) for ln in keep) or any(("FAILED" in ln or "rror" in ln) and "NEW validation errors"
+                                                       not in ln for ln in keep)
+    if not still:
+        keep = [ln for ln in keep if "Found NEW validation errors" not in ln]
+    return "\n".join(keep), still
 
 
 _CTRL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f]")
@@ -479,6 +629,6 @@ def structural_check(path) -> list[str]:
     return out
 
 
-__all__ = ["save", "validate_xsd", "part_xsd", "structural_check", "find_validator", "normalise", "write_members",
+__all__ = ["save", "w3cdtf", "validate_xsd", "part_xsd", "xsd_scope", "xsd_namespaces", "known_value", "structural_check", "find_validator", "normalise", "write_members",
            "zip_bytes", "core_xml", "app_xml", "sha256_file", "sha256_bytes", "manifest_path", "lock_path",
            "FIXED_TIME", "FIXED_DATE", "AUTHOR", "VALIDATOR_GLOB"]

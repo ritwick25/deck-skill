@@ -196,6 +196,8 @@ def _spacing(el) -> tuple[str, float] | None:
 
 
 def para_props(p, tc: TextCtx) -> dict:
+    """Paragraph level, alignment, bullet, left margin and first-line indent (mar_l_in, indent_in: pPr marL and
+    indent through the lvlNpPr chain, 0 when unset), and spacing."""
     ppr = p.find(A("pPr"))
     lvl = int(ppr.get("lvl", "0")) + 1 if ppr is not None and ppr.get("lvl") else 1
     algn, _ = _ppr_pick(ppr, lvl, tc, None, "algn")
@@ -206,6 +208,12 @@ def para_props(p, tc: TextCtx) -> dict:
         if bullet == "char":
             bullet = "char:" + (bu.get("char") or "")
     out = {"lvl": lvl - 1, "algn": algn or "l", "bullet": bullet}
+    for key, attr in (("mar_l_in", "marL"), ("indent_in", "indent")):
+        v, _ = _ppr_pick(ppr, lvl, tc, None, attr)
+        try:
+            out[key] = round(int(v) / 914400.0, 4) if v is not None else 0.0
+        except ValueError:
+            out[key] = 0.0
     for key, tag in (("ln_spc", "lnSpc"), ("spc_bef", "spcBef"), ("spc_aft", "spcAft")):
         el, _ = _ppr_pick(ppr, lvl, tc, (tag,))
         sp = _spacing(el)
@@ -251,7 +259,8 @@ def body_props(body_prs, tc: TextCtx) -> dict:
 
 
 def read_text(txBody, tc: TextCtx, body: dict) -> dict | None:
-    """txBody to the leaf's text block: paragraphs with effective runs and summary measures."""
+    """txBody to the leaf's text block: paragraphs with effective runs and summary measures. Each paragraph
+    carries end_pt, its endParaRPr size in points (None when unset): the height an empty paragraph takes."""
     if txBody is None:
         return None
     paras = []
@@ -291,6 +300,11 @@ def read_text(txBody, tc: TextCtx, body: dict) -> dict | None:
                         bold_chars += nch
             elif t == "br":
                 pos += 1
+        end = p.find(A("endParaRPr"))
+        try:
+            pp["end_pt"] = int(end.get("sz")) / 100.0 if end is not None and end.get("sz") else None
+        except ValueError:
+            pp["end_pt"] = None
         text = para_text(p)
         w = words(text)
         # words attributed to the requested face of the run holding each token's first character

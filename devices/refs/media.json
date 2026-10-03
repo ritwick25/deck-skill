@@ -2,8 +2,8 @@
   "schema": "refs-media@1",
   "about": "Every picture blob in the reference corpus (ppt/media parts). sha256 of the raw bytes; dhash is the 64-bit difference hash (deckkit.read.refnorm.dhash64), null for vector or unreadable formats; decks is how many corpus decks carry the blob.",
   "parts": 2801,
-  "unique": 2558,
-  "with_dhash": 2430,
+  "unique": 2559,
+  "with_dhash": 2431,
   "items": [
     {
       "sha256": "0014dca78138cd1a5ba76f868a99d0464604b0ce6f50a5e184d5c330b5c70df9",
@@ -20866,6 +20866,18 @@
       ],
       "decks": 1,
       "parts": 1
+    },
+    {
+      "sha256": "af7b88116dd54392e20e1369a8181bb17b0d107e9bea203fb597c755d19b44b4",
+      "dhash": "6666999966669919",
+      "bytes": 110,
+      "format": "PNG",
+      "px": [
+        16,
+        16
+      ],
+      "decks": 0,
+      "canary": true
     },
     {
       "sha256": "af8fd9f1a462e1687431db7242971e194c015b91869f3f55dc3dd62196118156",

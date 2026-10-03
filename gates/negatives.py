@@ -282,6 +282,10 @@ def p09_subtitle(p, w):
 
 
 def p09_pagenum(p, w):
+    with_prs(p, lambda prs: _add_text(prs, 3, (11.60, 0.14, 1.20, 0.25), "2 / 34", 10.0, "page.number"))
+
+
+def p09_pagenum_bare(p, w):
     with_prs(p, lambda prs: _add_text(prs, 3, (12.55, 7.05, 0.35, 0.25), "3", 10.0, "page.number"))
 
 
@@ -592,9 +596,10 @@ def p09_confidential(p, w):
 
 def p10_no_device(p, w):
     def fn(r):
-        for k in (1, 2, 3):
-            sh = shape(r, "pillar.%d.icon" % k)
-            sh.getparent().remove(sh)
+        for c in list(r.iter(P + "cNvPr")):
+            if ".icon" in (c.get("name") or ""):
+                sh = c.getparent().getparent()
+                sh.getparent().remove(sh)
     edit_slide(p, 2, fn)
 
 
@@ -741,55 +746,302 @@ def p23_loose(p, w):
                                       bold=True))
 
 
+# ------------------------------------------------------------------ planters for the third fix round
+
+def _face(run, face):
+    """Set a run's latin/ea/cs typeface, adding a:latin when the run inherits its face."""
+    rpr = run.find(A + "rPr")
+    lat = rpr.find(A + "latin")
+    if lat is None:
+        lat = etree.Element(A + "latin")
+        after = [c for c in rpr if etree.QName(c).localname in ("ln", "noFill", "solidFill", "gradFill", "blipFill",
+                                                                 "pattFill", "grpFill", "effectLst", "effectDag",
+                                                                 "highlight", "uLnTx", "uLn", "uFillTx", "uFill")]
+        (after[-1].addnext(lat) if after else rpr.insert(0, lat))
+    for tag in ("latin", "ea", "cs"):
+        e = rpr.find(A + tag)
+        if e is not None:
+            e.set("typeface", face)
+
+
+def p02_unknown_face(p, w):
+    """A body run in a face with no metrics, overflowing too: the gate names the face AND measures the overflow
+    in its Arial fallback, so one unmeasurable face never hides a fit failure."""
+    def fn(r):
+        rn = first_run(shape(r, "pillar.2.text.2"))
+        _face(rn, "Consolas")
+        rn.find(A + "t").text = rn.find(A + "t").text + " " + words(40)
+    edit_slide(p, 2, fn)
+
+
+def p14_face_then_long(p, w):
+    """A title in a face with no metrics on slide 2 and an 18-word title on slide 3: the gate reaches slide 3."""
+    edit_slide(p, 2, lambda r: [_face(rn, "Consolas") for rn in runs_of(shape(r, "title"))])
+    p14_long(p, w)
+
+
+def p06_panel_short(p, w):
+    """The arrow between the second and third step cards, inside the step panel, stopped 0.3in short of the
+    third card: its end lies inside the panel, which must never count as the target."""
+    edit_slide(p, 3, lambda r: [e.set("cx", str(int(e.get("cx")) - int(0.30 * EMU)))
+                                for e in [xfrm(shape(r, "step.arrow.2"))[1]]])
+
+
+def p07_ragged_under(p, w):
+    """One card's content dropped 0.15in, with the three cards raised above their own content in z-order."""
+    p07_ragged(p, w)
+
+    def fn(r):
+        tree = r.find(".//" + P + "spTree")
+        for k in (1, 2, 3):
+            sh = shape(r, "pillar.%d.card" % k)
+            tree.remove(sh)
+            tree.append(sh)
+    edit_slide(p, 2, fn)
+
+
+def p10_thin_accent(p, w):
+    """A 0.01in strip in the accent colour beside a card body: thin, but not a neutral hairline."""
+    from deckkit import ooxml, prims
+    from deckkit.canvas import Box
+    th = theme()
+
+    def fn(prs):
+        s = prs.slides[1]
+        body = next(sh for sh in s.shapes if sh.name == "pillar.1.text.2")
+        x, y, h = body.left / EMU, body.top / EMU, body.height / EMU
+        bar = prims._add(s, "RECTANGLE", Box(x - 0.08, y, 0.01, h), "accent.hair")
+        prims.set_fill(bar, "accent", theme=th)
+        prims.set_line(bar, None, theme=th)
+        prims._drop_text(bar)
+        ooxml.finish(bar)
+    with_prs(p, fn)
+
+
+def p11_radius(p, w):
+    """A card drawn at a 0.15in corner radius on a canvas that sets 0.05in."""
+    def fn(r):
+        sh = shape(r, "pillar.1.card")
+        _x, _y, bw, bh = box_in(sh)
+        gd = sh.find(".//" + A + "prstGeom").find(A + "avLst").find(A + "gd")
+        gd.set("fmla", "val %d" % round(0.15 / min(bw, bh) * 1e5))
+    edit_slide(p, 2, fn)
+
+
+AUTHORS_NS = "http://schemas.microsoft.com/office/powerpoint/2018/8/main"
+
+
+def _authors_part(p):
+    """PowerPoint's authors.xml extension part, with its relationship and content type."""
+    m = members(p)
+    m["ppt/authors.xml"] = ('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<p188:authorLst '
+                            'xmlns:p188="%s"/>' % AUTHORS_NS).encode()
+    rels = etree.fromstring(m["ppt/_rels/presentation.xml.rels"])
+    ids = {r.get("Id") for r in rels}
+    rid = next("rId%d" % k for k in range(900, 999) if "rId%d" % k not in ids)
+    etree.SubElement(rels, rels[0].tag, Id=rid, Type="http://schemas.microsoft.com/office/2018/10/relationships/authors",
+                     Target="authors.xml")
+    m["ppt/_rels/presentation.xml.rels"] = etree.tostring(rels, xml_declaration=True, encoding="UTF-8", standalone=True)
+    ct = etree.fromstring(m["[Content_Types].xml"])
+    etree.SubElement(ct, "{http://schemas.openxmlformats.org/package/2006/content-types}Override",
+                     PartName="/ppt/authors.xml", ContentType="application/vnd.ms-powerpoint.authors+xml")
+    m["[Content_Types].xml"] = etree.tostring(ct, xml_declaration=True, encoding="UTF-8", standalone=True)
+    write(p, m)
+
+
+def p12_glue_ext(p, w):
+    """An extension part the schema bundle cannot validate (skipped) AND a connector glued to a missing shape id:
+    skipping the part must never hide the glue defect."""
+    _authors_part(p)
+
+    def fn(r):
+        cx = shape(r, "step.arrow.1")
+        c = cx.find(".//" + P + "cNvCxnSpPr")
+        etree.SubElement(c, A + "stCxn", id="9999", idx="0")
+    edit_slide(p, 3, fn)
+
+
+def p12_busz(p, w):
+    """A bullet size of 5000 (5%): outside the 25%..400% PowerPoint writes, so not a known value."""
+    def fn(r):
+        para = shape(r, "pillar.1.text.2").find(".//" + A + "p")
+        ppr = para.find(A + "pPr")
+        if ppr is None:
+            ppr = etree.Element(A + "pPr")
+            para.insert(0, ppr)
+        bu = etree.Element(A + "buSzPct", val="5000")
+        later = [c for c in ppr if etree.QName(c).localname in ("buFontTx", "buFont", "buNone", "buAutoNum", "buChar",
+                                                                 "buBlip", "tabLst", "defRPr", "extLst")]
+        (later[0].addprevious(bu) if later else ppr.append(bu))
+    edit_slide(p, 2, fn)
+
+
+def p16_theme_hex(p, w):
+    def fn(r):
+        sf = sppr(shape(r, "pillar.1.card")).find(A + "solidFill")
+        for c in list(sf):
+            sf.remove(c)
+        sf.append(etree.Element(A + "srgbClr", val="D91E18"))
+    edit_slide(p, 2, fn)
+
+
+def p17_no_deck_voice(p, w):
+    d = json.loads(Path(os.path.expanduser("~/.claude/hooks/fingerprints.json")).read_text(encoding="utf-8"))
+    d["rules"] = [r for r in d.get("rules", []) if r.get("tier") != "deck-voice"]
+    f = Path(w) / "fingerprints-no-deck-voice.json"
+    f.write_text(json.dumps(d), encoding="utf-8")
+    return {"fingerprints": str(f)}
+
+
+def _refs_emptied(w, name) -> str:
+    src = SKILL / "devices" / "refs"
+    refs = Path(w) / "refs"
+    refs.mkdir(exist_ok=True)
+    for f in src.iterdir():
+        if f.is_file() and f.name != name:
+            os.symlink(f, refs / f.name)
+    if name == "media.json":
+        media = json.loads((src / "media.json").read_text(encoding="utf-8"))
+        media["items"] = []
+        (refs / name).write_text(json.dumps(media), encoding="utf-8")
+    else:
+        (refs / name).write_text("", encoding="utf-8")
+    return str(refs)
+
+
+def p18_empty_media(p, w):
+    return {"refs_dir": _refs_emptied(w, "media.json")}
+
+
+def p18_empty_vectors(p, w):
+    return {"refs_dir": _refs_emptied(w, "vectors.sha1")}
+
+
+def p23_range(p, w):
+    """A range set large and bold outside any stat: the read layer guesses a heading, the figure rule does not."""
+    with_prs(p, lambda prs: _add_text(prs, 6, (0.5, 5.6, 3.0, 0.6), "5 to 10%", 28.0, "range.figure", role="ink-deep",
+                                      bold=True))
+
+
+def p24_top_heavy(p, w):
+    """Every shape on the pillars slide but the title squeezed into the top 45% of the content band."""
+    from deckkit.canvas import WIDE
+    band = WIDE.content
+
+    def fn(r):
+        tree = r.find(".//" + P + "spTree")
+        kids = [k for k in tree if etree.QName(k).localname in ("sp", "cxnSp", "pic", "grpSp", "graphicFrame")
+                and k.find(".//" + P + "cNvPr").get("name") != "title"]
+        boxes = []
+        for k in kids:
+            x = k.find(".//" + A + "xfrm")
+            boxes.append((x, int(x.find(A + "off").get("y")), int(x.find(A + "ext").get("cy"))))
+        top = band.y * EMU
+        bot = max(y + h for _x, y, h in boxes)
+        f = 0.45 * band.h * EMU / (bot - top)
+        for x, y, h in boxes:
+            x.find(A + "off").set("y", str(int(round(top + (y - top) * f))))
+            x.find(A + "ext").set("cy", str(int(round(h * f))))
+    edit_slide(p, 2, fn)
+
+
+def p15_share(p, w):
+    """Slides 2, 4 and 6 all in the Columns family (three archetypes, never adjacent): 60% of the content slides."""
+    def fn(r):
+        for prop in r:
+            v = {"deckkit:259": "context-problem:split", "deckkit:261": "team:grid"}.get(prop.get("name"))
+            if v:
+                prop[0].text = v
+    edit_part(p, "docProps/custom.xml", fn)
+
+
+def p05_loose_chevron(p, w):
+    """A chevron outside the step header's group, nested into its first step the way the row nests its own."""
+    from pptx.enum.shapes import MSO_SHAPE
+
+    def fn(prs):
+        s = prs.slides[2]
+        hdr = next(sh for sh in s.shapes if sh.name == "steps")
+        x, y, h = hdr.left, hdr.top, hdr.height
+        ch = s.shapes.add_shape(MSO_SHAPE.CHEVRON, x + int(2.6 * EMU), y, int(1.5 * EMU), h)
+        ch.name = "loose.chevron"
+    with_prs(p, fn)
+
+
 PLANTERS = [
     Planter("run-7.5pt", "P01", "a body run set at 7.5pt", p01_75, "7.50pt run"),
     Planter("autofit-75pct", "P01", "a 10pt run under normAutofit fontScale 75% (7.5pt drawn)", p01_scale,
             "fontScale 75%"),
     Planter("forty-extra-words", "P02", "40 more words in a card body sized to its old text", p02_words, "needs"),
+    Planter("unknown-face", "P02", "a Consolas run (no metrics) in a card body with 40 more words", p02_unknown_face,
+            "measured as Arial"),
     Planter("past-the-edge", "P03", "a card moved 0.1in past the right edge", p03_edge, "past the right edge"),
     Planter("child-on-edge", "P04", "a card body 0.01in from its card's left edge", p04_edge, "from the left edge"),
     Planter("colliding-text", "P05", "a heading duplicated 0.12in right and 0.08in down over itself", p05_overlap,
             "step.1.text.1 / step.1.text.1.copy"),
-    Planter("arrow-shifted", "P06", "an arrow shifted 0.3in back along its axis", p06_arrow, "lands on nothing"),
+    Planter("loose-chevron", "P05", "a chevron outside the step header's group nested into its first step",
+            p05_loose_chevron, "loose.chevron"),
+    Planter("arrow-shifted", "P06", "an arrow inside the step panel shifted 0.3in back along its axis", p06_arrow,
+            "lands on nothing"),
+    Planter("arrow-short-in-panel", "P06", "an arrow inside the step panel stopped 0.3in short of its card",
+            p06_panel_short, "end lands on nothing"),
     Planter("card-gap", "P07", "two sibling cards 0.02in apart", p07_gap, "0.020in apart"),
     Planter("ragged-headings", "P07", "one card's content dropped 0.15in in a row of three", p07_ragged,
             "first content at"),
+    Planter("ragged-under-cards", "P07", "the same drop with the cards raised above their content in z-order",
+            p07_ragged_under, "first content at"),
     Planter("top-heavy", "P08", "a card whose content sits at its top with an inch of air below", p08_topheavy,
             "top-heavy"),
     Planter("foot-band", "P09", "a full-width band along the foot with a sentence on it", p09_band, "foot band"),
     Planter("subtitle", "P09", "a nine-word sentence directly under the title", p09_subtitle, "subtitle under"),
-    Planter("page-number", "P09", "a page number in the bottom-right corner", p09_pagenum, "page number"),
+    Planter("page-number", "P09", "a page number '2 / 34' in the top-right corner", p09_pagenum, "'2 / 34'"),
+    Planter("page-number-bare", "P09", "a bare page number in the bottom-right corner", p09_pagenum_bare,
+            "page number '3'"),
     Planter("confidential-line", "P09", "a 'confidential' line on a slide", p09_confidential, "confidentiality"),
     Planter("left-bar", "P10", "an accent bar down the left of a card body", p10_bar, "left accent bar"),
     Planter("no-device", "P10", "a content slide with its icons removed and no arrows", p10_no_device,
             "nothing drawn"),
     Planter("caps-kicker", "P10", "every card heading set in capitals", p10_caps, "caps label"),
+    Planter("thin-accent-bar", "P10", "a 0.01in accent strip beside a card body (thin, but not grey)",
+            p10_thin_accent, "left accent bar"),
     Planter("ghost-style", "P11", "an injected <p:style> with effectRef idx 2 on a card", p11_style, "<p:style>"),
     Planter("gradient", "P11", "a gradient fill on a card", p11_gradient, "gradient fill"),
     Planter("blurred-shadow", "P11", "a 3pt blurred outer shadow on a card", p11_shadow, "shadow blur"),
     Planter("calibri-run", "P11", "a body run set in Calibri", p11_calibri, "'Calibri'"),
     Planter("off-ladder", "P11", "a body run at 10.75pt", p11_ladder, "half-point ladder"),
+    Planter("off-radius", "P11", "a card at a 0.15in corner radius on a 0.05in canvas", p11_radius, "card radius"),
     Planter("double-effectLst", "P12", "a second <a:effectLst/> in one spPr", p12_double, "<effectLst> x2"),
     Planter("dangling-embed", "P12", "a blip fill pointing at r:embed rId999", p12_embed, "rId999"),
     Planter("svg-ct-dropped", "P12", "an SVG picture whose content type was dropped", p12_svg_ct, "no content type"),
     Planter("schema-violation", "P12", "an unknown <p:bogus/> in a slide's shape tree", p12_schema, "bogus"),
+    Planter("glue-beside-extension", "P12", "a skipped authors.xml part and a connector glued to shape id 9999",
+            p12_glue_ext, "glued to missing shape id 9999"),
+    Planter("bullet-size-5pct", "P12", "a buSzPct of 5000, outside PowerPoint's own range", p12_busz, "buSzPct"),
     Planter("three-hundred-words", "P13", "300 words added to one slide", p13_words, "words on glass"),
     Planter("shared-opener", "P14", "three titles opening 'Regional planning'", p14_opener, "titles open with"),
     Planter("body-keyword", "P14", "a two-tone accent-ink keyword inside body copy", p14_body_keyword,
             "outside a title"),
     Planter("long-title", "P14", "an 18-word title", p14_long, "words in the title"),
+    Planter("face-then-long-title", "P14", "a Consolas title on slide 2, then an 18-word title on slide 3",
+            p14_face_then_long, "18 words in the title"),
     Planter("duplicate-adjacent", "P15", "the process slide duplicated next to itself", p15_duplicate,
             "appears 2 times"),
     Planter("lookalike", "P15", "the process slide duplicated next to itself under another archetype", p15_lookalike,
             "looks like slide"),
     Planter("same-family-run", "P15", "three slides in a row retagged into one family", p15_family, "are all Columns"),
     Planter("three-tables", "P15", "the table slide copied twice beside itself", p15_tables, "table slides in a row"),
+    Planter("family-share", "P15", "slides 2, 4 and 6 retagged into Columns (60% of content slides)", p15_share,
+            "content slides are Columns"),
     Planter("magenta-fill", "P16", "a card filled with srgb FF00FF", p16_magenta, "FF00FF"),
     Planter("mod-not-role", "P16", "a card fill at bg1 lumMod 93000, no role", p16_mod, "not a theme role"),
+    Planter("theme-hex-fill", "P16", "a card filled with srgb D91E18, the accent1 slot's hex", p16_theme_hex,
+            "hard-coded theme colour"),
     Planter("leverage-emdash", "P17", "'leverage' and an em dash in a card body", p17_leverage, "leverage"),
     Planter("first-person", "P17", "'We' opening a card body", p17_person, "dv-person"),
     Planter("empty-rules", "P17", "an empty fingerprints file: the canary must make the gate fail", p17_empty_rules,
             "canary", ctx_only=True),
+    Planter("no-deck-voice-tier", "P17", "a fingerprints copy with the deck-voice tier removed", p17_no_deck_voice,
+            "canary for dv-person", ctx_only=True),
     Planter("canary-name", "P18", "the refs canary entity's name in a card body", p18_canary, "name matches"),
     Planter("corpus-6gram", "P18", "six words of the canary probe, no name, no number", p18_6gram, "6-gram matches"),
     Planter("corpus-number", "P18", "the canary's numeric phrase", p18_number, "number matches"),
@@ -803,6 +1055,10 @@ PLANTERS = [
     Planter("notes-leak", "P18", "speaker notes travelling with the deck", p18_notes, "notes text travels"),
     Planter("creator-jane", "P18", "docProps creator 'Jane Doe'", p18_creator, "Jane Doe"),
     Planter("foreign-master", "P18", "the slide master changed after the build", p18_master, "kit base"),
+    Planter("empty-media-index", "P18", "a refs copy whose media.json lists no item", p18_empty_media,
+            "media.json is empty", ctx_only=True),
+    Planter("empty-vector-index", "P18", "a refs copy whose vectors.sha1 is empty", p18_empty_vectors,
+            "vectors.sha1 is empty", ctx_only=True),
     Planter("click-to-add", "P19", "a 'Click to add Text' box", p19_click, "Click to add"),
     Planter("hidden-slide", "P19", "a hidden slide", p19_hidden, "hidden slide"),
     Planter("empty-box", "P19", "an empty text box", p19_empty, "empty text box"),
@@ -822,6 +1078,9 @@ PLANTERS = [
             "'Illustrative' chip"),
     Planter("value-drift", "P23", "a stat value changed on glass after the build", p23_drift, "on glass '46%'"),
     Planter("loose-figure", "P23", "a large figure on glass outside any stat", p23_loose, "no kind"),
+    Planter("loose-range", "P23", "'5 to 10%' set large and bold outside any stat", p23_range, "no kind: '5 to 10%'"),
+    Planter("top-heavy-slide", "P24", "the pillars slide's content squeezed into the top 45% of the band",
+            p24_top_heavy, "content spans"),
 ]
 
 

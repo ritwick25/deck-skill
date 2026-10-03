@@ -306,3 +306,28 @@ def dhash64(blob: bytes) -> str | None:
 
 def hamming64(a: str, b: str) -> int:
     return (int(a, 16) ^ int(b, 16)).bit_count()
+
+
+# ------------------------------------------------------------------ the leak canary's image and vector
+
+# A fictional 16 x 16 two-tone checker (PNG) and a fictional zigzag custom geometry. The harvester registers both
+# in the leak references (media.json, vectors.sha1) and records them in canary.json; the leak gate decodes them and
+# refuses to trust a pass unless each is found. One definition, so the two can never drift.
+CANARY_PNG_B64 = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAANUlEQVR4nGMUt21mgIEXh2rgbAm7FqziTAwkAiaaa2D8//8/QXdLIIkPRj+Ij8YDYUD7eAAAwqoZxY7wPVoAAAAASUVORK5CYII="
+CANARY_CUSTGEOM = ('<a:custGeom xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:avLst/><a:gdLst/><a:a'
+    'hLst/><a:cxnLst/><a:rect l="0" t="0" r="r" b="b"/><a:pathLst><a:path w="1000" h="1000"><a:moveTo><a:'
+    'pt x="0" y="1000"/></a:moveTo><a:lnTo><a:pt x="125" y="250"/></a:lnTo><a:lnTo><a:pt x="375" y="875"/'
+    '></a:lnTo><a:lnTo><a:pt x="500" y="0"/></a:lnTo><a:lnTo><a:pt x="625" y="625"/></a:lnTo><a:lnTo><a:p'
+    't x="875" y="125"/></a:lnTo><a:lnTo><a:pt x="1000" y="1000"/></a:lnTo><a:close/></a:path></a:pathLst'
+    '></a:custGeom>')
+
+
+def canary_assets() -> dict:
+    """{"png": bytes, "sha256", "dhash", "custgeom": xml, "sig_sha1"} for the leak canary."""
+    import base64
+    import hashlib
+    from lxml import etree
+    blob = base64.b64decode(CANARY_PNG_B64)
+    sig = custgeom_sig(etree.fromstring(CANARY_CUSTGEOM.encode("utf-8")))
+    return {"png": blob, "sha256": hashlib.sha256(blob).hexdigest(), "dhash": dhash64(blob),
+            "custgeom": CANARY_CUSTGEOM, "sig_sha1": sha1(sig)}

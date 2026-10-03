@@ -3,20 +3,24 @@
 Read from the slide, layout and master XML (a ghost shadow lives in a style reference, not in a property
 python-pptx shows) and from the read layer's resolved effects, so a shadow arriving through a theme
 effect style is seen too. The theme's own fmtScheme must be flat (the second defence). A content slide's
-title is set at the canvas title size.
+title is set at the canvas title size. Every rounded card (the shared card set: rounded rect presets filled in a
+card role or outlined) takes the canvas radius (WIDE 0.05in, STD 0.04in) within 0.01in, so one physical corner
+runs through the deck.
 """
 from __future__ import annotations
 
 import re
 import sys
 
-from _shared import FAIL, Finding, cli
+from _shared import FAIL, Finding, cards, cli
 from deckkit.read.ns import local
 
 GATE, TITLE = "P11", "style"
 ONE_PX = 9525           # EMU: a shadow blurred or offset by more than a pixel is the soft-shadow tell
 SHAPES = ("sp", "cxnSp", "pic", "grpSp", "graphicFrame")
 MONO = re.compile(r"mono|courier|consolas|menlo|monaco|code|typewriter", re.I)
+ROUNDED = ("roundRect", "round1Rect", "round2SameRect", "round2DiagRect", "snipRoundRect")
+RADIUS_TOL = 0.01
 
 
 def _owner(el):
@@ -81,6 +85,13 @@ def run(deck, ctx):
                                            % (r["font"], why, ", ".join(sorted(faces)), r["t"][:30])))
                     if abs(r["size_pt"] * 2 - round(r["size_pt"] * 2)) > 1e-6:
                         out.append(Finding(GATE, FAIL, i, L["name"], "%.2fpt is off the half-point ladder" % r["size_pt"]))
+        want = ctx.canvas.radius_in
+        for c in cards(s, ctx):
+            g = c["L"].get("geom") or {}
+            r = g.get("radius_in")
+            if g.get("prst") in ROUNDED and r is not None and abs(r - want) > RADIUS_TOL:
+                out.append(Finding(GATE, FAIL, i, c["L"]["name"], "card radius %.3fin, the %s canvas sets %.2fin "
+                                   "(within %.2fin)" % (r, ctx.canvas.name, want, RADIUS_TOL)))
         if not ctx.is_frame(i):
             for L in s["shapes"]:
                 if L["name"] == "title" and L.get("text"):

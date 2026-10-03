@@ -369,11 +369,12 @@ class TestD01(unittest.TestCase):
 
     def test_icons(self):
         """Refined icon definition (library DECISIONS): outermost icon-sized text-free groups, icon-sized
-        text-free pictures, and lone text-free custGeom glyphs. 1,085 over 1-104 (240 groups, 786 pictures,
-        59 vector glyphs); 1,840 over 1-135 (480, 1,256, 104). The pre-refinement figures were 1,026 and 1,736;
-        the survey's estimate was about 1,066 and 1,800."""
-        for hi, want, kinds in ((104, 1085, {"group": 240, "pic": 786, "vector": 59}),
-                                (135, 1840, {"group": 480, "pic": 1256, "vector": 104})):
+        text-free pictures, and lone text-free custGeom glyphs. 1,055 over 1-104 (240 groups, 786 pictures,
+        29 vector glyphs); 1,780 over 1-135 (480, 1,256, 44). An open stroked path that is straight or headed is
+        a line, not a glyph: 30 (60 over 1-135) agent-mesh edges counted as glyphs before open custGeom paths got
+        connector blocks (1,085 and 1,840 then). The pre-refinement figures were 1,026 and 1,736."""
+        for hi, want, kinds in ((104, 1055, {"group": 240, "pic": 786, "vector": 29}),
+                                (135, 1780, {"group": 480, "pic": 1256, "vector": 44})):
             got = {}
             for s in d01()["slides"][:hi]:
                 for u in s["icons"]:
@@ -696,6 +697,137 @@ class TestLayoutHygiene(unittest.TestCase):
         self.assertEqual(kinds["partial-off-canvas"]["ids"], [c.shape_id])
 
 
+class TestOpenPaths(unittest.TestCase):
+    """Open custGeom paths (stroked, unfilled) carry a connector block: ends at the path's first and last points
+    through the shape's flips, arrowheads from headEnd/tailEnd, classified like a cxnSp. The kit's elbow is one."""
+
+    def build(self, td):
+        from pptx import Presentation
+        from pptx.util import Inches
+        from deckkit import prims
+        from deckkit.theme import Theme
+        skill = os.path.dirname(HERE)
+        theme = Theme.load(os.path.join(skill, "themes", "sigmoid.json"))
+        prs = Presentation(os.path.join(skill, "kit", "assets", "base-wide.pptx"))
+        s = prs.slides.add_slide(prs.slide_layouts[0])
+        with prims.use(theme):
+            a = prims.rect(s, prims.Box(1, 1, 2, 1), fill="card", name="a")
+            b = prims.rect(s, prims.Box(6, 3, 2, 1), fill="card", name="b")
+            e = prims.elbow(s, [(3, 1.5), (4.5, 1.5), (4.5, 3.5), (6, 3.5)], name="route")
+            flip = prims.elbow(s, [(1, 6), (3, 6), (3, 5)], head="end", name="flipped")
+        flip._element.find(".//" + A("xfrm")).set("flipH", "1")     # mirrored: the head moves to x = 1
+        arc = s.shapes.add_shape(1, Inches(9), Inches(4), Inches(2), Inches(2))
+        filled = s.shapes.add_shape(1, Inches(9), Inches(1), Inches(1), Inches(1))
+        from lxml import etree
+        for sh, body, fill in ((arc, '<a:moveTo><a:pt x="0" y="100"/></a:moveTo><a:arcTo wR="50" hR="50" '
+                                'stAng="10800000" swAng="16200000"/>', "none"),
+                               (filled, '<a:moveTo><a:pt x="0" y="0"/></a:moveTo><a:lnTo><a:pt x="100" y="0"/>'
+                                '</a:lnTo><a:lnTo><a:pt x="50" y="100"/></a:lnTo>', None)):
+            sp = sh._element.spPr
+            sp.remove(sp.find(A("prstGeom")))
+            g = etree.fromstring('<a:custGeom xmlns:a="%s"><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/>'
+                                 '<a:rect l="0" t="0" r="r" b="b"/><a:pathLst><a:path w="100" h="100"%s>%s'
+                                 '</a:path></a:pathLst></a:custGeom>'
+                                 % (NS["a"], ' fill="none"' if fill else "", body))
+            sp.insert(1, g)
+            if fill:
+                sh.fill.background()
+            sh.line.width = 12700
+        path = os.path.join(td, "open.pptx")
+        prs.save(path)
+        with open_deck(path) as deck:
+            sl = read_slide(deck, 1)
+        return {L["name"]: L for L in sl["shapes"]}, (a, b, e, flip, arc, filled)
+
+    def test_elbow_and_arc(self):
+        with tempfile.TemporaryDirectory() as td:
+            by, (a, b, e, flip, arc, filled) = self.build(td)
+        k = by["route"]["connector"]
+        self.assertIsNotNone(k)
+        self.assertEqual((k["prst"], k["orientation"], k["points"]), ("custom", "elbow", 4))
+        self.assertEqual(k["start_in"], [3.0, 1.5])
+        self.assertEqual(k["end_in"], [6.0, 3.5])
+        self.assertAlmostEqual(k["path_len_in"], 1.5 + 2.0 + 1.5, places=2)
+        self.assertNotEqual(k["tail"]["type"], "none")                # elbow's default head sits at the last point
+        self.assertEqual(k["class"], "connector")
+        self.assertTrue(k["touch"]["start"]["ok"] and k["touch"]["end"]["ok"])
+        self.assertEqual({k["touch"]["start"]["id"], k["touch"]["end"]["id"]}, {a.shape_id, b.shape_id})
+        self.assertTrue(by["route"]["line_like"])
+        f = by["flipped"]["connector"]
+        self.assertEqual(f["start_in"], [3.0, 6.0])                   # flipH mirrors the path in its box
+        self.assertEqual(f["end_in"], [1.0, 5.0])
+        c = by[arc.name]["connector"]
+        self.assertEqual(c["orientation"], "curve")
+        self.assertAlmostEqual(c["start_in"][0], 9.0, places=2)       # (0, 100) of a 100-unit path in a 2 in box
+        self.assertAlmostEqual(c["start_in"][1], 6.0, places=2)
+        self.assertGreater(c["path_len_in"], c["length_in"])
+        self.assertIn(c["class"], ("rule", "stroke"))
+        self.assertIsNone(by[filled.name]["connector"])               # an open path with a fill paints an area
+        self.assertTrue(by[filled.name]["geom"]["open"])
+
+    def test_loop_is_a_stroke(self):
+        from deckkit.read import connect as cx
+        L = _line(1, (1.0, 1.0), (1.5, 1.0), prst="custom")
+        L["connector"]["path_len_in"] = 3.0
+        L["connector"]["contact"] = {"distinct": False, "across": None}
+        self.assertEqual(cx.classify(L), "stroke")                    # a ring drawn as one open stroke
+        L["connector"]["head"] = {"type": "triangle"}
+        self.assertEqual(cx.classify(L), "connector")                 # a cycle arrow
+        L["connector"]["length_in"] = 0.01
+        L["connector"]["head"] = {"type": "none"}
+        self.assertEqual(cx.classify(L), "stroke")                    # chord tiny, drawn length real: not degenerate
+
+
+class TestParagraphProps(unittest.TestCase):
+    def test_margin_indent_end_size(self):
+        from pptx import Presentation
+        from pptx.util import Inches
+        from lxml import etree
+        with tempfile.TemporaryDirectory() as td:
+            path = os.path.join(td, "para.pptx")
+            prs = Presentation()
+            s = prs.slides.add_slide(prs.slide_layouts[6])
+            tb = s.shapes.add_textbox(Inches(1), Inches(1), Inches(4), Inches(2))
+            tf = tb.text_frame
+            tf.text = "Bulleted line"
+            p0 = tf.paragraphs[0]._p
+            p0.get_or_add_pPr().set("marL", "228600")
+            p0.get_or_add_pPr().set("indent", "-114300")
+            p1 = tf.add_paragraph()._p
+            etree.SubElement(p1, A("endParaRPr")).set("sz", "1400")
+            prs.save(path)
+            with open_deck(path) as deck:
+                sl = read_slide(deck, 1)
+        ps = sl["shapes"][0]["text"]["paragraphs"]
+        self.assertEqual((ps[0]["mar_l_in"], ps[0]["indent_in"], ps[0]["end_pt"]), (0.25, -0.125, None))
+        self.assertEqual((ps[1]["mar_l_in"], ps[1]["indent_in"], ps[1]["end_pt"]), (0.0, 0.0, 14.0))
+
+
+class TestCoverTitle(unittest.TestCase):
+    W, H = 13.333, 7.5
+
+    def test_cover_tier(self):
+        from deckkit.read.walk import cover_like, pick_title
+        leaves = [_leaf(1, 1, 4.5, 6, 0.8, text="Programme planning and execution with agents", pt=24),
+                  _leaf(2, 1, 5.2, 6, 0.5, text="Executive proposal for the planning team", pt=22),
+                  _leaf(3, 1, 6.0, 4, 0.4, text="25 August 2026", pt=23)]
+        leaves[0]["text"]["bold_share"] = 1.0
+        self.assertEqual(pick_title(leaves, self.W, self.H, 17), (None, None))     # no tier separates them
+        self.assertTrue(cover_like(leaves, self.W, self.H, 17, index1=1))
+        L, tier = pick_title(leaves, self.W, self.H, 17, cover=True)
+        self.assertEqual((L["id"], tier), (1, "cover"))
+        self.assertFalse(cover_like(leaves, self.W, self.H, 17, index1=2))
+        pic = _leaf(9, 0, 0, self.W, self.H, kind="pic", prst=None)
+        self.assertTrue(cover_like(leaves[:1] + [pic], self.W, self.H, 8, index1=4))   # few words over a picture
+        self.assertFalse(cover_like(leaves[:1] + [pic], self.W, self.H, 13, index1=4))
+        small = [dict(leaves[0], text=dict(leaves[0]["text"], size={"dominant_pt": 12.0}))] + leaves[1:]
+        self.assertNotEqual(pick_title(small, self.W, self.H, 17, cover=True)[1], "cover")  # bold but small
+        head = _leaf(5, 0.3, 0.1, 6, 0.5, text="Data marketplace walkthrough", pt=21)
+        label = _leaf(6, 4, 2.5, 1, 0.4, text="LIVE", pt=18)
+        label["text"]["bold_share"] = 1.0
+        self.assertEqual(pick_title([head, label, pic], self.W, self.H, 4, cover=True), (head, "few-words"))
+
+
 _CORPUS = {}
 
 
@@ -715,29 +847,45 @@ class TestCorpusTitlesLines(unittest.TestCase):
     """Corpus facts for the title rule, the line classes and the ai-image hint (library DECISIONS 2026-10-03)."""
 
     def test_untitled_main_slides(self):
-        """Visible main slides with words and no title: two covers whose 24pt title sits beside 23pt and 22pt
-        lines (no tier separates them) and three profile pages set wholly at 8 to 9pt."""
+        """Visible main slides with words and no title: three profile pages set wholly at 8 to 9pt. The two
+        covers whose 24pt bold title sits beside 23pt and 22pt lines (d08 and d14, slide 1) take the cover tier:
+        the largest bold text on a deck's first slide."""
         missing = [(k, s["index"]) for k, ss in corpus().items() for s in ss
                    if s["status"] == "main" and not s["hidden"] and s["text"]["words_content"]
                    and not any((L["role_guess"] or {}).get("role") == "title" for L in s["shapes"])]
-        self.assertEqual(sorted(missing), [("d08", 1), ("d09", 51), ("d09", 52), ("d09", 53), ("d14", 1)])
+        self.assertEqual(sorted(missing), [("d09", 51), ("d09", 52), ("d09", 53)])
+        for k in ("d08", "d14"):
+            t = [L for L in corpus()[k][0]["shapes"] if (L["role_guess"] or {}).get("role") == "title"]
+            self.assertEqual([(L["id"], L["text"]["size"]["dominant_pt"]) for L in t], [(545, 24.0)], k)
+            self.assertIn("cover", t[0]["role_guess"]["why"])
 
     def test_line_classes(self):
-        got, d1, both = {}, {}, 0
+        """cxnSp, line presets and block arrows: six lines whose two "shapes" were open custGeom strokes (lines
+        themselves, now line-like) moved from connector to rule (2,039 and 1,667 distinct before). Open custGeom
+        paths, stroked and unfilled, carry a connector block too: 806 of them, none classified before."""
+        got, d1, both, cust = {}, {}, 0, {}
         for k, ss in corpus().items():
             for s in ss:
                 for L in s["shapes"]:
                     c = L.get("connector")
                     if c is None:
+                        g = L.get("geom") or {}
+                        if g.get("open") and (L.get("fill") or {}).get("type") == "none" and \
+                                (L.get("line") or {}).get("type") not in (None, "none"):
+                            self.fail("open stroked path without a connector block: %s %s" % (k, L["id"]))
                         continue
                     self.assertIn(c["class"], ("connector", "rule", "stroke", "degenerate"))
+                    if c["prst"] == "custom":
+                        cust[c["class"]] = cust.get(c["class"], 0) + 1
+                        continue
                     got[c["class"]] = got.get(c["class"], 0) + 1
                     if k == "d01":
                         d1[c["class"]] = d1.get(c["class"], 0) + 1
                     both += c["class"] == "connector" and c["contact"]["distinct"]
-        self.assertEqual(got, {"connector": 2039, "rule": 2248, "stroke": 316, "degenerate": 32})
+        self.assertEqual(got, {"connector": 2033, "rule": 2254, "stroke": 316, "degenerate": 32})
         self.assertEqual(d1, {"connector": 744, "rule": 687, "stroke": 37, "degenerate": 7})
-        self.assertEqual(both, 1667)
+        self.assertEqual(both, 1661)
+        self.assertEqual(cust, {"connector": 261, "rule": 52, "stroke": 68, "degenerate": 425})
 
     def test_ai_hint_explicit_only(self):
         """126 pictures carried a hint under the old pattern (119 of them Office alt text); 6 name ChatGPT."""

@@ -112,6 +112,21 @@ def luminance(h: str) -> float:
     return 0.2126 * r + 0.7152 * g + 0.0722 * b
 
 
+NEUTRAL_CHROMA = 0.10      # a colour whose channels spread less than this (0..1) reads as a grey
+
+
+def chroma(h: str) -> float:
+    """Colourfulness, 0..1: the largest sRGB channel minus the smallest (HSV saturation times value). A pale tint
+    such as DDE4F6 sits near 0.1 even though its HSL saturation is high, which is how the eye reads it: grey."""
+    rgb = hex2rgb(h)
+    return round(max(rgb) - min(rgb), 4)
+
+
+def is_neutral(h: str, limit: float = NEUTRAL_CHROMA) -> bool:
+    """A grey: chroma below `limit`."""
+    return bool(h) and chroma(h) < limit
+
+
 def contrast(h1: str, h2: str) -> float:
     """WCAG 2.x contrast ratio between two hex colours."""
     l1, l2 = luminance(h1), luminance(h2)

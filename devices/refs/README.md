@@ -39,23 +39,29 @@ distinctive (marked, or a bare value of 11 or more that is not a year, unless th
 word and the value is 100 or less). A 1 or 2 letter word between the number and its noun travels with the noun.
 Gate: an exact match fails.
 
-## vectors.sha1 (23 lines)
+## vectors.sha1 (24 lines)
 
 One digest per custom-geometry signature found on a master, a layout or the first slide of a corpus deck.
 Signature: `refnorm.custgeom_sig(custGeom)`. Each path's coordinates are divided by the path width and height
 (or the point extent when absent) and quantised to a 1/64 grid; arcs keep quantised radii and whole-degree
 angles; paths join with ` | `. Signatures with fewer than 5 points are trivial and are not stored.
-Gate: a built deck's custom geometry must not match.
+The canary vector's digest is included (see canary.json). Gate: a built deck's custom geometry must not match;
+the gate refuses an index with no corpus entry or without the canary's.
 
-## media.json (2801 parts, 2558 unique, 2430 with a dHash)
+## media.json (2801 parts, 2559 unique, 2431 with a dHash)
 
 Every picture blob in the corpus: `sha256` of the raw bytes, `dhash` from `refnorm.dhash64` (composited on
 white, greyscale, LANCZOS to 9x8, 64 horizontal-gradient bits, hex; null for EMF, WMF, SVG or unreadable
-blobs), byte size, format, pixel size, and how many decks carry it. Gate: an exact sha256 fails unless
-allow-listed with a reason; a dHash within Hamming distance 5 fails (`refnorm.hamming64`).
+blobs), byte size, format, pixel size, and how many decks carry it. The canary image is one more item
+(`"canary": true`, carried by 0 decks). Gate: an exact sha256 fails unless allow-listed with a reason; a dHash
+within Hamming distance 5 fails (`refnorm.hamming64`).
 
 ## canary.json
 
 A fictional entity with its probe sentence, a clean sentence, and the digests the probe must hit in
-names.sha1, ngrams6.sha1 and numphrases.sha1. The gate fires the canary first and refuses to trust a pass
-until it has seen the probe caught and the clean sentence pass.
+names.sha1, ngrams6.sha1 and numphrases.sha1; a canary image (`media`: the PNG in base64 with its sha256 and
+dHash) and a canary vector (`vector`: a custGeom and its signature digest), both defined once in
+`refnorm.CANARY_PNG_B64` and `refnorm.CANARY_CUSTGEOM`. The gate fires the canary first and refuses to trust a
+pass until it has seen the probe caught in every text index, the image found in media.json by sha256 and by
+dHash, the vector found in vectors.sha1, and the clean sentence pass. Every index must also hold at least one
+corpus entry beyond its canary.

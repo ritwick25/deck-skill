@@ -10,13 +10,17 @@ Lifted, with the banned devices stripped (CLAUDE.md sections 4 and 6, engineerin
     the words are somebody's own: the one left bar the house rules allow, named state.quote here).
 
 Contract for every creator:
+  * all or nothing: every creator runs inside ooxml.transaction, so one that raises leaves the slide
+    unchanged (no half-drawn compound, no orphan relationship); text is measured before the shape exists
   * colours are theme roles, written as schemeClr expressions through Theme.spec; never a hex
-  * ooxml.finish() runs on every shape: no <p:style>, exactly one empty effectLst
+  * ooxml.finish() runs on every shape that survives: no <p:style>, exactly one empty effectLst
   * the caller names the shape (semantic, e.g. "pillar.2.card"); parts of a compound get name.part
-  * text is measured with deckkit.measure before it is written; it never shrinks, never autofits,
-    never drops below 8.0pt (BelowFloor), and refuses with Overflows when it does not fit
-  * geometry the kit will not draw raises GeometryError: a radius on a non-rounded preset, an accent
-    bar on a card edge (only state.* shapes may carry one), a chevron point outside 31-35% of its height
+  * text goes through deckkit.text (Run, Para, write, textbox), the kit's one text writer, so its role
+    guards hold here too: fill, accent-fill and hairline roles are refused as text, brand-colour text is
+    accent-ink. It is measured with deckkit.measure before it is written; it never shrinks, never
+    autofits, never drops below 8.0pt (BelowFloor), and refuses with Overflows when it does not fit
+  * geometry the kit will not draw raises GeometryError: a radius on a non-rounded preset, a strip in
+    any non-neutral role (only state.* shapes may carry one), a chevron point outside 31-35% of its height
 
 The theme is bound once with use(theme) (a context manager) or passed per call as theme=.
 """
@@ -29,8 +33,10 @@ from dataclasses import dataclass
 from lxml import etree
 
 from . import measure, ooxml
-from .canvas import EMU_PER_IN, FLOOR, Box, Canvas, canvas_of
-from .errors import BelowFloor, GeometryError, ThemeInvariant
+from . import text as txt
+from .canvas import EMU_PER_IN, Box, Canvas, canvas_of
+from .errors import BelowFloor, GeometryError, Overflows, ThemeInvariant
+from .measure import FLOOR
 from .read.ns import NS
 
 _A = "{%s}" % NS["a"]
@@ -84,13 +90,14 @@ ON_FILL = {
 CARD_FILLS = ("paper", "card", "accent-tint")
 CARD_LINES = ("hairline", "rule-strong", None)
 ZONE_FILLS = ("accent-tint", "accent-wash", "card")
-ACCENT_FAMILY = ("accent", "accent-deep", "accent-ink", "navy", "ink-strong", "ink-deep", "series-1", "series-2",
-                 "series-3", "series-4", "series-5")
+# The roles a thin strip may be drawn in: paper, card and the rule greys. A strip in any other role
+# (accent, accent-tint, accent-deep, series-*, navy, ink-strong, the inks) is the edge-bar tell.
+NEUTRAL_STRIP = ("paper", "card", "hairline-soft", "hairline", "rule-strong")
 STAT_KINDS = {"measured": None, "delivered": None, "illustrative": "Illustrative", "target": "Target",
               "benchmark": "Benchmark"}
 DASHES = ("dash", "sysDash", "sysDot", "lgDash", "dashDot")
 HEADS = (None, "none", "end", "start", "both")
-BAR_MAX_IN = 0.08            # a filled strip this thin and 6x as long is a bar
+BAR_MAX_IN = 0.10            # a strip this thin and 6x as long is a bar
 CHEVRON_DEPTH = (0.31, 0.35)  # point depth as a share of the step's height
 
 
@@ -178,96 +185,51 @@ def set_line(shape, role, weight_pt: float | None = None, *, theme=None, dash=No
     return shape
 
 
-# ------------------------------------------------------------------ text
-
-@dataclass(frozen=True)
-class R:
-    """One run: explicit size, role colour and face. Nothing is inherited."""
-    text: str
-    pt: float
-    role: str = "ink"
-    bold: bool = False
-    italic: bool = False
-    family: str = "Arial"
-
+# ------------------------------------------------------------------ text (through deckkit.text, the one writer)
 
 def check_pt(pt, what="run") -> float:
+    """A creator's type size: at or above the floor (BelowFloor) and on the half-point ladder."""
     pt = float(pt)
     if pt < FLOOR - 1e-9:
-        raise BelowFloor(what, need=FLOOR, have=pt, hint="the floor is 8.0pt; make the box larger, never the type smaller")
+        raise BelowFloor(what, need=FLOOR, have=pt, hint="the floor is %.1fpt; make the box larger, never the type "
+                                                         "smaller" % FLOOR)
     if abs(pt * 2 - round(pt * 2)) > 1e-6:
         raise GeometryError("%s size" % what, need="a half-point step", have=pt, unit="pt",
                             hint="the type ramp is on the half-point ladder")
     return pt
 
 
-def _mparas(paras):
-    out = []
-    for runs, _align, sa in paras:
-        out.append(measure.MPara(tuple(measure.MRun(r.text, r.pt, measure.face_for(r.family, r.bold, r.italic))
-                                       for r in runs), space_after_pt=sa))
-    return out
+_ALIGN = {"l": "left", "left": "left", "c": "center", "ctr": "center", "center": "center", "centre": "center",
+          "r": "right", "right": "right"}
 
 
-_ANCHOR = {"t": "t", "top": "t", "m": "ctr", "ctr": "ctr", "middle": "ctr", "b": "b", "bottom": "b"}
-_ALIGN = {"l": "l", "left": "l", "c": "ctr", "ctr": "ctr", "center": "ctr", "r": "r", "right": "r"}
+def _label(s: str, pt, role, *, what: str, bold=True, italic=False, align="l", face=None) -> list:
+    """One paragraph of one text.Run at a checked size. The role is refused by text when it is not a
+    text role (fill, accent-fill and hairline roles never become text)."""
+    if align not in _ALIGN:
+        raise GeometryError("%s align" % what, need=" / ".join(sorted(_ALIGN)), have=align)
+    run = txt.Run(str(s), role=role, bold=bold, italic=italic, size=check_pt(pt, what), face=face)
+    return [txt.Para([run], align=_ALIGN[align])]
 
 
-def write_text(shape, paras, *, what: str, measure_box, insets=(0.0, 0.0, 0.0, 0.0), anchor="t", theme=None):
-    """Measure, then write paragraphs into a shape's own text body.
-
-    paras: [([R, ...], align, space_after_pt), ...]. measure_box is the (w, h) the text actually gets
-    (the preset's text rectangle, before insets); insets are (l, t, r, b) inches written to bodyPr.
-    Raises BelowFloor or Overflows; never autofits, never shrinks."""
-    th = theme_of(theme)
-    for runs, _a, _s in paras:
-        for r in runs:
-            check_pt(r.pt, "%s run %r" % (what, r.text[:24]))
-            th.spec(r.role)
-    l, t, r_, b = insets
-    measure.require_fit(what, _mparas(paras), measure_box, measure.Insets(l, t, r_, b))
-    tf = shape.text_frame
-    body = tf._txBody
-    bp = body.find(_A + "bodyPr")
-    for k, v in (("lIns", l), ("tIns", t), ("rIns", r_), ("bIns", b)):
-        bp.set(k, str(int(round(v * EMU_PER_IN))))
-    bp.set("anchor", _ANCHOR[anchor])
-    bp.set("rtlCol", "0")
-    ooxml.no_autofit(tf)
-    for p in body.findall(_A + "p"):
-        body.remove(p)
-    for runs, align, sa in paras:
-        p = etree.SubElement(body, _A + "p")
-        ppr = etree.SubElement(p, _A + "pPr", algn=_ALIGN[align], marL="0", indent="0")
-        etree.SubElement(etree.SubElement(ppr, _A + "lnSpc"), _A + "spcPct", val="100000")
-        etree.SubElement(etree.SubElement(ppr, _A + "spcBef"), _A + "spcPts", val="0")
-        etree.SubElement(etree.SubElement(ppr, _A + "spcAft"), _A + "spcPts", val=str(int(round(sa * 100))))
-        etree.SubElement(ppr, _A + "buNone")
-        for run in runs:
-            re_ = etree.SubElement(p, _A + "r")
-            rpr = etree.SubElement(re_, _A + "rPr", lang="en-US", sz=str(int(round(run.pt * 100))),
-                                   b="1" if run.bold else "0", i="1" if run.italic else "0", dirty="0")
-            sf = etree.SubElement(rpr, _A + "solidFill")
-            sf.append(th.spec(run.role))
-            etree.SubElement(rpr, _A + "latin", typeface=run.family)
-            etree.SubElement(rpr, _A + "cs", typeface=run.family)
-            etree.SubElement(re_, _A + "t").text = run.text
-        last = runs[-1] if runs else None
-        etree.SubElement(p, _A + "endParaRPr", lang="en-US",
-                         sz=str(int(round((last.pt if last else FLOOR) * 100))), dirty="0")
-    return shape
+def _insets(l=0.0, t=0.0, r=0.0, b=0.0) -> measure.Insets:
+    return measure.Insets(l, t, r, b)
 
 
-def textbox(slide, box: Box, paras, *, name: str, what: str | None = None, insets=(0.0, 0.0, 0.0, 0.0),
-            anchor="t", theme=None):
-    """A named text box holding measured paragraphs (see write_text). Returns the shape."""
-    _name(name, "textbox")
-    x, y, w, h = box.emu
-    sh = slide.shapes.add_textbox(x, y, w, h)
-    sh.name = name
-    write_text(sh, paras, what=what or name, measure_box=(box.w, box.h), insets=insets, anchor=anchor, theme=theme)
-    ooxml.finish(sh)
-    return sh
+def _fit(what: str, paras, measure_box, insets, th) -> measure.Fit:
+    """Measure BEFORE the shape exists. measure_box is the (w, h) the text actually gets (a preset's
+    text rectangle, before insets). Raises Overflows (cut-words hint) or BelowFloor."""
+    return txt.check_fit(what, paras, measure_box, th, insets)
+
+
+def _height(paras, w: float, th) -> float:
+    """The height paras need at width w (inches), unrounded, through the measurement textbox() checks."""
+    return txt.need_height(paras, w, th)
+
+
+def _face(th) -> str:
+    """The family text.write sets a run in when the run names none (the theme's minor font)."""
+    return txt._default_face(th)
 
 
 # ------------------------------------------------------------------ shape creation
@@ -292,15 +254,21 @@ def _adj(radius_in: float, box: Box) -> float:
     return min(0.5, radius_in / min(box.w, box.h))
 
 
-def _bar_check(box: Box, fill, name: str, what: str):
-    """An accent-coloured strip on its own is the left/top accent bar: banned unless it encodes state."""
-    if fill not in ACCENT_FAMILY or name.startswith("state."):
+def _bar_check(box: Box, roles, name: str, what: str):
+    """A strip (thickness <= BAR_MAX_IN, length >= 6x its thickness) whose fill or line is in any
+    non-neutral role is the left/top accent bar: banned unless it encodes a state (named state.*).
+    Neutral strips (paper, card, the rule greys) are dividers and pass."""
+    if name.startswith("state."):
         return
     thin, long_ = min(box.w, box.h), max(box.w, box.h)
-    if thin <= BAR_MAX_IN and long_ >= 6 * thin:
-        raise GeometryError("%s %s" % (what, name), need="not an accent bar", have="%.3f x %.3f in %s strip"
-                            % (box.w, box.h, fill),
-                            hint="a coloured edge bar is allowed only where it encodes a state; name it state.<what>")
+    if thin > BAR_MAX_IN + 1e-9 or long_ < 6 * thin - 1e-9:
+        return
+    bad = [r for r in roles if r is not None and r not in NEUTRAL_STRIP]
+    if bad:
+        raise GeometryError("%s %s" % (what, name), need="a strip in %s, or no strip" % " / ".join(NEUTRAL_STRIP),
+                            have="%.3f x %.3f in strip in %s" % (box.w, box.h, " and ".join(bad)),
+                            hint="a coloured edge bar is allowed only where it encodes a state; name it "
+                                 "state.<what>, or draw a divider with hairline()")
 
 
 def _shape(slide, prst, box, *, fill, line, weight_pt, name, theme, keep_text=False):
@@ -314,24 +282,28 @@ def _shape(slide, prst, box, *, fill, line, weight_pt, name, theme, keep_text=Fa
     return sh
 
 
+@ooxml.transactional
 def rect(slide, box: Box, *, fill=None, line=None, weight_pt=None, radius_in=None, name: str, theme=None):
-    """A square-cornered rectangle. A radius here raises: use card() for a rounded box."""
+    """A square-cornered rectangle. A radius here raises: use card() for a rounded box. A strip in a
+    non-neutral fill or line role raises unless it is named state.* (see _bar_check)."""
     _name(name, "rect")
     if radius_in is not None:
         raise GeometryError("rect %s radius" % name, need="no radius on the rect preset", have=radius_in, unit="in",
                             hint="a radius would silently do nothing on a rect; use card(radius_in=...)")
-    _bar_check(box, fill, name, "rect")
+    _bar_check(box, (fill, line), name, "rect")
     if line is not None and weight_pt is None:
         weight_pt = canvas_for(slide).hairline_pt
     return _shape(slide, "RECTANGLE", box, fill=fill, line=line, weight_pt=weight_pt, name=name, theme=theme)
 
 
+@ooxml.transactional
 def card(slide, box: Box, *, fill="card", line="hairline", radius_in=None, name: str, theme=None):
     """A card: a flat fill, a hairline or rule-strong border, a physical corner radius, no shadow.
 
     radius_in None takes the canvas radius; 0 draws a square card. The radius is converted to the
     preset's normalised adjustment (adj = min(0.5, r / min(w, h))). An outline-only card on white
-    (fill paper) uses rule-strong, never the decorative hairline (DECISIONS: hairline scoping)."""
+    (fill paper) uses rule-strong, never the decorative hairline (DECISIONS: hairline scoping). A card
+    thin enough to be a strip in a non-neutral fill (accent-tint) raises unless named state.*."""
     _name(name, "card")
     if fill not in CARD_FILLS:
         raise ThemeInvariant("card %s fill" % name, need=" / ".join(CARD_FILLS), have=fill)
@@ -341,14 +313,15 @@ def card(slide, box: Box, *, fill="card", line="hairline", radius_in=None, name:
         raise ThemeInvariant("card %s" % name, need="rule-strong on an outline-only card", have="hairline on paper",
                              hint="hairline (1.84:1) is exempt only on filled or spaced cards; use line='rule-strong' "
                                   "or fill='card'")
+    _bar_check(box, (fill, line), name, "card")
     cv = canvas_for(slide)
     r = cv.radius_in if radius_in is None else float(radius_in)
     th = theme_of(theme)
     if r == 0:
-        sh = _shape(slide, "RECTANGLE", box, fill=fill, line=line, weight_pt=cv.hairline_pt, name=name, theme=th)
-        return sh
+        return _shape(slide, "RECTANGLE", box, fill=fill, line=line, weight_pt=cv.hairline_pt, name=name, theme=th)
+    adj = _adj(r, box)
     sh = _add(slide, "ROUNDED_RECTANGLE", box, name)
-    sh.adjustments[0] = _adj(r, box)
+    sh.adjustments[0] = adj
     set_fill(sh, fill, theme=th)
     set_line(sh, line, cv.hairline_pt, theme=th)
     _drop_text(sh)
@@ -356,10 +329,7 @@ def card(slide, box: Box, *, fill="card", line="hairline", radius_in=None, name:
     return sh
 
 
-def _label_paras(text, pt, role, bold=True, align="l"):
-    return [([R(text, pt, role, bold=bold)], align, 0.0)]
-
-
+@ooxml.transactional
 def tab(slide, box: Box, label: str, *, fill="ink-strong", pt=None, radius_in=None, align="l", name: str, theme=None):
     """A header tab: top corners rounded (round2SameRect), the label inside in the fill's text role.
     Sits on top of a card body; the body is drawn separately by the caller."""
@@ -370,18 +340,23 @@ def tab(slide, box: Box, label: str, *, fill="ink-strong", pt=None, radius_in=No
     cv = canvas_for(slide)
     pt = cv.ramp["label"] if pt is None else pt
     r = cv.radius_in if radius_in is None else float(radius_in)
+    ins = 0.10 * cv.k
+    what = "tab %s" % name
+    paras = _label(label, pt, ON_FILL[fill], what=what, bold=True, align=align)
+    insets = _insets(ins, 0.02, ins, 0.02)
+    _fit(what, paras, (box.w, box.h), insets, th)
+    adj = _adj(r, box)
     sh = _add(slide, "ROUND_2_SAME_RECTANGLE", box, name)
-    sh.adjustments[0] = _adj(r, box)
+    sh.adjustments[0] = adj
     sh.adjustments[1] = 0.0
     set_fill(sh, fill, theme=th)
     set_line(sh, None, theme=th)
-    ins = 0.10 * cv.k
-    write_text(sh, _label_paras(label, pt, ON_FILL[fill], True, align), what="tab %s" % name,
-               measure_box=(box.w, box.h), insets=(ins, 0.02, ins, 0.02), anchor="m", theme=th)
+    txt.write(sh.text_frame, paras, th, insets, anchor="middle")
     ooxml.finish(sh)
     return sh
 
 
+@ooxml.transactional
 def pill(slide, box: Box, text: str, *, fill="card", line=None, role=None, pt=None, name: str, theme=None):
     """A tag: a fully rounded box around a short label. For tags only, never a state badge on every tile."""
     _name(name, "pill")
@@ -390,24 +365,29 @@ def pill(slide, box: Box, text: str, *, fill="card", line=None, role=None, pt=No
     th = theme_of(theme)
     cv = canvas_for(slide)
     pt = cv.ramp["small"] if pt is None else pt
+    side = min(box.w, box.h) / 2.0 * (1 - math.sqrt(0.5))   # the preset's text rectangle is inset by this
+    ins = 0.04 * cv.k
+    what = "pill %s" % name
+    paras = _label(text, pt, role or ON_FILL[fill], what=what, bold=False, align="c")
+    insets = _insets(ins, 0.0, ins, 0.0)
+    _fit(what, paras, (box.w - 2 * side, box.h), insets, th)
     sh = _add(slide, "ROUNDED_RECTANGLE", box, name)
     sh.adjustments[0] = 0.5
     set_fill(sh, fill, theme=th)
     set_line(sh, line, cv.hairline_pt, theme=th)
-    side = min(box.w, box.h) / 2.0 * (1 - math.sqrt(0.5))   # the preset's text rectangle is inset by this
-    ins = 0.04 * cv.k
-    write_text(sh, _label_paras(text, pt, role or ON_FILL[fill], False, "c"), what="pill %s" % name,
-               measure_box=(box.w - 2 * side, box.h), insets=(ins, 0.0, ins, 0.0), anchor="m", theme=th)
+    txt.write(sh.text_frame, paras, th, insets, anchor="middle")
     ooxml.finish(sh)
     return sh
 
 
+@ooxml.transactional
 def step_header(slide, box: Box, labels, *, fill="ink-strong", active=None, depth=0.33, gap_in=0.04, pt=None,
                 name: str, theme=None):
     """A process header: a homePlate then chevrons, nested, the point depth 31-35% of the height.
 
     active (0-based index) marks the current step in the accent fill: a state, not decoration.
-    Returns the group named `name`; steps are name.1, name.2, ..."""
+    Returns the group named `name`; steps are name.1, name.2, ... Every label is measured before the
+    first step is drawn."""
     from .geom import identity_group
     _name(name, "step_header")
     labels = list(labels)
@@ -429,19 +409,24 @@ def step_header(slide, box: Box, labels, *, fill="ink-strong", active=None, dept
     if sw <= 2 * d + 0.1:
         raise GeometryError("step_header %s" % name, need="steps wider than their two points", have="%.2fin" % sw,
                             hint="fewer steps or a wider box")
-    shapes = []
-    for i, text in enumerate(labels):
+    ins = 0.06 * cv.k
+    insets = _insets(ins, 0.0, ins, 0.0)
+    plan = []
+    for i, label in enumerate(labels):                      # measure every step before drawing any
         f = "accent" if active == i else fill
         b = Box(box.x + i * (sw - d + gap_in), box.y, sw, box.h)
-        prst = "PENTAGON" if i == 0 else "CHEVRON"
-        sh = _add(slide, prst, b, "%s.%d" % (name, i + 1))
+        left = 0.0 if i == 0 else d
+        what = "step %d of %s" % (i + 1, name)
+        paras = _label(label, pt, ON_FILL[f], what=what, bold=True, align="c")
+        _fit(what, paras, (b.w - left - d, b.h), insets, th)
+        plan.append((f, b, paras))
+    shapes = []
+    for i, (f, b, paras) in enumerate(plan):
+        sh = _add(slide, "PENTAGON" if i == 0 else "CHEVRON", b, "%s.%d" % (name, i + 1))
         sh.adjustments[0] = d / min(b.w, b.h)
         set_fill(sh, f, theme=th)
         set_line(sh, None, theme=th)
-        left = 0.0 if i == 0 else d
-        ins = 0.06 * cv.k
-        write_text(sh, _label_paras(text, pt, ON_FILL[f], True, "c"), what="step %d of %s" % (i + 1, name),
-                   measure_box=(b.w - left - d, b.h), insets=(ins, 0.0, ins, 0.0), anchor="m", theme=th)
+        txt.write(sh.text_frame, paras, th, insets, anchor="middle")
         ooxml.finish(sh)
         shapes.append(sh)
     g = identity_group(slide, shapes, name)
@@ -449,6 +434,7 @@ def step_header(slide, box: Box, labels, *, fill="ink-strong", active=None, dept
     return g
 
 
+@ooxml.transactional
 def disc(slide, box: Box, n, *, fill="accent", pt=None, name: str, theme=None):
     """A numbered disc: a circle (box must be square) with its number centred in the fill's text role."""
     _name(name, "disc")
@@ -459,16 +445,19 @@ def disc(slide, box: Box, n, *, fill="accent", pt=None, name: str, theme=None):
     th = theme_of(theme)
     if pt is None:
         pt = math.floor(box.h * 72 * 0.42 * 2) / 2.0
+    what = "disc %s" % name
+    paras = _label(str(n), pt, ON_FILL[fill], what=what, bold=True, align="c")
+    inner = box.w * math.sqrt(0.5)                 # the ellipse preset's text rectangle
+    _fit(what, paras, (inner, inner), measure.ZERO, th)
     sh = _add(slide, "OVAL", box, name)
     set_fill(sh, fill, theme=th)
     set_line(sh, None, theme=th)
-    inner = box.w * math.sqrt(0.5)                 # the ellipse preset's text rectangle
-    write_text(sh, _label_paras(str(n), pt, ON_FILL[fill], True, "c"), what="disc %s" % name,
-               measure_box=(inner, inner), anchor="m", theme=th)
+    txt.write(sh.text_frame, paras, th, measure.ZERO, anchor="middle")
     ooxml.finish(sh)
     return sh
 
 
+@ooxml.transactional
 def person(slide, box: Box, *, role="ink-muted", name: str, theme=None):
     """A person mark: an ellipse head over flowChartDelay shoulders (the D turned dome up). A group
     named `name` with name.head and name.body."""
@@ -508,6 +497,7 @@ def _connector(slide, p1, p2, name):
     return cx
 
 
+@ooxml.transactional
 def hairline(slide, p1, p2, *, role="hairline", weight_pt=None, name: str, theme=None):
     """A divider from p1 to p2 (inches), horizontal or vertical, no heads."""
     _name(name, "hairline")
@@ -522,6 +512,7 @@ def hairline(slide, p1, p2, *, role="hairline", weight_pt=None, name: str, theme
     return cx
 
 
+@ooxml.transactional
 def connect(slide, p1, p2, *, head="end", dash=None, role="ink-muted", weight_pt=0.75, name: str, theme=None):
     """A straight connector from p1 to p2 (inches), a triangle head at the end by default.
 
@@ -535,6 +526,7 @@ def connect(slide, p1, p2, *, head="end", dash=None, role="ink-muted", weight_pt
     return cx
 
 
+@ooxml.transactional
 def elbow(slide, points, *, head="end", dash=None, role="ink-muted", weight_pt=0.75, name: str, theme=None):
     """An orthogonal polyline through points (inches) as one open custGeom path, head at the last point.
 
@@ -574,15 +566,19 @@ def elbow(slide, points, *, head="end", dash=None, role="ink-muted", weight_pt=0
     return sh
 
 
+@ooxml.transactional
 def caps_label(slide, box: Box, text: str, *, role="ink-muted", pt=None, align="l", name: str, theme=None):
-    """An upper-case label in Arial Bold (never a mono face). The text is upper-cased in the file, so
-    what is measured and what the gates read is what is drawn."""
+    """An upper-case label in the theme's minor face, bold (never a mono face). The text is upper-cased
+    in the file, so what is measured and what the gates read is what is drawn."""
     _name(name, "caps_label")
+    th = theme_of(theme)
     pt = canvas_for(slide).ramp["small"] if pt is None else pt
-    return textbox(slide, box, _label_paras(text.upper(), pt, role, True, align), name=name,
-                   what="caps label %s" % name, theme=theme)
+    what = "caps label %s" % name
+    paras = _label(text.upper(), pt, role, what=what, bold=True, align=align)
+    return txt.textbox(slide, box, paras, name, th)
 
 
+@ooxml.transactional
 def stat(slide, box: Box, value: str, label: str, *, kind: str, role="accent-ink", pt=None, label_pt=None,
          numerals=False, name: str, theme=None):
     """A stat: the numeral, a hairline, then the label under it (the hairline sits above the label, a data
@@ -590,7 +586,7 @@ def stat(slide, box: Box, value: str, label: str, *, kind: str, role="accent-ink
     target or benchmark; the last three carry a basis chip so a planning figure never reads as delivered.
 
     Returns a group named `name` (name.value, name.rule, name.label, name.basis); the group's alt text
-    records the kind for gate P23."""
+    records the kind for gate P23. The whole stat is measured before its first part is drawn."""
     from .geom import identity_group
     _name(name, "stat")
     if kind not in STAT_KINDS:
@@ -603,46 +599,40 @@ def stat(slide, box: Box, value: str, label: str, *, kind: str, role="accent-ink
     if pt < cv.ramp["numeral_min"]:
         raise GeometryError("stat %s numeral" % name, need=cv.ramp["numeral_min"], have=pt, unit="pt",
                             hint="a numeral below the ramp's numeral minimum reads as body copy")
-    family = "Arial"
+    family = _face(th)
     if numerals:
         nf = th.fonts.get("numerals") or {}
         if not nf:
             raise ThemeInvariant("stat %s numerals" % name, need="a numerals face in the theme", have="none")
         family = "%s %s" % (nf.get("face", "Montserrat"), nf.get("weight", "SemiBold"))
     numeral_bold = not numerals
-    vh = measure.line_in(check_pt(pt, "stat numeral"), measure.face_for(family, numeral_bold)) * 1.02
-    y = box.y
-    vb = Box(box.x, y, box.w, vh)
-    shapes = [textbox(slide, vb, [([R(value, pt, role, bold=numeral_bold, family=family)], "l", 0.0)],
-                      name="%s.value" % name, what="stat %s value" % name, theme=th)]
-    y += vh + 0.05 * cv.k
-    shapes.append(hairline(slide, (box.x, y), (box.r, y), name="%s.rule" % name, theme=th))
-    y += 0.06 * cv.k
-    lparas = [([R(label, label_pt, "ink-muted")], "l", 0.0)]
-    lh = measure.need_height(_mparas(lparas), box.w)
+    vparas = _label(value, pt, role, what="stat %s numeral" % name, bold=numeral_bold, face=family)
+    vh = measure.line_in(pt, measure.face_for(family, numeral_bold)) * 1.02
+    lparas = _label(label, label_pt, "ink-muted", what="stat %s label" % name, bold=False)
+    lh = _height(lparas, box.w, th)
     chip = STAT_KINDS[kind]
-    ch = 0.0
-    if chip:
-        cpt = cv.ramp["small"]
-        ch = measure.line_in(cpt, measure.face_for("Arial")) + 0.08
-    need = (y - box.y) + lh + ((0.06 * cv.k + ch) if chip else 0.0)
+    cpt = cv.ramp["small"]
+    ch = (measure.line_in(cpt, measure.face_for(_face(th))) + 0.08) if chip else 0.0
+    rule_y = box.y + vh + 0.05 * cv.k
+    label_y = rule_y + 0.06 * cv.k
+    need = (label_y - box.y) + lh + ((0.06 * cv.k + ch) if chip else 0.0)
     if need > box.h + 1e-6:
-        from .errors import Overflows
         raise Overflows("stat %s" % name, need=round(need, 3), have=round(box.h, 3),
                         hint="give the stat more height or a shorter label")
-    shapes.append(textbox(slide, Box(box.x, y, box.w, lh), lparas, name="%s.label" % name,
-                          what="stat %s label" % name, theme=th))
-    y += lh + 0.06 * cv.k
+    shapes = [txt.textbox(slide, Box(box.x, box.y, box.w, vh), vparas, "%s.value" % name, th)]
+    shapes.append(hairline(slide, (box.x, rule_y), (box.r, rule_y), name="%s.rule" % name, theme=th))
+    shapes.append(txt.textbox(slide, Box(box.x, label_y, box.w, lh), lparas, "%s.label" % name, th))
     if chip:
-        cw = measure.width_in(chip, cpt, measure.face_for("Arial")) * measure.SLACK + 0.24
-        shapes.append(pill(slide, Box(box.x, y, min(cw, box.w), ch), chip, fill="card", line="hairline",
-                           role="ink-muted", pt=cpt, name="%s.basis" % name, theme=th))
+        cw = measure.width_in(chip, cpt, measure.face_for(_face(th))) * measure.SLACK + 0.24
+        shapes.append(pill(slide, Box(box.x, label_y + lh + 0.06 * cv.k, min(cw, box.w), ch), chip, fill="card",
+                           line="hairline", role="ink-muted", pt=cpt, name="%s.basis" % name, theme=th))
     g = identity_group(slide, shapes, name)
     g._element.find(".//" + _P + "cNvPr").set("descr", "stat kind %s" % kind)
     ooxml.finish(g)
     return g
 
 
+@ooxml.transactional
 def quote(slide, box: Box, text: str, attribution: str, *, fill="card", bar_role="accent", pt=None, name: str,
           theme=None):
     """A quotation: a tinted panel, a left bar named state.quote (the one left bar the house rules allow,
@@ -658,40 +648,43 @@ def quote(slide, box: Box, text: str, attribution: str, *, fill="card", bar_role
     pad = 0.14 * cv.k
     tx = box.x + bar_w + pad
     tw = box.r - pad - tx
-    qp = [([R('"%s"' % body, pt, "ink", italic=True)], "l", 0.0)]
-    ap = [([R(attribution, cv.ramp["label"], "ink-muted", bold=True)], "l", 0.0)]
-    qh = measure.need_height(_mparas(qp), tw)
-    ah = measure.need_height(_mparas(ap), tw)
+    qp = _label('"%s"' % body, pt, "ink", what="quote %s text" % name, bold=False, italic=True)
+    ap = _label(attribution, cv.ramp["label"], "ink-muted", what="quote %s attribution" % name, bold=True)
+    qh = _height(qp, tw, th)
+    ah = _height(ap, tw, th)
     gap = 0.08 * cv.k
     need = 2 * pad + qh + gap + ah
     if need > box.h + 1e-6:
-        from .errors import Overflows
         raise Overflows("quote %s" % name, need=round(need, 3), have=round(box.h, 3),
                         hint="cut the passage or give the quote more height")
     panel = _shape(slide, "RECTANGLE", box, fill=fill, line=None, weight_pt=None, name="%s.panel" % name, theme=th)
     bar = _shape(slide, "RECTANGLE", Box(box.x, box.y, bar_w, box.h), fill=bar_role, line=None, weight_pt=None,
                  name="state.quote", theme=th)
-    q = textbox(slide, Box(tx, box.y + pad, tw, qh), qp, name="%s.text" % name, theme=th)
-    a = textbox(slide, Box(tx, box.y + pad + qh + gap, tw, ah), ap, name="%s.by" % name, theme=th)
+    q = txt.textbox(slide, Box(tx, box.y + pad, tw, qh), qp, "%s.text" % name, th)
+    a = txt.textbox(slide, Box(tx, box.y + pad + qh + gap, tw, ah), ap, "%s.by" % name, th)
     g = identity_group(slide, [panel, bar, q, a], name)
     ooxml.finish(g)
     return g
 
 
+@ooxml.transactional
 def zone(slide, box: Box, *, fill="accent-tint", label=None, radius_in=None, name: str, theme=None):
     """A grouping container in a brand tint, no border. An optional caps label sits inside its top-left
-    corner as name.label (a sibling shape). Returns the zone shape."""
+    corner as name.label (a sibling shape). Returns the zone shape. A zone thin enough to be a strip
+    raises like rect() and card() do (its fills are all non-neutral)."""
     _name(name, "zone")
     if fill not in ZONE_FILLS:
         raise ThemeInvariant("zone %s fill" % name, need=" / ".join(ZONE_FILLS), have=fill)
+    _bar_check(box, (fill,), name, "zone")
     th = theme_of(theme)
     cv = canvas_for(slide)
     r = cv.radius_in if radius_in is None else float(radius_in)
     if r == 0:
         z = _shape(slide, "RECTANGLE", box, fill=fill, line=None, weight_pt=None, name=name, theme=th)
     else:
+        adj = _adj(r, box)
         z = _add(slide, "ROUNDED_RECTANGLE", box, name)
-        z.adjustments[0] = _adj(r, box)
+        z.adjustments[0] = adj
         set_fill(z, fill, theme=th)
         set_line(z, None, theme=th)
         _drop_text(z)
@@ -699,12 +692,12 @@ def zone(slide, box: Box, *, fill="accent-tint", label=None, radius_in=None, nam
     if label:
         ins = 0.12 * cv.k
         lpt = cv.ramp["small"]
-        lh = measure.line_in(lpt, measure.face_for("Arial", True)) * 1.05
+        lh = measure.line_in(lpt, measure.face_for(_face(th), True)) * 1.05
         caps_label(slide, Box(box.x + ins, box.y + ins * 0.75, box.w - 2 * ins, lh), label, role="ink",
                    pt=lpt, name="%s.label" % name, theme=th)
     return z
 
 
-__all__ = ["use", "bind", "theme_of", "canvas_for", "set_fill", "set_line", "R", "check_pt", "write_text", "textbox",
-           "rect", "card", "tab", "pill", "step_header", "disc", "person", "hairline", "stat", "quote", "caps_label",
-           "connect", "elbow", "zone", "ON_FILL", "STAT_KINDS", "CHEVRON_DEPTH"]
+__all__ = ["use", "bind", "theme_of", "canvas_for", "set_fill", "set_line", "check_pt", "rect", "card", "tab", "pill",
+           "step_header", "disc", "person", "hairline", "stat", "quote", "caps_label", "connect", "elbow", "zone",
+           "ON_FILL", "NEUTRAL_STRIP", "STAT_KINDS", "CHEVRON_DEPTH"]

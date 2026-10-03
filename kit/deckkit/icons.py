@@ -157,28 +157,31 @@ def svg_size(svg: bytes) -> tuple[float, float]:
     raise UnsupportedPart("svg", need="a viewBox or width/height", have="neither")
 
 
+@ooxml.transactional
 def vendor(slide, key: str, box: Box, *, name: str | None = None, alt: str | None = None):
     """A vendor service mark (diagrams resources, 'aws/compute/ec2'), aspect kept, centred in box,
     in its own colours. Refused when the raster is under 2x its displayed size."""
     p = vendor_path(key)
+    label = _alt(alt or key.rsplit("/", 1)[-1].replace("-", " ").title())     # refused before anything is added
     blob = p.read_bytes()
     pw, ph = _png_size(blob)
     b = _fit(box, pw, ph)
     _check_raster("vendor icon %s" % key, pw, b)
     x, y, w, h = b.emu
     pic = slide.shapes.add_picture(io.BytesIO(blob), x, y, w, h)
-    label = alt or key.rsplit("/", 1)[-1].replace("-", " ").title()
-    _set_nv(pic, name or "icon.%s" % key.replace("/", "."), _alt(label))
+    _set_nv(pic, name or "icon.%s" % key.replace("/", "."), label)
     ooxml.finish(pic)
     return pic
 
 
+@ooxml.transactional
 def svg_picture(slide, svg: bytes, box: Box, png_fallback, *, name: str, alt: str):
     """An SVG picture: the svgBlip in the blip's extLst plus a PNG fallback in r:embed.
 
     png_fallback is PNG bytes, or "auto" to rasterise the SVG at 4x its displayed size with rsvg-convert.
     None is refused: an SVG never ships without its fallback (older readers draw the PNG)."""
     _name(name, "svg_picture")
+    alt = _alt(alt)                          # refused before anything is added
     if png_fallback is None:
         raise UnsupportedPart("svg_picture %s" % name, need="a PNG fallback or 'auto'", have="None",
                               hint="pass png_fallback='auto' to rasterise it at 4x")
@@ -205,15 +208,17 @@ def svg_picture(slide, svg: bytes, box: Box, png_fallback, *, name: str, alt: st
     ext = etree.SubElement(ext_lst, _A + "ext", uri=SVG_EXT_URI)
     sb = etree.SubElement(ext, "{%s}svgBlip" % ASVG_NS, nsmap={"asvg": ASVG_NS})
     sb.set(_R + "embed", rid)
-    _set_nv(pic, name, _alt(alt))
+    _set_nv(pic, name, alt)
     ooxml.finish(pic)
     return pic
 
 
+@ooxml.transactional
 def monogram(slide, box: Box, letters: str, role: str = "ink-strong", *, name: str, pt=None, theme=None):
     """A monogram tile for a product with no offline mark: a rounded square in `role`, one to three
-    letters centred in the role's text colour. One family: same radius, weight and proportions always."""
-    from . import prims
+    letters centred in the role's text colour. One family: same radius, weight and proportions always.
+    The letters are written by deckkit.text and measured before the tile exists."""
+    from . import prims, text
     _name(name, "monogram")
     letters = str(letters).strip()
     if not (1 <= len(letters) <= 3) or not letters.replace("&", "").isalnum():
@@ -226,13 +231,15 @@ def monogram(slide, box: Box, letters: str, role: str = "ink-strong", *, name: s
     if pt is None:
         share = {1: 0.50, 2: 0.40, 3: 0.30}[len(letters)]
         pt = int(side * 72 * share * 2) / 2.0     # never grown to the floor: check_pt raises
-    prims.check_pt(pt, "monogram %s" % name)
+    what = "monogram %s" % name
+    paras = [text.Para([text.Run(letters, role=prims.ON_FILL[role], bold=True, size=prims.check_pt(pt, what))],
+                       align="center")]
+    text.check_fit(what, paras, (side * 0.86, side), th)
     sh = prims._add(slide, "ROUNDED_RECTANGLE", sq, name)
     sh.adjustments[0] = 0.18
     prims.set_fill(sh, role, theme=th)
     prims.set_line(sh, None, theme=th)
-    prims.write_text(sh, [([prims.R(letters, pt, prims.ON_FILL[role], bold=True)], "c", 0.0)],
-                     what="monogram %s" % name, measure_box=(side * 0.86, side), anchor="m", theme=th)
+    text.write(sh.text_frame, paras, th, anchor="middle")
     ooxml.finish(sh)
     return sh
 

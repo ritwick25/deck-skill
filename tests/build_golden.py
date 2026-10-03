@@ -53,6 +53,7 @@ CELL_PT = 11.0
 PAD = 0.20            # card padding
 ICON = 0.45           # glyph side
 GAP = 0.10            # between stacked text blocks
+CELL_MY = 0.11        # a table cell's top and bottom margin
 
 _A = "{%s}" % NS["a"]
 NO_TABLE_STYLE = "{2D5ABB26-0587-4C30-8999-92F81FD0307C}"     # PowerPoint's built-in "No Style, No Grid"
@@ -103,7 +104,7 @@ def table(slide, x, y, col_w, rows, theme, name):
     """A plain table: header row in ink-strong with paper text, body rows on paper, one hairline under
     every row, explicit margins, every cell's text written by text.write and sized by measurement."""
     from lxml import etree
-    mx, my = 0.10, 0.06
+    mx, my = 0.10, CELL_MY
     heights = []
     for ri, row in enumerate(rows):
         hh = 0.0
@@ -158,125 +159,218 @@ def s_cover(prs, th):
     text.textbox(s, Box(C.x, 3.0, C.w, h), paras, "title", th, size=30.0, face="Arial")
 
 
+TOP = C.y + 0.10      # content starts just inside the content band
+LABEL_PT = 10.0       # the bold label over a value line
+ROW_ICON = 0.45       # glyph side in a label-value row
+ROW_GAP = 0.22        # between label-value rows
+
+
+def label_value(label, value):
+    return [Para(Run(label, role="ink-deep", bold=True, size=LABEL_PT)), Para(Run(value, role="ink"))]
+
+
+def rows(slide, x, y, w, items, theme, prefix) -> float:
+    """Label-value rows, each a glyph with its label and value beside it, the glyph centred on the text block.
+    Returns the bottom."""
+    tx, tw = x + ROW_ICON + 0.15, w - ROW_ICON - 0.15
+    for k, (g, label, value) in enumerate(items, start=1):
+        paras = label_value(label, value)
+        h = need(paras, tw, theme, BODY_PT)
+        rh = max(ROW_ICON, h)
+        glyphs.glyph(slide, g, Box(x, y + (rh - ROW_ICON) / 2, ROW_ICON, ROW_ICON), role="ink-strong",
+                     shape_name="%s.%d.icon" % (prefix, k), theme=theme)
+        text.textbox(slide, Box(tx, y + (rh - h) / 2, tw, h), paras, "%s.%d.text" % (prefix, k), theme, size=BODY_PT)
+        y += rh + (ROW_GAP if k < len(items) else 0.0)
+    return y
+
+
+def rows_height(items, w, theme) -> float:
+    tw = w - ROW_ICON - 0.15
+    hs = [max(ROW_ICON, need(label_value(lab, val), tw, theme, BODY_PT)) for _g, lab, val in items]
+    return sum(hs) + ROW_GAP * (len(hs) - 1)
+
+
 PILLARS = [
     ("database", "Shared demand signal",
-     "Every region reads the same weekly demand figures, drawn from one governed store and refreshed each Monday."),
+     "Every region reads the same weekly demand figures, drawn from one governed store and refreshed each Monday.",
+     [("user", "Owner", "Demand planning lead"), ("calendar", "Cadence", "Refreshed every Monday"),
+      ("gauge", "Measure", "Forecast error by product family"), ("layers", "Scope", "Every region and channel")]),
     ("search", "Exception-first review",
-     "Planners see only the accounts that moved outside tolerance, with the reason and the size of the gap beside each."),
+     "Planners see only the accounts that moved outside tolerance, with the reason and the size of the gap beside each.",
+     [("users", "Owner", "Regional planners"), ("clock", "Cadence", "Tuesday review, one hour"),
+      ("target", "Measure", "Exceptions closed in the cycle"), ("funnel", "Scope", "Lines beyond tolerance only")]),
     ("file-check", "Signed plan of record",
-     "Each cycle closes on one versioned plan that finance, supply and sales all sign before it is released."),
+     "Each cycle closes on one versioned plan that finance, supply and sales all sign before it is released.",
+     [("handshake", "Owner", "Finance, supply and sales"), ("calendar-check", "Cadence", "Signed each Friday"),
+      ("archive", "Measure", "Plans signed on time"), ("lock", "Scope", "One version per cycle")]),
 ]
+RULE_GAP = 0.20       # air above and below the hairline that separates a card's claim from its rows
 
 
 def s_pillars(prs, th):
     s = new_slide(prs, "pillars", "icon-row")
     text.title(s, "Three capabilities carry the regional planning model", ["Three capabilities"], WIDE, th)
-    cols = Box(C.x, 1.25, C.w, 4.0).split_cols(3, 0.30)
+    cols = Box(C.x, TOP, C.w, 4.0).split_cols(3, 0.30)
     iw = cols[0].w - 2 * PAD
-    content = max(ICON + GAP + blocks_height([(head(h), HEAD_PT), (body(b), BODY_PT)], iw, th) for _, h, b in PILLARS)
-    for i, (col, (g, h, b)) in enumerate(zip(cols, PILLARS), start=1):
+    head_h = max(blocks_height([(head(h), HEAD_PT), (body(b), BODY_PT)], iw, th) for _, h, b, _r in PILLARS)
+    rows_h = max(rows_height(r, iw, th) for _, _, _, r in PILLARS)
+    content = ICON + GAP + head_h + 2 * RULE_GAP + rows_h
+    for i, (col, (g, h, b, items)) in enumerate(zip(cols, PILLARS), start=1):
         card = Box(col.x, col.y, col.w, content + 2 * PAD)
         prims.card(s, card, fill="card", line="hairline", name="pillar.%d.card" % i, theme=th)
         glyphs.glyph(s, g, Box(card.x + PAD, card.y + PAD, ICON, ICON), role="accent",
                      shape_name="pillar.%d.icon" % i, theme=th)
         stack(s, card.x + PAD, card.y + PAD + ICON + GAP, iw, [(head(h), HEAD_PT), (body(b), BODY_PT)], th,
               "pillar.%d.text" % i)
+        ry = card.y + PAD + ICON + GAP + head_h + RULE_GAP
+        prims.hairline(s, (card.x + PAD, ry), (card.r - PAD, ry), name="pillar.%d.rule" % i, theme=th)
+        rows(s, card.x + PAD, ry + RULE_GAP, iw, items, th, "pillar.%d.row" % i)
 
 
 STEPS = [
-    ("Draft forecast", "The model proposes a weekly forecast per region and product family."),
-    ("Review exceptions", "Planners accept or adjust the lines that moved beyond tolerance."),
-    ("Reconcile supply", "Supply confirms capacity and flags any line it cannot meet."),
-    ("Sign the plan", "Finance, supply and sales sign one versioned plan of record."),
+    ("Draft forecast", "The model proposes a weekly forecast per region and product family.",
+     "A draft for every line", "Demand planning"),
+    ("Review exceptions", "Planners accept or adjust the lines that moved beyond tolerance.",
+     "Accepted or adjusted lines", "Regional planners"),
+    ("Reconcile supply", "Supply confirms capacity and flags any line it cannot meet.",
+     "Confirmed capacity", "Supply planning"),
+    ("Sign the plan", "Finance, supply and sales sign one versioned plan of record.",
+     "The signed plan of record", "Finance, supply and sales"),
 ]
+DISC = 0.55           # the step disc; its digit is set large, an ordinal and never a figure (gate P23)
 
 
 def s_process(prs, th):
     s = new_slide(prs, "process-flow", "chevron-row")
     text.title(s, "Four steps take a forecast from draft to signed plan", ["Four steps"], WIDE, th)
-    prims.step_header(s, Box(C.x, 1.20, C.w, 0.50), ["Draft", "Review", "Reconcile", "Sign"], name="steps",
+    prims.step_header(s, Box(C.x, TOP, C.w, 0.50), ["Draft", "Review", "Reconcile", "Sign"], name="steps",
                       theme=th)
-    cols = Box(C.x, 2.05, C.w, 3.0).split_cols(4, 0.50)
+    zpad = 0.25
+    panel_y = TOP + 0.50 + 0.20
+    inner = Box(C.x + zpad, panel_y + zpad, C.w - 2 * zpad, 3.0)
+    cols = inner.split_cols(4, 0.50)
     iw = cols[0].w - 2 * PAD
-    content = max(blocks_height([(head(h), HEAD_PT), (body(b), BODY_PT)], iw, th) for h, b in STEPS)
+
+    def blocks(h, b, out, owner):
+        return [(head(h), HEAD_PT), (body(b), BODY_PT)], [label_value("Output", out), label_value("Owner", owner)]
+
+    head_h = max(blocks_height(blocks(*st)[0], iw, th) for st in STEPS)
+    tail_h = max(sum(need(p, iw, th, BODY_PT) for p in blocks(*st)[1]) + GAP for st in STEPS)
+    content = DISC + GAP + head_h + 2 * RULE_GAP + tail_h
+    panel = Box(C.x, panel_y, C.w, content + 2 * PAD + 2 * zpad)
+    prims.zone(s, panel, fill="accent-tint", name="step.panel", theme=th)
     cards = []
-    for i, (col, (h, b)) in enumerate(zip(cols, STEPS), start=1):
+    for i, (col, st) in enumerate(zip(cols, STEPS), start=1):
+        top_blocks, tail = blocks(*st)
         card = Box(col.x, col.y, col.w, content + 2 * PAD)
         prims.card(s, card, fill="paper", line="rule-strong", name="step.%d.card" % i, theme=th)
-        stack(s, card.x + PAD, card.y + PAD, iw, [(head(h), HEAD_PT), (body(b), BODY_PT)], th, "step.%d.text" % i)
+        prims.disc(s, Box(card.x + PAD, card.y + PAD, DISC, DISC), i, fill="accent", name="step.%d.disc" % i, theme=th)
+        stack(s, card.x + PAD, card.y + PAD + DISC + GAP, iw, top_blocks, th, "step.%d.text" % i)
+        ry = card.y + PAD + DISC + GAP + head_h + RULE_GAP
+        prims.hairline(s, (card.x + PAD, ry), (card.r - PAD, ry), name="step.%d.rule" % i, theme=th)
+        stack(s, card.x + PAD, ry + RULE_GAP, iw, [(p, BODY_PT) for p in tail], th, "step.%d.detail" % i)
         cards.append(card)
     for i, (a, b) in enumerate(zip(cards, cards[1:]), start=1):
         prims.connect(s, (a.r, a.cy), (b.x, b.cy), name="step.arrow.%d" % i, theme=th)
 
 
 STATS = [
-    ("trending-down", "42%", "Fewer manual adjustments per planning cycle", "measured"),
-    ("timer", "5 days", "From draft forecast to signed plan, down from twelve", "delivered"),
-    ("package", "18%", "Lower safety stock at the same service level", "illustrative"),
-    ("flag", "8 wk", "To a working pilot in two regions", "target"),
+    ("trending-down", "42%", "Fewer manual adjustments per planning cycle", "measured",
+     "Counted from the planning log over the last two quarters, in both pilot regions."),
+    ("timer", "5 days", "From draft forecast to signed plan, down from twelve", "delivered",
+     "Elapsed days between the Monday draft and the Friday signature, averaged over the quarter."),
+    ("package", "18%", "Lower safety stock at the same service level", "illustrative",
+     "A planning assumption from the supply model, not yet seen in any region's stock."),
+    ("flag", "8 wk", "To a working pilot in two regions", "target",
+     "The committed date for the pilot. The clock starts when the data owners sign off."),
 ]
+STAT_BOX = 1.70
 
 
 def s_stats(prs, th):
     s = new_slide(prs, "stat-hero", "stat-row")
     text.title(s, "Planning cycle time falls once regions share one view", ["cycle time"], WIDE, th)
-    cols = Box(C.x, 1.40, C.w, 3.2).split_cols(4, 0.40)
+    cols = Box(C.x, TOP, C.w, 4.4).split_cols(4, 0.40)
+    iw = cols[0].w - 2 * PAD
+    src_h = max(blocks_height([(head("How it is counted"), BODY_PT), (body(src), BODY_PT)], iw, th)
+                for *_x, src in STATS)
     numbers = {}
-    for i, (col, (g, v, lab, kind)) in enumerate(zip(cols, STATS), start=1):
-        glyphs.glyph(s, g, Box(col.x, col.y, 0.50, 0.50), role="accent", shape_name="stat.%d.icon" % i, theme=th)
-        prims.stat(s, Box(col.x, col.y + 0.75, col.w, 1.70), v, lab, kind=kind, name="stat.%d" % i, theme=th)
+    for i, (col, (g, v, lab, kind, src)) in enumerate(zip(cols, STATS), start=1):
+        glyphs.glyph(s, g, Box(col.x, col.y, 0.60, 0.60), role="accent", shape_name="stat.%d.icon" % i, theme=th)
+        prims.stat(s, Box(col.x, col.y + 0.85, col.w, STAT_BOX), v, lab, kind=kind, name="stat.%d" % i, theme=th)
         numbers["stat.%d" % i] = {"value": v, "kind": kind}
+        card = Box(col.x, col.y + 0.85 + STAT_BOX + 0.30, col.w, src_h + 2 * PAD)
+        prims.card(s, card, fill="card", line="hairline", name="stat.%d.source" % i, theme=th)
+        stack(s, card.x + PAD, card.y + PAD, iw, [(head("How it is counted"), BODY_PT), (body(src), BODY_PT)], th,
+              "stat.%d.source.text" % i)
     return numbers
+
+
+REGIONS = [("Region", "Data ready", "Planners trained"),
+           ("North", "Yes", "Yes"), ("Coastal", "Yes", "In progress"), ("Inland", "By week six", "Not started"),
+           ("Highland", "Yes", "Not started"), ("Lakeside", "By week four", "In progress"),
+           ("Delta", "By week eight", "Not started"), ("Plains", "Yes", "In progress"),
+           ("Valley", "By week six", "Not started"), ("Harbour", "Yes", "Yes"), ("Ridge", "By week ten", "Not started")]
+NEXT = [("calendar-check", "Wave two", "Lakeside and Plains, once their planners finish training"),
+        ("calendar", "Wave three", "Every other region, once its data owner signs the readiness test")]
 
 
 def s_table(prs, th):
     s = new_slide(prs, "matrix", "table")
     text.title(s, "Two regions are ready for the pilot this quarter", ["Two regions"], WIDE, th)
-    rows = [("Region", "Data ready", "Planners trained"),
-            ("North", "Yes", "Yes"),
-            ("Coastal", "Yes", "In progress"),
-            ("Inland", "By week six", "Not started")]
-    _gf, th_ = table(s, C.x, 1.25, [3.0, 2.6, 2.6], rows, th, "readiness.table")
+    _gf, _th = table(s, C.x, TOP, [3.0, 2.6, 2.6], REGIONS, th, "readiness.table")
     x = C.x + 8.2 + 0.40
     w = C.r - x
     iw = w - 2 * PAD
     blocks = [(head("Pilot regions"), HEAD_PT),
               (body("North and Coastal meet both readiness tests today and start first."), BODY_PT)]
-    card = Box(x, 1.25, w, ICON + GAP + blocks_height(blocks, iw, th) + 2 * PAD)
+    card = Box(x, TOP, w, ICON + GAP + blocks_height(blocks, iw, th) + 2 * PAD)
     prims.card(s, card, fill="card", line="hairline", name="pilot.card", theme=th)
     glyphs.glyph(s, "circle-check", Box(card.x + PAD, card.y + PAD, ICON, ICON), role="accent",
                  shape_name="pilot.icon", theme=th)
     stack(s, card.x + PAD, card.y + PAD + ICON + GAP, iw, blocks, th, "pilot.text")
+    nxt = Box(x, card.b + 0.30, w, rows_height(NEXT, iw, th) + 2 * PAD)
+    prims.card(s, nxt, fill="paper", line="rule-strong", name="next.card", theme=th)
+    rows(s, nxt.x + PAD, nxt.y + PAD, iw, NEXT, th, "next.row")
 
 
 PANELS = [
-    ("card", "clock", "Weekly reconciliation",
-     ("Each region keeps its own spreadsheet of demand.",
-      "Planners spend two days matching figures before review.",
-      "Disagreements surface in the meeting, not before it.")),
-    ("accent-tint", "shield-check", "One governed view",
-     ("Regions read demand from one store with a named owner.",
-      "Exceptions arrive ranked by the size of the gap.",
-      "The review starts from figures that already agree.")),
+    ("card", "clock", "Weekly reconciliation", "Each region keeps its own spreadsheet of demand.",
+     [("files", "Figures", "Five copies of the same demand, matched by hand"),
+      ("hourglass", "Effort", "Two planner days before every review"),
+      ("triangle-alert", "Disagreement", "Found in the meeting, not before it")]),
+    ("accent-tint", "shield-check", "One governed view", "Regions read demand from one store with a named owner.",
+     [("database", "Figures", "One store, refreshed each Monday"),
+      ("list-ordered", "Effort", "Exceptions arrive ranked by the size of the gap"),
+      ("circle-check", "Agreement", "The review starts from figures that already agree")]),
 ]
 
 
 def s_fromto(prs, th):
     s = new_slide(prs, "from-to", "two-panel")
     text.title(s, "Weekly reconciliation gives way to one governed view", ["one governed view"], WIDE, th)
-    cols = Box(C.x, 1.25, C.w, 4.0).split_cols(2, 0.90)
+    cols = Box(C.x, TOP, C.w, 4.0).split_cols(2, 0.90)
     pad = 0.25
     iw = cols[0].w - 2 * pad
-    content = max(ICON + GAP + blocks_height([(head(h), HEAD_PT), (body(*b), BODY_PT)], iw, th)
-                  for _, _, h, b in PANELS)
+    cw = iw - 2 * PAD
+    head_h = max(blocks_height([(head(h), HEAD_PT), (body(b), BODY_PT)], iw, th) for _, _, h, b, _i in PANELS)
+    item_h = max(max(ROW_ICON, need(label_value(lab, val), cw - ROW_ICON - 0.15, th, BODY_PT))
+                 for *_x, items in PANELS for _g, lab, val in items)
+    content = ICON + GAP + head_h + 0.25 + 3 * (item_h + 2 * PAD) + 2 * 0.20
     zones = []
-    for i, (col, (fill, g, h, b)) in enumerate(zip(cols, PANELS), start=1):
+    for i, (col, (fill, g, h, b, items)) in enumerate(zip(cols, PANELS), start=1):
         z = Box(col.x, col.y, col.w, content + 2 * pad)
         prims.zone(s, z, fill=fill, name="panel.%d" % i, theme=th)
         glyphs.glyph(s, g, Box(z.x + pad, z.y + pad, ICON, ICON), role="accent" if i == 2 else "ink-strong",
                      shape_name="panel.%d.icon" % i, theme=th)
-        stack(s, z.x + pad, z.y + pad + ICON + GAP, iw, [(head(h), HEAD_PT), (body(*b), BODY_PT)], th,
+        stack(s, z.x + pad, z.y + pad + ICON + GAP, iw, [(head(h), HEAD_PT), (body(b), BODY_PT)], th,
               "panel.%d.text" % i)
+        y = z.y + pad + ICON + GAP + head_h + 0.25
+        for k, item in enumerate(items, start=1):
+            c = Box(z.x + pad, y, iw, item_h + 2 * PAD)
+            prims.card(s, c, fill="paper", line="rule-strong", name="panel.%d.item.%d.card" % (i, k), theme=th)
+            rows(s, c.x + PAD, c.y + PAD, cw, [item], th, "panel.%d.item.%d" % (i, k))
+            y = c.b + 0.20
         zones.append(z)
     a, b = zones
     prims.connect(s, (a.r, a.cy), (b.x, b.cy), weight_pt=1.5, role="accent", name="panel.arrow", theme=th)

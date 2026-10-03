@@ -3,8 +3,10 @@
 Run: cd ~/.claude/skills/deck && $PY -m unittest tests.test_zones -v
 Acceptance (library DECISIONS, zones rewrite): d08-s007 separates its seven regions at depth 1 or 2;
 d01-s069 has a zone per year column; d05-s001 has 5+ zones inside the canvas; d02-s023 has a full-bleed
-zone; over every extracted slide no zone box leaves 0..100%, and on slides with 30+ leaves fewer than 15%
-have one depth-1 zone holding 85%+ of the leaves (the replaced XY-cut: 274 of 382, 71.7%).
+zone; over every extracted slide no zone box leaves 0..100%, no child zone extends past its parent by more than
+0.5%, no zone extends past the container it cites by more than 2%, every visible leaf that is not a background
+or hidden under a picture lands in a zone, and on slides with 30+ leaves fewer than 15% have one depth-1 zone
+holding 85%+ of the leaves (the replaced XY-cut: 274 of 382, 71.7%).
 """
 from __future__ import annotations
 
@@ -167,9 +169,10 @@ class TestSynthetic(unittest.TestCase):
         body = [leaf(1.2, 2.0, 4.6, 0.5, text="row one"), leaf(1.2, 3.0, 4.6, 0.5, text="row two")]
         other = card(7.0, 1.0, 5.0, 4.2)
         zs = zones(slide([panel, tab] + body + other))
-        zp = next(z for z in zs if z["container"] == panel["id"])
+        zp = next(z for z in zs if z["base"] == panel["id"])
         self.assertIn(tab["id"], zp["ids"])
         self.assertAlmostEqual(zp["box_in"][1], 1.0, places=3)
+        self.assertIsNone(zp["container"])       # the tab sticks out 0.2 in (2.7% of the height): past the 2% cite
 
     def test_rules_turn_rows_into_columns(self):
         """Two rows of three cards with a tight row gap and rules in the gutters read as three columns."""
@@ -233,6 +236,115 @@ class TestSynthetic(unittest.TestCase):
 
     def test_empty(self):
         self.assertEqual(zones(slide([])), [])
+
+
+class TestReadLayerFixes(unittest.TestCase):
+    """Stage-0 verifier findings: shadow-only cards, the all-or-none cap, tree geometry, lumps, callouts."""
+
+    def shadow_card(self, x, y, w, h, n=3, shadow=True):
+        box = leaf(x, y, w, h, fill="FFFFFF")
+        if shadow:
+            box["effects"] = {"shadow": {"kind": "outer", "blur_pt": 14.0, "dist_pt": 3.0, "alpha": 0.14}}
+        inner = [leaf(x + 0.1, y + 0.1 + i * (h - 0.2) / n, w - 0.2, (h - 0.2) / n - 0.05, text="item %d" % i)
+                 for i in range(n)]
+        return [box] + inner
+
+    def test_shadow_only_card_is_a_container(self):
+        """A white card on a white slide is visible by its shadow, holds its words, and cuts from its neighbour
+        on any visible gap; without the shadow (and no outline) it draws nothing and is no zone."""
+        sh = self.shadow_card(0.5, 1.0, 3.0, 2.0) + self.shadow_card(3.55, 1.0, 3.0, 2.0)
+        zs = zones(slide(sh))
+        bases = [z for z in zs if z["base"] is not None]
+        self.assertEqual(sorted(z["base"] for z in bases), [sh[0]["id"], sh[4]["id"]])
+        for z in bases:
+            self.assertEqual(z["container"], z["base"])
+            self.assertEqual(z["n"], 4)
+        flat = self.shadow_card(0.5, 1.0, 3.0, 2.0, shadow=False)
+        self.assertFalse(any(flat[0]["id"] in z["ids"] for z in zones(slide(flat))))
+
+    def test_cap_keeps_sets_whole(self):
+        """Raised to 36; a set of same-size siblings that does not fit is dropped whole (its parent keeps their
+        leaves) and the record names it."""
+        self.assertEqual(MAX_ZONES, 36)
+        sh = [leaf(0.3, 0.1, 12.0, 0.4, text="A slide with too many regions")]
+        panels = []
+        for p in range(2):
+            px = 0.3 + p * 6.4
+            panel = leaf(px, 0.7, 6.2, 6.6, fill="EEEEEE")
+            panels.append(panel)
+            sh.append(panel)
+            for r in range(5):
+                for c in range(4):
+                    sh += card(px + 0.1 + c * 1.5, 0.8 + r * 1.3, 1.4, 1.2, n=2)
+        zs = zones(slide(sh))
+        t = zs.truncated
+        self.assertLessEqual(len(zs), MAX_ZONES)
+        self.assertEqual(t["kept"], len(zs))
+        self.assertGreater(t["total"], t["kept"])
+        self.assertTrue(t["dropped_sets"])
+        ids = {z["id"]: z for z in zs}
+        for d in t["dropped_sets"]:
+            self.assertTrue(d["parent"] is None or d["parent"] in ids)
+            sizes = {(round(b[2], 2), round(b[3], 2)) for b in d["boxes_in"]}
+            self.assertEqual(len(sizes), 1)                          # one geometry per dropped set
+            kept_same = [z for z in zs if z["parent"] == d["parent"]
+                         and (round(z["box_in"][2], 2), round(z["box_in"][3], 2)) in sizes]
+            self.assertEqual(kept_same, [], d)                       # all or none
+        every = {L["id"] for L in sh}
+        self.assertEqual(set().union(*(set(z["ids"]) for z in zs)), every)   # nothing lost
+        small = zones(slide(card(0.5, 0.5, 4, 4)))
+        self.assertEqual(small.truncated, {"kept": len(small), "total": len(small), "dropped_sets": []})
+
+    def test_band_overlap_and_edge_strip(self):
+        """Stacked drawn bands overlapping by 0.08 in still cut; a thin text-free strip down the left edge does
+        not block the cut."""
+        strip = leaf(0.0, 0.0, 0.4, H, fill="F2F2F2")
+        sh = [strip]
+        for r in range(4):
+            sh += card(0.2, 1.0 + r * 1.5, 12.5, 1.58, n=2)
+        zs = zones(slide(sh))
+        top = [z for z in zs if z["depth"] == 1 and z["base"] is not None]
+        self.assertEqual(len(top), 4)
+        self.assertTrue(any(strip["id"] in z["ids"] for z in zs))
+
+    def test_tree_geometry(self):
+        """A text frame overhanging its card is held by it and trimmed to it; every child lies in its parent."""
+        box = leaf(1.0, 1.0, 4.0, 3.0, fill="EEEEEE")
+        texts = [leaf(1.1, 1.1 + i, 4.5, 0.6, text="a line that runs long %d" % i) for i in range(3)]
+        other = card(7.0, 1.0, 4.0, 3.0)
+        zs = zones(slide([box] + texts + other))
+        by = {z["id"]: z for z in zs}
+        zc = next(z for z in zs if z["base"] == box["id"])
+        self.assertEqual(zc["container"], box["id"])
+        self.assertEqual(set(zc["ids"]), {box["id"]} | {t["id"] for t in texts})
+        for z in zs:
+            p = by.get(z["parent"])
+            if p:
+                self.assertLessEqual(p["box_pct"][0], z["box_pct"][0] + 1e-6)
+                self.assertGreaterEqual(p["box_pct"][0] + p["box_pct"][2], z["box_pct"][0] + z["box_pct"][2] - 1e-6)
+
+    def test_occluded_and_ring(self):
+        """Words under a later opaque picture are hidden (listed, in no zone); six discs on a circle are a ring
+        zone, the disc at its centre the hub, the labels around them zones of their own."""
+        import math
+        under = leaf(1.0, 1.0, 3.0, 0.5, text="hidden words")
+        pic = leaf(0.5, 0.5, 6.0, 5.0, kind="pic", prst=None,
+                   picture={"alpha_frac": 0.0, "alpha": 1.0, "px": [600, 500]})
+        zs = zones(slide([under, pic]))
+        self.assertEqual(zs.occluded, [under["id"]])
+        self.assertFalse(any(under["id"] in z["ids"] for z in zs))
+        cx, cy, r = 6.5, 3.75, 2.4
+        nodes = [leaf(cx + r * math.cos(math.radians(a)) - 0.4, cy + r * math.sin(math.radians(a)) - 0.4, 0.8, 0.8,
+                      prst="ellipse", fill="1F3C7D") for a in range(0, 360, 60)]
+        hub = leaf(cx - 0.8, cy - 0.8, 1.6, 1.6, prst="ellipse", fill="CC0000", text="Hub")
+        labels = [leaf(0.2, 0.3 + i * 2.4, 2.0, 0.5, text="label %d" % i) for i in range(3)]
+        zs = zones(slide(nodes + [hub] + labels))
+        ring = [z for z in zs if {n["id"] for n in nodes} <= set(z["ids"])]
+        self.assertTrue(ring)
+        self.assertNotIn(hub["id"], min(ring, key=lambda z: z["n"])["ids"])
+        self.assertTrue(any(z["ids"] == [hub["id"]] for z in zs))
+        for L in labels:
+            self.assertTrue(any(z["ids"] == [L["id"]] for z in zs))
 
 
 class TestRectPath(unittest.TestCase):
@@ -313,29 +425,99 @@ class TestReferenceSlides(unittest.TestCase):
         self.assertEqual(fb[0]["kinds"], {"pic": 1})
 
 
+class TestReferenceFixes(unittest.TestCase):
+    def test_d03_s033_shadow_cards(self):
+        zs = zones(live("d03-s033"))
+        got = {z["container"] for z in zs}
+        self.assertTrue({3409, 3410, 3411, 3412, 3413} <= got)
+
+    def test_d05_s001_callout_parts(self):
+        """Card 2's heading (90, 91) and body (92, 93) share the callout's zone, which holds nothing else."""
+        zs = zones(live("d05-s001"))
+        z = min((z for z in zs if {90, 91, 92, 93} <= set(z["ids"])), key=lambda z: z["n"])
+        self.assertLessEqual(set(z["ids"]), {76, 82, 90, 91, 92, 93})
+
+    def test_lumps_split(self):
+        """d03-s016: five matrix rows, each its own band zone; d01-s065: the mesh under five domain headers is
+        read as five columns, each with its header; d12-s021: ring, hub and the seven text blocks; d13-s035: the
+        body is not lumped with the title; d01-s109: the screenshot pasted over the old shapes hides them."""
+        zs = zones(live("d03-s016"))
+        self.assertTrue({1128, 1129, 1130, 1131, 1132} <= {z["base"] for z in zs if z["depth"] == 1})
+        self.assertLess(max(z["n"] for z in zs if z["depth"] == 1), 60)
+        zs = zones(live("d01-s065"))
+        cols = [next((z for z in zs if h in z["ids"] and z["depth"] == 2 and z["n"] >= 20), None)
+                for h in (1649, 1653, 1650, 1651, 1652)]
+        self.assertTrue(all(cols), cols)
+        self.assertEqual(len({z["id"] for z in cols}), 5)
+        zs = zones(live("d12-s021"))
+        ring = next(z for z in zs if 1822 in z["ids"])
+        self.assertTrue({1810, 1822, 1824, 1826, 1829, 1838, 1841, 1844} <= set(ring["ids"]))
+        self.assertTrue(any(z["ids"] == [1813] for z in zs))           # the logo at the hub
+        self.assertGreaterEqual(sum(1 for z in zs if z["depth"] == 1), 9)
+        zs = zones(live("d13-s035"))
+        self.assertFalse(any({2028, 2029} <= set(z["ids"]) for z in zs))
+        zs = zones(live("d01-s109"))
+        self.assertGreaterEqual(len(zs.occluded), 80)
+        self.assertLessEqual(len(zs), 4)
+
+    def test_cap_sets_not_split(self):
+        for sid in ("d15-s002", "d18-s014"):
+            zs = zones(live(sid))
+            self.assertEqual(zs.truncated["kept"], zs.truncated["total"], sid)
+
+
 class TestCorpus(unittest.TestCase):
     def test_corpus(self):
-        """Every extracted slide (shapes/dNN/sNNN.json): no zone outside the canvas, at most 24 zones, a zone
+        """Every extracted slide (shapes/dNN/sNNN.json): no zone outside the canvas, at most 36 zones, a zone
         on every slide with on-canvas content, and the dominant-zone share on dense slides under 15%."""
         files = sorted(glob.glob(os.path.join(LIB, "shapes", "d*", "s*.json")))
         self.assertEqual(len(files), sum(d["slides"] for d in DECKS.values()))
-        dense = dominant = outside = 0
+        dense = dominant = outside = past_parent = past_box = lost = 0
         for f in files:
-            s = json.load(open(f))
+            with open(f) as fh:
+                s = json.load(fh)
             zs = zones(s)
             self.assertLessEqual(len(zs), MAX_ZONES, f)
+            self.assertEqual(zs.truncated["kept"], len(zs), f)
             if any(L.get("on_canvas") != "off" for L in s["shapes"]):
                 self.assertTrue(zs, f)
+            by = {z["id"]: z for z in zs}
+            leaves = {L["id"]: L for L in s["shapes"]}
             for z in zs:
                 x, y, w, h = z["box_pct"]
                 outside += not (x >= 0 and y >= 0 and x + w <= 100.0001 and y + h <= 100.0001)
+                p = by.get(z["parent"])
+                if p:
+                    px, py, pw, ph = p["box_pct"]
+                    past_parent += max(px - x, py - y, x + w - px - pw, y + h - py - ph) > 0.5
+                if z["container"] is not None:
+                    b = leaves[z["container"]]["bbox"]
+                    bx0, by0 = max(0.0, b["x_pct"]), max(0.0, b["y_pct"])
+                    bx1, by1 = min(100.0, b["x_pct"] + b["w_pct"]), min(100.0, b["y_pct"] + b["h_pct"])
+                    past_box += max(bx0 - x, by0 - y, x + w - bx1, y + h - by1) > 2.0
+            inz = set().union(*(set(z["ids"]) for z in zs)) if zs else set()
+            area = s["canvas"]["w_in"] * s["canvas"]["h_in"]
+            from deckkit.read.zones import _bg_hex, _clip, _invisible
+            for L in s["shapes"]:
+                if L.get("layer") == "chrome" or L.get("on_canvas") == "off" or _invisible(L, _bg_hex(s)):
+                    continue
+                b = _clip(L, s["canvas"]["w_in"], s["canvas"]["h_in"])
+                if b[2] - b[0] <= 0 and b[3] - b[1] <= 0:
+                    continue                      # a point: draws nothing
+                if L["bbox"]["w_in"] * L["bbox"]["h_in"] >= 0.85 * area or L["id"] in zs.occluded:
+                    continue
+                lost += L["id"] not in inz
             n = len(s["shapes"])
             if n >= 30:
                 dense += 1
                 dominant += any(z["depth"] == 1 and z["n"] >= 0.85 * n for z in zs)
-        print("\n[zones corpus: %d slides, %d dense, %d dominant (%.1f%%), %d outside]"
-              % (len(files), dense, dominant, 100.0 * dominant / max(dense, 1), outside))
+        print("\n[zones corpus: %d slides, %d dense, %d dominant (%.1f%%), %d outside, %d past parent, %d past box, "
+              "%d lost]" % (len(files), dense, dominant, 100.0 * dominant / max(dense, 1), outside, past_parent,
+                           past_box, lost))
         self.assertEqual(outside, 0)
+        self.assertEqual(past_parent, 0)
+        self.assertEqual(past_box, 0)
+        self.assertEqual(lost, 0)
         self.assertLess(dominant / dense, 0.15)
 
 

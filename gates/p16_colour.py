@@ -2,7 +2,10 @@
 
 A role tuple is (scheme slot, lumMod, lumOff) exactly as the theme's role expressions write it, so a client
 cut stays a theme swap. An srgbClr is allowed only when its hex is in the theme's identity registry (RAG
-status, vendor marks), which keeps its hue on purpose. Scoped to what renders: shape fills and outlines,
+status, vendor marks), which keeps its hue on purpose. An srgbClr equal to any theme slot's hex (the kit theme's
+slots and the deck's own theme slots, dk1 and lt1 included) is a hard-coded theme colour that a theme swap would
+leave behind: it fails unless its shape is named state.* or identity.*, even when the identity registry lists
+the same hex. Scoped to what renders: shape fills and outlines,
 run colours, table-cell fills and borders, the slide background. Bullet colours (buClr) and end-of-paragraph
 run properties (endParaRPr) never paint a glyph and are ignored. phClr, sysClr and prstClr on a slide fail.
 """
@@ -39,6 +42,12 @@ def run(deck, ctx):
     th = ctx.theme
     roles = {(e.slot, tuple(e.mods)): name for name, e in th.roles.items()}
     identity = {v["hex"].upper(): k for k, v in th.identity.items()}
+    slots = {}
+    for mp in ctx.dr.master_parts:
+        for slot, hx in (ctx.dr.master(mp).theme.get("colors") or {}).items():
+            slots.setdefault(hx.upper(), "deck theme " + slot)
+    for slot, hx in th.slots.items():
+        slots[hx.upper()] = slot
     for i in range(1, ctx.n + 1):
         root = ctx.slide_root(i)
         for el in root.iter():
@@ -55,7 +64,11 @@ def run(deck, ctx):
                                        % (t[0], " ".join("%s %d" % m for m in t[1]) or "(no mods)")))
             elif kind == "srgbClr":
                 hx = (el.get("val") or "").upper()
-                if hx not in identity:
+                owner = _owner(el)
+                if hx in slots and not owner.startswith(("state.", "identity.")):
+                    out.append(Finding(GATE, FAIL, i, owner, "srgb %s is a hard-coded theme colour (%s); write the "
+                                       "role, or name the shape state.* or identity.*" % (hx, slots[hx])))
+                elif hx not in identity:
                     out.append(Finding(GATE, FAIL, i, _owner(el), "srgb %s is neither a role nor in the identity registry"
                                        % hx))
             else:

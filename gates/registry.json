@@ -145,6 +145,16 @@
    ]
   },
   {
+   "id": "P24",
+   "module": "p24_fill",
+   "title": "fill",
+   "kind": "pptx",
+   "needs": [
+    "deck",
+    "tags"
+   ]
+  },
+  {
    "id": "P17",
    "module": "p17_fingerprints",
    "title": "fingerprints",

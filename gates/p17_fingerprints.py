@@ -3,10 +3,12 @@
 The patterns are loaded in-process from the one home, ~/.claude/hooks/fingerprints.json, never copied:
 tiers glyph, phrase, structural, word-core, word-strong, word-sales (minus sal-harness, a SharePoint-only
 ban), jargon, and the opt-in deck-voice tier (first and second person, "Al" typed for "AI", placeholders,
-semicolons). Before any slide is read, a canary sentence must produce at least two hits: an empty or
-unreadable rules file makes the gate FAIL rather than read as clean. Quotations and the exact phrase
-"Thank you" are exempt from dv-person. dv-semicolon is advisory and counted. Text is every text block on
-every slide (group children, cells, master and layout chrome) plus every alt text.
+semicolons). Before any slide is read the canary fires: one sentence per dependency (every tier above, and the
+deck-voice rules dv-person, dv-al-ai and dv-placeholder by id) must be hit by at least one loaded rule of that
+tier or id. A tier missing from the file, emptied, renamed or broken leaves its sentence unhit and the gate FAILS
+naming it; an empty or unreadable rules file fails the same way, so it can never read as clean. Quotations and
+the exact phrase "Thank you" are exempt from dv-person. dv-semicolon is advisory and counted. Text is every
+text block on every slide (group children, cells, master and layout chrome) plus every alt text.
 """
 from __future__ import annotations
 
@@ -20,8 +22,22 @@ GATE, TITLE = "P17", "fingerprints"
 TIERS = ("glyph", "phrase", "structural", "word-core", "word-strong", "word-sales", "jargon", "deck-voice")
 EXCLUDE = {"sal-harness"}
 ADVISORY_IDS = {"dv-semicolon"}
-CANARY = "We leverage it " + chr(0x2014) + " a seamless start."
-MIN_CANARY = 2
+# one sentence per dependency: (tier, rule id or None for any rule of the tier, sentence). chr() keeps the
+# banned glyph out of this source.
+# The banned words and phrases are joined from pieces split mid-word, so this source never carries one whole
+# (the fingerprint hook scans it).
+CANARY = (
+    ("glyph", None, "One store " + chr(0x2014) + " one owner."),
+    ("word-core", None, "Teams " + "lever" + "age the store."),
+    ("word-strong", None, "A " + "holi" + "stic review."),
+    ("word-sales", None, "Real " + "syn" + "ergy across regions."),
+    ("phrase", None, "It's n" + "ot just a store, it's the plan."),
+    ("structural", None, "Thi" + "s slide shows the plan."),
+    ("jargon", None, "The wow mo" + "ment arrives early."),
+    ("deck-voice", "dv-person", "We read the store."),
+    ("deck-voice", "dv-al-ai", "Al tools read it."),
+    ("deck-voice", "dv-placeholder", "Owner: {{slot:owner}}"),
+)
 QUOTES = ('"', chr(0x201C), chr(0x2018), "'")
 
 
@@ -44,6 +60,18 @@ def load_rules(path):
     return rules, broken
 
 
+def canary(rules):
+    """(hit rule ids, [(tier, id) of every dependency no loaded rule caught])."""
+    hits, missing = [], []
+    for tier, want, sentence in CANARY:
+        got = [rid for rid, t, rx in rules if t == tier and (want is None or rid == want) and rx.search(sentence)]
+        if got:
+            hits.extend(g for g in got if g not in hits)
+        else:
+            missing.append((tier, want))
+    return hits, missing
+
+
 def blocks(ctx, i):
     """(where, text, is_quote) for every text block and alt text on slide i."""
     s = ctx.slide(i)
@@ -63,10 +91,12 @@ def blocks(ctx, i):
 def run(deck, ctx):
     rules, broken = load_rules(ctx.fingerprints)
     out = [Finding(GATE, FAIL, None, "rules", "rule %s does not compile" % b) for b in broken]
-    hits = [rid for rid, _t, rx in rules if rx.search(CANARY)]
-    if len(hits) < MIN_CANARY:
-        out.append(Finding(GATE, FAIL, None, "canary", "the canary produced %d hit(s) from %d rules in %s; a pass "
-                           "cannot be trusted" % (len(hits), len(rules), ctx.fingerprints)))
+    hits, missing = canary(rules)
+    for tier, rid in missing:
+        n = sum(1 for _r, t, _x in rules if t == tier)
+        out.append(Finding(GATE, FAIL, None, "canary", "the canary for %s produced no hit (%d %s rule(s) loaded from %s); "
+                           "a pass cannot be trusted" % (rid or "tier " + tier, n, tier, ctx.fingerprints)))
+    if missing:
         return out
     semis = 0
     for i in range(1, ctx.n + 1):

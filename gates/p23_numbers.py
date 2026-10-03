@@ -2,9 +2,13 @@
 
 A stat is a group the kit wrote with alt text "stat kind <kind>" (deckkit.prims.stat). Its kind is one of
 measured, delivered, illustrative, target, benchmark; the last three print a basis chip ("Illustrative")
-so a planning figure never reads as delivered. A figure set large on a slide outside any stat (the read
-layer's numeral role) has no kind and fails. Each stat's value and kind must equal the manifest's
-"numbers" entry under the stat's name, and every manifest number must be on glass: one value, one record.
+so a planning figure never reads as delivered. A figure set large outside any stat has no kind and fails:
+any text leaf whose whole text is a quantity or a range ("42%", "$4.2M", "3x", "5 to 10%") set at 1.4x the
+slide's median text size or larger (deckkit.read.figures, whatever role the read layer guessed). Ordinals
+("01", "03"), years, a single digit in a disc or step marker, and bare numbers on a Frame slide (a section
+numeral on a divider; untagged, 12 content words or fewer) are not figures. Each stat's value and kind must
+equal the manifest's "numbers" entry under the stat's name, and every manifest number must be on glass: one
+value, one record.
 """
 from __future__ import annotations
 
@@ -13,9 +17,11 @@ import sys
 
 from _shared import FAIL, Finding, cli, text_of
 from deckkit.prims import STAT_KINDS
+from deckkit.read.figures import large_figures
 
 GATE, TITLE = "P23", "numbers"
 KIND = re.compile(r"^stat kind ([a-z]+)$")
+FEW_WORDS = 12          # an untagged slide this sparse is a divider or a cover
 
 
 def run(deck, ctx):
@@ -47,9 +53,12 @@ def run(deck, ctx):
                 out.append(Finding(GATE, FAIL, i, name, "%s figure without its %r chip" % (kind, chip)))
             value = texts.get(name + ".value")
             on_glass[name] = (i, value, kind)
-        for L in s["shapes"]:
-            if (L.get("role_guess") or {}).get("role") == "numeral" and not any(g in stats for g in L["group_path"]):
-                out.append(Finding(GATE, FAIL, i, L["name"], "a figure on glass with no kind: %r" % text_of(L)[:20]))
+        arch = ctx.tags()[i - 1]["archetype"]
+        divider = ctx.is_frame(i) if arch else s["text"]["words_content"] <= FEW_WORDS
+        for L, ratio in large_figures(s, divider=divider):
+            if not any(g in stats for g in L["group_path"]):
+                out.append(Finding(GATE, FAIL, i, L["name"], "a figure on glass with no kind: %r at %.1fx the median "
+                                   "text size" % (" ".join(text_of(L).split())[:20], ratio)))
     if on_glass and not record:
         out.append(Finding(GATE, FAIL, None, "manifest", "%d stat(s) on glass and no 'numbers' record in the manifest"
                            % len(on_glass)))

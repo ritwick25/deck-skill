@@ -5,7 +5,9 @@
     arrows (headed connectors);
   * more than six identical tiles needs six icons or six arrows to earn it;
   * a thin filled strip (or a heavy line) in a non-grey colour, immediately left of or above a text block, is
-    the left or top accent bar: allowed only on a state.* shape;
+    the left or top accent bar: allowed only on a state.* shape. Greys are the kit theme's neutral roles plus every
+    neutral slot of the deck's own theme (chroma under 0.10, deckkit.read.colour.is_neutral), and a strip thinner
+    than 1.5pt in any neutral colour is a hairline, never a bar;
   * an upper-case label sitting above the content of more than half the cards is a kicker on every card.
 """
 from __future__ import annotations
@@ -14,11 +16,13 @@ import sys
 from collections import Counter
 
 from _shared import FAIL, Finding, bx, cards, cli, has_text, is_state, kids_of, text_of, words
+from deckkit.read.colour import is_neutral
 
 GATE, TITLE = "P10", "density"
 MAX_TILES = 6
 BAR_THIN, BAR_LONG, BAR_REACH = 0.10, 0.18, 0.30
 GREYS = ("paper", "card", "hairline", "hairline-soft", "rule-strong")
+HAIRLINE_PT = 1.5       # a neutral strip thinner than this is a hairline rule
 
 
 def _arrows(shapes) -> int:
@@ -34,8 +38,21 @@ def _arrows(shapes) -> int:
     return n
 
 
+def greys(ctx) -> set:
+    """The kit theme's grey roles and every neutral slot of the deck's own theme(s)."""
+    if "p10_greys" not in ctx._cache:
+        g = {ctx.theme.hex(r) for r in GREYS}
+        for mp in ctx.dr.master_parts:
+            for hx in (ctx.dr.master(mp).theme.get("colors") or {}).values():
+                if is_neutral(hx):
+                    g.add(hx.upper())
+        ctx._cache["p10_greys"] = g
+    return ctx._cache["p10_greys"]
+
+
 def _bars(shapes, ctx):
-    greys = {ctx.theme.hex(r) for r in GREYS}
+    greys_ = greys(ctx)
+    hair = HAIRLINE_PT / 72.0
     texts = [(bx(L), L) for L in shapes if has_text(L)]
     hits = []
     for L in shapes:
@@ -45,14 +62,16 @@ def _bars(shapes, ctx):
         w, h = x1 - x0, y1 - y0
         if L.get("line_like") or L["kind"] == "cxn":
             line = L.get("line") or {}
-            if line.get("type") in (None, "none") or (line.get("w_pt") or 0) < 2.0 or line.get("hex") in greys:
+            if line.get("type") in (None, "none") or (line.get("w_pt") or 0) < 2.0 or line.get("hex") in greys_:
                 continue
             colour = line.get("hex")
         else:
             f = L.get("fill") or {}
-            if f.get("type") != "solid" or f.get("hex") in greys or has_text(L):
+            if f.get("type") != "solid" or f.get("hex") in greys_ or has_text(L):
                 continue
             colour = f.get("hex")
+            if min(w, h) < hair and is_neutral(colour):
+                continue                        # a neutral hairline rule, not a bar
         k = ctx.k
         vertical = w < BAR_THIN * k and h > BAR_LONG * k and h > 2 * w
         horizontal = h < BAR_THIN * k and w > BAR_LONG * k and w > 2 * h

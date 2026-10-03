@@ -3,7 +3,9 @@
 Cards are rect-like shapes filled in a card ROLE (paper, card, accent-tint, accent-wash: resolved through
 the deck's theme, never a hex list) or outlined on no fill. They pair only at the same nesting depth, side
 by side (or stacked) with at least 60% overlap on the other axis. Three or more cards that agree on top and
-height are a row by construction, so their first children must start at the same offset below the top.
+height are a row by construction, so their first children must start at the same offset below the top. A card's
+children are the drawn leaves its box contains, by geometry alone: z-order does not matter (an outline card is
+often drawn over its own heading).
 """
 from __future__ import annotations
 
@@ -62,7 +64,7 @@ def run(deck, ctx):
             seen.update(id(c) for c in row)
             heads = []
             for c in row:
-                kids = [L for L in kids_of(c, s) if has_text(L) or L.get("icon_like") or L["kind"] == "pic"]
+                kids = [L for L in kids_of(c, s, any_z=True) if has_text(L) or L.get("icon_like") or L["kind"] == "pic"]
                 if kids:
                     heads.append(min(L["bbox"]["y_in"] for L in kids) - c["box"][1])
             if len(heads) > 1 and max(heads) - min(heads) > HEAD_TOL * k:

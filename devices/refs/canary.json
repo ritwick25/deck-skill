@@ -1,6 +1,6 @@
 {
   "schema": "refs-canary@1",
-  "about": "A fictional entity the leak gate must catch before any real check is trusted. Its hashes are present in names.sha1, ngrams6.sha1 and numphrases.sha1. The gate plants probe_text and asserts a hit in each file, then asserts clean_text gives none.",
+  "about": "A fictional entity, a canary image and a canary vector the leak gate must catch before any real check is trusted. The entity's hashes are present in names.sha1, ngrams6.sha1 and numphrases.sha1; the image's sha256 and dHash in media.json; the vector's signature digest in vectors.sha1. The gate plants probe_text and asserts a hit in each text file, decodes the image and parses the vector and asserts each is found, then asserts clean_text gives none.",
   "entity": "Quorvane Biologics",
   "category": "client",
   "aliases": [
@@ -38,5 +38,14 @@
   "numphrases": [
     "7431",
     "7431 vials"
-  ]
+  ],
+  "media": {
+    "png_b64": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAANUlEQVR4nGMUt21mgIEXh2rgbAm7FqziTAwkAiaaa2D8//8/QXdLIIkPRj+Ij8YDYUD7eAAAwqoZxY7wPVoAAAAASUVORK5CYII=",
+    "sha256": "af7b88116dd54392e20e1369a8181bb17b0d107e9bea203fb597c755d19b44b4",
+    "dhash": "6666999966669919"
+  },
+  "vector": {
+    "custgeom": "<a:custGeom xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\"><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l=\"0\" t=\"0\" r=\"r\" b=\"b\"/><a:pathLst><a:path w=\"1000\" h=\"1000\"><a:moveTo><a:pt x=\"0\" y=\"1000\"/></a:moveTo><a:lnTo><a:pt x=\"125\" y=\"250\"/></a:lnTo><a:lnTo><a:pt x=\"375\" y=\"875\"/></a:lnTo><a:lnTo><a:pt x=\"500\" y=\"0\"/></a:lnTo><a:lnTo><a:pt x=\"625\" y=\"625\"/></a:lnTo><a:lnTo><a:pt x=\"875\" y=\"125\"/></a:lnTo><a:lnTo><a:pt x=\"1000\" y=\"1000\"/></a:lnTo><a:close/></a:path></a:pathLst></a:custGeom>",
+    "sig_sha1": "561bed4ae066629f0c294eab7ff8e5aa72eb5648"
+  }
 }

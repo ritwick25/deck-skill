@@ -501,6 +501,7 @@ def stroke_for(side_in: float) -> float:
 
 # ------------------------------------------------------------------ the creator
 
+@ooxml.transactional
 def glyph(slide, name: str, box: Box, role: str = "ink-strong", stroke_pt: float | None = None, *,
           shape_name: str | None = None, theme=None):
     """Place glyph `name` centred in `box` (square side = the box's shorter side), stroked in `role`.

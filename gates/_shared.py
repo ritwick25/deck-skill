@@ -39,7 +39,7 @@ if str(SKILL / "kit") not in sys.path:
 from deckkit import geom, measure  # noqa: E402
 from deckkit import tag as tagmod  # noqa: E402
 from deckkit.canvas import PROFILES  # noqa: E402
-from deckkit.errors import DeckkitError  # noqa: E402
+from deckkit.errors import DeckkitError, UnknownFace  # noqa: E402
 from deckkit.read import open_deck, read_slide, words  # noqa: E402
 from deckkit.read.ns import A, P, local  # noqa: E402
 from deckkit.read.zones import contains, is_rect_like  # noqa: E402
@@ -360,13 +360,14 @@ def cards(slide: dict, ctx) -> list[dict]:
     return out
 
 
-def kids_of(card: dict, slide: dict, eps: float = 0.01) -> list[dict]:
-    """Drawn leaves wholly inside a card and painted above it, narrower than the card itself."""
+def kids_of(card: dict, slide: dict, eps: float = 0.01, any_z: bool = False) -> list[dict]:
+    """Drawn leaves wholly inside a card and painted above it, narrower than the card itself. any_z=True takes
+    every drawn leaf the card's box contains, whatever its z-order (an outline card drawn over its own text)."""
     C = card["L"]
     l, t, r, b = card["box"]
     out = []
     for L in slide["shapes"]:
-        if L is C or L.get("z", 0) <= C.get("z", 0) or not is_drawn(L) or L.get("line_like"):
+        if L is C or (not any_z and L.get("z", 0) <= C.get("z", 0)) or not is_drawn(L) or L.get("line_like"):
             continue
         x0, y0, x1, y1 = bx(L)
         if x0 >= l - eps and x1 <= r + eps and y0 >= t - eps and y1 <= b + eps and (x1 - x0) < 0.99 * (r - l):
@@ -418,9 +419,27 @@ def paragraph_elements(ctx, i: int, L) -> list:
     return tx.findall(A("p")) if tx is not None else []
 
 
-def measure_paras(ctx, i: int, L) -> list[tuple[measure.MPara, float]]:
+FALLBACK_FACE = "Arial"
+
+
+def _face(r, unknown):
+    """The measured face for a run. A face with no metrics raises UnknownFace, unless `unknown` is a list: then
+    the face is recorded there and the run is measured in Arial of the same cut (a labelled fallback)."""
+    try:
+        return measure.face_for(r["font"] or FALLBACK_FACE, r["bold"], r["italic"])
+    except UnknownFace:
+        if unknown is None:
+            raise
+        if r["font"] not in unknown:
+            unknown.append(r["font"])
+        return measure.face_for(FALLBACK_FACE, r["bold"], r["italic"])
+
+
+def measure_paras(ctx, i: int, L, unknown: list | None = None) -> list[tuple[measure.MPara, float]]:
     """(MPara, left margin in) per paragraph, rebuilt from the read layer's effective runs, with a:br as
-    a hard line break inside the paragraph. Raises UnknownFace for a face the measurer has no metrics for."""
+    a hard line break inside the paragraph. The left margin (marL through the level chain) and the empty
+    paragraph's size (endParaRPr) come from the read layer. Raises UnknownFace for a face the measurer has no
+    metrics for, unless `unknown` is a list (see _face)."""
     tx = L["text"]
     ps = paragraph_elements(ctx, i, L)
     dom = (tx.get("size") or {}).get("dominant_pt") or 18.0
@@ -432,15 +451,12 @@ def measure_paras(ctx, i: int, L) -> list[tuple[measure.MPara, float]]:
             if t in ("r", "fld"):
                 if k < len(p["runs"]):
                     r = p["runs"][k]
-                    face = measure.face_for(r["font"] or "Arial", r["bold"], r["italic"])
-                    runs.append(measure.MRun(r["t"], r["size_rendered_pt"], face))
+                    runs.append(measure.MRun(r["t"], r["size_rendered_pt"], _face(r, unknown)))
                 k += 1
             elif t == "br" and runs:
                 runs.append(measure.MRun("\n", runs[-1].pt, runs[-1].face))
-        ppr = p_el.find(A("pPr"))
-        mar = int(ppr.get("marL", "0")) / 914400.0 if ppr is not None else 0.0
-        end = p_el.find(A("endParaRPr"))
-        pt = int(end.get("sz")) / 100.0 if end is not None and end.get("sz") else dom
+        mar = p.get("mar_l_in") or 0.0
+        pt = p.get("end_pt") or dom
         red = (tx["body"].get("ln_spc_reduction") or 0.0)
         ls = (p.get("ln_spc_pct") or 100.0) / 100.0 * (1.0 - red)
         out.append((measure.MPara(tuple(runs), line_spacing=ls, line_pt=p.get("ln_spc_pt"),
@@ -450,19 +466,28 @@ def measure_paras(ctx, i: int, L) -> list[tuple[measure.MPara, float]]:
     return out
 
 
-def need_in(ctx, i: int, L, slack: float) -> tuple[float, float, int]:
-    """(need, have, lines) in inches for a text leaf, measured with deckkit.measure at `slack`."""
+def need_in(ctx, i: int, L, slack: float, unknown: list | None = None) -> tuple[float, float, int]:
+    """(need, have, lines) in inches for a text leaf, measured with deckkit.measure at `slack`. `unknown`: see
+    measure_paras."""
     tx = L["text"]
     body = tx["body"]
     w, h = text_rect(L)
     il, it, ir, ib = body["insets_in"]
     avail = w - il - ir if body.get("wrap") != "none" else 1e9
     need, lines = it + ib, 0
-    for mp, mar in measure_paras(ctx, i, L):
+    for mp, mar in measure_paras(ctx, i, L, unknown):
         f = measure.fits([mp], (max(0.01, avail - mar), 1e9), slack=slack, floor=0.01)
         need += f.need_in
         lines += f.n_lines
     return need, h, lines
+
+
+def crash(gate: str, i: int | None, where: str, e: Exception) -> Finding:
+    """A FAIL for one shape or slide a gate could not read: the gate goes on with the rest, and the crash is a
+    finding, never a pass."""
+    tb = traceback.extract_tb(e.__traceback__)
+    at = ("%s:%d" % (Path(tb[-1].filename).name, tb[-1].lineno)) if tb else "?"
+    return Finding(gate, FAIL, i, where, "could not check: %s: %s (%s)" % (type(e).__name__, str(e)[:160], at))
 
 
 # ------------------------------------------------------------------ reporting and the CLI
@@ -526,5 +551,6 @@ def cli(mod, argv=None) -> int:
 
 __all__ = ["Ctx", "Finding", "InputMissing", "FAIL", "ADVISORY", "NOTE", "run_gate", "verdict", "cli", "bx",
            "has_text", "text_of", "is_filled", "is_lined", "is_drawn", "is_state", "is_bleed", "full_bleed",
-           "fill_role", "cards", "kids_of", "text_rect", "measure_paras", "need_in", "contains", "is_rect_like",
+           "fill_role", "cards", "kids_of", "text_rect", "measure_paras", "need_in", "crash", "FALLBACK_FACE",
+           "contains", "is_rect_like",
            "words", "geom", "measure", "CEILING", "SKILL", "GATES_DIR", "DEVICES_JSON"]

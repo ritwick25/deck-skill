@@ -3,9 +3,12 @@
 Endpoints come from leaf_geometry start/end (the path's first and last points with flips and
 rotation applied). touch() uses the same tolerance as the house arrow gate.
 
-Every cxnSp and line-like leaf gets one class (classify):
+Every cxnSp, line-like leaf and open custGeom path (stroked, unfilled: walk's _open_path, ends at the path's first
+and last points) gets one class (classify):
   degenerate  shorter than 0.05 in;
-  stroke      part of an icon unit, a legend sample (inside a legend container), or shorter than 0.15 in;
+  stroke      part of an icon unit, a legend sample (inside a legend container), shorter than 0.15 in, or an open
+              path without an arrowhead that loops back (its ends closer than 25% of its drawn length: a ring or
+              swirl drawn as one stroke, not a line between two places);
   connector   0.15 in or longer and an arrowhead (a block arrow counts), glue at an end, or each end within
               0.09 in of the EDGE of a distinct shape, neither shape containing the other and neither
               containing the whole line, unless the line is a divider drawn across a shape that holds it
@@ -27,6 +30,7 @@ LEGEND_MAX_AREA = 0.25      # a legend container covers less than this share of 
 LEGEND_LABEL_WORDS = 6      # a legend label is this many words or fewer
 LEGEND_GAP_IN = 0.35        # ... and starts within this of its sample's end
 LEGEND_SAMPLE_MAX_IN = 1.2  # a legend sample is a horizontal line no longer than this
+LOOP_CHORD = 0.25           # an open path whose ends are closer than this share of its length loops back
 LEGEND_RX = re.compile(r"(?i)\blegend\b|^\s*key\s*:?\s*$")
 
 # block arrows: (start (u, v), end (u, v)) as fractions of the shape's own box, before flip/rotation
@@ -125,32 +129,47 @@ def gap(pt, leaf) -> float:
     return 0.0 if point_in_poly(pt, corners) else dist_to_poly(pt, corners)
 
 
-def touch(pt, leaves, self_id, canvas_area: float | None = None) -> dict:
-    """Nearest non-connector, non-line, on-canvas leaf to an endpoint; ok within ARROW_TOL_IN.
+def touch(pt, leaves, self_id, canvas_area: float | None = None, other=None) -> dict:
+    """The shape an arrow end lands on: {"id", "gap_in", "inside", "ok"}.
 
-    Full-bleed leaves (90% of the canvas or more) are skipped: every point lies inside them.
+    Candidates are drawing, on-canvas leaves (connectors, other lines, full-bleed shapes and shapes that draw
+    nothing skipped). With `other` (the connector's opposite end), a shape that holds the whole connector (both
+    ends inside it or on its outline) is never a target: an enclosing panel is where the arrow is drawn, not what
+    it points at. Candidates are ranked by the distance from pt to their EDGE (outline), the smaller shape first
+    on a tie. ok: the end lies within ARROW_TOL_IN of that edge, or inside that shape (an arrowhead drawn onto
+    its target). inside: pt lies within the target's outline. Without `other` nothing is excluded for holding
+    the line and every candidate is still ranked by its edge.
     """
-    best_id, best = None, (float("inf"), float("inf"))
+    best = None
     for L in leaves:
         if L["id"] == self_id or L["kind"] == "cxn" or L.get("line_like") or L.get("on_canvas") == "off":
             continue
         area = L["bbox"]["w_in"] * L["bbox"]["h_in"]
         if canvas_area and area >= 0.9 * canvas_area:
             continue
-        key = (gap(pt, L), area)        # inside several shapes: the smallest one is the target
-        if key < best:
-            best_id, best = L["id"], key
-    best = best[0]
-    if best_id is None:
-        return {"id": None, "gap_in": None, "ok": False}
-    return {"id": best_id, "gap_in": round(best, 3), "ok": best <= ARROW_TOL_IN}
+        if not _draws(L):
+            continue
+        poly = L["corners_in"]
+        g = edge_gap(pt, L)
+        if other is not None and _holds(poly, pt, g) and _holds(poly, other, edge_gap(other, L)):
+            continue                                    # the shape holds the whole connector
+        key = (g, area)
+        if best is None or key < best[0]:
+            best = (key, L)
+    if best is None:
+        return {"id": None, "gap_in": None, "inside": False, "ok": False}
+    (g, _a), L = best
+    inside = gap(pt, L) == 0.0
+    return {"id": L["id"], "gap_in": round(g, 3), "inside": inside, "ok": g <= ARROW_TOL_IN or inside}
 
 
-def connector_block(prst: str, start, end, line: dict, glue_: dict | None) -> dict:
+def connector_block(prst: str, start, end, line: dict, glue_: dict | None, orient: str | None = None) -> dict:
+    """The connector block of a cxnSp, a line-like preset, a block arrow or an open custGeom path (prst
+    "custom"; orient "curve" or "elbow" when the path is not straight, else measured from the ends)."""
     length = math.hypot(end[0] - start[0], end[1] - start[1])
     return {"prst": prst, "start_in": [round(start[0], 3), round(start[1], 3)],
             "end_in": [round(end[0], 3), round(end[1], 3)], "length_in": round(length, 3),
-            "orientation": orientation(prst, start, end), "glue": glue_ or {"start": None, "end": None},
+            "orientation": orient or orientation(prst, start, end), "glue": glue_ or {"start": None, "end": None},
             "touch": None, "head": (line or {}).get("head", {"type": "none"}),
             "tail": (line or {}).get("tail", {"type": "none"}), "dash": (line or {}).get("dash"),
             "w_pt": (line or {}).get("w_pt"), "hex": (line or {}).get("hex")}
@@ -307,15 +326,20 @@ def legend_lines(leaves: list[dict], canvas_area: float) -> set:
 
 
 def classify(L: dict, legend: set | frozenset = frozenset()) -> str:
-    """degenerate | stroke | connector | rule for a leaf carrying a connector block (with contact filled)."""
+    """degenerate | stroke | connector | rule for a leaf carrying a connector block (with contact filled).
+    An open path is measured by its chord (length_in) like any line; one whose drawn length (path_len_in) is
+    longer than the degenerate threshold is not degenerate, and a loop without an arrowhead is a stroke."""
     k = L["connector"]
     n = k.get("length_in") or 0.0
-    if n < DEGENERATE_IN:
+    plen = k.get("path_len_in")
+    if n < DEGENERATE_IN and (plen is None or plen < DEGENERATE_IN):
         return "degenerate"
     if L.get("icon_group") is not None or L.get("icon_like") or L["id"] in legend or n < CONNECTOR_MIN_IN:
         return "stroke"
     head = ((k.get("head") or {}).get("type") or "none") != "none" or \
         ((k.get("tail") or {}).get("type") or "none") != "none" or k.get("prst") in BLOCK_ARROWS
+    if not head and plen and n < LOOP_CHORD * plen:
+        return "stroke"
     g = k.get("glue") or {}
     ct = k.get("contact") or {}
     if head or g.get("start") or g.get("end") or (ct.get("distinct") and ct.get("across") is None):

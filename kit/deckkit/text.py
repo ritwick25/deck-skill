@@ -24,7 +24,8 @@ from dataclasses import dataclass, field
 from lxml import etree
 
 from . import measure, ooxml
-from .canvas import EMU_PER_IN, FLOOR, Box, Canvas, canvas_of
+from .canvas import EMU_PER_IN, Box, Canvas, canvas_of
+from .measure import FLOOR
 from .errors import BelowFloor, Capacity, DeckkitError, OverBudget, Overflows, ThemeInvariant
 from .read.ns import NS, local
 from .read.textmetrics import words
@@ -38,9 +39,6 @@ TITLE_ROLE = "ink-deep"
 KEYWORD_ROLE = "accent-ink"
 TITLE_MAX_WORDS = 14
 TITLE_MAX_KEYWORDS = 3
-# The P02 fit tolerance (engineering.md (e)), in WIDE inches, scaled by canvas.k. Used only where a
-# canvas slot is sized to the line it holds (the WIDE title box is one measured 21pt bold line).
-FIT_TOL_IN = 0.035
 BULLET_IN = 0.18       # hanging indent of a bulleted paragraph
 LEVEL_IN = 0.25        # extra left margin per outline level
 
@@ -203,6 +201,16 @@ def check_fit(what: str, paras, box, theme, insets=measure.ZERO, *, size=None, f
     return _require(what, _prepare(paras, theme, size, face or _default_face(theme)), box, insets)
 
 
+def need_height(paras, width_in: float, theme, insets=measure.ZERO, *, size=None, face=None) -> float:
+    """Inches of height kit paragraphs need at width_in, unrounded, so a box sized to it passes
+    textbox()'s own fit check. Paragraphs with a left margin are measured at their own width."""
+    prepped = _prepare(paras, theme, size, face or _default_face(theme))
+    if all(p.margin_in == 0 for p, _, _ in prepped):
+        return measure.need_height([m for _, _, m in prepped], width_in, insets)
+    w = width_in - insets.l - insets.r
+    return insets.t + insets.b + sum(measure.need_height([m], w - p.margin_in) for p, _, m in prepped)
+
+
 def _require(what, prepped, box, insets) -> measure.Fit:
     if all(p.margin_in == 0 for p, _, _ in prepped):
         return measure.require_fit(what, [m for _, _, m in prepped], box, insets)
@@ -306,6 +314,7 @@ def _add_box(slide, box: Box, name: str):
     return sh
 
 
+@ooxml.transactional
 def textbox(slide, box: Box, paras, name: str, theme, require_fit: bool = True, *,
             insets=measure.ZERO, size=None, face=None, anchor="top"):
     """A named text box at box, measured BEFORE it is created: Overflows (with a cut-words hint)
@@ -369,11 +378,13 @@ def _canvas_for(slide) -> Canvas:
     return canvas_of(prs)
 
 
+@ooxml.transactional
 def title(slide, text: str, keywords=(), canvas: Canvas | None = None, theme=None, *, name: str = "title"):
     """The action title in the canvas title box at the canvas title size, bold, in the theme's major
     font. keywords (0 to 3 exact whole-word substrings) are set in accent-ink, the rest in ink-deep.
     Raises Capacity for more than three keywords, OverBudget past 14 words, Overflows when the title
-    wraps past canvas.title_max_lines or needs more height than the title box (P02 tolerance)."""
+    wraps past canvas.title_max_lines or needs more height than the title box. The box is sized to hold
+    its lines outright (WIDE 0.40in for one 21pt bold line), so no tolerance is granted."""
     if theme is None:
         raise TypeError("title() needs theme=")
     canvas = canvas or _canvas_for(slide)
@@ -394,8 +405,7 @@ def title(slide, text: str, keywords=(), canvas: Canvas | None = None, theme=Non
                         hint="the %s canvas holds %d title line(s) at %gpt; cut words (the title wraps "
                              "after %r)" % (canvas.name, canvas.title_max_lines, canvas.title_pt,
                                             fit.lines[0][-40:]))
-    tol = FIT_TOL_IN * canvas.k
-    if fit.need_in > tb.h + tol:
+    if fit.need_in > tb.h + 1e-9:
         raise Overflows("title", need=fit.need_in, have=tb.h,
                         hint="%d line(s) at %gpt need more than the %s title box" % (
                             fit.n_lines, canvas.title_pt, canvas.name))
@@ -505,4 +515,4 @@ def retext(shape, chunks):
 
 
 __all__ = ["Run", "Para", "RUN_ROLES", "TITLE_MAX_WORDS", "TITLE_MAX_KEYWORDS", "write", "textbox",
-           "check_fit", "title", "title_runs", "retext"]
+           "check_fit", "need_height", "title", "title_runs", "retext"]

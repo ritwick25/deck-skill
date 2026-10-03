@@ -6,13 +6,20 @@ and a blurred outer shadow, and LibreOffice draws that shadow whatever an empty 
 style element goes, and the shape gets exactly one empty `<a:effectLst/>` (what `shadow.inherit =
 False` writes). The flat fmtScheme in every kit theme is the second defence, never the first.
 
+transaction() and @transactional make every creator all-or-nothing: a creator that raises leaves the
+slide exactly as it found it (every spTree child it added removed, every relationship it added dropped),
+and every shape a creator leaves behind has been through finish(), group members included.
+
 Namespaces and qn() come from deckkit.read.ns: one map for the reader and the writer.
 """
 from __future__ import annotations
 
 import collections
+import contextlib
+import functools
 
 from lxml import etree
+from pptx.oxml.xmlchemy import OxmlElement
 
 from .errors import GeometryError
 from .read.ns import NS, local, qn
@@ -79,8 +86,59 @@ def finish(shape, shadow: str = "none"):
     for i, c in enumerate(sp):
         if local(c) in _BEFORE_EFFECT:
             pos = i + 1
-    sp.insert(pos, etree.Element(_A + "effectLst"))
+    # built by python-pptx's own parser, so spPr.effectLst and shape.shadow proxies keep working
+    sp.insert(pos, OxmlElement("a:effectLst"))
     return shape
+
+
+SHAPE_TAGS = (_P + "sp", _P + "cxnSp", _P + "pic", _P + "grpSp", _P + "graphicFrame")
+
+
+def _sptree(slide):
+    tree = getattr(getattr(slide, "shapes", None), "_spTree", None)
+    if tree is None:
+        raise TypeError("a kit creator draws on a slide, got %s" % type(slide).__name__)
+    return tree
+
+
+def _rel_ids(slide) -> set:
+    part = getattr(slide, "part", None)
+    return set(part.rels.keys()) if part is not None else set()
+
+
+@contextlib.contextmanager
+def transaction(slide):
+    """All or nothing on one slide. On any exception every spTree child added inside the block is
+    removed and every relationship added to the slide part is dropped, then the exception propagates.
+    On success every shape added (top level and nested in an added group) goes through finish().
+    Nesting is safe: an inner rollback removes its own shapes, the outer one removes the rest."""
+    tree = _sptree(slide)
+    before = list(tree)                      # held references keep lxml's proxies (and identity) stable
+    seen = set(before)
+    rels = _rel_ids(slide)
+    try:
+        yield tree
+    except BaseException:
+        for child in [c for c in tree if c not in seen]:
+            tree.remove(child)
+        part = slide.part
+        for rid in _rel_ids(slide) - rels:
+            part.drop_rel(rid)
+        raise
+    for child in [c for c in tree if c not in seen]:
+        if not isinstance(child.tag, str):
+            continue
+        for el in child.iter(*SHAPE_TAGS):
+            finish(el)
+
+
+def transactional(fn):
+    """Decorator for a creator whose first argument is the slide: the call runs inside transaction()."""
+    @functools.wraps(fn)
+    def wrapper(slide, *args, **kwargs):
+        with transaction(slide):
+            return fn(slide, *args, **kwargs)
+    return wrapper
 
 
 def no_autofit(text_frame):
@@ -135,4 +193,4 @@ def next_id(slide) -> int:
     return (max(ids) if ids else 1) + 1
 
 
-__all__ = ["NS", "qn", "ONCE_ONLY", "REPEATABLE", "finish", "no_autofit", "once_only_violations", "next_id"]
+__all__ = ["NS", "qn", "ONCE_ONLY", "REPEATABLE", "SHAPE_TAGS", "finish", "transaction", "transactional", "no_autofit", "once_only_violations", "next_id"]

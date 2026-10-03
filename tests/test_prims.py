@@ -142,16 +142,22 @@ class TestSheet(Fixture):
         self.assertFalse(faces & {"Consolas", "Courier New", "JetBrains Mono", "Menlo"})
 
     def test_only_state_shapes_are_bars(self):
-        """No filled strip <=0.08in thin and 6x long unless named state.* (the quote bar)."""
+        """No strip <= prims.BAR_MAX_IN (0.10in) thin and 6x long filled or outlined in a non-neutral role
+        unless named state.* (the quote bar)."""
+        neutral = {SIGMOID.spec(r).get("val") + repr([(c.tag, c.get("val")) for c in SIGMOID.spec(r)])
+                   for r in prims.NEUTRAL_STRIP}
         bars = []
         for s in self.root.iter(P + "sp"):
             ext = s.find(P + "spPr/" + A + "xfrm/" + A + "ext")
-            fill = s.find(P + "spPr/" + A + "solidFill")
-            if ext is None or fill is None:
+            colours = s.findall(P + "spPr/" + A + "solidFill/" + A + "schemeClr") + \
+                s.findall(P + "spPr/" + A + "ln/" + A + "solidFill/" + A + "schemeClr")
+            if ext is None or not colours:
                 continue
+            keys = {c.get("val") + repr([(m.tag, m.get("val")) for m in c]) for c in colours}
             w, h = int(ext.get("cx")) / 914400, int(ext.get("cy")) / 914400
-            if min(w, h) <= 0.08 and max(w, h) >= 6 * min(w, h):
+            if min(w, h) <= prims.BAR_MAX_IN + 1e-6 and max(w, h) >= 6 * min(w, h) and keys - neutral:
                 bars.append(s.find(".//" + P + "cNvPr").get("name"))
+        self.assertEqual(prims.BAR_MAX_IN, 0.10)
         self.assertEqual(bars, ["state.quote"])
 
     def test_cards_rounded_with_physical_radius(self):

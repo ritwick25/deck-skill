@@ -4,7 +4,9 @@
   * no archetype repeats inside a section, except in a section deck.json declares a "series" (ruling 5):
     a use-case map opens it and every repeated member uses a different variant;
   * at most two slides carrying a table in a row, outside the appendix;
-  * two adjacent slides whose 12 x 7 occupancy grids have a Jaccard of 0.85 or more look alike.
+  * two adjacent slides whose 12 x 7 occupancy grids have a Jaccard of 0.85 or more look alike;
+  * no family carries more than 40% of the content slides (every family but Frame); one slide of a family is
+    always allowed, so a two-slide deck is not failed for its arithmetic.
 Sections are PowerPoint's own (p14:sectionLst), else a section-divider slide opens one, else the deck is one
 section. An untagged slide fails: the gate cannot see its family.
 """
@@ -20,6 +22,7 @@ GATE, TITLE = "P15", "variety"
 COLS, ROWS, COVER = 12, 7, 0.30
 JACCARD = 0.85
 MAX_TABLES = 2
+MAX_FAMILY_SHARE = 0.40
 
 
 def sections(ctx) -> list[tuple[str, list[int]]]:
@@ -107,6 +110,14 @@ def run(deck, ctx):
             if all(in_series.get(i) for i in w) and len({tags[i - 1]["variant"] for i in w}) == 3:
                 continue
             out.append(Finding(GATE, FAIL, w[0], "", "slides %d-%d are all %s" % (w[0], w[2], fs[0])))
+    content = [i for i, f in fam.items() if f and f != "Frame"]
+    share = Counter(fam[i] for i in content)
+    for f, c in sorted(share.items()):
+        if c > max(1, MAX_FAMILY_SHARE * len(content)):
+            where = [i for i in content if fam[i] == f]
+            out.append(Finding(GATE, FAIL, where[0], f, "%d of %d content slides are %s (%.0f%%, max %.0f%%): slides %s"
+                               % (c, len(content), f, 100.0 * c / len(content), 100 * MAX_FAMILY_SHARE,
+                                  ", ".join(map(str, where)))))
     appendix = {i for a, b in status_ranges(ctx.dr).get("appendix", []) for i in range(a, b + 1)}
     run_ = []
     for i in idx:

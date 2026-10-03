@@ -19,9 +19,9 @@ sys.path.insert(0, str(SKILL / "kit"))
 
 from pptx import Presentation  # noqa: E402
 
-from deckkit import glyphs, icons, package, prims  # noqa: E402
+from deckkit import glyphs, icons, package, prims, text  # noqa: E402
 from deckkit.canvas import Box  # noqa: E402
-from deckkit.prims import R  # noqa: E402
+from deckkit.text import Para, Run  # noqa: E402
 from deckkit.theme import Theme  # noqa: E402
 
 OUT = SKILL / "tests" / "out"
@@ -42,9 +42,9 @@ def build(theme: Theme, path: Path):
     prs = Presentation(str(BASE))
     s = prs.slides.add_slide(prs.slide_layouts[0])
     with prims.use(theme):
-        prims.textbox(s, Box(0.5, 0.18, 12.3, 0.42),
-                      [([R("Primitive sheet: every creator, one theme", 21.0, "ink-deep", bold=True)], "l", 0.0)],
-                      name="title")
+        text.textbox(s, Box(0.5, 0.18, 12.3, 0.42),
+                     [Para([Run("Primitive sheet: every creator, one theme", role="ink-deep", bold=True)])],
+                     "title", theme, size=21.0)
         # row 1: cards, rect, zone, tab
         y = 0.85
         prims.card(s, Box(0.5, y, 1.9, 1.3), fill="paper", line="rule-strong", name="row1.card.outline")

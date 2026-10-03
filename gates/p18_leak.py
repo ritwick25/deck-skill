@@ -1,9 +1,12 @@
 """P18 leak: nothing on or in the deck matches the hashed corpus references, and the package carries no residue.
 
 References live in devices/refs (or the folder a run names): SHA-1 digests only, never plaintext, all keyed
-by deckkit.read.refnorm, the one normalisation the harvester used too. The canary in refs/canary.json is
-fired first: its probe must hit names, 6-grams and numeric phrases, and its clean sentence must hit none,
-or no pass is trusted. A missing refs folder or file is a FAIL.
+by deckkit.read.refnorm, the one normalisation the harvester used too. Every index (names, 6-grams, numeric
+phrases, media, vectors) must hold corpus entries and its own canary entry, and the canary in refs/canary.json
+is fired first: its probe must hit names, 6-grams and numeric phrases, its image (decoded from canary.json)
+must be found by sha256 and by dHash, its vector (parsed from canary.json) by signature, and its clean
+sentence must hit nothing, or no pass is trusted. A missing refs folder or file, an empty index, or an index
+without its canary is a FAIL.
 
   text      every text block on slides, layouts and masters, notes, alt text, shape names and docProps text:
             1-4-gram name keys (names.sha1), shared 6-word shingles (ngrams6.sha1), distinctive numeric
@@ -19,6 +22,8 @@ or no pass is trusted. A missing refs folder or file is a FAIL.
 """
 from __future__ import annotations
 
+import base64
+import binascii
 import hashlib
 import json
 import re
@@ -83,17 +88,74 @@ class Refs:
         return out
 
 
+def _canary_media(c) -> tuple[bytes | None, str]:
+    """The canary image's bytes from canary.json, else (None, why)."""
+    m = c.get("media") or {}
+    try:
+        blob = base64.b64decode(m.get("png_b64") or "", validate=True)
+    except (binascii.Error, ValueError):
+        return None, "canary.json media.png_b64 is not base64"
+    if not blob:
+        return None, "canary.json carries no canary image (media.png_b64)"
+    if hashlib.sha256(blob).hexdigest() != m.get("sha256"):
+        return None, "canary.json's image does not hash to its own media.sha256"
+    return blob, ""
+
+
+def _canary_vector(c) -> tuple[str | None, str]:
+    """The sha1 of the canary vector's signature, parsed from canary.json, else (None, why)."""
+    from lxml import etree
+    v = c.get("vector") or {}
+    try:
+        cg = etree.fromstring((v.get("custgeom") or "").encode("utf-8"))
+    except etree.XMLSyntaxError:
+        return None, "canary.json carries no parseable canary vector (vector.custgeom)"
+    sig = rn.custgeom_sig(cg)
+    if not sig:
+        return None, "canary.json's vector has a trivial signature"
+    if rn.sha1(sig) != v.get("sig_sha1"):
+        return None, "canary.json's vector does not hash to its own vector.sig_sha1"
+    return rn.sha1(sig), ""
+
+
 def _canary(refs):
     c = refs.canary
+    bad = []
     probe = refs.text_hits(c.get("probe_text", ""))
     kinds = {k for k, _ in probe}
     clean = refs.text_hits(c.get("clean_text", ""))
-    bad = []
     for k in ("name", "6-gram", "number"):
         if k not in kinds:
             bad.append("the canary probe produced no %s hit" % k)
     if clean:
         bad.append("the canary's clean sentence hit %s" % clean[:3])
+    blob, why = _canary_media(c)
+    if blob is None:
+        bad.append(why)
+    else:
+        if hashlib.sha256(blob).hexdigest() not in refs.media_sha:
+            bad.append("the canary image's sha256 is not in media.json")
+        dh = rn.dhash64(blob)
+        if not dh or min((rn.hamming64(dh, x) for x in refs.dhashes), default=64) >= DHASH_MIN:
+            bad.append("the canary image is not caught by any dHash in media.json")
+    vsha, why = _canary_vector(c)
+    if vsha is None:
+        bad.append(why)
+    elif vsha not in refs.vectors:
+        bad.append("the canary vector's signature is not in vectors.sha1")
+    # every index carries corpus entries beyond its canary: an index holding only the canary is empty
+    canary_keys = {
+        "names.sha1": (refs.names, set(c.get("names_sha1") or [])),
+        "ngrams6.sha1": (refs.ngrams, set(c.get("ngrams6_sha1") or [])),
+        "numphrases.sha1": (refs.nums, set(c.get("numphrases_sha1") or [])),
+        "vectors.sha1": (refs.vectors, {vsha} if vsha else set()),
+        "media.json": (refs.media_sha, {hashlib.sha256(blob).hexdigest()} if blob else set()),
+    }
+    for f, (have, mine) in canary_keys.items():
+        if not have:
+            bad.append("%s is empty" % f)
+        elif not (have - mine):
+            bad.append("%s holds only its canary, no corpus entry" % f)
     return bad
 
 
