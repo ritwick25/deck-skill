@@ -283,3 +283,17 @@ before the engine is extended: the user's own epic diagrams (the AI Council plat
 client's KOL architecture and AWS deployment view, the AI architecture test decks) plus the official AWS, Azure and
 Google architecture centres and the diagram-craft literature. Notes and spec are internal at
 `library/design/tech-diagrams/`; a scrubbed spec becomes `references/tech-diagrams.md`.
+
+## 2026-10-03 · RULING 21 — Technical diagram spec decisions (user)
+- **Logos:** LangGraph, LangChain, Langfuse, Anthropic and Dataiku come from each vendor's own published SVG (press kit
+  or official repository), byte-verified into `kit/assets/marks/` with source URL and date, used unaltered to name the
+  product. 21st rejected its credentials on reconnect; this supersedes ruling 19's source, not its rules.
+- **AWS VPC purple** `#8C4FFF` stays as a 1.25pt stroke and corner icon on AWS-notation slides only, never a fill.
+- **Azure step badges** are green `#107C10` (identity `azure-step`), the Azure Architecture Center notation.
+- **More diagram types** join the showcase: current versus target state, agent state machine, C4 context and container,
+  and multi-region DR with landing zone; 16 technical types in all.
+- **Defaults taken from the spec** (`library/design/tech-diagrams/spec.md` §6):
+  - the house platform band is light (`card`), so dark logos stay visible;
+  - no brand-colour edge on logo chips (the left-accent ban);
+  - the faint Azure strokes pass only with a label and a corner icon;
+  - medallion and threat colours stay off until the user introduces them.
