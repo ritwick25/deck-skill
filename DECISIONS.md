@@ -180,3 +180,7 @@ record unaltered. The card translates the device: type raised to the 8pt floor, 
 +N more chip. Layered-architecture, solution-architecture and hub-and-spoke get a comparative re-rank with the new
 members; the other affected archetypes a scripted one, and a comparatively ranked archetype is re-ranked only where
 a new member's quality reaches its top (cost cap, logged in the library DECISIONS).
+
+## 2026-10-03 · RULING 14 — Step 3 at full scale: about 30 devices (user)
+The sanitised device library is built at the original scale of about 30 lifted native devices (ruling 3), quoted at
+about 5M tokens after step 2 ran 2.8M against a 1M estimate.

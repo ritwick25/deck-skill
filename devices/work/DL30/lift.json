@@ -1,0 +1,245 @@
+{
+ "slide": "d09-s015",
+ "device": "DL30",
+ "scale": 1.3333,
+ "counts": {
+  "gradients": 5,
+  "effects": 7,
+  "colours": 301,
+  "autofit": 31,
+  "runs": 84,
+  "raised_to_floor": 22,
+  "scaled": 1.3333
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    3.019,
+    2.049,
+    0.2,
+    0.164
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    3.609,
+    2.333,
+    0.348,
+    0.243
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    2.923,
+    2.333,
+    0.348,
+    0.243
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    9.708,
+    3.147,
+    0.361,
+    0.297
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    8.897,
+    2.377,
+    0.337,
+    0.276
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    2.999,
+    4.471,
+    0.2,
+    0.164
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    3.284,
+    4.876,
+    0.248,
+    0.204
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    2.841,
+    4.721,
+    0.3,
+    0.247
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    2.844,
+    4.979,
+    0.3,
+    0.247
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    3.916,
+    4.741,
+    0.348,
+    0.243
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    3.019,
+    3.228,
+    0.2,
+    0.164
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    3.609,
+    3.513,
+    0.348,
+    0.243
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    2.923,
+    3.513,
+    0.348,
+    0.243
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    8.665,
+    5.027,
+    0.352,
+    0.301
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    10.009,
+    3.857,
+    0.391,
+    0.32
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    9.689,
+    4.528,
+    0.361,
+    0.309
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    0.64,
+    3.027,
+    0.428,
+    0.351
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    1.144,
+    3.056,
+    0.587,
+    0.088
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    0.781,
+    4.783,
+    0.356,
+    0.292
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    1.248,
+    4.833,
+    0.795,
+    0.188
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    3.108,
+    1.712,
+    0.924,
+    0.307
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    1.337,
+    3.196,
+    0.603,
+    0.143
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    12.802,
+    0.057,
+    0.447,
+    0.447
+   ],
+   "kind": "icon"
+  }
+ ],
+ "colour_map": {
+  "000000->ink-deep": 154,
+  "FFFFFF->on-accent": 56,
+  "E7E7EB->hairline": 19,
+  "FFFFFF->hairline": 17,
+  "2F5496->accent-ink": 13,
+  "7F7F7F->rule-strong": 10,
+  "3BC21B->accent": 8,
+  "FFFFFF->paper": 6,
+  "D8D8D8->hairline": 3,
+  "BFBFBF->ink-muted": 2,
+  "3DC91B->accent": 2,
+  "248326->accent-deep": 2,
+  "D0D3D3->hairline-soft": 2,
+  "1E3D7D->accent-ink": 1,
+  "268828->accent-deep": 1,
+  "B45F06->accent": 1,
+  "FFE2CC->accent-wash": 1,
+  "758C9F->rule-strong": 1,
+  "A4BF00->accent": 1,
+  "C4BD97->hairline": 1
+ }
+}

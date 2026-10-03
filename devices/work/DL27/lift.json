@@ -1,0 +1,42 @@
+{
+ "slide": "d12-s040",
+ "device": "DL27",
+ "scale": 1.3333,
+ "counts": {
+  "effects": 13,
+  "colours": 194,
+  "runs": 62,
+  "raised_to_floor": 34,
+  "scaled": 1.3333
+ },
+ "pictures_removed": [],
+ "colour_map": {
+  "000000->ink-deep": 62,
+  "475569->ink": 26,
+  "FFFFFF->on-accent": 24,
+  "1A2B4A->accent-ink": 16,
+  "FFFFFF->hairline": 12,
+  "1D6FA5->accent-ink": 6,
+  "E8E6DC->hairline": 6,
+  "854F0B->accent-deep": 6,
+  "993C1D->accent": 6,
+  "0F6E56->accent-deep": 5,
+  "CBD5E1->hairline": 3,
+  "534AB7->accent": 3,
+  "0F6E56->accent-ink": 2,
+  "5F5E5A->ink": 2,
+  "993C1D->accent-ink": 2,
+  "185FA5->accent-ink": 2,
+  "EAF7F2->card": 1,
+  "EAF7F2->hairline": 1,
+  "EAF1FB->card": 1,
+  "EAF1FB->hairline": 1,
+  "F4F3EE->card": 1,
+  "F4F3EE->hairline": 1,
+  "FBF0EC->card": 1,
+  "FBF0EC->hairline": 1,
+  "FFFFFF->paper": 1,
+  "E6F1FB->card": 1,
+  "1D6FA5->accent": 1
+ }
+}

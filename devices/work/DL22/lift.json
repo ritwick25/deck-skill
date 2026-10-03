@@ -1,0 +1,41 @@
+{
+ "slide": "d07-s006",
+ "device": "DL22",
+ "scale": 1.3333,
+ "counts": {
+  "colours": 360,
+  "autofit": 17,
+  "runs": 163,
+  "raised_to_floor": 41,
+  "scaled": 1.3333
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    11.628,
+    1.815,
+    0.659,
+    0.335
+   ],
+   "kind": "icon"
+  }
+ ],
+ "colour_map": {
+  "000000->ink-deep": 164,
+  "D91E18->accent": 74,
+  "FFFFFF->paper": 36,
+  "D91E18->accent-ink": 25,
+  "FFFFFF->on-accent": 16,
+  "BFBFBF->hairline": 10,
+  "A5A5A5->rule-strong": 8,
+  "FFFFFF->hairline": 6,
+  "3F3F3F->ink-deep": 5,
+  "333333->ink-deep": 5,
+  "3F3F3F->ink-strong": 5,
+  "3F3F3F->ink-muted": 2,
+  "F3F3F3->card": 1,
+  "FACFCC->accent-wash": 1,
+  "F2F2F2->card": 1,
+  "FCEFEC->hairline": 1
+ }
+}

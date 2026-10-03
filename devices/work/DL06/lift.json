@@ -1,0 +1,161 @@
+{
+ "slide": "d01-s058",
+ "device": "DL06",
+ "scale": 1.0,
+ "counts": {
+  "effects": 164,
+  "colours": 527,
+  "autofit": 47,
+  "runs": 90,
+  "raised_to_floor": 12
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    3.565,
+    1.176,
+    0.383,
+    0.383
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    3.545,
+    3.885,
+    0.291,
+    0.291
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    5.963,
+    3.885,
+    0.291,
+    0.291
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    8.38,
+    3.885,
+    0.291,
+    0.291
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    10.798,
+    3.885,
+    0.291,
+    0.291
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    4.35,
+    3.885,
+    0.291,
+    0.291
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    6.768,
+    3.885,
+    0.291,
+    0.291
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    9.186,
+    3.885,
+    0.291,
+    0.291
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    11.604,
+    3.885,
+    0.291,
+    0.291
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    5.156,
+    3.885,
+    0.291,
+    0.291
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    7.574,
+    3.885,
+    0.291,
+    0.291
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    9.992,
+    3.885,
+    0.291,
+    0.291
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    12.41,
+    3.885,
+    0.291,
+    0.291
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    12.313,
+    5.609,
+    0.328,
+    0.328
+   ],
+   "kind": "icon"
+  }
+ ],
+ "colour_map": {
+  "000000->ink-deep": 203,
+  "F30009->accent": 116,
+  "FFFFFF->on-accent": 52,
+  "FFFFFF->paper": 34,
+  "F30009->accent-ink": 30,
+  "670001->accent-deep": 25,
+  "000000->ink-muted": 13,
+  "F2F2F2->card": 12,
+  "D9D9D9->hairline": 12,
+  "1B2733->ink-deep": 7,
+  "D3C5AC->hairline": 6,
+  "BFBFBF->hairline": 5,
+  "B59E74->rule-strong": 4,
+  "FAE6D8->accent-wash": 2,
+  "E5813E->accent": 2,
+  "C9CFD5->on-accent": 1,
+  "91794D->rule-strong": 1,
+  "E1D8C7->hairline-soft": 1,
+  "E4002B->accent-ink": 1
+ }
+}

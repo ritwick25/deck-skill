@@ -1,0 +1,30 @@
+{
+ "slide": "d01-s132",
+ "device": "DL13",
+ "scale": 1.0,
+ "counts": {
+  "effects": 104,
+  "colours": 368,
+  "autofit": 28,
+  "runs": 54
+ },
+ "pictures_removed": [],
+ "colour_map": {
+  "000000->ink-deep": 145,
+  "F30009->accent": 86,
+  "FFFFFF->paper": 37,
+  "FFFFFF->on-accent": 29,
+  "670001->accent-deep": 24,
+  "F30009->accent-ink": 9,
+  "FFFFFF->hairline": 8,
+  "1B2733->ink-deep": 8,
+  "BFBFBF->hairline": 5,
+  "F2F2F2->card": 5,
+  "E5813E->accent": 2,
+  "7A0004->accent-deep": 2,
+  "FFCACC->accent-wash": 2,
+  "B60007->accent": 2,
+  "D3C5AC->hairline": 2,
+  "B59E74->rule-strong": 2
+ }
+}

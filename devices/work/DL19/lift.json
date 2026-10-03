@@ -1,0 +1,62 @@
+{
+ "slide": "d03-s018",
+ "device": "DL19",
+ "scale": 1.0,
+ "counts": {
+  "colours": 288,
+  "runs": 109,
+  "autofit": 14,
+  "raised_to_floor": 6
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    0.571,
+    2.772,
+    2.109,
+    3.123
+   ],
+   "kind": "screenshot"
+  },
+  {
+   "box_in": [
+    8.199,
+    3.077,
+    2.13,
+    2.608
+   ],
+   "kind": "screenshot"
+  },
+  {
+   "box_in": [
+    10.795,
+    6.02,
+    0.233,
+    0.191
+   ],
+   "kind": "icon"
+  }
+ ],
+ "colour_map": {
+  "072130->ink-deep": 85,
+  "FFFFFF->on-accent": 75,
+  "000000->ink-deep": 52,
+  "FFFFFF->hairline": 19,
+  "5B7593->ink-muted": 9,
+  "0B2D57->accent-ink": 8,
+  "FFFFFF->paper": 7,
+  "F37321->accent": 5,
+  "D9ECF7->accent-ink": 5,
+  "E7E6E6->hairline": 4,
+  "7F7F7F->rule-strong": 4,
+  "F37321->accent-ink": 3,
+  "E7E6E6->card": 3,
+  "1E3D7D->accent-ink": 2,
+  "F2F2F2->card": 2,
+  "0E537F->accent-deep": 1,
+  "CCCCCC->hairline-soft": 1,
+  "A5AEB5->hairline": 1,
+  "FDE2D0->accent-wash": 1,
+  "14533F->accent-ink": 1
+ }
+}

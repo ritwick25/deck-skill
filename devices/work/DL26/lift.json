@@ -1,0 +1,104 @@
+{
+ "slide": "d12-s016",
+ "device": "DL26",
+ "scale": 1.3333,
+ "counts": {
+  "effects": 20,
+  "colours": 324,
+  "runs": 136,
+  "autofit": 2,
+  "raised_to_floor": 39,
+  "scaled": 1.3333
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    0.573,
+    2.391,
+    0.203,
+    0.184
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    0.573,
+    3.191,
+    0.203,
+    0.184
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    0.573,
+    3.991,
+    0.203,
+    0.184
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    0.573,
+    4.789,
+    0.203,
+    0.184
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    0.573,
+    5.589,
+    0.203,
+    0.184
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    0.573,
+    6.389,
+    0.203,
+    0.184
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    5.639,
+    2.312,
+    0.223,
+    0.203
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    10.854,
+    2.276,
+    0.02,
+    0.019
+   ],
+   "kind": "illustration"
+  }
+ ],
+ "colour_map": {
+  "000000->ink-deep": 115,
+  "1F36C7->accent-ink": 58,
+  "1A2233->ink-deep": 27,
+  "E2E6F0->hairline": 20,
+  "FFFFFF->paper": 19,
+  "FFFFFF->on-accent": 14,
+  "5A6272->ink": 14,
+  "8891A3->ink-muted": 12,
+  "EEF1FC->card": 11,
+  "1F36C7->accent": 9,
+  "C3C9D6->on-accent": 8,
+  "E8ECFF->on-accent": 6,
+  "16249A->accent-deep": 5,
+  "E8EAF5->card": 5,
+  "F5F6FA->card": 1
+ }
+}

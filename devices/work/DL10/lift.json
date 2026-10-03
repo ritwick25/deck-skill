@@ -1,0 +1,207 @@
+{
+ "slide": "d01-s084",
+ "device": "DL10",
+ "scale": 1.0,
+ "counts": {
+  "gradients": 11,
+  "colours": 365,
+  "autofit": 30,
+  "runs": 105,
+  "raised_to_floor": 76
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    6.077,
+    1.888,
+    0.24,
+    0.24
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    5.204,
+    1.888,
+    0.24,
+    0.24
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    2.67,
+    1.888,
+    0.24,
+    0.24
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    3.514,
+    1.888,
+    0.24,
+    0.24
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    4.359,
+    1.888,
+    0.24,
+    0.24
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    7.87,
+    4.301,
+    0.222,
+    0.222
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    9.339,
+    3.362,
+    0.222,
+    0.222
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    7.623,
+    3.401,
+    0.222,
+    0.222
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    8.476,
+    2.607,
+    0.222,
+    0.222
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    9.054,
+    4.294,
+    0.222,
+    0.222
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    8.348,
+    3.45,
+    0.45,
+    0.45
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    5.879,
+    6.186,
+    0.338,
+    0.338
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    7.431,
+    6.187,
+    0.336,
+    0.336
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    1.889,
+    4.502,
+    0.156,
+    0.156
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    10.628,
+    4.095,
+    0.26,
+    0.26
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    10.628,
+    2.746,
+    0.26,
+    0.26
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    10.628,
+    3.431,
+    0.26,
+    0.26
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    10.628,
+    4.898,
+    0.26,
+    0.26
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    10.628,
+    1.983,
+    0.26,
+    0.26
+   ],
+   "kind": "icon"
+  }
+ ],
+ "colour_map": {
+  "D8D8D8->hairline-soft": 100,
+  "000000->ink-deep": 81,
+  "FFFFFF->on-accent": 48,
+  "FFFFFF->paper": 27,
+  "F30009->accent": 20,
+  "1F2937->ink-deep": 14,
+  "BFBFBF->hairline": 13,
+  "F30009->accent-ink": 13,
+  "FFFFFF->hairline": 8,
+  "D8D8D8->hairline": 8,
+  "1F8A4C->accent-ink": 6,
+  "3CA855->accent": 6,
+  "EAF7EF->card": 5,
+  "F2F2F2->card": 4,
+  "FAE4D6->accent-wash": 4,
+  "00B050->accent-ink": 4,
+  "FEC9CA->accent-wash": 1,
+  "E01933->accent-ink": 1,
+  "F1FAF4->card": 1,
+  "BFE3CC->accent-tint": 1
+ }
+}

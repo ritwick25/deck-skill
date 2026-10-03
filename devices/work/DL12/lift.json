@@ -1,0 +1,151 @@
+{
+ "slide": "d01-s094",
+ "device": "DL12",
+ "scale": 1.0,
+ "counts": {
+  "colours": 145,
+  "autofit": 24,
+  "runs": 54
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    0.633,
+    6.27,
+    0.361,
+    0.361
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    2.539,
+    2.324,
+    0.325,
+    0.325
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    3.683,
+    3.5,
+    0.325,
+    0.325
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    2.538,
+    4.667,
+    0.327,
+    0.325
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    1.395,
+    3.5,
+    0.325,
+    0.325
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    2.539,
+    3.125,
+    0.325,
+    0.325
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    5.536,
+    2.064,
+    0.325,
+    0.325
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    6.718,
+    2.064,
+    0.325,
+    0.325
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    7.901,
+    2.064,
+    0.325,
+    0.325
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    9.083,
+    2.064,
+    0.325,
+    0.325
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    12.771,
+    1.975,
+    0.119,
+    0.119
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    12.771,
+    3.205,
+    0.119,
+    0.119
+   ],
+   "kind": "illustration"
+  },
+  {
+   "box_in": [
+    12.771,
+    4.469,
+    0.119,
+    0.119
+   ],
+   "kind": "illustration"
+  }
+ ],
+ "colour_map": {
+  "000000->ink-deep": 52,
+  "F30009->accent": 20,
+  "FFFFFF->on-accent": 18,
+  "F30009->accent-ink": 9,
+  "1B2733->ink-deep": 7,
+  "E5813E->accent": 5,
+  "3A3A3A->ink-deep": 5,
+  "670001->accent-deep": 5,
+  "FFFFFF->paper": 5,
+  "FAE6D8->accent-wash": 4,
+  "F5CDB2->accent-tint": 4,
+  "BFBFBF->hairline": 2,
+  "FF560E->accent": 2,
+  "000000->ink-muted": 1,
+  "E1F4E5->accent-wash": 1,
+  "69C97F->accent": 1,
+  "FFBB9F->accent-tint": 1,
+  "FFCACC->accent-wash": 1,
+  "1E8E4F->accent-deep": 1,
+  "E4002B->accent": 1
+ }
+}

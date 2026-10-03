@@ -1,0 +1,72 @@
+{
+ "slide": "d01-s053",
+ "device": "DL01",
+ "scale": 1.0,
+ "counts": {
+  "effects": 82,
+  "colours": 203,
+  "autofit": 24,
+  "runs": 35
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    1.589,
+    6.185,
+    0.328,
+    0.328
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    2.185,
+    1.257,
+    0.576,
+    0.576
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    5.477,
+    1.257,
+    0.576,
+    0.576
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    8.812,
+    1.257,
+    0.576,
+    0.576
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    12.104,
+    1.257,
+    0.576,
+    0.576
+   ],
+   "kind": "icon"
+  }
+ ],
+ "colour_map": {
+  "000000->ink-deep": 104,
+  "F30009->accent": 30,
+  "F30009->accent-ink": 15,
+  "FFFFFF->paper": 15,
+  "670001->accent-deep": 10,
+  "1B2733->ink-deep": 8,
+  "FFFFFF->on-accent": 5,
+  "FAE6D8->accent-wash": 4,
+  "E5813E->accent": 4,
+  "E4002B->accent-ink": 4,
+  "E4002B->accent": 3,
+  "000000->ink-muted": 1
+ }
+}

@@ -1,0 +1,82 @@
+{
+ "slide": "d01-s057",
+ "device": "DL05",
+ "scale": 1.0,
+ "counts": {
+  "colours": 189,
+  "autofit": 29,
+  "runs": 58,
+  "bake_skipped": "Group 699: group still carries a transform after baking"
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    3.416,
+    1.006,
+    0.394,
+    0.394
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    1.373,
+    1.01,
+    0.39,
+    0.39
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    5.464,
+    1.01,
+    0.39,
+    0.39
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    7.511,
+    1.01,
+    0.39,
+    0.39
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    9.559,
+    1.01,
+    0.39,
+    0.39
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    11.601,
+    1.01,
+    0.39,
+    0.39
+   ],
+   "kind": "icon"
+  }
+ ],
+ "colour_map": {
+  "F30009->accent": 60,
+  "000000->ink-deep": 48,
+  "FFFFFF->on-accent": 32,
+  "FFFFFF->paper": 12,
+  "BFBFBF->hairline": 11,
+  "670001->accent-deep": 6,
+  "E5813E->accent-ink": 6,
+  "FFFFFF->hairline": 5,
+  "E4002B->accent-ink": 3,
+  "E5813E->accent": 3,
+  "FCE7EA->card": 1,
+  "E4002B->accent": 1,
+  "F30009->accent-ink": 1
+ }
+}

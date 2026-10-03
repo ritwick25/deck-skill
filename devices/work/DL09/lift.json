@@ -1,0 +1,142 @@
+{
+ "slide": "d01-s068",
+ "device": "DL09",
+ "scale": 1.0,
+ "counts": {
+  "gradients": 2,
+  "effects": 1,
+  "colours": 380,
+  "autofit": 14,
+  "runs": 43,
+  "raised_to_floor": 20
+ },
+ "pictures_removed": [
+  {
+   "box_in": [
+    2.157,
+    6.389,
+    0.322,
+    0.322
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    2.191,
+    4.509,
+    0.207,
+    0.224
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    8.288,
+    1.818,
+    0.168,
+    0.18
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    8.736,
+    1.817,
+    0.168,
+    0.18
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    9.165,
+    1.817,
+    0.168,
+    0.18
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    9.712,
+    2.043,
+    0.249,
+    0.266
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    4.123,
+    3.321,
+    0.2,
+    0.196
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    3.181,
+    2.78,
+    0.196,
+    0.191
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    3.596,
+    2.78,
+    0.196,
+    0.191
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    5.772,
+    2.288,
+    0.171,
+    0.176
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    6.187,
+    2.567,
+    0.171,
+    0.176
+   ],
+   "kind": "icon"
+  },
+  {
+   "box_in": [
+    6.855,
+    2.56,
+    0.253,
+    0.259
+   ],
+   "kind": "icon"
+  }
+ ],
+ "colour_map": {
+  "FFFFFF->on-accent": 124,
+  "FFFFFF->paper": 92,
+  "000000->ink-deep": 91,
+  "F30009->accent": 16,
+  "7F7F7F->rule-strong": 12,
+  "E5813E->accent": 10,
+  "F30009->accent-ink": 8,
+  "BFBFBF->hairline": 7,
+  "D8D8D8->hairline": 4,
+  "D2C4AA->hairline": 4,
+  "B60006->accent": 3,
+  "FFFFFF->hairline": 2,
+  "F2F2F2->card": 2,
+  "D8D8D8->hairline-soft": 2,
+  "FAE4D6->accent-wash": 1,
+  "F4CBB0->accent-tint": 1,
+  "EFB289->accent-tint": 1
+ }
+}

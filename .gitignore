@@ -2,7 +2,11 @@
 __pycache__/
 *.pyc
 .cache/
-devices/work/
+# device drafts: build.py, device.json and lift.json are versioned; generated decks and renders are not
+devices/work/**/*.pptx
+devices/work/**/*.png
+devices/work/**/render/
+devices/work/**/*.manifest.json
 *.pdf
 # Renders of raw reference slides never enter the skill repo.
 **/corpus-renders/
