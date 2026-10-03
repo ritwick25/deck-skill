@@ -153,3 +153,21 @@ decides the archetype.
   before dropping the agenda; a house default).
 - **Deferred, logged**: P07 flags staggered swimlane lanes; P10 does not count gantt bars and gate lines as a
   device; P24 discards an unfilled stat band a card prescribes; LibreOffice hyphenation is unchecked until R01.
+
+## 2026-10-03 · RULING 10 — Staged route to the EPIC look (user); amends ruling 9
+The acceptance deck was rejected as not cutting-edge against the flagship. Measured gap (median per slide,
+acceptance vs flagship slides 2 to 104): vivid colour 0.8% vs 7.6% of the area, pastel tint 13.5% vs 2.7%, vivid
+hues 1 vs 3, words 100 vs 150, shapes 41 vs 52. Route, with a stop for the user's yes after each step:
+1. the epic layer in theme and kit (solid brand bands, near-black panels, numbered headers), proven on three
+   rebuilt acceptance slides;
+2. intake of the user's architecture decks and a re-rank of the architecture archetypes;
+3. the device library (ruling 3, un-deferred): about 30 lifted, sanitised, theme-mapped native devices;
+4. a showcase deck exercising all 45 archetypes as the acceptance test.
+
+## 2026-10-03 · RULING 11 — Intake: the architecture decks (user)
+the sample AI architectures deck (4 slides), a pharma-client capabilities deck (14), the agents-on-structured-data deck (12); file names live only in the library manifest.
+The CI decks, the material-planner POV and the AI Hub scale-up proposal stay out. Client-authored decks stay out.
+
+## 2026-10-03 · RULING 12 — Colour: brand solid plus near-black panels (user)
+Solid brand bands and cards, and near-black stat and header panels on light slides. No second hue: a client cut is
+still one accent swap. Pastel tints are for large backgrounds only, never the default container.

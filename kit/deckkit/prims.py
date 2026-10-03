@@ -755,9 +755,27 @@ def caps_label(slide, box: Box, text: str, *, role="ink-muted", pt=None, align="
     return txt.textbox(slide, box, paras, name, th, background=background)
 
 
+def stat_height(slide, w: float, value: str, label: str, *, kind: str, pt=None, label_pt=None, numerals=False,
+                theme=None) -> float:
+    """Inches a stat() of width w needs: the numeral, the rule, the label and the basis chip. Size before drawing."""
+    th = theme_of(theme)
+    cv = canvas_for(slide)
+    pt = cv.ramp["numeral"] if pt is None else pt
+    label_pt = cv.ramp["label"] if label_pt is None else label_pt
+    family = _face(th)
+    if numerals:
+        nf = th.fonts.get("numerals") or {}
+        family = "%s %s" % (nf.get("face", "Montserrat"), nf.get("weight", "SemiBold"))
+    vh = measure.line_in(pt, measure.face_for(family, not numerals)) * 1.02
+    lh = _height(_label(label, label_pt, "ink-muted", what="stat label", bold=False), w, th)
+    chip = STAT_KINDS.get(kind)
+    ch = (measure.line_in(cv.ramp["small"], measure.face_for(_face(th))) + 0.08) if chip else 0.0
+    return vh + 0.05 * cv.k + 0.06 * cv.k + lh + ((0.06 * cv.k + ch) if chip else 0.0)
+
+
 @ooxml.transactional
 def stat(slide, box: Box, value: str, label: str, *, kind: str, role="accent-ink", pt=None, label_pt=None,
-         numerals=False, background="paper", name: str, theme=None):
+         numerals=False, background="paper", label_role="ink-muted", name: str, theme=None):
     """A stat: the numeral, a hairline, then the label under it (the hairline sits above the label, a data
     sheet reading, never a coloured left border). kind is required: measured, delivered, illustrative,
     target or benchmark; the last three carry a basis chip so a planning figure never reads as delivered.
@@ -786,7 +804,7 @@ def stat(slide, box: Box, value: str, label: str, *, kind: str, role="accent-ink
     numeral_bold = not numerals
     vparas = _label(value, pt, role, what="stat %s numeral" % name, bold=numeral_bold, face=family)
     vh = measure.line_in(pt, measure.face_for(family, numeral_bold)) * 1.02
-    lparas = _label(label, label_pt, "ink-muted", what="stat %s label" % name, bold=False)
+    lparas = _label(label, label_pt, label_role, what="stat %s label" % name, bold=False)   # paper on a dark band
     lh = _height(lparas, box.w, th)
     txt.check_contrast("stat %s numeral" % name, vparas, th, background)
     txt.check_contrast("stat %s label" % name, lparas, th, background)

@@ -171,6 +171,14 @@ title(s, "Every brief passes four steps before it reaches the field", keywords=(
   active=i)`, `stat(s, box, value, label, kind="measured|delivered|illustrative|target|benchmark")` (it raises
   `Overflows` with the height it needs), `quote(s, box, text, attribution)` (its left bar is the one the rules
   allow), `person(s, box)`.
+- **Composed components** (`from deckkit import compose`; ruling 10, the flagship's devices under the house rules):
+  `icon_cards` (solid brand cards, glyph over head and line), `numbered_rows` (a panel under a solid header band,
+  numbered discs), `stat_band` (near-black band, brand numerals, returns stat names for the manifest),
+  `pressure_band` (solid band, label block, columns), `stage_chain` (chevron header, glyph and lines per step,
+  optional label-value facts, returns its foot), `ladder` (coded levels L0 to L4 rising), `ask_cards` (01 to 04
+  decision cards with chevrons), `milestone_rail` (ringed dots, date and label). Each lays out a whole row or panel
+  in one box and raises `Overflows` with the height it needs. Solid brand and near-black are the strong fills;
+  pastel tint is for large backgrounds only (ruling 12). `scripts/example_epic.py` is the pattern.
 - **Lines**: `hairline(s, p1, p2)` is horizontal or vertical; `connect(s, p1, p2, head="end", dash=None)` is an
   arrow; an undirected diagonal (a hub spoke) is `connect(..., head="none", role="hairline")`, because outside the
   rule roles an undirected line is refused; `elbow(s, points)` routes orthogonally.
@@ -181,7 +189,8 @@ title(s, "Every brief passes four steps before it reaches the field", keywords=(
   under each row. `table()` in `tests/build_golden.py` is the recipe.
 - **Save**: `package.save(prs, out, title=, theme=th, manifest={"numbers": {stat_name: {"value": v, "kind": k}}},
   overwrite=True, date="YYYY-MM-DD")` is deterministic, which gate P21 proves by rebuilding from `deck.json`.
-- **Worked patterns**: `scripts/example_build.py` (offering-pillars and process-flow, all gates green) and
+- **Worked patterns**: `scripts/example_epic.py` (the epic layer: problem-framing, process-flow,
+  layered-architecture), `scripts/example_build.py` (offering-pillars and process-flow, plain kit) and
   `tests/build_golden.py` (seven archetypes, the gates' clean fixture).
 - **Client cut**: a theme JSON in the project, verified against the client's production CSS with the date, then
   `$PY -m deckkit theme check THEME.json` and `theme apply THEME.json DECK.pptx`. Identity colours keep their hue;

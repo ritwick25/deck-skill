@@ -267,6 +267,16 @@ class TestRefusals(unittest.TestCase):
         with self.assertRaises(ThemeInvariant):
             prims.circle(self.s, Box(5, 5, 1, 1), fill=None, line=None, name="nothing")
 
+    def test_compose_components_build_and_refuse(self):
+        from deckkit import compose
+        compose.icon_cards(self.s, Box(0.5, 0.9, 8.0, 1.7), [("bot", "Agent", "Drafts the brief")], name="ic")
+        compose.numbered_rows(self.s, Box(0.5, 2.8, 6.0, 2.4), [("Lead", "One line"), ("Second", "Another line")],
+                              header="Header", header_glyph="clock", name="nr")
+        names = compose.stat_band(self.s, Box(0.5, 5.4, 12.0, 1.4), [("3", "agents", "illustrative")], name="sb")
+        self.assertEqual(names, ["sb.1"])
+        with self.assertRaises(Overflows):
+            compose.icon_cards(self.s, Box(0.5, 0.9, 8.0, 0.5), [("bot", "Agent", "Drafts the brief")], name="tight")
+
     def test_disc_needs_square(self):
         with self.assertRaises(GeometryError):
             prims.disc(self.s, Box(1, 1, 0.5, 0.4), 1, name="d")

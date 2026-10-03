@@ -4,7 +4,8 @@
   * no archetype repeats inside a section, except in a section deck.json declares a "series" (ruling 5):
     a use-case map opens it and every repeated member uses a different variant;
   * at most two slides carrying a table in a row, outside the appendix;
-  * two adjacent slides whose 12 x 7 occupancy grids have a Jaccard of 0.85 or more look alike;
+  * two adjacent slides whose 12 x 7 occupancy grids (each cell marked strong mass or other drawn content) have a
+    Jaccard of 0.85 or more look alike;
   * no family carries more than 40% of the content slides (every family but Frame); one slide of a family is
     always allowed, so a two-slide deck is not failed for its arithmetic.
 Sections are PowerPoint's own (p14:sectionLst), else a section-divider slide opens one, else the deck is one
@@ -46,20 +47,37 @@ def sections(ctx) -> list[tuple[str, list[int]]]:
     return out
 
 
+def _strong(L) -> bool:
+    """A strong fill (dark or saturated): the masses the eye reads first. Dense slides occupy every cell, so the
+    look is told by where the strong masses sit, not by occupancy alone."""
+    f = L.get("fill") or {}
+    h = f.get("hex") if f.get("type") == "solid" else None
+    if not h or len(h) != 6:
+        return False
+    r, g, b = (int(h[k:k + 2], 16) / 255 for k in (0, 2, 4))
+    mx, mn = max(r, g, b), min(r, g, b)
+    lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
+    return lum < 0.45 or (mx > 0 and (mx - mn) / mx >= 0.5 and mx >= 0.5)
+
+
 def occupancy(ctx, i) -> set:
+    """Cells of a 12 x 7 grid, each marked by class: a strong mass, or any other drawn content."""
     cw, ch = ctx.W / COLS, ctx.H / ROWS
     cover = defaultdict(float)
     for L in ctx.slide(i)["shapes"]:
         if not is_drawn(L) or full_bleed(L, ctx) or len(L.get("container_of") or []) >= 3:
             continue
+        cls = "strong" if _strong(L) else "drawn"
         x0, y0, x1, y1 = bx(L)
         for c in range(max(0, int(x0 / cw)), min(COLS, int(x1 / cw) + 1)):
             for r in range(max(0, int(y0 / ch)), min(ROWS, int(y1 / ch) + 1)):
                 ox = min(x1, (c + 1) * cw) - max(x0, c * cw)
                 oy = min(y1, (r + 1) * ch) - max(y0, r * ch)
                 if ox > 0 and oy > 0:
-                    cover[(c, r)] += ox * oy / (cw * ch)
-    return {k for k, v in cover.items() if v >= COVER}
+                    cover[(c, r, cls)] += ox * oy / (cw * ch)
+    cells = {k for k, v in cover.items() if v >= COVER}
+    strong = {(c, r) for c, r, k in cells if k == "strong"}
+    return {(c, r, "strong") for c, r in strong} | {(c, r, "drawn") for c, r, k in cells if (c, r) not in strong}
 
 
 def run(deck, ctx):

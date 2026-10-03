@@ -28,12 +28,12 @@ COVER_LINES = 3          # a slide tagged cover may stack its title on up to thr
 MAX_WORDS, MAX_KEYWORDS, MAX_SHARE = 14, 3, 2
 
 
-def _title(s, i: int):
-    """The slide's title leaf: deckkit.read's pick_title with the cover tier on a cover-like slide, else the shape the
-    kit names "title"."""
+def _title(s, i: int, arch: str | None = None):
+    """The slide's title leaf: deckkit.read's pick_title with the cover tier on a cover-like slide (an untagged one,
+    or one tagged cover: a slide tagged as content is never read as a cover), else the shape the kit names "title"."""
     cw, ch = s["canvas"]["w_in"], s["canvas"]["h_in"]
     wc = s["text"]["words_content"]
-    cover = cover_like(s["shapes"], cw, ch, wc, i, s.get("chrome"))
+    cover = cover_like(s["shapes"], cw, ch, wc, i, s.get("chrome")) if arch in (None, "", "cover") else False
     L, _tier = pick_title(s["shapes"], cw, ch, wc, cover=cover)
     if L is not None and has_text(L):
         return L
@@ -72,7 +72,7 @@ def run(deck, ctx):
 def _slide(ctx, i, ink, openers, out):
     """Every per-slide check, appending to out and recording the title's opener."""
     s = ctx.slide(i)
-    T = _title(s, i)
+    T = _title(s, i, ctx.tags()[i - 1]["archetype"])
     if T is None:
         out.append(Finding(GATE, FAIL, i, "", "no title"))
     else:
