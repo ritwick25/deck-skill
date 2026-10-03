@@ -297,3 +297,39 @@ Google architecture centres and the diagram-craft literature. Notes and spec are
   - no brand-colour edge on logo chips (the left-accent ban);
   - the faint Azure strokes pass only with a label and a corner icon;
   - medallion and threat colours stay off until the user introduces them.
+
+## 2026-10-03 · RULING 22 — One final end-to-end round, bounded (user)
+The user asked for one final review and polish so that the skill produces cutting-edge proposal decks across
+archetypes, representation, styling, charts, component and tech diagrams, and functional and non-functional
+quality. The best reference slides must be used. It must not become a 10-hour job.
+- **Review:** six read-only lenses (docs against code, visual quality, charts, archetype and reference coverage,
+  health, fresh-agent usability), reported to `library/design/final-review/`.
+- **Build:** one parallel round:
+  - the review fixes;
+  - a native chart module;
+  - the remaining device lifts;
+  - the tech diagram types from rulings 20 and 21;
+  - the showcase rebuild.
+- **Verify:** a full gate run, every slide read, and the commit.
+
+## 2026-10-03 · RULING 23 — Self-contained, easy to use, client brand asked for (user)
+- **Self-contained.** The skill must run with no outside folder. Everything a build reads at runtime lives inside the
+  skill: cards, budgets, devices, themes, marks, and the greeked exemplar views and sheets. The raw reference decks
+  and the mining pipeline stay in `~/Codes/Decks-For-Visuals/`.
+  - They are client material (279MB of pptx carrying client names, logos and figures).
+  - Copying them into the skill would widen their distribution with every copy of the skill, against CLAUDE.md §5.
+  - Nothing at runtime needs them.
+  The skill reports the library only as an optional source for re-mining and real renders.
+- **Easy to use.**
+  - `/deck` works anywhere in a prompt; a first word selects the mode (new, slide, edit, review, diagram, chart,
+    brand).
+  - Once loaded, every later iteration in the session goes through the skill, including one slide or one edit.
+  - A scaffolded deck folder carries a short CLAUDE.md, so later sessions in that folder load the skill too.
+- **Light documentation.** A command table at the top of SKILL.md, a short README.md, and the slash-command
+  description.
+- **Client brand intake.** When a deck is for a client and no colour system or logo was given, the skill asks for:
+  - the brand colours (hex, or a website to read them from);
+  - the logo file;
+  - the font.
+  It then builds a client theme (contrast-solved, identity colours kept) and a cover logo lockup. The fallback is the
+  house theme, and it is used only when the user says so.
