@@ -7,7 +7,7 @@ scrubbed, leak-gated layer; nothing else in the library is read except leak/deny
 archetypes.json is what gates P10, P13 and P15 read: family by name, budgets per kit canvas (wide, std), the
 exemplar ids and the greeked sheet path. The wide budget is the library's @norm measure, the one every card cites;
 a std budget is the w10 measure when two or more compact exemplars exist, else the wide budget scaled by the canvas
-area ratio and marked "derived". Advisory floors never exceed half their budget. --check rebuilds in
+area ratio and marked "derived". Advisory floors are the measured p25 (ruling 17). --check rebuilds in
 memory and exits 1 if the published files differ (stale) or any copied text carries a denylisted term.
 """
 from __future__ import annotations
@@ -27,15 +27,14 @@ CEILING = 250
 
 
 def _budget(b: dict | None) -> dict | None:
-    """The measured budget, capped at the ceiling; the advisory floor never above half the budget (a floor near a
-    capped budget would push copy to the ceiling, the opposite of cut-to-the-device)."""
+    """The measured budget, capped at the ceiling; the advisory floor is the exemplars' measured p25 (ruling 2,
+    restored by ruling 17), and only where the ceiling cut the budget below it does the floor drop to 90% of it."""
     if not isinstance(b, dict) or not isinstance(b.get("budget"), (int, float)):
         return None
     budget = min(CEILING, int(b["budget"]))
-    floor = b.get("floor")
-    half = int(math.floor(budget / 2 / 10.0) * 10)
-    if isinstance(floor, (int, float)) and floor > half:
-        floor = half
+    floor = b.get("floor")                      # ruling 2: floor10 of the exemplars' p25 (ruling 17 restored it)
+    if isinstance(floor, (int, float)) and floor > budget:
+        floor = int(math.floor(budget * 0.9 / 10.0) * 10)
     return {"budget": budget, "floor": floor, "n": b.get("n"), "p25": b.get("p25"), "p75": b.get("p75")}
 
 

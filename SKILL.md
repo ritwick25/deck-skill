@@ -128,6 +128,11 @@ geometry, then fit the content.
 Order of work for one slide: tag it, set the title claim, lay the governing device from one grid split, put text
 in measured boxes, connect with points computed from box edges, declare any figure, then gate and look.
 
+**Fill to the measured range.** A content slide carries between its archetype's advisory floor (the exemplars' p25
+of words, `find.py <slug>`) and its budget. A slide under the floor is thin, the gap the reference decks do not
+have: add rows, proof lines, owners, dates, figures and named specifics to the device, never longer sentences, and
+keep card bodies to one or two lines. P13 reports a slide under its floor.
+
 ## Kit
 
 ```python
@@ -176,7 +181,8 @@ title(s, "Every brief passes four steps before it reaches the field", keywords=(
   sanitised and theme-mapped. `devices.place(prs, "DL07", {slot: value}, theme=th)` adds the slide, tags it, and
   fills each named slot in its own box, size, weight, colour and alignment; a value that does not fit raises
   `Overflows` (cut words, never shrink). Text slots take a string or a list of paragraph strings; a title slot takes
-  `(text, keywords)`; a glyph slot takes a glyph name; `None` removes an optional slot. Every slot must be filled: a
+  `(text, keywords)`; a glyph slot takes a glyph name or `vendor:<key>` for an official AWS, Azure or GCP mark
+  (`icons.vendor_keys()`, for example `vendor:aws/ml/bedrock`); `None` removes an optional slot. Every slot must be filled: a
   device's sample copy left on its slide fails P19. Slot names and word capacities are in `devices/devices.json`.
 - **Composed components** (`from deckkit import compose`; ruling 10, the flagship's devices under the house rules):
   `icon_cards` (solid brand cards, glyph over head and line), `numbered_rows` (a panel under a solid header band,

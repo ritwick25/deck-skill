@@ -193,7 +193,13 @@ def place(prs, device_id: str, fill: dict, *, theme, keywords=(), archetype: str
             box = Box(shape.left / EMU, shape.top / EMU, shape.width / EMU, shape.height / EMU)
             role = spec.get("role") if spec.get("role") in ROLES_OK else _glyph_role(shape, theme)
             shape._element.getparent().remove(shape._element)
-            glyph(s, value, box, role=role, shape_name=name, theme=theme)
+            if isinstance(value, str) and value.startswith("vendor:"):       # an official cloud service mark
+                from .icons import vendor
+                side = min(box.w, box.h)
+                vendor(s, value[len("vendor:"):], Box(box.x + (box.w - side) / 2, box.y + (box.h - side) / 2, side,
+                                                      side), name=name, alt=spec.get("alt"), theme=theme)
+            else:
+                glyph(s, value, box, role=role, shape_name=name, theme=theme)
             continue
         if getattr(shape, "has_table", False) and shape.has_table:   # a table slot: rows of cell strings
             tbl = shape.table

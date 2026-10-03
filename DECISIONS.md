@@ -231,3 +231,12 @@ SKILL.draft.md became SKILL.md; the skill triggers in every session.
 `~/.claude/hooks/fingerprints.json`: P17 runs it on slides, the editor hook does not (its `mat-prototype` rule is
 unchanged). A deck quoting the client's own vocabulary grants `P17:dv-maturity` in deck.json with its source.
 Planter `maturity-word`; canary sentence added.
+
+## 2026-10-03 · RULING 17 — Density to the measured range, and a technical section (user)
+The user asked for slightly more content on some slides and for architecture and technical slides. Measured: 16 of
+40 showcase content slides sat under their archetype's exemplar p25 of words (median 135 words). The advisory floor
+returns to ruling 2's measured p25 (the half-budget cap is withdrawn) and SKILL.md asks every content slide to fill
+to its archetype's measured range. The showcase gains a technical section, "How it is built", on the house AWS stack
+with official service marks: cloud reference architecture, agent runtime, data architecture, release pipeline and
+environments, security and access controls, and a signal-to-field API sequence. Device glyph slots take `vendor:`
+keys.
