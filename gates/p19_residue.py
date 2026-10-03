@@ -34,7 +34,8 @@ def _samples():
     for dev in (items.values() if isinstance(items, dict) else items):
         if not isinstance(dev, dict):
             continue
-        ss = {x.strip() for x in dev.get("samples") or [] if isinstance(x, str) and len(x.strip()) >= 6}
+        ss = {x.strip() for x in dev.get("samples") or [] if isinstance(x, str) and len(x.strip()) >= 6
+              and len(x.split()) >= 2}          # a one-word label ("Approach") is ordinary copy, not filler
         per.setdefault(dev.get("variant"), set()).update(ss)
         distinct.update(x for x in ss if len(x.split()) >= DISTINCT_WORDS)
     return per, distinct

@@ -34,6 +34,9 @@ def _title(s, i: int, arch: str | None = None):
     cw, ch = s["canvas"]["w_in"], s["canvas"]["h_in"]
     wc = s["text"]["words_content"]
     cover = cover_like(s["shapes"], cw, ch, wc, i, s.get("chrome")) if arch in (None, "", "cover") else False
+    named = next((L for L in s["shapes"] if L["name"] == "title" and has_text(L)), None)
+    if named is not None and not cover:     # on a content slide the kit's named title wins over a large stat near
+        return named                        # the top; a cover is read visually (a renamed title cannot hide there)
     L, _tier = pick_title(s["shapes"], cw, ch, wc, cover=cover)
     if L is not None and has_text(L):
         return L

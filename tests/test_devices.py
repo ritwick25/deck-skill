@@ -53,6 +53,41 @@ class TestPlace(unittest.TestCase):
         s = devices.place(self.prs, "DL01", fill, theme=self.th)
         self.assertTrue(any(x in self._text(s) for x in self.e["samples"] if len(x) >= 8))
 
+    def test_every_device_places_with_plain_fills(self):
+        """Every library device places with plain strings in every slot: roles, grounds, glyph colours, anchors,
+        group and table slots resolve without a contrast or fit error the device itself does not have."""
+        from deckkit.geom import find
+        lib = Presentation(str(devices.PPTX))
+        bad = []
+        for e in devices.catalogue():
+            src = lib.slides[e["index"] - 1]
+            fill = {}
+            for sl in e["slots"]:
+                sh = find(src, sl["name"])
+                if sl["kind"] == "glyph":
+                    fill[sl["name"]] = "check"
+                elif sl["kind"] == "title":
+                    fill[sl["name"]] = ("Two decisions start the build", ("Two decisions",))
+                elif sh.shape_type == 6:
+                    stack, kids = list(sh.shapes), 0
+                    while stack:
+                        x = stack.pop()
+                        if x.shape_type == 6:
+                            stack.extend(x.shapes)
+                        elif x.has_text_frame and x.text_frame.text.strip():
+                            kids += 1
+                    fill[sl["name"]] = ["1"] * kids
+                elif getattr(sh, "has_table", False) and sh.has_table:
+                    fill[sl["name"]] = [["1"] * len(sh.table.columns) for _ in sh.table.rows]
+                else:
+                    fill[sl["name"]] = "1" if (sl.get("max_words") or 2) <= 1 else "Ab"
+            prs = Presentation(str(SKILL / "kit" / "assets" / "base-wide.pptx"))
+            try:
+                devices.place(prs, e["id"], fill, theme=self.th)
+            except Exception as x:
+                bad.append("%s %s: %s" % (e["id"], type(x).__name__, str(x)[:120]))
+        self.assertEqual(bad, [])
+
     def test_unknown_slot_refused(self):
         with self.assertRaises(GeometryError):
             devices.place(self.prs, "DL01", {"slot.nope": "x"}, theme=self.th)

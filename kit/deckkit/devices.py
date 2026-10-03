@@ -51,26 +51,113 @@ def _entry(device_id: str) -> dict:
                         have=", ".join(e["id"] for e in catalogue()) or "no library")
 
 
+def _clr_key(clr):
+    """A schemeClr's identity: its slot and its lumMod/lumOff values, never its serialised XML (whose inherited
+    namespace declarations differ between a placed shape and a theme spec)."""
+    if clr is None:
+        return None
+    return (clr.get("val"), tuple(sorted((c.tag.split("}")[-1], c.get("val")) for c in clr)))
+
+
+def _role_of(clr, theme, roles) -> str | None:
+    """The role a colour element is: an exact schemeClr match, else (a raw srgbClr) the nearest role by RGB."""
+    if clr is None:
+        return None
+    if clr.tag.endswith("srgbClr") and clr.get("val"):
+        h = clr.get("val").upper()
+        rgb = [int(h[i:i + 2], 16) for i in (0, 2, 4)]
+
+        def dist(r):
+            t = theme.hex(r)
+            return sum((a - int(t[i:i + 2], 16)) ** 2 for a, i in zip(rgb, (0, 2, 4)))
+        return min(roles, key=dist)
+    k = _clr_key(clr)
+    for r in roles:
+        if _clr_key(theme.spec(r)) == k:
+            return r
+    return None
+
+
 def _para_styles(shape, theme) -> list[tuple]:
-    """(size, bold, role) of each existing paragraph's first run, so a refill keeps the device's type per line."""
-    from lxml import etree
-    specs = {etree.tostring(theme.spec(r)): r for r in ("ink-deep", "ink", "ink-strong", "ink-muted", "accent-ink",
-                                                        "on-accent", "navy")}
+    """(size, bold, role, align, space_before) of each existing paragraph's first run, so a refill keeps the
+    device's type, colour, alignment and rhythm line by line."""
     out = []
-    for p in shape._element.iter(qn("a:p")):
+    root = shape._element if hasattr(shape, "_element") else shape._tc
+    for p in root.iter(qn("a:p")):
         r = p.find(qn("a:r"))
         rpr = r.find(qn("a:rPr")) if r is not None else None
         if rpr is None:
             continue
         size = int(rpr.get("sz")) / 100.0 if rpr.get("sz") else None
         bold = rpr.get("b") in ("1", "true")
-        clr = rpr.find(qn("a:solidFill") + "/" + qn("a:schemeClr"))
-        role = specs.get(etree.tostring(clr), "ink") if clr is not None else "ink"
+        sf = rpr.find(qn("a:solidFill"))
+        clr = sf[0] if sf is not None and len(sf) else None
+        role = _role_of(clr, theme, TEXT_ROLES_OK) or "ink"
         ppr = p.find(qn("a:pPr"))
         align = {"ctr": "center", "r": "right", "just": "justify"}.get(ppr.get("algn") if ppr is not None else None,
                                                                       "left")
-        out.append((size, bold, role, align))
-    return out or [(None, False, "ink", "left")]
+        sb = ppr.find(qn("a:spcBef") + "/" + qn("a:spcPts")) if ppr is not None else None
+        out.append((size, bold, role, align, int(sb.get("val")) / 100.0 if sb is not None else None))
+    return out or [(None, False, "ink", "left", None)]
+
+
+def _walk(shapes):
+    for sh in shapes:
+        yield sh
+        if sh.shape_type == 6:
+            yield from _walk(sh.shapes)
+
+
+def _fill_role(sh, theme) -> str | None:
+    if hasattr(sh, "_tc"):                                      # a table cell
+        sf = sh._tc.find(qn("a:tcPr") + "/" + qn("a:solidFill"))
+    else:
+        sf = sh._element.find(qn("p:spPr") + "/" + qn("a:solidFill"))
+    clr = sf[0] if sf is not None and len(sf) else None
+    return _role_of(clr, theme, ROLES_OK) if clr is not None else None
+
+
+def _backdrop(slide, shape, theme) -> str:
+    """The fill a slot's text sits on: its own solid fill, else the smallest filled shape under its centre."""
+    own = _fill_role(shape, theme)
+    if own:
+        return own
+    from .geom import abs_box
+    g = abs_box(shape)                                 # absolute: group children report group-space positions
+    x0, y0, x1, y1 = g.x, g.y, g.x + g.w, g.y + g.h
+    area = max(1e-6, (x1 - x0) * (y1 - y0))
+    order = {sh.shape_id: i for i, sh in enumerate(_walk(slide.shapes))}   # paint order by shape id (lxml proxy
+    me = order.get(shape.shape_id, 10 ** 9)                                  # ids are not stable)
+    best = None
+    for sh in _walk(slide.shapes):
+        i = order.get(sh.shape_id, 0)
+        if sh is shape or sh.shape_type == 6 or i > me:
+            continue                                   # only what is painted behind the slot can be its ground
+        b = abs_box(sh)
+        ix = max(0.0, min(x1, b.x + b.w) - max(x0, b.x))
+        iy = max(0.0, min(y1, b.y + b.h) - max(y0, b.y))
+        if ix * iy < 0.6 * area:                       # a marker beside the text is not its ground
+            continue
+        r = _fill_role(sh, theme)
+        if r and (best is None or i > best[0]):         # the topmost such fill is what the text is read against
+            best = (i, r)
+    return best[1] if best else "paper"
+
+
+def _glyph_role(shape, theme) -> str:
+    """The colour a device drew its glyph in (its first line or fill role), so an icon on a brand fill stays visible."""
+    for path in (qn("a:ln") + "/" + qn("a:solidFill") + "/" + qn("a:schemeClr"),
+                 qn("a:solidFill") + "/" + qn("a:schemeClr")):
+        el = shape._element.find(".//" + path)
+        r = _role_of(el, theme, ROLES_OK) if el is not None else None
+        if r:
+            return r
+    return "accent"
+
+
+def _anchor(shape) -> str:
+    bp = shape._element.find(".//" + qn("a:bodyPr"))
+    return {"ctr": "middle", "b": "bottom"}.get(bp.get("anchor") if bp is not None else None, "top")
 
 
 def insets_of(shape):
@@ -104,15 +191,46 @@ def place(prs, device_id: str, fill: dict, *, theme, keywords=(), archetype: str
             continue
         if spec.get("kind") == "glyph":
             box = Box(shape.left / EMU, shape.top / EMU, shape.width / EMU, shape.height / EMU)
-            role = spec.get("role") if spec.get("role") in ROLES_OK else "accent"
+            role = spec.get("role") if spec.get("role") in ROLES_OK else _glyph_role(shape, theme)
             shape._element.getparent().remove(shape._element)
             glyph(s, value, box, role=role, shape_name=name, theme=theme)
             continue
+        if getattr(shape, "has_table", False) and shape.has_table:   # a table slot: rows of cell strings
+            tbl = shape.table
+            rows = list(value)
+            if len(rows) > len(tbl.rows) or any(len(r) > len(tbl.columns) for r in rows):
+                raise GeometryError("device %s table slot %s" % (device_id, name),
+                                    need="at most %d x %d cells" % (len(tbl.rows), len(tbl.columns)),
+                                    have="%d rows" % len(rows))
+            for ri, row in enumerate(rows):
+                for ci, v in enumerate(row):
+                    cell = tbl.cell(ri, ci)
+                    st = _para_styles(cell, theme)[0]
+                    para = txt.Para((txt.Run(str(v), st[2], bold=st[1], size=st[0]),), align=st[3])
+                    txt.write(cell.text_frame, [para], theme, size=st[0], anchor="middle",
+                              background=_fill_role(cell, theme) or "paper")
+            continue
+        if shape.shape_type == 6:                       # a group slot (a figure with its label): fill its text
+            kids = sorted((k for k in _walk(shape.shapes) if k.has_text_frame and k.text_frame.text.strip()),
+                          key=lambda k: (k.top, k.left))
+            vals = [value] if isinstance(value, str) else list(value)
+            if len(vals) != len(kids):
+                raise GeometryError("device %s group slot %s" % (device_id, name), need="%d values" % len(kids),
+                                    have=len(vals), hint="one value per text in the group, top to bottom")
+            kid_spec = {k2: v2 for k2, v2 in spec.items() if k2 not in ("background", "role", "anchor")}
+            for k, v in zip(kids, vals):                # each child reads its own ground, colour and anchor
+                _fill_text(s, k, [v], kid_spec, theme, device_id, name)
+            continue
+        _fill_text(s, shape, value, spec, theme, device_id, name, keywords)
+    return s
+
+
+def _fill_text(s, shape, value, spec, theme, device_id, name, keywords=()):
         styles = _para_styles(shape, theme)
         size = styles[0][0]
         if spec.get("kind") == "title":
-            styles = [(st[0], st[1], st[2], "left") for st in styles]
-        bg = spec.get("background", "paper")
+            styles = [(st[0], st[1], st[2], "left", st[4]) for st in styles]
+        bg = spec.get("background") if spec.get("background") in ROLES_OK else _backdrop(s, shape, theme)
         if spec.get("kind") == "title":
             text_, kws = value if isinstance(value, tuple) else (value, keywords)
             paras = [txt.Para(txt.title_runs(text_, kws))]
@@ -120,14 +238,22 @@ def place(prs, device_id: str, fill: dict, *, theme, keywords=(), archetype: str
             vals = [value] if isinstance(value, str) else list(value)
             paras = []
             for i, v in enumerate(vals):
-                sz, bd, rl, al = styles[min(i, len(styles) - 1)]
+                sz, bd, rl, al, sb = styles[min(i, len(styles) - 1)]
                 want = spec.get("role") if spec.get("role") in TEXT_ROLES_OK else None
                 paras.append(txt.Para((txt.Run(v, want or rl, bold=bd, size=sz or size),), align=al,
-                                      space_before=0 if i == 0 else 3))
+                                      space_before=0 if i == 0 else (sb if sb is not None else 3)))
         else:
             paras = list(value)
-        box = Box(shape.left / EMU, shape.top / EMU, shape.width / EMU, shape.height / EMU)
+        from .geom import abs_box
+        ab = abs_box(shape)
+        # the fit is judged on the frame's own sides (a rotated axis label paints a thin box but reads along its length)
+        box = Box(ab.x, ab.y, ab.frame_w, ab.frame_h) if ab.frame_w > 0 else Box(
+            shape.left / EMU, shape.top / EMU, shape.width / EMU, shape.height / EMU)
         ins = insets_of(shape)
-        txt.check_fit("device %s slot %s" % (device_id, name), paras, box, theme, ins, size=size)
-        txt.write(shape.text_frame, paras, theme, ins, size=size, anchor=spec.get("anchor", "top"), background=bg)
-    return s
+        try:
+            txt.check_fit("device %s slot %s" % (device_id, name), paras, box, theme, ins, size=size)
+        except Exception as x:                       # a hair over at the device's own size is rounding, not overflow
+            if not (hasattr(x, "need") and hasattr(x, "have") and float(x.need) - float(x.have) <= 0.01):
+                raise
+        txt.write(shape.text_frame, paras, theme, ins, size=size, anchor=spec.get("anchor") or _anchor(shape),
+                  background=bg)

@@ -842,12 +842,6 @@
      "purpose": "forum"
     },
     {
-     "name": "slot.forum.1.day.R.C",
-     "kind": "text",
-     "max_words": 0,
-     "purpose": "meeting-day fill (accent when the forum meets, hairline otherwise), 4 weeks x 7 days"
-    },
-    {
      "name": "slot.forum.1.cadence",
      "kind": "text",
      "max_words": 3,
@@ -901,12 +895,6 @@
      "max_words": 2,
      "background": "accent",
      "purpose": "forum"
-    },
-    {
-     "name": "slot.forum.2.day.R.C",
-     "kind": "text",
-     "max_words": 0,
-     "purpose": "meeting-day fill (accent when the forum meets, hairline otherwise), 4 weeks x 7 days"
     },
     {
      "name": "slot.forum.2.cadence",
@@ -964,12 +952,6 @@
      "purpose": "forum"
     },
     {
-     "name": "slot.forum.3.day.R.C",
-     "kind": "text",
-     "max_words": 0,
-     "purpose": "meeting-day fill (accent when the forum meets, hairline otherwise), 4 weeks x 7 days"
-    },
-    {
      "name": "slot.forum.3.cadence",
      "kind": "text",
      "max_words": 3,
@@ -1023,12 +1005,6 @@
      "max_words": 2,
      "background": "accent",
      "purpose": "forum"
-    },
-    {
-     "name": "slot.forum.4.day.R.C",
-     "kind": "text",
-     "max_words": 0,
-     "purpose": "meeting-day fill (accent when the forum meets, hairline otherwise), 4 weeks x 7 days"
     },
     {
      "name": "slot.forum.4.cadence",
@@ -1262,6 +1238,7 @@
     "One shared risk and action log",
     "Workstream lead"
    ],
+   "slot_notes": "dropped 4 slot names with no shape: slot.forum.1.day.R.C, slot.forum.2.day.R.C, slot.forum.3.day.R.C, slot.forum.4.day.R.C",
    "index": 4
   },
   "DL05": {

@@ -204,3 +204,21 @@ about 5M tokens after step 2 ran 2.8M against a 1M estimate.
 - **Slot roles.** Agents used a slot's `role` for its purpose; the assembler moves any value that is not a theme
   role to `purpose`, and `devices.place` keeps each paragraph's own size, weight, colour role and alignment.
 - Token cost: device agents about 4.5M (31 at about 145K each), the pilot 0.12M.
+
+## 2026-10-03 · Showcase acceptance build (step 4 of ruling 10)
+- 49 slides, all 45 archetypes, built by nine agents on one canon (`acceptance/showcase/canon.json`): 22 slides
+  place a library device, 27 are composed. The assembled deck passes all 25 implemented gates, P15 variety and P21
+  determinism included; a canon sweep finds every price, date and count consistent.
+- **devices.place fixed** for what every agent hit: colours match by scheme slot and lumMod/lumOff (serialised
+  XML carried namespace declarations, so every run read back as ink); a raw RGB colour maps to its nearest role; a
+  slot's ground is the topmost fill painted behind it covering 60% of its box, in absolute geometry, by shape id
+  (lxml proxy ids are not stable); glyph slots keep the device's colour; anchors and paragraph spacing are kept;
+  group slots take one value per text; table slots take rows of cells; rotated slots fit on their frame sides. Test:
+  every library device places with plain fills in every slot (`tests/test_devices.py`).
+- **P14** reads the kit's named `title` on a content slide (a 28pt stat near the top was taken for the title); a
+  cover is still read visually (the `cover-tier-title` plant still fails).
+- **P19** ignores one-word device samples ("Approach" is ordinary copy).
+- **Open finding (not acted on):** P17 does not load the hook's maturity tier, and `mat-prototype` covers
+  prototype and POC but not demo or alpha, which CLAUDE.md §4 also bans for the firm's own maturity. A "Live demo"
+  pill passed every gate; caught by reading the render. The fix is in the global hook, so it is the user's call.
+- Token cost: showcase agents about 1.8M.

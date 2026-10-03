@@ -64,6 +64,18 @@ def main() -> int:
     out = {}
     for i, (e, pp) in enumerate(entries, 1):
         src = Presentation(str(pp)).slides[0]
+        names = set()
+        stack = list(src.shapes)
+        while stack:
+            sh = stack.pop()
+            names.add(sh.name)
+            if sh.shape_type == 6:
+                stack.extend(sh.shapes)
+        missing = [sl["name"] for sl in e["slots"] if sl["name"] not in names]
+        if missing:                                   # a templated or stale slot name: drop it, say so
+            e["slots"] = [sl for sl in e["slots"] if sl["name"] in names]
+            e["slot_notes"] = "dropped %d slot names with no shape: %s" % (len(missing), ", ".join(missing[:4]))
+            print("NOTE %s %s" % (e["id"], e["slot_notes"]))
         s = prs.slides.add_slide(prs.slide_layouts[0])
         copy_shapes(src, s, strip=DEVICE_STRIP)
         tag.tag(s, e["archetypes"][0], e["variant"])
