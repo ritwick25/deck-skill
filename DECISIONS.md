@@ -454,3 +454,14 @@ quality. The best reference slides must be used. It must not become a 10-hour jo
   archetype the device does not list; `brand.py` accepts a client colour close to a status colour.
 - **Verified:** 544 unit tests OK; 179 negatives behave, 27/27 gates covered; selftest OK; build_archetypes --check
   OK; all eight example decks and the showcase pass all 27 implemented gates; source decks untouched.
+
+## 2026-10-04 · RULING 24 — The showcase deck lives in the skill as a copy plus a slide index (user)
+- The user chose "copy plus slide index" over moving the whole build in or copying the deck alone.
+- `showcase/showcase.pptx` is a copy of the library's acceptance build; `showcase/index.json` maps every slide to its
+  section, title, archetype, variant, family, library device and the code that drew it (a skill example function, or
+  the acceptance build's part function); `showcase/sheets/` holds 4-up renders. `scripts/sync_showcase.py` writes all
+  three; the build stays in `~/Codes/Decks-For-Visuals/acceptance/showcase/`.
+- Selftest fails when the copy differs from the sha256 its index records, when a sheet is missing, or, with the
+  library present, when the library's build has moved on (proved by corrupting the recorded hash).
+- SKILL.md step 7 reuses the showcase slide of the same archetype or diagram type before placing a device or
+  composing from scratch.

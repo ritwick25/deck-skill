@@ -88,8 +88,9 @@ Shell variables do not survive between Bash calls: repeat the two lines, or writ
 7. **Build** in `build.py`. A new deck starts from `$PY $K/scripts/new_deck.py FOLDER --name "Name" [--theme
    brand/theme.json]`: `deck.json`, a `CLAUDE.md` that sends later sessions here, and a three-slide `build.py` in the
    epic layer whose every word is a `{{placeholder}}` gate P19 refuses until replaced. In order of preference: clone
-   the deck's own accepted slide and retext it (EXTEND); place a library device; compose from the card with the kit.
-   Never clone a raw reference slide.
+   the deck's own accepted slide and retext it (EXTEND); reuse the showcase slide of the same archetype or diagram
+   type (`showcase/index.json` names the code that drew it, `showcase/sheets/` shows it); place a library device;
+   compose from the card with the kit. Never clone a raw reference slide.
 8. **Gate**: `$PY $K/gates/run_all.py --deck OUT.pptx` must exit 0. An advisory count in P13's detail column is a
    slide under its archetype's floor: fill it with rows, owners, dates, figures and named specifics, never longer
    sentences.
@@ -229,8 +230,7 @@ needs, `GeometryError`, `ThemeInvariant`, `BelowFloor`) instead of shrinking or 
   brand's hex).
 - **Colour, ruling 12**: solid brand bands and cards, near-black stat and header panels, light slide ground. Pastel
   `accent-tint` and `accent-wash` are for large backgrounds only: a tinted shape under 4 sq in fails P16 unless named
-  `state.*`. `references/design-system.md` is published from the library and predates this ruling in four places
-  (two card treatments, no dark panel, brand-tint callouts, brand-colour header tabs): this bullet wins.
+  `state.*`. `references/design-system.md` carries the same rule.
 - **Text**: `textbox(slide, box, [Para((Run(text, role, bold=, size=),), space_before=)], name, th,
   background=fill_role, anchor="top"|"middle"|"bottom")` measures and refuses overflow, the floor and low contrast;
   pass the role of the fill the text sits on as `background`. `title()` is one line, 14 words, 21pt, 0 to 3 keywords
@@ -364,7 +364,7 @@ $PY $K/scripts/selftest.py                                # after editing skill 
 | File | Read it when |
 |---|---|
 | `references/storylines.md` | choosing the deck's order (proposal, POV, RFP and RFI response, capability, workshop) |
-| `references/design-system.md` | setting grid, type scale, colour roles, cards, radius, lines, connectors, icons (ruling 12 wins over it, see Kit) |
+| `references/design-system.md` | setting grid, type scale, colour roles, cards, radius, lines, connectors, icons |
 | `references/tech-diagrams.md` | drawing any architecture or technical diagram |
 | `references/charts.md` | drawing any chart, KPI bar or share ring |
 | `references/devices.md` | a card cites `dvNN` |
@@ -372,7 +372,8 @@ $PY $K/scripts/selftest.py                                # after editing skill 
 | `references/rules.md` | a gate fails, or before a review |
 | `references/copy.md` | writing titles, card bodies, numbers and notes |
 | `references/library.md` | looking at exemplars, cloning the user's own decks, refreshing from the library |
-| `DECISIONS.md` | why the skill is the way it is (rulings 1 to 23, newest last) |
+| `showcase/index.json` | before building a slide: the accepted 65-slide showcase, each slide's archetype, variant, device, code and sheet (ruling 24) |
+| `DECISIONS.md` | why the skill is the way it is (rulings 1 to 24, newest last) |
 
 ## Not built
 

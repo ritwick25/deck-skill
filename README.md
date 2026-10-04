@@ -36,6 +36,7 @@ or one edit, without typing it again. After a context compaction, type it once m
 | `SKILL.md` | Commands, procedure, brand intake, the archetype, diagram and chart choosers, the kit API |
 | `archetypes/` | 45 cards in 10 families and `archetypes.json` (budgets, floors, exemplars) |
 | `refs/` | The greeked reference pack: 45 contact sheets, 249 exemplar views, `catalog.json` |
+| `showcase/` | The accepted 65-slide showcase deck, `index.json` (archetype, variant, device and code per slide) and 4-up `sheets/`; refresh with `scripts/sync_showcase.py` |
 | `devices/` | 44 sanitised native devices (DL01 to DL30, DL32 to DL45), `devices.json`, renders |
 | `themes/` | House themes `sigmoid` and `neutral` (client themes live in the deck's folder) |
 | `kit/deckkit/` | Theme roles, primitives, text, compose, exhibits, tables, charts, glyphs, marks, diagram engines |

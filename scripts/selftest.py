@@ -16,6 +16,8 @@
     a pale or tint panel); only the slide ground goes light
   * self-contained: no runtime code names a path under ~/Codes except paths.LIB_DEFAULT, which DECISIONS.md documents;
     archetypes.json carries no absolute path
+  * ruling 24: showcase/ holds the showcase deck, its index and one sheet per four slides, the deck matches the sha256
+    the index records, and, when the library is present, the copy matches the library's build
 """
 from __future__ import annotations
 
@@ -143,6 +145,8 @@ def main() -> int:
     for s in sorted(set(arch) - chooser):
         fails.append("archetype %s is missing from the chooser" % s)
     fails += pack_failures(arch)
+    import sync_showcase
+    fails += sync_showcase.check()
     fails += pastel_rows()
     fails += outside_paths()
     for ref in set(re.findall(r"`(references/[a-z-]+\.md)`", text)):

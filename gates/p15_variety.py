@@ -67,7 +67,7 @@ def divider_title(ctx, i) -> str:
     texts = [(L.get("name") or "", " ".join(((L.get("text") or {}).get("text") or "").split()))
              for L in ctx.slide(i)["shapes"]]
     texts = [(n, t) for n, t in texts if t]
-    named = [t for n, t in texts if n in ("title", "slot.title")]
+    named = [t for n, t in texts if n in ("title", "slot.title", "slot.headline")]
     return (named or sorted((t for _, t in texts), key=lambda t: -len(t.split())) or [""])[0]
 
 

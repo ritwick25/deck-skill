@@ -123,7 +123,7 @@ class SelftestFires(unittest.TestCase):
         cls.tmp = tempfile.TemporaryDirectory(prefix="deck-skill-copy-")
         cls.root = Path(cls.tmp.name) / "deck"
         ign = shutil.ignore_patterns("__pycache__", "*.pyc", "out", "work", "renders")
-        for d in ("scripts", "archetypes", "references", "themes", "kit", "gates", "refs"):
+        for d in ("scripts", "archetypes", "references", "themes", "kit", "gates", "refs", "showcase"):
             shutil.copytree(SKILL / d, cls.root / d, ignore=ign)
         (cls.root / "devices").mkdir()
         shutil.copy(SKILL / "devices" / "devices.json", cls.root / "devices" / "devices.json")
@@ -140,6 +140,18 @@ class SelftestFires(unittest.TestCase):
     def test_copy_passes(self):
         r = self.selftest()
         self.assertEqual(r.returncode, 0, r.stdout)
+
+    def test_stale_showcase(self):
+        """Ruling 24: a showcase copy that no longer matches its index fails selftest."""
+        d = self.root / "showcase" / "showcase.pptx"
+        keep = d.read_bytes()
+        d.write_bytes(keep + b"x")
+        try:
+            r = self.selftest()
+            self.assertEqual(r.returncode, 1)
+            self.assertIn("showcase/showcase.pptx differs from the sha256 its index records", r.stdout)
+        finally:
+            d.write_bytes(keep)
 
     def test_missing_view(self):
         v = self.root / "refs" / "views" / "d01-s053.jpg"
