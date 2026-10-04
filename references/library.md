@@ -47,7 +47,8 @@ at runtime needs it; when it is absent every library-only command prints UNAVAIL
 ## Refreshing the skill from the library
 
 ```bash
-PY=/Library/Frameworks/Python.framework/Versions/3.14/bin/python3
+PY=${DECK_PYTHON:-/Library/Frameworks/Python.framework/Versions/3.14/bin/python3}
+[ -x "$PY" ] || PY=python3                     # another machine: its own python3, or set DECK_PYTHON
 $PY ~/Codes/Decks-For-Visuals/library/tools/export.py         # rebuild the scrubbed export
 $PY ~/.claude/skills/deck/scripts/build_archetypes.py          # republish cards, budgets, references and refs/
 $PY ~/.claude/skills/deck/scripts/build_archetypes.py --pack   # refs/ only

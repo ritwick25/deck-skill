@@ -30,7 +30,8 @@ Request: $ARGUMENTS
 ## Setup
 
 ```bash
-PY=/Library/Frameworks/Python.framework/Versions/3.14/bin/python3
+PY=${DECK_PYTHON:-/Library/Frameworks/Python.framework/Versions/3.14/bin/python3}
+[ -x "$PY" ] || PY=python3                     # another machine: its own python3, or set DECK_PYTHON
 K=${CLAUDE_SKILL_DIR}                          # filled in by Claude Code
 [ -d "$K/kit" ] || K=~/.claude/skills/deck     # the default home, when this file is read raw
 ```
@@ -39,7 +40,8 @@ Shell variables do not survive between Bash calls: repeat the two lines, or writ
 
 ## Standing rules
 
-- `~/.claude/CLAUDE.md` §3, §4, §6 and §8 are the authority; where this skill disagrees, CLAUDE.md wins. A project's
+- `~/.claude/CLAUDE.md` §3, §4, §6 and §8 are the authority; where this skill disagrees, CLAUDE.md wins. On a
+  machine whose CLAUDE.md has no such sections, `references/rules.md` and this file are the authority. A project's
   `DECISIONS.md`, `DESIGN.md`, `CANON.md` or `deck.json` wins inside that project when it names its source. The pptx
   skill keeps file mechanics only. Read the `dataviz` skill before any chart.
 - `build.py` is the source of truth. Never hand-edit a built pptx: change the build and rebuild (gate P21).

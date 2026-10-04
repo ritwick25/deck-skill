@@ -36,6 +36,7 @@ or one edit, without typing it again. After a context compaction, type it once m
 | `SKILL.md` | Commands, procedure, brand intake, the archetype, diagram and chart choosers, the kit API |
 | `archetypes/` | 45 cards in 10 families and `archetypes.json` (budgets, floors, exemplars) |
 | `refs/` | The greeked reference pack: 45 contact sheets, 249 exemplar views, `catalog.json` |
+| `how-to-use-deck.pdf` | One page: five ways to use `/deck`, with an example prompt each (source `docs/how-to-use.html`) |
 | `showcase/` | The accepted 65-slide showcase deck, `index.json` (archetype, variant, device and code per slide) and 4-up `sheets/`; refresh with `scripts/sync_showcase.py` |
 | `devices/` | 44 sanitised native devices (DL01 to DL30, DL32 to DL45), `devices.json`, renders |
 | `themes/` | House themes `sigmoid` and `neutral` (client themes live in the deck's folder) |
@@ -45,12 +46,27 @@ or one edit, without typing it again. After a context compaction, type it once m
 | `references/` | Rules, design system, tech diagrams, charts, devices, copy, storylines, the library |
 | `DECISIONS.md` | Every ruling, dated, newest last |
 
+## Setup on another machine
+
+1. Unzip or clone into `~/.claude/skills/`, so this folder is `~/.claude/skills/deck`.
+2. Python 3 (built and tested on 3.14) with `pip install python-pptx lxml pillow diagrams==0.25.1`. The AWS and Azure
+   icons come from `diagrams` and are verified byte for byte, so keep that version. `playwright` is needed only to
+   capture product screens.
+3. LibreOffice, poppler and librsvg for rendering: `brew install --cask libreoffice`, `brew install poppler librsvg`.
+4. Anthropic's document-skills plugin, whose pptx XSD validator gate P12 uses: in Claude Code,
+   `/plugin marketplace add anthropics/skills`, then `/plugin install document-skills@anthropic-agent-skills`. Or set
+   `DECK_PPTX_VALIDATOR` to any copy of `pptx/scripts/office/validate.py`.
+5. `DECK_PYTHON` picks the interpreter when it is not the house one. The banned-words list is read from
+   `~/.claude/hooks/fingerprints.json` when that file exists, else from the copy in `kit/assets/`.
+6. `python3 scripts/selftest.py` ends with `OK selftest`.
+
 ## Tests and checks
 
 ```bash
-PY=/Library/Frameworks/Python.framework/Versions/3.14/bin/python3
+PY=${DECK_PYTHON:-/Library/Frameworks/Python.framework/Versions/3.14/bin/python3}
+[ -x "$PY" ] || PY=python3                     # another machine: its own python3, or set DECK_PYTHON
 cd ~/.claude/skills/deck
-$PY -m unittest discover -s tests -t .      # the unit suite (about 540 tests, a few minutes)
+$PY -m unittest discover -s tests -t .      # the unit suite (about 545 tests, a few minutes)
 $PY gates/run_all.py --negatives            # every gate fails on its own planted breakage
 $PY gates/run_all.py --deck X.pptx          # gate one deck
 $PY scripts/selftest.py                     # frontmatter, chooser, reference pack, name scan, self-containment
@@ -67,4 +83,4 @@ The raw reference decks and the mining pipeline stay in the library (`DECK_LIBRA
 ## House rules
 
 `~/.claude/CLAUDE.md` sections 3, 4, 6 and 8 govern every slide and win over this skill. `references/rules.md` maps
-each rule to its gate.
+each rule to its gate, and is the authority on a machine whose CLAUDE.md has no such sections.

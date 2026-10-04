@@ -1,6 +1,7 @@
 """P17 fingerprints: no banned glyph, word, phrase, structural tell, jargon or deck-voice pattern on glass.
 
-The patterns are loaded in-process from the one home, ~/.claude/hooks/fingerprints.json, never copied:
+The patterns are loaded in-process from the one home, ~/.claude/hooks/fingerprints.json; on a machine without it, from
+the byte-identical copy bundled in kit/assets, which selftest holds equal to the home file wherever that file exists:
 tiers glyph, phrase, structural, word-core, word-strong, word-sales (minus sal-harness, a SharePoint-only
 ban), jargon, and the opt-in deck-voice tier (first and second person, "Al" typed for "AI", placeholders,
 semicolons). Before any slide is read the canary fires: one sentence per dependency (every tier above, and the

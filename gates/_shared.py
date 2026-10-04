@@ -45,7 +45,9 @@ from deckkit.read.ns import A, P, local  # noqa: E402
 from deckkit.read.zones import contains, is_rect_like  # noqa: E402
 
 DEFAULT_REFS = SKILL / "devices" / "refs"
-DEFAULT_FINGERPRINTS = Path(os.path.expanduser("~/.claude/hooks/fingerprints.json"))
+DEFAULT_FINGERPRINTS = Path(os.path.expanduser("~/.claude/hooks/fingerprints.json"))   # the one home
+if not DEFAULT_FINGERPRINTS.is_file():                  # elsewhere, the copy bundled with the skill (selftest holds it)
+    DEFAULT_FINGERPRINTS = SKILL / "kit" / "assets" / "fingerprints.json"
 ARCHETYPES_JSON = SKILL / "archetypes" / "archetypes.json"
 FAMILIES_JSON = GATES_DIR / "families.json"
 DEVICES_JSON = SKILL / "devices" / "devices.json"

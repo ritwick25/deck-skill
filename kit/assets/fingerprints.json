@@ -1,0 +1,364 @@
+{
+  "_comment": "Single source of truth for the AI-fingerprint ban. Other checks should delegate to this file rather than re-implementing the patterns, which is how one gate ended up flagging its own detector regex. Merged from six independent lists across the workspace; no two of them agreed.",
+  "_scope": "Applies to client-facing prose only. Internal context files (CLAUDE.md, AGENTS.md, MEMORY.md, the repo-as-truth doc set) are exempt by four independent sources. Style rules run on rendered prose with code stripped, because an arrow function in JavaScript is syntax, not an em dash in a sentence.",
+  "exempt_filenames": [
+    "CLAUDE.md",
+    "CLAUDE.local.md",
+    "AGENTS.md",
+    "MEMORY.md",
+    "DECISIONS.md",
+    "PROGRESS.md",
+    "TESTING.md",
+    "PROMPTS.md",
+    "FEEDBACK.md",
+    "MILESTONES.md",
+    "PRD.md",
+    "ARCHITECTURE.md",
+    "STYLE_GUIDE.md",
+    "fingerprints.json",
+    "check_fingerprints.py",
+    "PROMPTING-NOTES.md"
+  ],
+  "exempt_path_fragments": [
+    "/memory/",
+    "/.claude/",
+    "/node_modules/",
+    "/.venv/",
+    "/venv/",
+    "/.git/",
+    "/plans/",
+    "/scratchpad/",
+    "/site-packages/",
+    "/.next/",
+    "/dist/",
+    "/build/",
+    "/anonymisation",
+    "/review/"
+  ],
+  "scanned_extensions": [
+    ".md",
+    ".markdown",
+    ".html",
+    ".htm",
+    ".txt",
+    ".rst",
+    ".py"
+  ],
+  "rules": [
+    {
+      "id": "gly-emdash",
+      "tier": "glyph",
+      "enabled": true,
+      "pattern": "—",
+      "why": "em dash"
+    },
+    {
+      "id": "gly-endash",
+      "tier": "glyph",
+      "enabled": true,
+      "pattern": "–",
+      "why": "en dash"
+    },
+    {
+      "id": "gly-arrow",
+      "tier": "glyph",
+      "enabled": true,
+      "pattern": "[→←⇒⇐➔]",
+      "why": "arrow glyph in prose (SVG and drawn arrows are fine)"
+    },
+    {
+      "id": "gly-asciiarrow",
+      "tier": "glyph",
+      "enabled": true,
+      "pattern": "(?<![-=<>|])(?:->|=>)(?![->=])",
+      "why": "ascii arrow used as prose"
+    },
+    {
+      "id": "gly-ellipsis",
+      "tier": "glyph",
+      "enabled": true,
+      "pattern": "…",
+      "why": "ellipsis character"
+    },
+    {
+      "id": "gly-bullet",
+      "tier": "glyph",
+      "enabled": true,
+      "pattern": "•",
+      "why": "bullet character in text"
+    },
+    {
+      "id": "gly-smartquote",
+      "tier": "glyph",
+      "enabled": true,
+      "pattern": "[“”‘’]",
+      "why": "smart quotes"
+    },
+    {
+      "id": "wrd-delve",
+      "tier": "word-core",
+      "enabled": true,
+      "pattern": "(?i)\\bdelv(?:e|es|ed|ing)\\b",
+      "why": "banned by every source"
+    },
+    {
+      "id": "wrd-leverage",
+      "tier": "word-core",
+      "enabled": true,
+      "pattern": "(?i)\\bleverag(?:e|es|ed|ing)\\b",
+      "why": "banned by every source"
+    },
+    {
+      "id": "wrd-seamless",
+      "tier": "word-core",
+      "enabled": true,
+      "pattern": "(?i)\\bseamless(?:ly)?\\b",
+      "why": "banned by every source"
+    },
+    {
+      "id": "wrd-robust",
+      "tier": "word-core",
+      "enabled": true,
+      "pattern": "(?i)\\brobust(?:ness|ly)?\\b",
+      "why": "banned by every source"
+    },
+    {
+      "id": "wrd-comprehensive",
+      "tier": "word-strong",
+      "enabled": true,
+      "pattern": "(?i)\\bcomprehensive(?:ly)?\\b",
+      "why": "tell-tale word"
+    },
+    {
+      "id": "wrd-cuttingedge",
+      "tier": "word-strong",
+      "enabled": true,
+      "pattern": "(?i)\\bcutting[- ]edge\\b",
+      "why": "tell-tale word"
+    },
+    {
+      "id": "wrd-holistic",
+      "tier": "word-strong",
+      "enabled": true,
+      "pattern": "(?i)\\bholistic(?:ally)?\\b",
+      "why": "tell-tale word"
+    },
+    {
+      "id": "wrd-elevate",
+      "tier": "word-strong",
+      "enabled": true,
+      "pattern": "(?i)\\belevat(?:e|es|ed|ing|ion)\\b",
+      "why": "tell-tale word"
+    },
+    {
+      "id": "wrd-journey",
+      "tier": "word-strong",
+      "enabled": true,
+      "pattern": "(?i)\\bjourney(?:s)?\\b",
+      "why": "tell-tale word"
+    },
+    {
+      "id": "wrd-unlock",
+      "tier": "word-strong",
+      "enabled": true,
+      "pattern": "(?i)\\bunlock(?:s|ed|ing)?\\b",
+      "why": "tell-tale word"
+    },
+    {
+      "id": "wrd-empower",
+      "tier": "word-strong",
+      "enabled": true,
+      "pattern": "(?i)\\bempower(?:s|ed|ing|ment)?\\b",
+      "why": "tell-tale word"
+    },
+    {
+      "id": "phr-notjust",
+      "tier": "phrase",
+      "enabled": true,
+      "pattern": "(?i)(?:it'?s|its|this is|that'?s)\\s+not\\s+just\\s+[^.,;]{1,40}[,.]?\\s+it'?s\\b",
+      "why": "\"it's not just X, it's Y\""
+    },
+    {
+      "id": "str-slideref",
+      "tier": "structural",
+      "enabled": true,
+      "pattern": "\\b[NS]\\d{2}\\b",
+      "why": "internal slide reference visible in text"
+    },
+    {
+      "id": "str-placeholder",
+      "tier": "structural",
+      "enabled": true,
+      "pattern": "Click to add (?:Text|Title)",
+      "why": "empty PowerPoint layout placeholder"
+    },
+    {
+      "id": "str-lineage",
+      "tier": "structural",
+      "enabled": true,
+      "pattern": "(?i)\\b(?:kept verbatim|de-vendored|unchanged from|his original|reserved the space)\\b",
+      "why": "reveals the artifact's edit history"
+    },
+    {
+      "id": "mat-prototype",
+      "tier": "maturity",
+      "enabled": true,
+      "pattern": "(?i)\\b(?:prototype|proof[- ]of[- ]concept|\\bPOC\\b)\\b",
+      "why": "Sigmoid maturity language in client copy (fine when it is the client's own vocabulary)"
+    },
+    {
+      "id": "sal-ensure",
+      "tier": "word-sales",
+      "enabled": false,
+      "pattern": "(?i)\\bensur(?:e|es|ed|ing)\\b",
+      "why": "sales-copy tell"
+    },
+    {
+      "id": "sal-facilitate",
+      "tier": "word-sales",
+      "enabled": false,
+      "pattern": "(?i)\\bfacilitat(?:e|es|ed|ing)\\b",
+      "why": "sales-copy tell"
+    },
+    {
+      "id": "sal-bestinclass",
+      "tier": "word-sales",
+      "enabled": false,
+      "pattern": "(?i)\\bbest[- ]in[- ]class\\b",
+      "why": "sales-copy tell"
+    },
+    {
+      "id": "sal-synergy",
+      "tier": "word-sales",
+      "enabled": false,
+      "pattern": "(?i)\\bsynerg(?:y|ies|istic)\\b",
+      "why": "sales-copy tell"
+    },
+    {
+      "id": "sal-paradigm",
+      "tier": "word-sales",
+      "enabled": false,
+      "pattern": "(?i)\\bparadigm\\b",
+      "why": "sales-copy tell"
+    },
+    {
+      "id": "sal-unleash",
+      "tier": "word-sales",
+      "enabled": false,
+      "pattern": "(?i)\\bunleash(?:es|ed|ing)?\\b",
+      "why": "sales-copy tell"
+    },
+    {
+      "id": "sal-revolutionize",
+      "tier": "word-sales",
+      "enabled": false,
+      "pattern": "(?i)\\brevolutioni[sz](?:e|es|ed|ing)\\b",
+      "why": "sales-copy tell"
+    },
+    {
+      "id": "sal-transformative",
+      "tier": "word-sales",
+      "enabled": false,
+      "pattern": "(?i)\\btransformative\\b",
+      "why": "sales-copy tell"
+    },
+    {
+      "id": "sal-gamechanging",
+      "tier": "word-sales",
+      "enabled": false,
+      "pattern": "(?i)\\bgame[- ]chang(?:ing|er)\\b",
+      "why": "sales-copy tell"
+    },
+    {
+      "id": "sal-worldclass",
+      "tier": "word-sales",
+      "enabled": false,
+      "pattern": "(?i)\\bworld[- ]class\\b",
+      "why": "sales-copy tell"
+    },
+    {
+      "id": "sal-harness",
+      "tier": "word-sales",
+      "enabled": false,
+      "pattern": "(?i)\\bharness(?:es|ed|ing)?\\b",
+      "why": "SharePoint-site-only ban; 'test harness' is legitimate elsewhere"
+    },
+    {
+      "id": "phr-thisshows",
+      "tier": "structural",
+      "enabled": true,
+      "pattern": "(?i)\\bthis\\s+(?:panel|slide|view|screen|chart|section|page|card|diagram|table|figure)\\s+(?:shows|displays|illustrates|explains|highlights|summari[sz]es|presents|depicts)\\b",
+      "why": "the artifact narrating itself; label a control and trust it"
+    },
+    {
+      "id": "phr-inthisslide",
+      "tier": "structural",
+      "enabled": true,
+      "pattern": "(?i)\\bin\\s+this\\s+(?:slide|view|section|example|walkthrough|screen|page|diagram)\\b",
+      "why": "self-narration"
+    },
+    {
+      "id": "phr-howtoread",
+      "tier": "structural",
+      "enabled": true,
+      "pattern": "(?i)\\b(?:how\\s+to\\s+read\\s+(?:this|the)|what\\s+this\\s+(?:shows|means|tells\\s+(?:you|us)))\\b",
+      "why": "a reading instruction: a card explains its own card and stays, a line explaining how to read the slide goes"
+    },
+    {
+      "id": "phr-helper",
+      "tier": "structural",
+      "enabled": true,
+      "pattern": "(?i)\\b(?:click|tap|select|choose|pick)\\s+(?:a|an|one|any|the|on)\\b[^.!?\\n]{0,40}\\bto\\s+(?:open|see|view|expand|start|begin|edit|add|filter|drill|show)\\b",
+      "why": "instruction copy sitting where a label belongs"
+    },
+    {
+      "id": "jar-machinery",
+      "tier": "jargon",
+      "enabled": true,
+      "pattern": "(?i)\\b(?:wow\\s+moment|spec-shaped|correlation\\s+id|task\\s+id|state\\s+model)\\b",
+      "why": "AI/machinery jargon the audience does not use (from commercial-agents canon.json). 'workspace' and 'console' are project-scoped, ban them in the project's canon, not here"
+    },
+    {
+      "id": "dv-person",
+      "tier": "deck-voice",
+      "enabled": false,
+      "opt_in": true,
+      "pattern": "\\b(?:[Ww]e|[Oo]urs?|[Uu]s|[Yy]ours?)\\b|(?<![Tt]hank )\\b[Yy]ou\\b|(?<!Phase )(?<!Type )(?<!Tier )(?<!Wave )(?<!Level )(?<!Class )(?<!Stage )(?<!Grade )\\bI\\b",
+      "why": "first or second person in the deck voice; the survivors are a quotation (exempted by the deck gate) and 'Thank you'"
+    },
+    {
+      "id": "dv-al-ai",
+      "tier": "deck-voice",
+      "enabled": false,
+      "opt_in": true,
+      "pattern": "\\bAl(?=\\b|[A-Z])",
+      "why": "'Al' typed for 'AI' (lower-case L)"
+    },
+    {
+      "id": "dv-placeholder",
+      "tier": "deck-voice",
+      "enabled": false,
+      "opt_in": true,
+      "pattern": "(?i)lorem ipsum|\\[(?:title|tbd|placeholder|insert[^\\]]*)\\]|\\{\\{[^}]*\\}\\}|title to write|(?-i:\\$ ?X{2,}|€ ?[xX]{3}|\\bXX\\b|\\bxx\\b|\\bTBD\\b|\\bWIP\\b(?!\\s+[A-Z][a-z])|\\bREVISE\\b)",
+      "why": "placeholder or review residue on glass"
+    },
+    {
+      "id": "dv-semicolon",
+      "tier": "deck-voice",
+      "enabled": false,
+      "opt_in": true,
+      "advisory": true,
+      "pattern": ";",
+      "why": "semicolon on a slide: counted, kept only where a dated three-part list earns one, adjudicated in the deck's DESIGN.md"
+    },
+    {
+      "id": "dv-maturity",
+      "tier": "deck-voice",
+      "enabled": false,
+      "opt_in": true,
+      "pattern": "(?i)\\b(?:demo|alpha|prototype|proof[- ]of[- ]concept|POC)\\b",
+      "why": "maturity language for the firm's own work on a slide (CLAUDE.md §4); a deck quoting the client's own vocabulary grants it in deck.json (P17:dv-maturity)"
+    }
+  ],
+  "_opt_in": "Rules with opt_in: true (the deck-voice tier) never run in hook mode and are not added by --all; they run only when --tiers names their tier. The deck skill's gates switch them on for slide text. dv-placeholder's WIP clause is \\bWIP\\b(?!\\s+[A-Z][a-z]) (2026-10-03): WIP followed by a capitalised noun is a work-in-process term (WIP Storage, WIP Aging), not review residue; a bare WIP still matches. dv-maturity (2026-10-03, user ruling: deck gate only) flags demo, alpha, prototype, proof of concept and POC on slides; the editor hook's mat-prototype rule is unchanged."
+}

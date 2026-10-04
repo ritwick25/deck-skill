@@ -1151,7 +1151,8 @@ def p16_theme_hex(p, w):
 
 
 def p17_no_deck_voice(p, w):
-    d = json.loads(Path(os.path.expanduser("~/.claude/hooks/fingerprints.json")).read_text(encoding="utf-8"))
+    from _shared import DEFAULT_FINGERPRINTS
+    d = json.loads(DEFAULT_FINGERPRINTS.read_text(encoding="utf-8"))
     d["rules"] = [r for r in d.get("rules", []) if r.get("tier") != "deck-voice"]
     f = Path(w) / "fingerprints-no-deck-voice.json"
     f.write_text(json.dumps(d), encoding="utf-8")

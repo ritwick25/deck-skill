@@ -16,6 +16,8 @@
     a pale or tint panel); only the slide ground goes light
   * self-contained: no runtime code names a path under ~/Codes except paths.LIB_DEFAULT, which DECISIONS.md documents;
     archetypes.json carries no absolute path
+  * portability: kit/assets/fingerprints.json, the copy a machine without the hook file reads, is byte-identical to
+    ~/.claude/hooks/fingerprints.json wherever that file exists, so the banned list keeps one home
   * ruling 24: showcase/ holds the showcase deck, its index and one sheet per four slides, the deck matches the sha256
     the index records, and, when the library is present, the copy matches the library's build
 """
@@ -147,6 +149,13 @@ def main() -> int:
     fails += pack_failures(arch)
     import sync_showcase
     fails += sync_showcase.check()
+    home_fp = Path("~/.claude/hooks/fingerprints.json").expanduser()
+    bundled_fp = SKILL / "kit" / "assets" / "fingerprints.json"
+    if not bundled_fp.is_file():
+        fails.append("kit/assets/fingerprints.json is missing: a machine without the hook file has no banned list")
+    elif home_fp.is_file() and home_fp.read_bytes() != bundled_fp.read_bytes():
+        fails.append("kit/assets/fingerprints.json differs from ~/.claude/hooks/fingerprints.json: copy the hook file "
+                     "over it")
     fails += pastel_rows()
     fails += outside_paths()
     for ref in set(re.findall(r"`(references/[a-z-]+\.md)`", text)):

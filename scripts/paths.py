@@ -10,11 +10,13 @@ home; when it is absent every library-only lookup prints UNAVAILABLE or SKIPPED 
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
 
 SKILL = Path(__file__).resolve().parent.parent
 KIT = SKILL / "kit"
-PY = "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3"
+PINNED_PY = "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3"     # the house machine's interpreter
+PY = os.environ.get("DECK_PYTHON") or (PINNED_PY if Path(PINNED_PY).is_file() else sys.executable)
 ARCH_JSON = SKILL / "archetypes" / "archetypes.json"
 CANVAS_KEYS = {"w13": "wide", "w10": "std"}          # library canvas ids to kit canvas names
 

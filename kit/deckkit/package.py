@@ -44,7 +44,14 @@ from .theme import Theme, theme_parts
 FIXED_TIME = (1980, 1, 1, 0, 0, 0)       # zip member timestamps: always fixed
 FIXED_DATE = "1980-01-01T00:00:00Z"      # docProps created/modified when the caller passes no date
 AUTHOR = "Sigmoid"
-VALIDATOR_GLOB = os.path.expanduser("~/.claude/skills/synced/*/pptx/scripts/office/validate.py")
+# The pptx skill's XSD validator, wherever Claude Code installed it: DECK_PPTX_VALIDATOR names it outright; else the
+# synced skill, Anthropic's document-skills plugin (cache or marketplace checkout) or a user-level pptx skill.
+VALIDATOR_GLOB = tuple([os.environ["DECK_PPTX_VALIDATOR"]] if os.environ.get("DECK_PPTX_VALIDATOR") else []) + tuple(
+    os.path.expanduser(g) for g in (
+        "~/.claude/skills/synced/*/pptx/scripts/office/validate.py",
+        "~/.claude/plugins/cache/*/document-skills/*/skills/pptx/scripts/office/validate.py",
+        "~/.claude/plugins/marketplaces/*/skills/pptx/scripts/office/validate.py",
+        "~/.claude/skills/pptx/scripts/office/validate.py"))
 
 CT_NS = NS["ct"]
 PR_NS = NS["pr"]
@@ -314,10 +321,12 @@ def save(prs, path, *, title: str, theme: Theme, manifest: dict | None = None, o
 def find_validator() -> Path:
     """The synced pptx skill's validator; with more than one synced copy, the most recently modified wins (never
     the first by directory uuid)."""
-    hits = sorted(glob.glob(VALIDATOR_GLOB), key=lambda h: (os.path.getmtime(h), h))
+    globs = [VALIDATOR_GLOB] if isinstance(VALIDATOR_GLOB, str) else list(VALIDATOR_GLOB)
+    hits = sorted({h for g in globs for h in glob.glob(g)}, key=lambda h: (os.path.getmtime(h), h))
     if not hits:
-        raise ValidatorMissing("XSD validator", need=VALIDATOR_GLOB, have="no match",
-                               hint="the synced pptx skill is missing; validation fails until it is back")
+        raise ValidatorMissing("XSD validator", need=" or ".join(globs), have="no match",
+                               hint="install Anthropic's document-skills plugin in Claude Code, or set "
+                                    "DECK_PPTX_VALIDATOR to its pptx/scripts/office/validate.py")
     return Path(hits[-1])
 
 

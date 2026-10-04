@@ -32,7 +32,12 @@ SYMBOL_FACES = re.compile(r"wingding|webding|symbol|marlett|material|fontawesome
 EMOJI = re.compile("[\U0001F300-\U0001FAFF\U0001F000-\U0001F02F\U0001F0A0-\U0001F0FF☀-➿"
                    "\U0001F1E6-\U0001F1FF⭐⭕⬆⬇⬅⤴⤵〰〽️]")
 STICKY = re.compile(r"^\s*(?:ready|revise|revised|to revise|to review|review|tbc|tbd|wip|draft)\s*[.!:]?\s*$", re.I)
-FINGERPRINTS = os.path.expanduser("~/.claude/hooks/fingerprints.json")
+# The banned list has one home, the hook file. A machine without it reads the byte-identical copy bundled in the
+# skill (kit/assets), which selftest holds equal to the home file wherever that file exists.
+HOME_FINGERPRINTS = os.path.expanduser("~/.claude/hooks/fingerprints.json")
+BUNDLED_FINGERPRINTS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "..", "assets",
+                                    "fingerprints.json")
+FINGERPRINTS = HOME_FINGERPRINTS if os.path.isfile(HOME_FINGERPRINTS) else os.path.normpath(BUNDLED_FINGERPRINTS)
 _MC_OK = {"a14", "p14", "p15", "a16", "asvg", "v", "p159", "p188", "pr", "a15", "thm15", "x14"}
 
 

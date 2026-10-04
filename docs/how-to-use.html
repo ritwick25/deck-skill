@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ways to use /deck</title>
+<style>
+  :root { --ink: #1d1d1f; --muted: #5f6368; --red: #D91E18; --card: #F2F2F2; --line: #BFBFBF; --deep: #262626; }
+  @page { size: Letter; margin: 0.45in 0.6in; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: #fff; font-size: 10.5pt; line-height: 1.35; }
+  h1 { font-size: 22pt; line-height: 1.15; margin-bottom: 4pt; }
+  h1 .k { color: var(--red); }
+  .lead { color: var(--muted); font-size: 11pt; margin-bottom: 10pt; }
+  .way { display: grid; grid-template-columns: 30pt 1fr; column-gap: 12pt; padding: 8pt 0; border-top: 0.75pt solid var(--line); }
+  .num { width: 26pt; height: 26pt; border-radius: 50%; background: var(--red); color: #fff; font-weight: 700; font-size: 12pt;
+         display: flex; align-items: center; justify-content: center; }
+  .head { display: flex; align-items: baseline; gap: 10pt; margin-bottom: 3pt; }
+  .head h2 { font-size: 13pt; }
+  .cmd { font-weight: 700; color: var(--red); font-size: 11pt; }
+  .what { margin-bottom: 5pt; }
+  .ex { background: var(--card); border: 0.75pt solid var(--line); border-radius: 3pt; padding: 5pt 9pt; font-size: 10pt; }
+  .ex + .ex { margin-top: 4pt; }
+  .ex b { color: var(--deep); }
+  .know { break-inside: avoid; margin-top: 2pt; border-top: 0.75pt solid var(--line); padding-top: 10pt; display: grid;
+          grid-template-columns: 1fr 1fr 1fr; column-gap: 14pt; }
+  .know h3 { font-size: 10.5pt; margin-bottom: 3pt; }
+  .know p { font-size: 9.5pt; color: var(--muted); }
+</style>
+</head>
+<body>
+<h1>Five ways to use <span class="k">/deck</span></h1>
+<p class="lead">Type /deck anywhere in a prompt to Claude Code. The word after it picks what happens.</p>
+
+<div class="way">
+  <div class="num">1</div>
+  <div>
+    <div class="head"><h2>Build a whole deck</h2><span class="cmd">/deck new</span></div>
+    <p class="what">Restates the job and waits for a yes, asks for the client's colors, logo and font, drafts a
+      one-line-per-slide outline in the RFP's own section order, then builds, checks and reads every slide.</p>
+    <p class="ex"><b>/deck new</b> RFP response for a specialty pharma field team. RFP at ./rfp.pdf, about 25 slides,
+      scored on approach, architecture, team and commercials.</p>
+  </div>
+</div>
+
+<div class="way">
+  <div class="num">2</div>
+  <div>
+    <div class="head"><h2>Add or rebuild one slide</h2><span class="cmd">/deck slide</span></div>
+    <p class="what">Picks the right slide type for the point being made, builds it into the deck, checks it and reads
+      it beside its neighbors.</p>
+    <p class="ex"><b>/deck slide</b> a roadmap from kickoff on 2 Nov to full rollout on 22 Jan, with three gates,
+      --deck ./build.py</p>
+  </div>
+</div>
+
+<div class="way">
+  <div class="num">3</div>
+  <div>
+    <div class="head"><h2>Draw a technical diagram</h2><span class="cmd">/deck diagram</span></div>
+    <p class="what">Enterprise AWS or Azure notation with official icons, or the house style. Reference and deployment
+      views, CI/CD, MLOps, data lineage, events, sequence, data flow with threat controls, C4, DR and landing zone.</p>
+    <p class="ex"><b>/deck diagram</b> azure deployment for the agent platform: hub and spoke, private endpoints,
+      Container Apps, Azure OpenAI behind a firewall</p>
+  </div>
+</div>
+
+<div class="way">
+  <div class="num">4</div>
+  <div>
+    <div class="head"><h2>Chart your own numbers</h2><span class="cmd">/deck chart</span></div>
+    <p class="what">A native PowerPoint chart from the data supplied, labeled with its basis. It asks for the source
+      and never invents a figure.</p>
+    <p class="ex"><b>/deck chart</b> first-year price as a waterfall: build $180K, then $24K a month for 12 months</p>
+  </div>
+</div>
+
+<div class="way">
+  <div class="num">5</div>
+  <div>
+    <div class="head"><h2>Review or fix a deck</h2><span class="cmd">/deck review &middot; /deck edit</span></div>
+    <p class="what">Review runs 27 automated checks (8pt floor, overflow, overlap, loose arrows, banned words,
+      contrast, footers, word budgets, repeated layouts), reads every slide and reports. Edit changes only what is
+      pointed at, and a deletion is swept across the whole deck.</p>
+    <p class="ex"><b>/deck review</b> ./draft.pptx</p>
+    <p class="ex"><b>/deck edit</b> ./draft.pptx remove the confidentiality footer from every slide</p>
+  </div>
+</div>
+
+<div class="know">
+  <div><h3>One session, one skill</h3><p>Once /deck is loaded, later edits in the same session go through it
+    without typing it again. After a long session is compacted, type it once more.</p></div>
+  <div><h3>Client brand first</h3><p>A client deck with no brand given starts by asking for colors (hex codes or
+    a website), the logo and the font. Say "house theme" to skip.</p></div>
+  <div><h3>The showcase</h3><p>A 65-slide sample proposal at showcase/showcase.pptx shows every slide type,
+    diagram and chart, each listed in showcase/index.json.</p></div>
+</div>
+</body>
+</html>

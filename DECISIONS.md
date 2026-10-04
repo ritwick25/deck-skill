@@ -465,3 +465,18 @@ quality. The best reference slides must be used. It must not become a 10-hour jo
   library present, when the library's build has moved on (proved by corrupting the recorded hash).
 - SKILL.md step 7 reuses the showcase slide of the same archetype or diagram type before placing a device or
   composing from scratch.
+
+## 2026-10-04 · Portable for colleagues; the usage guide (user)
+- The user chose to send the skill to delivery and pre-sales leads as a zip, and to make it work on their machines
+  first. Tested under an empty home folder: before the change every deck failed P12 and P17 there.
+- P12 finds the pptx XSD validator in the synced skill, Anthropic's document-skills plugin (cache or marketplace
+  checkout), a user-level pptx skill, or `DECK_PPTX_VALIDATOR`.
+- The banned list keeps one home, `~/.claude/hooks/fingerprints.json`. A machine without it reads
+  `kit/assets/fingerprints.json`, and selftest fails when that copy differs from the home file by one byte.
+- `paths.PY` is `DECK_PYTHON`, else the house interpreter when it exists, else the running interpreter; the setup
+  lines in SKILL.md, README and library.md do the same in the shell. Where a machine's CLAUDE.md has no house
+  sections, `references/rules.md` and SKILL.md are the authority.
+- `how-to-use-deck.pdf` in the root: one page, five ways to use /deck with an example each (source
+  `docs/how-to-use.html`, printed by Playwright).
+- Verified on the empty home with only the document-skills plugin installed: selftest OK, a deck builds, 27/27 gates,
+  179 negatives behave. On this machine: 545 unit tests OK.
