@@ -1,1 +1,16 @@
-{"type": "device", "canvas": "wide", "theme": "/Users/Nikunj/.claude/skills/deck/themes/sigmoid.json", "client": null, "spelling": "US", "overrides": {}, "series": [], "deliverable": "device.pptx", "build": ["{python}", "/Users/Nikunj/.claude/skills/deck/devices/work/DL15/build.py", "--out", "{out}"]}
+{
+  "type": "device",
+  "canvas": "wide",
+  "theme": "../../../themes/sigmoid.json",
+  "client": null,
+  "spelling": "US",
+  "overrides": {},
+  "series": [],
+  "deliverable": "device.pptx",
+  "build": [
+    "{python}",
+    "build.py",
+    "--out",
+    "{out}"
+  ]
+}

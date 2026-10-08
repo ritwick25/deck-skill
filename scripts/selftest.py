@@ -16,7 +16,8 @@
     a pale or tint panel); only the slide ground goes light
   * self-contained: no runtime code names a path under ~/Codes except paths.LIB_DEFAULT, which DECISIONS.md documents;
     archetypes.json carries no absolute path
-  * portability: kit/assets/fingerprints.json, the copy a machine without the hook file reads, is byte-identical to
+  * portability: no shipped text file names an absolute home path (/Users/<name>/ or /home/<name>/), and
+    kit/assets/fingerprints.json, the copy a machine without the hook file reads, is byte-identical to
     ~/.claude/hooks/fingerprints.json wherever that file exists, so the banned list keeps one home
   * ruling 24: showcase/ holds the showcase deck, its index and one sheet per four slides, the deck matches the sha256
     the index records, and, when the library is present, the copy matches the library's build
@@ -35,6 +36,7 @@ from build_archetypes import denylist  # noqa: E402
 from paths import ARCH_JSON, LIB_DEFAULT, PY, REFS, REFS_CATALOG, SKILL, library_ready, pack_sheet, pack_view  # noqa: E402
 
 
+HOME_PATH = re.compile(r"/Users/[A-Za-z0-9._-]+/|/home/[A-Za-z0-9._-]+/")
 OUTSIDE = re.compile(r"/Users/[^/\s\"']+/Codes\b|~/Codes\b|[\"']Codes[\"']")
 CITED = re.compile(r"\b(refs/(?:views|sheets)/[\w-]+\.jpg|greeked/d\d{2}/s\d{3}\.png|export/sheets/a\d{2}\.png)")
 # Code that names a folder outside the skill and is never run by a build, a gate run or a lookup. Each entry names
@@ -149,6 +151,13 @@ def main() -> int:
     fails += pack_failures(arch)
     import sync_showcase
     fails += sync_showcase.check()
+    for f in sorted(SKILL.rglob("*")):
+        rel = f.relative_to(SKILL)
+        if not f.is_file() or f.suffix not in (".md", ".py", ".json", ".html") or rel.parts[0] in (".cache", "tests", ".git") \
+                or str(rel) == "scripts/selftest.py":
+            continue
+        if HOME_PATH.search(f.read_text(errors="ignore")):
+            fails.append("%s carries an absolute home path: make it relative to its folder or the skill" % rel)
     home_fp = Path("~/.claude/hooks/fingerprints.json").expanduser()
     bundled_fp = SKILL / "kit" / "assets" / "fingerprints.json"
     if not bundled_fp.is_file():
@@ -172,9 +181,10 @@ def main() -> int:
             fails.append("name scan cannot run: %s" % e)
         for p in sorted(SKILL.rglob("*")):
             rel = p.relative_to(SKILL)
-            if not p.is_file() or p.suffix not in (".md", ".py", ".json") or rel.parts[0] in (".cache", "tests", ".git"):
+            if not p.is_file() or p.suffix not in (".md", ".py", ".json", ".html") or \
+                    rel.parts[0] in (".cache", "tests", ".git"):
                 continue
-            if rel.parts[0] == "devices" or rel.name in ("vendor_hashes.json", "glyphs.json"):
+            if rel.name in ("vendor_hashes.json", "glyphs.json") or "render" in rel.parts:
                 continue
             body = p.read_text(errors="ignore")
             hit = next((m for rx in pats for m in [rx.search(body)] if m), None)

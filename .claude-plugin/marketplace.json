@@ -1,0 +1,22 @@
+{
+  "name": "deck-skill",
+  "owner": {
+    "name": "Ritwick Pandey",
+    "email": "ritwick.pandey25@gmail.com"
+  },
+  "metadata": {
+    "description": "House deck-building skill for Claude Code",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "deck",
+      "description": "House deck builder. Use whenever a message contains /deck anywhere, or asks to plan, build, extend, restyle, review or fix a slide, deck, pptx, proposal, RFP or RFI response, POV, pitch, capability or credentials deck, roadmap, chart, or architecture or technical diagram, including before any project folder exists. Picks a storyline and one archetype per slide from 45 measured archetypes, builds natively in python-pptx with the house kit, gates every deck against the house rules and renders and reads every slide.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./"
+      ]
+    }
+  ]
+}

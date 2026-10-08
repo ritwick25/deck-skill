@@ -34,9 +34,13 @@ PY=${DECK_PYTHON:-/Library/Frameworks/Python.framework/Versions/3.14/bin/python3
 [ -x "$PY" ] || PY=python3                     # another machine: its own python3, or set DECK_PYTHON
 K=${CLAUDE_SKILL_DIR}                          # filled in by Claude Code
 [ -d "$K/kit" ] || K=~/.claude/skills/deck     # the default home, when this file is read raw
+bash "$K/scripts/ensure_deps.sh"               # self-heals missing python-pptx/lxml/pillow/diagrams,
+                                                # poppler and librsvg; reports the one command to run
+                                                # yourself if LibreOffice needs an admin password
 ```
 
-Shell variables do not survive between Bash calls: repeat the two lines, or write the paths out, in every command.
+Shell variables do not survive between Bash calls: repeat the lines, or write the paths out, in every command.
+`ensure_deps.sh` is a fast no-op once dependencies are present — safe to run on every single `/deck` call, not just the first.
 
 ## Standing rules
 

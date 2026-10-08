@@ -1,1 +1,18 @@
-{"type": "device", "canvas": "wide", "theme": "/Users/Nikunj/.claude/skills/deck/themes/sigmoid.json", "client": null, "spelling": "US", "overrides": {"P26:marks": "DECISIONS.md ruling 17: a library device carries generic glyphs in its glyph slots and takes vendor: keys at placement; the placed slide is gated for marks, not the template"}, "series": [], "deliverable": "device.pptx", "build": ["{python}", "/Users/Nikunj/.claude/skills/deck/devices/work/DL21/build.py", "--out", "{out}"]}
+{
+  "type": "device",
+  "canvas": "wide",
+  "theme": "../../../themes/sigmoid.json",
+  "client": null,
+  "spelling": "US",
+  "overrides": {
+    "P26:marks": "DECISIONS.md ruling 17: a library device carries generic glyphs in its glyph slots and takes vendor: keys at placement; the placed slide is gated for marks, not the template"
+  },
+  "series": [],
+  "deliverable": "device.pptx",
+  "build": [
+    "{python}",
+    "build.py",
+    "--out",
+    "{out}"
+  ]
+}
