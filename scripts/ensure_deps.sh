@@ -12,7 +12,12 @@ PY=${DECK_PYTHON:-/Library/Frameworks/Python.framework/Versions/3.14/bin/python3
 [ -x "$PY" ] || PY=python3
 
 missing_py=$("$PY" - <<'EOF'
-mods = {"pptx": "python-pptx", "lxml": "lxml", "PIL": "pillow", "diagrams": "diagrams==0.25.1"}
+mods = {
+    "pptx": "python-pptx", "lxml": "lxml", "PIL": "pillow", "diagrams": "diagrams==0.25.1",
+    "fontTools": "fonttools",     # text measurement (deckkit.measure): every title/textbox call needs it
+    "playwright": "playwright",   # scripts/capture.py only (product-screen/output-capture HTML exhibits)
+    "defusedxml": "defusedxml",   # gates/p12_package.py's XSD validation of the built pptx package
+}
 missing = []
 for mod, pkg in mods.items():
     try:
@@ -29,6 +34,15 @@ if [ -n "$missing_py" ]; then
         || "$PY" -m pip install --user $missing_py \
         || "$PY" -m pip install $missing_py \
         || echo "deck: pip install failed for: $missing_py — install manually" >&2
+
+    # capture.py (scripts/capture.py) drives a real Chromium via Playwright for HTML exhibit
+    # screenshots; the pip package alone has no browser. Best effort only: never block the rest
+    # of the setup on a ~150MB browser download.
+    if echo "$missing_py" | grep -q playwright; then
+        echo "deck: fetching Playwright's chromium (used only by scripts/capture.py)" >&2
+        "$PY" -m playwright install chromium >&2 \
+            || echo "deck: chromium fetch failed — scripts/capture.py will fail until you run: $PY -m playwright install chromium" >&2
+    fi
 fi
 
 OS=$(uname -s)
